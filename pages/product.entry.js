@@ -1,0 +1,3 @@
+;(function(){
+const App=()=>/*#__PURE__*/React.createElement(React.Fragment,null,/*#__PURE__*/React.createElement(Nav,null),/*#__PURE__*/React.createElement("main",null,/*#__PURE__*/React.createElement(AboutHero,null),/*#__PURE__*/React.createElement(DemoTour,null),/*#__PURE__*/React.createElement(PlatformFor,null),/*#__PURE__*/React.createElement(DashboardShowcase,null),/*#__PURE__*/React.createElement(AffordableBand,null),/*#__PURE__*/React.createElement(WhyWeExist,null),/*#__PURE__*/React.createElement(FaqMini,{page:"product"})),/*#__PURE__*/React.createElement(FooterV2,null));ReactDOM.createRoot(document.getElementById("app")).render(/*#__PURE__*/React.createElement(App,null));
+})();

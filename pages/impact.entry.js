@@ -1,0 +1,3 @@
+;(function(){
+const App=()=>/*#__PURE__*/React.createElement(React.Fragment,null,/*#__PURE__*/React.createElement(Nav,null),/*#__PURE__*/React.createElement("main",null,/*#__PURE__*/React.createElement(ImpactHero,null),/*#__PURE__*/React.createElement(BrowseCaseStudies,null),/*#__PURE__*/React.createElement(Marquee,null),/*#__PURE__*/React.createElement(StirSpotlight,null),/*#__PURE__*/React.createElement(FaqMini,{page:"impact"})),/*#__PURE__*/React.createElement(FooterV2,null));ReactDOM.createRoot(document.getElementById("app")).render(/*#__PURE__*/React.createElement(App,null));
+})();

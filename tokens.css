@@ -1,0 +1,55 @@
+/* ============================================================
+   Dalgo — design tokens. The SINGLE source of truth.
+   Variables only. One :root. No component styles here.
+   Loaded before app.css on every page.
+   ============================================================ */
+:root {
+  /* Surfaces */
+  --surface-0: #FFFFFF;
+  --surface-1: #F4FBF9;
+  --surface-2: #F6F8FA;
+
+  /* Ink */
+  --ink: #0A2540;
+  --ink-2: #48607A;
+  --on-dark: #EAF2F0;
+
+  /* Teal */
+  --teal: #00BFA6;
+  --teal-hover: #00A892;
+  --teal-ink: #007A6B;
+
+  /* Navy */
+  --navy: #0A2540;
+  --navy-2: #16243F;
+
+  /* Lines & focus */
+  --hairline: rgba(10,37,64,.10);
+  --focus: #0A66C2;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(10,37,64,.06);
+  --shadow-md: 0 4px 12px rgba(10,37,64,.08);
+  --shadow-lg: 0 12px 32px rgba(10,37,64,.12);
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  /* Spacing — 8pt scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  /* Section padding & container */
+  --section-pad: 96px;
+  --container: 1200px;
+}
+@media (max-width: 768px) { :root { --section-pad: 48px; } }

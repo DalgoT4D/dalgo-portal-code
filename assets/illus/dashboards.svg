@@ -1,0 +1,62 @@
+<svg viewBox="0 0 680 425" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dalgo warehouse powering collaborative dashboards">
+  <ellipse cx="200" cy="352" rx="120" ry="22" fill="#16324F" opacity="0.06"></ellipse>
+
+
+  <path d="M150 296 L226 278 L292 306 L216 326 Z" fill="#EAF0FF" stroke="#16324F" stroke-width="2" stroke-linejoin="round"></path>
+  <path d="M150 296 L150 314 L216 344 L216 326 Z" fill="#D3E0FF" stroke="#16324F" stroke-width="2" stroke-linejoin="round"></path>
+  <path d="M292 306 L292 324 L216 344 L216 326 Z" fill="#BCD1FF" stroke="#16324F" stroke-width="2" stroke-linejoin="round"></path>
+  <path d="M170 190 L170 268 C170 279 194 286 222 286 C250 286 274 279 274 268 L274 190 Z" fill="#fff" stroke="#16324F" stroke-width="2" stroke-linejoin="round"></path>
+  <path d="M170 208 L170 234 C188 245 256 245 274 234 L274 208 C256 219 188 219 170 208 Z" fill="#2F6BFF"></path>
+  <path d="M170 208 C188 219 256 219 274 208" fill="none" stroke="#16324F" stroke-width="2"></path>
+  <path d="M170 234 C188 245 256 245 274 234" fill="none" stroke="#16324F" stroke-width="2"></path>
+  <ellipse cx="222" cy="190" rx="52" ry="16" fill="#fff" stroke="#16324F" stroke-width="2"></ellipse>
+  <ellipse cx="222" cy="190" rx="40" ry="10" fill="none" stroke="#C7D5EA" stroke-width="1.5"></ellipse>
+
+
+  <g fill="none" stroke="#2F6BFF" stroke-width="1.6">
+    <path d="M292 214 C360 214 380 120 432 108"></path>
+    <path d="M292 234 C360 234 396 238 430 240"></path>
+    <path d="M290 258 C360 258 380 330 430 342"></path>
+  </g>
+  <g fill="#2F6BFF"><circle cx="432" cy="108" r="3.5"></circle><circle cx="430" cy="240" r="3.5"></circle><circle cx="430" cy="342" r="3.5"></circle></g>
+
+
+  <g>
+    <rect x="432" y="56" width="196" height="110" rx="12" fill="#fff" stroke="#16324F" stroke-width="2"></rect>
+    <rect x="446" y="70" width="60" height="30" rx="6" fill="#EAF0FF"></rect>
+    <text x="452" y="83" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#2F6BFF">USERS</text>
+    <text x="452" y="95" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#16324F">12,480</text>
+    <rect x="514" y="70" width="60" height="30" rx="6" fill="#EAF0FF"></rect>
+    <text x="520" y="83" font-family="Inter,sans-serif" font-size="9" font-weight="700" fill="#2F6BFF">SITES</text>
+    <text x="520" y="95" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#16324F">312</text>
+    <polyline points="448,150 470,138 492,144 514,124 536,130 558,112 580,118 612,100" fill="none" stroke="#2F6BFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+    <circle cx="612" cy="100" r="3.5" fill="#2F6BFF"></circle>
+  </g>
+
+
+  <g>
+    <rect x="430" y="196" width="150" height="92" rx="12" fill="#fff" stroke="#16324F" stroke-width="2"></rect>
+    <path d="M446 240 q10 -18 26 -10 q14 -20 30 -6 q18 -10 30 6 q10 20 -6 30 q-20 12 -40 4 q-22 6 -30 -12 q-14 -6 -10 -22 Z" fill="#EAF0FF" stroke="#7FA6FF" stroke-width="1.5"></path>
+    <circle cx="480" cy="238" r="4" fill="#2F6BFF"></circle><circle cx="512" cy="252" r="4" fill="#1F8A5B"></circle><circle cx="498" cy="266" r="4" fill="#F0A63C"></circle>
+  </g>
+
+
+  <g>
+    <rect x="430" y="308" width="150" height="82" rx="12" fill="#fff" stroke="#16324F" stroke-width="2"></rect>
+    <line x1="446" y1="372" x2="566" y2="372" stroke="#C7D5EA" stroke-width="1.5"></line>
+    <rect x="452" y="348" width="16" height="24" rx="3" fill="#BCD1FF"></rect>
+    <rect x="478" y="336" width="16" height="36" rx="3" fill="#2F6BFF"></rect>
+    <rect x="504" y="352" width="16" height="20" rx="3" fill="#BCD1FF"></rect>
+    <rect x="530" y="330" width="16" height="42" rx="3" fill="#2F6BFF"></rect>
+  </g>
+
+
+  <g>
+    <circle cx="612" cy="196" r="14" fill="#fff" stroke="#16324F" stroke-width="2"></circle>
+    <path d="M605 194 h14 M605 199 h9" stroke="#2F6BFF" stroke-width="1.8" stroke-linecap="round"></path>
+    <path d="M607 205 l-3 5 v-5" fill="#fff" stroke="#16324F" stroke-width="2" stroke-linejoin="round"></path>
+    <circle cx="600" cy="322" r="11" fill="#2F6BFF" stroke="#fff" stroke-width="2"></circle>
+    <circle cx="614" cy="322" r="11" fill="#7FA6FF" stroke="#fff" stroke-width="2"></circle>
+    <circle cx="628" cy="322" r="11" fill="#BCD1FF" stroke="#fff" stroke-width="2"></circle>
+  </g>
+</svg>

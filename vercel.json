@@ -1,0 +1,52 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/platform",
+      "destination": "/product",
+      "permanent": true
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/impact",
+      "permanent": true
+    },
+    {
+      "source": "/faqs",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/join-us",
+      "destination": "/learn",
+      "permanent": true
+    },
+    {
+      "source": "/why-we-exist",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/customers",
+      "destination": "/impact",
+      "permanent": true
+    },
+    {
+      "source": "/resources",
+      "destination": "/learn",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    }
+  ]
+}

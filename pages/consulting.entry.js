@@ -1,0 +1,3 @@
+;(function(){
+const App=()=>React.createElement(React.Fragment,null,React.createElement(Nav,null),React.createElement("main",null,React.createElement(ConsultingHero,null),React.createElement(ConsultingPillars,null),React.createElement(ConsultingOfferings,null),React.createElement(FaqMini,{page:"consulting"}),React.createElement(FinalCTA,null)),React.createElement(FooterV2,null));ReactDOM.createRoot(document.getElementById("app")).render(React.createElement(App,null));
+})();
