@@ -76,6 +76,54 @@ Dalgo runs an open community for nonprofit data practitioners:
 - **WhatsApp community** — peer support across the social sector
 - Plus a newsletter, published stories, and offline meetups
 
+## Running this site on your own computer
+
+You don't need to know how to code to do this — just follow the steps below in order.
+
+### 1. Install Node.js (one-time setup)
+
+Node.js is the program that runs the site's build tools. If you're not sure whether you already have it, open a terminal and type:
+
+```bash
+node -v
+```
+
+If you see a version number (like `v20.11.0`), you already have it — skip to step 2. If you see an error instead, download and install it from [nodejs.org](https://nodejs.org) (choose the "LTS" version), then try `node -v` again.
+
+### 2. Install the project's tools (one-time setup, per copy of the project)
+
+From the project folder, run:
+
+```bash
+npm install
+```
+
+This downloads the small set of tools the site needs to build. You'll only need to do this once (or again if it's ever deleted).
+
+### 3. Build the site
+
+```bash
+npm run build
+```
+
+This takes the source files and turns them into the files the website actually uses. Run this command any time someone changes a file in the `components/` or `pages/src/` folders — it's what keeps the live site in sync with those changes.
+
+### 4. Preview the site locally
+
+```bash
+npm run dev
+```
+
+This builds the site (same as step 3) and then starts a small local preview server. Once you see a message like:
+
+```
+Dalgo site running at http://localhost:8080
+```
+
+open **[http://localhost:8080](http://localhost:8080)** in your web browser — that's the site, running on your own computer. Press `Ctrl+C` in the terminal to stop it when you're done.
+
+> **Note for anyone actively editing components:** if you're making a lot of small changes and want them picked up automatically, run `npm run watch` in one terminal (it rebuilds every time you save a file) and `npm run dev` in another (to keep previewing). Most people won't need this — `npm run dev` alone is enough for a one-off preview.
+
 ## About
 
 Dalgo is an initiative of **[Project Tech4Dev](https://projecttech4dev.org)** — building open-source, affordable technology for the social sector.

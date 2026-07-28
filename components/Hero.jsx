@@ -11,7 +11,7 @@ const RotateWord = ({ words, interval = 2200 }) => {
 
 const Hero = () => (
   <SiteHero
-    eyebrow="Data Insights Platform for Nonprofits · Now AI-powered"
+    eyebrow="Data Insights Platform for Nonprofits"
     headline={<>Know your data.<br /><span className="cvh-hl">Share your story.</span></>}
     body="Bring scattered programme data into one trusted source your whole team can act on — for monthly reflections, funder reporting, and everyday decisions. Built by a nonprofit, for the social sector."
     ctas={<HeroCTAs primaryLabel="Start Free Trial" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Contact Us" secondaryHref="contact.html" />}

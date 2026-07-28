@@ -1,0 +1,25 @@
+{
+  "name": "dalgo-portal-code",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dalgo marketing site — static HTML pages hydrated with a small precompiled React bundle.",
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch",
+    "dev": "npm run build && node serve.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DalgoT4D/dalgo-portal-code.git"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DalgoT4D/dalgo-portal-code/issues"
+  },
+  "homepage": "https://github.com/DalgoT4D/dalgo-portal-code#readme",
+  "devDependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/preset-react": "^8.0.1"
+  }
+}

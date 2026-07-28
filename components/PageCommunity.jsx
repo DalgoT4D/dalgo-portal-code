@@ -105,7 +105,7 @@ const CommunityNewsletters = () => {
       img: 'assets/community-cards/data-decoded.jpg',
       title: 'Data Decoded With Dalgo',
       tagline: 'Level up your nonprofit data game',
-      body: <>Think Mario, but for M&amp;E. Every edition tackles one nonprofit data concept through stories, pop culture, and simple visuals. No jargon. Just those “Oh, I finally get it!”> moments.</>,
+      body: <>Think Mario, but for M&amp;E. Every edition tackles one nonprofit data concept through stories, pop culture, and simple visuals. No jargon. Just those “Oh, I finally get it!”&gt; moments.</>,
       cta: 'Subscribe on LinkedIn',
       href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
     },
