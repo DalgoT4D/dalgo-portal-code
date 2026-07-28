@@ -108,6 +108,8 @@ npm run build
 
 This takes the source files and turns them into the files the website actually uses. Run this command any time someone changes a file in the `components/` or `pages/src/` folders — it's what keeps the live site in sync with those changes.
 
+> **Important:** the live site (Vercel) does **not** run this build step itself — it just serves whatever files are committed to the repository. So after running `npm run build`, make sure to commit and push the files it changed (`app.bundle.js`, everything under `pages/*.entry.js`, and the updated `.html` files) — otherwise your changes won't show up on the live site.
+
 ### 4. Preview the site locally
 
 ```bash
