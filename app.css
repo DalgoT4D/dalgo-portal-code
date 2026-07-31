@@ -258,6 +258,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .fc-track.no-anim { transition: none; }
 .fc-slide { flex: 0 0 100%; height: 100%; }
 .fc-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fc-playpause { position: absolute; right: 14px; bottom: 14px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--hairline); background: var(--surface-0); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+.fc-playpause svg { fill: currentColor; }
 @media (prefers-reduced-motion: reduce) { .fc-track { transition: none; } }
 
 /* ---------- 10. Marquee ---------- */
@@ -879,6 +881,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .faq-a p:last-child { margin-bottom: 0; }
 .faq-a-ul { margin: 0 0 12px; padding-left: 22px; }
 .faq-a-ul li { margin: 0 0 7px; line-height: 1.55; }
+.faq-a ul, .faq-a ol { margin: 0 0 12px; padding-left: 22px; }
+.faq-a ul:last-child, .faq-a ol:last-child { margin-bottom: 0; }
+.faq-a li { margin: 0 0 7px; line-height: 1.55; }
+.faq-a strong { color: var(--ink); font-weight: 700; }
+.faq-a-tablewrap { overflow-x: auto; margin: 0 0 14px; border: 1px solid var(--hairline); border-radius: var(--r-md); }
+.faq-a-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.faq-a-table th, .faq-a-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--hairline); }
+.faq-a-table th { background: var(--surface-1); font-weight: 700; color: var(--ink); white-space: nowrap; }
+.faq-a-table tr:last-child td { border-bottom: none; }
 
 /* ============================================================
    26. RESPONSIVE — layout overrides live only in max-width
