@@ -172,6 +172,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* ---------- 7. SiteHero (.cvh) ---------- */
 .cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: clamp(56px, 7vw, 88px) 0; }
 .cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: stretch; min-height: clamp(360px, 42vw, 460px); }
+.cvh-grid-solo { grid-template-columns: 1fr; min-height: auto; }
 .cvh-copy { min-width: 0; max-width: 560px; align-self: start; }
 .cvh-eyebrow { margin-bottom: 18px; }
 .cvh-h1 { margin: 0 0 20px; }

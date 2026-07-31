@@ -8,7 +8,7 @@ const AboutHero = () => (
     eyebrow="Product"
     headline={<>We are a combination of <span className="cvh-hl">people</span>, <span className="cvh-hl">purpose</span>, and <span className="cvh-hl">platform</span></>}
     body="We believe the social sector deserves better data systems — built with the same care as the missions they serve."
-    ctas={<HeroCTAs primaryLabel="Start Free Trial" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Contact Us" secondaryHref="contact.html" />}
+    ctas={<HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="contact.html" />}
   >
     <div className="cvh-visual">
       <figure className="cvh-figure">

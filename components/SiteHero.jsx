@@ -6,7 +6,7 @@
 // ============================================================
 const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
   <section className="cvh" id={id || undefined}>
-    <div className="cvh-grid">
+    <div className={'cvh-grid' + (children ? '' : ' cvh-grid-solo')}>
       <div className="cvh-copy">
         {eyebrow && <div className="cvh-eyebrow">{eyebrow}</div>}
         <h1 className="cvh-h1">{headline}</h1>
@@ -21,14 +21,14 @@ const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
 
 // Standard pill CTA pair. Primary = green fill + arrow, secondary = white outline.
 const HeroCTAs = ({
-  primaryLabel = 'Start Free Trial',
+  primaryLabel = 'Try the Platform',
   primaryHref = 'https://insights.dalgo.org/trial',
-  secondaryLabel = 'Contact Us',
+  secondaryLabel = 'Book a Free Consultation',
   secondaryHref = 'contact.html',
 }) => {
   const ext = (h) => /^https?:/.test(h);
   // TRIAL_READY=false ⇒ primary renders Contact Us → /contact (BM-307); duplicate secondary collapses
-  if (primaryLabel === 'Start Free Trial' && window.trialCta) { const t = window.trialCta(); primaryLabel = t.label; primaryHref = t.href; }
+  if ((primaryLabel === 'Try the Platform' || primaryLabel === 'Start Free Trial') && window.trialCta) { const t = window.trialCta(); primaryLabel = t.label; primaryHref = t.href; }
   if (secondaryLabel === primaryLabel) secondaryLabel = null;
   return (
     <React.Fragment>

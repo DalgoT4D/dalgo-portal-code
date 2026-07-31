@@ -4,10 +4,10 @@ window.SITE_CONFIG = {
   TRIAL_URL: 'https://dashboard.dalgo.org',
   GA4_ID: '' // TODO: paste the GA4 clean-slate property id (G-XXXXXXX) before launch
 };
-// Every "Start Free Trial" CTA resolves through this: flag off => Contact Us → /contact (BM-307: label always matches destination).
+// Every primary trial CTA ("Try the Platform") resolves through this: flag off => Contact Us → /contact (BM-307: label always matches destination).
 window.trialCta = function () {
   return window.SITE_CONFIG.TRIAL_READY
-    ? { label: 'Start Free Trial', href: window.SITE_CONFIG.TRIAL_URL, ext: true }
+    ? { label: 'Try the Platform', href: window.SITE_CONFIG.TRIAL_URL, ext: true }
     : { label: 'Contact Us', href: 'contact.html', ext: false };
 };
 // GA4 bootstrap (no-op until GA4_ID is set) + the 9-event model.
@@ -28,8 +28,8 @@ window.trialCta = function () {
       var href = a.getAttribute && (a.getAttribute('href') || '');
       var txt = (a.textContent || '').trim();
       if (/^https?:/.test(href) && href.indexOf('dalgo.org') === -1) ev = 'outbound_click';
-      else if (txt === 'Start Free Trial') ev = 'trial_cta_click';
-      else if (txt === 'Contact Us') ev = 'contact_cta_click';
+      else if (txt === 'Start Free Trial' || txt === 'Try the Platform') ev = 'trial_cta_click';
+      else if (txt === 'Contact Us' || txt === 'Book a Free Consultation') ev = 'contact_cta_click';
       else if (/Pro Bono/i.test(txt)) ev = 'probono_apply_click';
       else if (txt === 'Subscribe') ev = 'newsletter_subscribe';
     }
