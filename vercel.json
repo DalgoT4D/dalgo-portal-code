@@ -11,8 +11,8 @@
       "permanent": true
     },
     {
-      "source": "/case-studies",
-      "destination": "/impact",
+      "source": "/impact",
+      "destination": "/case-studies",
       "permanent": true
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "source": "/customers",
-      "destination": "/impact",
+      "destination": "/case-studies",
       "permanent": true
     },
     {

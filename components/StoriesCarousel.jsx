@@ -1,16 +1,16 @@
-// StoriesCarousel — clean auto-advancing customer photography showcase (hero right side).
-// No overlays, no manual controls: smooth horizontal slide, 4.5s per slide, pause on hover,
-// infinite loop, GPU-accelerated (transform only). Logos/captions/sources removed per redesign.
+// StoriesCarousel — auto-advancing customer photography showcase (hero right side).
+// Smooth horizontal slide, 4.5s per slide, pause on hover or via the visible keyboard-reachable
+// Pause button (WCAG 2.2.2), infinite loop, GPU-accelerated (transform only).
 const StoriesCarousel = () => {
   const slides = [
     { org: 'STiR Education', img: 'assets/consult-1.jpg' },
-    { org: 'Ummeed', img: 'https://projecttech4dev.org/wp-content/uploads/2025/04/ummeed2.jpg' },
   ];
   const n = slides.length;
   // i advances 0→1→…→n (n = first clone of slide 0). After the transition into the clone
   // finishes, snap back to 0 with the transition disabled — invisible, so the loop is seamless.
   const [i, setI] = React.useState(0);
   const [anim, setAnim] = React.useState(true);
+  const [playing, setPlaying] = React.useState(true);
   const hover = React.useRef(false);
   const reduced = React.useRef(false);
   React.useEffect(() => {
@@ -21,11 +21,11 @@ const StoriesCarousel = () => {
   }, []);
   React.useEffect(() => {
     const iv = setInterval(() => {
-      if (hover.current || reduced.current || document.hidden) return;
+      if (hover.current || !playing || reduced.current || document.hidden) return;
       setI((v) => v + 1);
     }, 4500);
     return () => clearInterval(iv);
-  }, []);
+  }, [playing]);
   // After animating onto the clone (i === n), wait out the .8s transition, then snap to 0 un-animated.
   React.useEffect(() => {
     if (i !== n) return;
@@ -49,6 +49,11 @@ const StoriesCarousel = () => {
           ))}
         </div>
       </div>
+      <button type="button" className="fc-playpause" aria-pressed={!playing}
+        aria-label={playing ? 'Pause customer photo rotation' : 'Play customer photo rotation'}
+        onClick={() => setPlaying((p) => !p)}>
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">{playing ? <path d="M7 5h4v14H7zM13 5h4v14z" /> : <path d="M8 5v14l11-7z" />}</svg>
+      </button>
     </div>
   );
 };

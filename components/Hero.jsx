@@ -14,7 +14,7 @@ const Hero = () => (
     eyebrow="Data Insights Platform for Nonprofits"
     headline={<>Know your data.<br /><span className="cvh-hl">Share your story.</span></>}
     body="Bring scattered programme data into one trusted source your whole team can act on — for monthly reflections, funder reporting, and everyday decisions. Built by a nonprofit, for the social sector."
-    ctas={<HeroCTAs primaryLabel="Start Free Trial" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Contact Us" secondaryHref="contact.html" />}
+    ctas={<HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="contact.html" />}
     help={<>Need help planning your data systems? <a href="https://forms.gle/envgKD2VeRq3Un5y6" target="_blank" rel="noopener">Apply for Pro Bono Consulting<svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a></>}
   >
     <div className="cvh-visual hero-visual">

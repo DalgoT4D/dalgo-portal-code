@@ -35,13 +35,12 @@ const Nav = () => {
   page = page.toLowerCase().replace(/\.html$/, '');
   const isHome = page === '' || page === 'index' || page === 'home page';
   const is = (k) => page === k;
-  const resourcesActive = is('about') || is('learn') || is('faq');
-  // BM-337: nav label "Customers" opens the customer-stories page (impact.html slug kept — ⚑ Stuti to confirm label)
-  // BM-335/346: About + Learn + FAQ fold under Resources — one bucket, FAQ discoverable
+  const resourcesActive = is('learn') || is('faq');
+  // BM-337 (resolved 30 Jul): nav label renamed "Case Studies", href stays case-studies.html
+  // BM-335/346 (resolved 30 Jul): About moved out of Resources into footer-only; Learn + FAQ stay under Resources
   const tc = window.trialCta ? window.trialCta() : { label: 'Start Free Trial', href: 'https://insights.dalgo.org/trial', ext: true };
   const trialReady = !!(window.SITE_CONFIG && window.SITE_CONFIG.TRIAL_READY);
   const resourceLinks = [
-    { href: 'about.html', label: 'About' },
     { href: 'learn.html', label: 'Learn' },
     { href: 'faq.html', label: 'FAQs' },
   ];
@@ -59,7 +58,7 @@ const Nav = () => {
             <NavLink href="index.html" active={isHome}>Home</NavLink>
             <NavLink href="product.html" active={is('product')}>Product</NavLink>
             <NavLink href="consulting.html" active={is('consulting')}>Consulting</NavLink>
-            <NavLink href="impact.html" active={is('impact')}>Customers</NavLink>
+            <NavLink href="case-studies.html" active={is('case-studies')}>Case Studies</NavLink>
             <NavLink href="pricing.html" active={is('pricing')}>Pricing</NavLink>
             <div className="nav-dd" ref={ddRef}>
               <button type="button" className={'nav-link nav-dd-trigger' + (resourcesActive ? ' is-active' : '') + (ddOpen ? ' is-open' : '')} aria-haspopup="true" aria-expanded={ddOpen} aria-controls="nav-dd-resources"
@@ -93,7 +92,7 @@ const Nav = () => {
           <a href="index.html" className={'nav-m-link' + (isHome ? ' is-active' : '')} onClick={closeMenu}>Home</a>
           <a href="product.html" className={'nav-m-link' + (is('product') ? ' is-active' : '')} onClick={closeMenu}>Product</a>
           <a href="consulting.html" className={'nav-m-link' + (is('consulting') ? ' is-active' : '')} onClick={closeMenu}>Consulting</a>
-          <a href="impact.html" className={'nav-m-link' + (is('impact') ? ' is-active' : '')} onClick={closeMenu}>Customers</a>
+          <a href="case-studies.html" className={'nav-m-link' + (is('case-studies') ? ' is-active' : '')} onClick={closeMenu}>Case Studies</a>
           <a href="pricing.html" className={'nav-m-link' + (is('pricing') ? ' is-active' : '')} onClick={closeMenu}>Pricing</a>
           <button type="button" className={`nav-m-link nav-m-acc ${resOpen ? 'is-open' : ''}`} aria-expanded={resOpen} aria-controls="nav-m-resources" onClick={() => setResOpen((o) => !o)}>
             Resources

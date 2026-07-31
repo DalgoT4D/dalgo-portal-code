@@ -44,7 +44,7 @@ const PlatformFor = () => {
       label: 'Trust & Access',
       img: null, // BM-328: no real Trust & Access screenshot yet — renders the neutral panel below, never a drop-target placeholder
       cap: 'Notification and access controls, per teammate',
-      desc: 'Data on real people needs real care. Dalgo is DPDP-compliant as a Data Processor. Your organisation remains the Data Fiduciary — your data stays in your own warehouse, each teammate gets exactly the access they should have, and the platform is built as an open, publicly recognised good.',
+      desc: 'Data on real people needs real care. Dalgo is DPDP-compliant as a Data Processor, independently audited by Pacta. Your organisation remains the Data Fiduciary — your data stays in your own warehouse, each teammate gets exactly the access they should have, and the platform is built as an open, publicly recognised good.',
       checks: [
         { t: 'DPDP-compliant as a Data Processor; pricing that never charges per user or per row' },
         { t: 'Recognised Digital Public Good; open-source' },

@@ -23,10 +23,10 @@ const FooterV2 = () =>
         <div className="fx-col">
           <h2 className="fx-h">Explore</h2>
           <a href="product.html">Product</a>
-          <a href="impact.html">Impact</a>
+          <a href="case-studies.html">Case Studies</a>
           <a href="consulting.html">Consulting</a>
           <a href="pricing.html">Pricing</a>
-          <a href="contact.html">Contact Us</a>
+          <a href="contact.html">Book a Free Consultation</a>
         </div>
         <div className="fx-col">
           <h2 className="fx-h">Resources</h2>

@@ -4,7 +4,7 @@ const ResourcesHero = () => (
     eyebrow="Resources"
     headline={<>Learn data,<br /><span className="cvh-hl">the nonprofit way</span></>}
     body="Blogs, webinars, and data education — practical resources to help your team build a stronger data culture."
-    ctas={<HeroCTAs primaryLabel="Start Free Trial" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Browse the Blog" secondaryHref="https://projecttech4dev.org/blogs/?category=dalgo" />}
+    ctas={<HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Browse the Blog" secondaryHref="https://projecttech4dev.org/blogs/?category=dalgo" />}
   >
     <div className="cvh-visual">
       <figure className="cvh-figure">
