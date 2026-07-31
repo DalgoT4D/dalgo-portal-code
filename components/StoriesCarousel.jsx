@@ -4,7 +4,6 @@
 const StoriesCarousel = () => {
   const slides = [
     { org: 'STiR Education', img: 'assets/consult-1.jpg' },
-    { org: 'Ummeed', img: 'https://projecttech4dev.org/wp-content/uploads/2025/04/ummeed2.jpg' },
   ];
   const n = slides.length;
   // i advances 0→1→…→n (n = first clone of slide 0). After the transition into the clone

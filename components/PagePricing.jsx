@@ -10,9 +10,8 @@ const PricingHero = () => (
     body="Flat pricing. No per-user, per-source, or per-row fees — add your whole team and every data source for one predictable cost. Tell us about your organisation and we'll tailor the right plan for you."
     ctas={<>
       <p className="pricing-anchor"></p>
-      <HeroCTAs primaryLabel="Start Free Trial" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Contact Us" secondaryHref="contact.html" />
+      <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="contact.html" />
     </>}
-    help={<>Pricing shown is for India. For global pricing, <a href="contact.html">contact us</a>.</>}
   >
     <div className="cvh-visual">
       <div className="hc-collage" aria-hidden="true">
@@ -39,64 +38,123 @@ const Check = () => (
   <svg className="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
 );
 
-// Three plans. Figures verified July 2026 (Managed ₹2.04L/yr, Consulting from ₹4.04L/yr).
+// Region-priced SaaS + optional support (Superset, hourly consulting). Figures confirmed 31 Jul 2026:
+// India ₹2.04L/yr SaaS, ₹48,000/yr Superset, from ₹2,500/hr consulting. Intl $3,600/yr SaaS
+// (confirmed over a conflicting $3,000/yr figure elsewhere in source docs — Stuti, 31 Jul),
+// $500/mo Superset, from $25/hr consulting.
+const PRICING_REGIONS = {
+  india: {
+    label: 'Based in India',
+    saas: { price: '₹2.04L', period: '/year', alt: 'or ₹17,000/month' },
+    superset: { price: '₹48,000', period: '/year' },
+    consulting: { price: '₹2,500', period: '/hour' },
+  },
+  intl: {
+    label: 'Based outside India',
+    saas: { price: '$3,600', period: '/year', alt: 'or $300/month' },
+    superset: { price: '$500', period: '/month' },
+    consulting: { price: '$25', period: '/hour' },
+  },
+};
+
 const PricingPlans = () => {
-  const plans = [
-    {
-      name: 'SAAS',
-      cta: window.trialCta ? window.trialCta() : { label: 'Contact Us', href: 'contact.html' },
-      from: true,
-      price: '₹2.04L',
-      note: 'per year · flat, whatever your team size',
-      accent: true,
-      tag: 'Most NGOs choose this',
-      desc: 'Dalgo hosts and maintains your instance, so your team can focus on the data.',
-      features: [
-        'Dalgo hosts & maintains your instance',
-        'Flat price, whether 10 or 100 users',
-        'Updates, monitoring & backups handled for you',
-        'Priority support',
-      ],
-    },
-    {
-      name: 'Consulting',
-      cta: { label: 'Contact Us', href: 'contact.html', ghost: true },
-      from: true,
-      price: '₹4.04L',
-      note: 'per year · Basic tier; Standard & Advanced available',
-      desc: 'Hands-on help to design and stand up your data systems.',
-      // NOTE: engagement-area labels — verify verbatim against consulting offerings blog (BM-254, Rita & Anusha).
-      features: [
-        'Data strategy & maturity mapping',
-        'MEL systems design',
-        'Integration & setup',
-        'Expert time, priced for nonprofits',
-      ],
-    },
-  ];
+  const [region, setRegion] = React.useState('india');
+  const r = PRICING_REGIONS[region];
+  const tc = window.trialCta ? window.trialCta() : { label: 'Try the Platform', href: 'https://dashboard.dalgo.org', ext: true };
   return (
     <section className="pricing-section" id="plans">
       <div className="container">
-        <div className="pricing-grid">
-          {plans.map((p) => (
-            <article className={'plan-card' + (p.accent ? ' plan-card-accent' : '')} key={p.name}>
-              {p.tag && <span className="plan-tag">{p.tag}</span>}
-              <h2 className="plan-name">{p.name}</h2>
-              <div className="plan-price">
-                {p.from && <span className="plan-from">from</span>}
-                <span>{p.price}</span>
-              </div>
-              <div className="plan-note">{p.note}</div>
-              <p className="plan-desc">{p.desc}</p>
-              <ul className="plan-features">
-                {p.features.map((f, i) => <li key={i}><Check />{f}</li>)}
-              </ul>
-              <a className={'cmh-btn plan-cta ' + (p.cta.ghost ? 'cmh-btn-ghost' : 'cmh-btn-primary')} href={p.cta.href} target={p.cta.ext ? '_blank' : undefined} rel={p.cta.ext ? 'noopener' : undefined}>
-                {p.cta.label}
-                {!p.cta.ghost && <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>}
-              </a>
-            </article>
+        <div className="section-head section-head-center">
+          <p className="pf-eyebrow">Choose your pricing</p>
+        </div>
+        <div className="pricing-region-toggle" role="group" aria-label="Pricing region">
+          {Object.entries(PRICING_REGIONS).map(([key, v]) => (
+            <button key={key} type="button" className={'pr-toggle-btn' + (region === key ? ' is-active' : '')} aria-pressed={region === key} onClick={() => setRegion(key)}>{v.label}</button>
           ))}
+        </div>
+        <div className="pricing-grid pricing-grid-support">
+          <article className="plan-card plan-card-accent">
+            <span className="plan-tag">Most NGOs choose this</span>
+            <h2 className="plan-name">Dalgo SaaS</h2>
+            <div className="plan-price">
+              <span>{r.saas.price}</span>
+              <span className="plan-period">{r.saas.period}</span>
+            </div>
+            <div className="plan-note">{r.saas.alt} · flat organisation pricing</div>
+            <p className="plan-desc">Dalgo hosts and maintains your instance, so your team can focus on the data.</p>
+            <ul className="plan-features">
+              <li><Check />Dalgo hosts &amp; maintains your instance</li>
+              <li><Check />Flat price, whether 10 or 100 users</li>
+              <li><Check />Updates, monitoring &amp; backups handled for you</li>
+              <li><Check />Priority support</li>
+            </ul>
+            <a className="cmh-btn plan-cta cmh-btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
+              {tc.label}
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+            </a>
+          </article>
+          <aside className="plan-support-card">
+            <h3 className="plan-support-h">Optional support</h3>
+            <div className="plan-support-row">
+              <span className="plan-support-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg></span>
+              <div className="plan-support-body">
+                <div className="plan-support-label">Hosted Superset</div>
+                <div className="plan-support-price">{r.superset.price}<span className="plan-support-period">{r.superset.period}</span></div>
+                <p className="plan-support-desc">Managed Superset instance with secure hosting and backups.</p>
+              </div>
+            </div>
+            <div className="plan-support-row">
+              <span className="plan-support-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /></svg></span>
+              <div className="plan-support-body">
+                <div className="plan-support-label">Consulting</div>
+                <div className="plan-support-price"><span className="plan-support-from">from</span> {r.consulting.price}<span className="plan-support-period">{r.consulting.period}</span></div>
+                <p className="plan-support-desc">Expert help to design, set up and scale your data systems.</p>
+              </div>
+            </div>
+            <a className="plan-support-link" href="consulting.html">View consulting offerings <span aria-hidden="true">→</span></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// "Costs to plan for" accordion (BM-351) — everything outside the flat SaaS fee that a
+// prospective org should budget for. One item open by default, matches the FAQ accordion pattern.
+const CostsToPlanFor = () => {
+  const [open, setOpen] = React.useState(0);
+  const items = [
+    { title: 'Provisioning your warehouse', body: 'AWS RDS PostgreSQL or BigQuery, billed by your cloud provider.',
+      icon: <><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6" /><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" /></> },
+    { title: 'BI tool', body: "Dalgo native dashboards are included — but you can bring your own visualisation tool.",
+      icon: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></> },
+    { title: 'Custom API data sources', body: 'Connector building for custom systems without an existing connector.',
+      icon: <><polyline points="9 18 15 12 9 6" /></> },
+    { title: 'Onboarding and consulting', body: <>Some organisations can implement independently; others may want technical support from Dalgo. <a href="consulting.html">View consulting offerings <span aria-hidden="true">→</span></a></>,
+      icon: <><circle cx="9" cy="9" r="3.2" /><path d="M3.5 20c0-3.2 2.5-5.5 5.5-5.5s5.5 2.3 5.5 5.5" /><circle cx="17.5" cy="10.5" r="2.6" /><path d="M14.8 20c.2-2.6 2-4.4 4.5-4.4" /></> },
+  ];
+  return (
+    <section className="ctpf-section" id="costs-to-plan-for">
+      <div className="container">
+        <div className="section-head">
+          <h2 className="section-title">Costs to <span className="hl-underline">plan for</span></h2>
+        </div>
+        <div className="ctpf-list">
+          {items.map((it, i) => {
+            const isOpen = open === i;
+            return (
+              <div className={'ctpf-item' + (isOpen ? ' is-open' : '')} key={it.title}>
+                <button type="button" className="ctpf-q" aria-expanded={isOpen} aria-controls={'ctpf-a-' + i} onClick={() => setOpen(isOpen ? -1 : i)}>
+                  <span className="ctpf-ic" aria-hidden="true"><svg viewBox="0 0 24 24">{it.icon}</svg></span>
+                  <span className="ctpf-q-text">{i + 1}. {it.title}</span>
+                  <span className="ctpf-chev" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg></span>
+                </button>
+                <div className="ctpf-a-wrap" id={'ctpf-a-' + i}>
+                  <div className="ctpf-a"><p>{it.body}</p></div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -246,7 +304,6 @@ const PricingFAQ = () => (
       <div className="pricing-faq">
         <h2 className="pfaq-q">How does pricing work?</h2>
         <p className="pfaq-a">Dalgo is free to host — it's open source. Choose managed hosting for one flat annual fee that covers your whole team and every data source, and add consulting time whenever you want hands-on help. You always keep your data in your own warehouse.</p>
-        <p className="pricing-region-note">Pricing shown is for India. For global pricing, <a href="contact.html">contact us</a>.</p>
       </div>
     </div>
   </section>
@@ -254,6 +311,7 @@ const PricingFAQ = () => (
 
 window.PricingHero = PricingHero;
 window.PricingPlans = PricingPlans;
+window.CostsToPlanFor = CostsToPlanFor;
 window.FeatureGrid = FeatureGrid;
 window.HowWeWork = HowWeWork;
 window.ProBonoBand = ProBonoBand;
