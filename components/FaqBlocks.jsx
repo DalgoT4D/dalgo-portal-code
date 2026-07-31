@@ -2,9 +2,8 @@
 // QUESTIONS ARE FINAL — exact wording, never paraphrase or fork. Contextual blocks
 // reference the same strings by [group, question] index, so they can never drift.
 // ANSWERS: populated 30 Jul from the approved FAQ doc, keyed by exact question string.
-// 3 questions are intentionally held back pending a content-truth conflict (RBAC roadmap
-// status, connector wording, international pricing figure) — they still render the pending
-// state until resolved. See BM-127 for details.
+// 1 question is intentionally held back (RBAC/row-level-access roadmap status is unresolved
+// per Stuti 31 Jul) — it still renders the pending state until resolved. See BM-127.
 const FAQ_DATA = [
   { g: 'Understanding Dalgo', qs: [
     'What is Dalgo?',
@@ -76,6 +75,8 @@ const FAQ_DATA = [
 ];
 // Approved answers land here, keyed by the exact question string. Empty until review completes.
 window.FAQ_ANSWERS = {
+  'Can Dalgo integrate with our existing tools?': `<p>Yes. Dalgo connects out of the box with more than 600 data sources, including KoboToolbox, Google Sheets, CommCare, Avni, Salesforce, Zoho, databases, and many other systems. There is no fixed limitation on what can connect to Dalgo. If a source is not already supported, we can build a connector for its custom API or other integration method, rather than forcing you to change the tools your teams rely on.</p>`,
+  'How is Dalgo priced?': `<p>Dalgo SaaS costs <strong>&#8377;2.04 lakh per organisation per year</strong>, or <strong>&#8377;17,000 per month</strong> in India. For international nonprofits, it costs <strong>US$3,600 per year</strong> or <strong>US$300 per month</strong>. This is a flat organisation-level price, not a per-user or per-pipeline charge.</p><p>All core Dalgo capabilities are included: data ingestion, transformations, pipelines, native dashboards, charts, KPIs, alerts, data quality, reporting, user access controls, and support. Hosted Superset and consulting or implementation services are priced separately. See the <a href="pricing.html">Dalgo pricing page</a> for details.</p>`,
   'What is Dalgo?': `<p>Dalgo is an open-source data platform built for nonprofits and social-impact organisations. It brings data from the tools you already use into one place, cleans and structures it, keeps it up to date automatically, and turns it into dashboards, reports, alerts, and actionable insights.</p>`,
   'Who is Dalgo built for?': `<p>Dalgo is for organisations that collect meaningful amounts of programme, beneficiary, operational, fundraising, or outcome data and want to use it more consistently. It is particularly useful for M&amp;E, programme, operations, leadership, and data teams that need a reliable view across multiple tools, programmes, partners, or geographies.</p><p>You do not need a large in-house data engineering team. Dalgo is designed to work for organisations that want to build internal data capability, with support available for the technical work that needs it.</p>`,
   'Who is Dalgo not built for?': `<p>Dalgo may not be the right fit if your organisation already has a large in-house engineering team and mature, custom-built data pipelines and tools that fully meet its needs. In that situation, the value of adopting another platform may be limited.</p><p>Dalgo is designed to help organisations build data maturity, whatever their starting point. Alongside the platform, our consulting work can include data-collection audits, clarifying key questions and indicators, and strengthening the processes that make better data use possible. Dalgo is not itself a replacement for a case-management system, a field data-collection app, or a finance/CRM system; it can help assess, connect, and make sense of data from those tools.</p>`,
