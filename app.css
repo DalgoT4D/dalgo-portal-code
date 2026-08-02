@@ -1236,7 +1236,8 @@ html, body { max-width: 100%; overflow-x: clip; }
 .co-pillar p { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 @media (max-width: 768px) { .co-pillars { grid-template-columns: 1fr; } }
 .co-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.co-card { background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; }
+.co-card { background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-md); transition: box-shadow .2s ease, transform .15s ease; }
+.co-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 .co-ico { width: 40px; height: 40px; color: var(--teal-ink); }
 .co-ico svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .co-card h3 { font-size: 16.5px; font-weight: 700; color: var(--ink); margin: 4px 0 0; }

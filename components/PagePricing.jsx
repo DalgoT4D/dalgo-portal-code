@@ -69,7 +69,7 @@ const PricingPlans = () => {
     <section className="pricing-section" id="plans">
       <div className="container">
         <div className="section-head section-head-center">
-          <p className="pf-eyebrow">Choose your pricing</p>
+          <h2 className="section-title">Choose your <span className="hl-underline">pricing</span></h2>
         </div>
         <div className="pricing-region-toggle" role="group" aria-label="Pricing region">
           {Object.entries(PRICING_REGIONS).map(([key, v]) => (
@@ -77,8 +77,7 @@ const PricingPlans = () => {
           ))}
         </div>
         <div className="pricing-grid pricing-grid-two">
-          <article className="plan-card plan-card-accent">
-            <span className="plan-tag">Most NGOs choose this</span>
+          <article className="plan-card">
             <div className="plan-head">
               <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg></span>
               <h2 className="plan-name">Dalgo SaaS</h2>
@@ -86,7 +85,7 @@ const PricingPlans = () => {
             </div>
             <div className="plan-priceblock">
               <div className="plan-price"><span className="plan-amt">{r.saas.price}</span><span className="plan-period">{r.saas.period}</span></div>
-              <div className="plan-note">{r.saas.alt} · flat organisation pricing</div>
+              <div className="plan-note">{r.saas.alt}</div>
             </div>
             <a className="cmh-btn cmh-btn-primary plan-cta" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
               {tc.label}
@@ -95,10 +94,13 @@ const PricingPlans = () => {
             <div className="plan-includes">
               <div className="plan-includes-h">Includes</div>
               <ul className="plan-features">
-                <li><Check />Dalgo hosts &amp; maintains your instance</li>
-                <li><Check />Flat price, whether 10 or 100 users</li>
-                <li><Check />Updates, monitoring &amp; backups handled for you</li>
-                <li><Check />Priority support</li>
+                <li><Check />Data integrations — 600+ sources</li>
+                <li><Check />Dashboards &amp; charts</li>
+                <li><Check />Reports &amp; alerts</li>
+                <li><Check />KPIs &amp; metrics</li>
+                <li><Check />Data quality, transformations &amp; RBAC</li>
+                <li><Check />Fully hosted &amp; maintained by Dalgo</li>
+                <li><Check />Flat price, whatever your team size</li>
               </ul>
             </div>
           </article>
@@ -218,42 +220,6 @@ const FeatureGrid = () => {
   );
 };
 
-// Section 4 — What you get, and how we work together (replaces the old cost-driver section).
-const HowWeWork = () => {
-  // NOTE: engagement-area tags — verify verbatim against consulting blog terminology (BM-254).
-  const steps = [
-    { n: '1', title: 'Understand', value: 'We map where your data lives and what your team needs.',
-      tags: ['Data Lifecycle Audit', 'Data strategy & maturity mapping', 'MEL systems design'] },
-    { n: '2', title: 'Automate', value: 'Pipelines run, dashboards go live, reports build themselves.',
-      tags: ['Integration & setup', 'Pipeline automation', 'Dashboard build'] },
-    { n: '3', title: 'Learn, act, share', value: "Reviews grounded in data. Funder reports ready before they're asked for.",
-      tags: ['Training & enablement', 'Ongoing support', 'Community'] },
-  ];
-  return (
-    <section className="hww-section" id="how-we-work">
-      <div className="container">
-        <div className="section-head section-head-center">
-          <h2 className="section-title">What you get, and how we <span className="hl-underline">work together</span></h2>
-          <p className="section-sub" style={{ maxWidth: 640, margin: '12px auto 0' }}>Value and the work we do alongside your team — from first audit to funder-ready reporting.</p>
-        </div>
-        <div className="hww-grid">
-          {steps.map((s) => (
-            <article className="hww-card" key={s.n}>
-              <span className="hww-badge">{s.n}</span>
-              <h3 className="hww-title">{s.title}</h3>
-              <p className="hww-value">{s.value}</p>
-              <div className="hww-tags">
-                {s.tags.map((t, i) => <span className="hww-tag" key={i}>{t}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
-        <p className="hww-never">Never per-user, per-source, or per-row.</p>
-      </div>
-    </section>
-  );
-};
-
 // Section 5 — Pro Bono Data Consulting (complimentary one-hour discovery session).
 // The Google-Form "apply" button and the consulting-card pro-bono line were removed 1 Aug;
 // the discovery session is now booked through Book a Free Consultation.
@@ -305,6 +271,5 @@ window.PricingHero = PricingHero;
 window.PricingPlans = PricingPlans;
 window.CostsToPlanFor = CostsToPlanFor;
 window.FeatureGrid = FeatureGrid;
-window.HowWeWork = HowWeWork;
 window.ProBonoBand = ProBonoBand;
 window.PricingProof = PricingProof;
