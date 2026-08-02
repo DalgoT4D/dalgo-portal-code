@@ -1,7 +1,6 @@
 # Internal / build-only files — keep them out of the deployed, publicly-indexable artifact.
 *.md
 Design Guidelines.html
-build.js
 serve.js
 .prerender*.js
 image-slot.js
