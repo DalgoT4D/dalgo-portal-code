@@ -31,7 +31,7 @@ const useReducedMotionCases = () => {
 const CaseFeature = () => {
   const cases = [
     {
-      org: 'STiR Education', logo: 'assets/logos/STiREducation.png', img: 'assets/consult-1.jpg',
+      org: 'STiR Education', logo: 'assets/logos/STiREducation.png', img: 'assets/consult-1.webp',
       headline: "A week's work, back in an hour — across six regions",
       copy: 'Dalgo automated monthly reporting across six regions, letting the M&E team spend their time on the nuances of monitoring — interpreting data and building capacity.',
       m1: { before: '1 week', after: '1 hour', cap: 'Monthly review preparation' },

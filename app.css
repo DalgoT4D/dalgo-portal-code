@@ -6,6 +6,15 @@
    Any specificity need is solved by selector scope, never by importance overrides.
    ============================================================ */
 
+/* ---------- 0. Fonts (self-hosted Inter, variable) ---------- */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("assets/fonts/inter-latin.woff2") format("woff2");
+}
+
 /* ---------- 1. Reset & base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }

@@ -20,12 +20,12 @@ const CommunityHero = () => (
         </div>
       </div>
       <div className="cvh-collage" aria-hidden="true">
-        <div className="cvh-card cvh-c1"><img src="assets/community-cards/webinars.jpg" alt="" /></div>
+        <div className="cvh-card cvh-c1"><img src="assets/community-cards/webinars.webp" alt="" /></div>
         <div className="cvh-note">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
           Next webinar · Thu, 4 PM IST
         </div>
-        <div className="cvh-card cvh-c2"><img src="assets/community-cards/data-decoded.jpg" alt="" /></div>
+        <div className="cvh-card cvh-c2"><img src="assets/community-cards/data-decoded.webp" alt="" /></div>
         <div className="cvh-card cvh-c3"><img src="assets/community/bootcamp-2.jpg" alt="" /></div>
         <div className="cvh-card cvh-c4 cvh-wa">
           <div className="cvh-wa-head">
@@ -102,7 +102,7 @@ const CommunityWebinar = () => (
 const CommunityNewsletters = () => {
   const cards = [
     {
-      img: 'assets/community-cards/data-decoded.jpg',
+      img: 'assets/community-cards/data-decoded.webp',
       title: 'Data Decoded With Dalgo',
       tagline: 'Level up your nonprofit data game',
       body: <>Think Mario, but for M&amp;E. Every edition tackles one nonprofit data concept through stories, pop culture, and simple visuals. No jargon. Just those “Oh, I finally get it!”&gt; moments.</>,
@@ -110,7 +110,7 @@ const CommunityNewsletters = () => {
       href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
     },
     {
-      img: 'assets/community-cards/monthly-newsletter.jpg',
+      img: 'assets/community-cards/monthly-newsletter.webp',
       title: 'Dalgo’s Monthly Newsletter',
       tagline: 'Everything happening in the Dalgo universe',
       body: 'New features. Customer stories. AI experiments. Community events. Product launches. One monthly roundup so you never miss what’s new in nonprofit data.',

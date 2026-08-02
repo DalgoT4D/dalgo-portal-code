@@ -255,9 +255,9 @@ const WatchDemo = () => (
 const DashboardShowcase = () => {
   const orgs = [
     { name: 'Noora Health', logo: 'assets/logos/NooraHealth.png', use: 'Equipping families with the skills to care for patients at the bedside.', links: [{ l: 'Program dashboard', h: 'https://noora.dalgo.org/superset/dashboard/25/' }] },
-    { name: 'SHOFCO', logo: 'assets/dash/shofco.png', use: "Urban transformation across Kenya's informal settlements.", links: [{ l: 'Dashboard 1', h: 'https://shofco.dalgo.org/superset/dashboard/97/' }, { l: 'Dashboard 2', h: 'https://shofco.dalgo.org/superset/dashboard/98/' }] },
-    { name: 'INREM Foundation', logo: 'assets/dash/inrem.png', use: 'Safe drinking water and fluorosis mitigation.', links: [{ l: 'Water quality', h: 'https://inrem.dalgo.org/superset/dashboard/waterquality/' }, { l: 'Program metrics', h: 'https://inrem.dalgo.org/superset/dashboard/12/' }] },
-    { name: 'SHRI', logo: 'assets/dash/shri.png', use: 'Sanitation and health rights in India.', links: [{ l: 'View dashboards', h: 'https://www.data.sanrights.org/' }] },
+    { name: 'SHOFCO', logo: 'assets/dash/shofco.webp', use: "Urban transformation across Kenya's informal settlements.", links: [{ l: 'Dashboard 1', h: 'https://shofco.dalgo.org/superset/dashboard/97/' }, { l: 'Dashboard 2', h: 'https://shofco.dalgo.org/superset/dashboard/98/' }] },
+    { name: 'INREM Foundation', logo: 'assets/dash/inrem.webp', use: 'Safe drinking water and fluorosis mitigation.', links: [{ l: 'Water quality', h: 'https://inrem.dalgo.org/superset/dashboard/waterquality/' }, { l: 'Program metrics', h: 'https://inrem.dalgo.org/superset/dashboard/12/' }] },
+    { name: 'SHRI', logo: 'assets/dash/shri.webp', use: 'Sanitation and health rights in India.', links: [{ l: 'View dashboards', h: 'https://www.data.sanrights.org/' }] },
   ];
   return (
     <section className="dsh-section">

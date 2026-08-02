@@ -12,7 +12,7 @@ const ProofCollage = () => (
       <div className="section-head section-head-center" style={{ marginBottom: 44 }}>
         <p className="pcx-eyebrow">Trusted by the sector</p>
         <h2 className="section-title" id="pcx-h2">What nonprofits <span className="hl-underline">say</span> about Dalgo</h2>
-        <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Verbatim, from the teams who run their data on Dalgo every day.</p>
+        <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Hear from the teams who run their data on Dalgo every day.</p>
       </div>
       <div className="prf-wall">
         {PCX_QUOTES.map((t, i) => (

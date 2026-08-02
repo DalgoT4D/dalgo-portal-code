@@ -15,8 +15,8 @@ const PricingHero = () => (
   >
     <div className="cvh-visual">
       <div className="hc-collage" aria-hidden="true">
-        <div className="hc-card hc-a hc-shot"><img src="assets/product/dashboard.png" alt="" /></div>
-        <div className="hc-card hc-b hc-shot"><img src="assets/product/scorecards.png" alt="" /></div>
+        <div className="hc-card hc-a hc-shot"><img src="assets/product/dashboard.webp" alt="" /></div>
+        <div className="hc-card hc-b hc-shot"><img src="assets/product/scorecards.webp" alt="" /></div>
         <div className="hc-cred">
           <img src="assets/dpg-badge.png" alt="Recognised as a Digital Public Good" />
           <span className="hc-cred-label">Recognised as a<br />Digital Public Good</span>

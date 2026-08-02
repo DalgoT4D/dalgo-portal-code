@@ -5,7 +5,7 @@ const PlatformFor = () => {
   const cats = [
     {
       label: 'Data Integration',
-      img: R('pfIntegration','assets/product/pf-integration.png'),
+      img: R('pfIntegration','assets/product/pf-integration.webp'),
       cap: 'Workflow — every source syncing into your own warehouse',
       desc: 'Your programs generate data in a dozen places — surveys, chatbots, spreadsheets, case-management tools. Dalgo consolidates all of it into a data warehouse that belongs to your organisation, cleaned and ready, so every review starts with numbers your team can trust.',
       checks: [

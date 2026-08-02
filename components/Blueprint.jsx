@@ -1,13 +1,13 @@
 // Join the Dalgo Community — learning ecosystem (image cards + pill CTAs)
 const Nurture = () => {
   const cards = [
-  { img: 'assets/community-cards/decoding-data.jpg',
+  { img: 'assets/community-cards/decoding-data.webp',
     label: 'LinkedIn newsletter',
     title: 'Decoding Data',
     body: 'Practical, plain-language takes on nonprofit data — delivered to your LinkedIn feed every two weeks.',
     cta: 'Subscribe',
     href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992' },
-  { img: 'assets/community-cards/webinars.jpg',
+  { img: 'assets/community-cards/webinars.webp',
     label: 'Live sessions',
     title: 'Monthly Webinars',
     body: 'Live product sessions and nonprofit data education — learn alongside peers across the sector.',
@@ -20,7 +20,7 @@ const Nurture = () => {
     body: 'Connect with nonprofit data practitioners — ask questions, share wins, and swap what works.',
     cta: 'Join Community',
     href: 'https://chat.whatsapp.com/GWXbfC0fXKf2RVfKiCaOEy?s=cl&p=i&ilr=4' },
-  { img: 'assets/community-cards/newsletter.jpg',
+  { img: 'assets/community-cards/newsletter.webp',
     label: 'Email newsletter',
     title: 'Dalgo Newsletter',
     body: 'Product updates, practical guides, and stories from the NGO partners building with Dalgo.',
