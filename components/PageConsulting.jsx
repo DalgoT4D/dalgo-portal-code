@@ -62,7 +62,7 @@ const ConsultingOfferings = () => {
       <div className="container">
         <div className="pg-section-head">
           <h2 className="pg-h2">Common <span className="hl-underline">engagement areas</span></h2>
-          <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Every engagement is scoped with you. Platform plans start from Basic — see <a href="pricing.html">pricing</a>.</p>
+          <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Every engagement is scoped with you. See our flat <a href="pricing.html">platform pricing</a>.</p>
         </div>
         <div className="co-grid">
           {offers.map((o) => (
