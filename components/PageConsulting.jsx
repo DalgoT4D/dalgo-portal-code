@@ -55,7 +55,7 @@ const ConsultingOfferings = () => {
     { ic: 'mel', h: 'Monitoring & evaluation', p: 'Log frames, indicators, and collection formats that flow straight into your dashboards and reports.' },
     { ic: 'strategy', h: 'Data strategy', p: 'A realistic roadmap from where your data is now to where your mission needs it to be.' },
     { ic: 'impl', h: 'Implementation support', p: 'Hands-on help connecting sources, cleaning data, and getting pipelines live in production.' },
-    { ic: 'probono', h: 'Pro bono consulting', p: 'For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and recommend the right next steps.', link: { l: 'Book a Free Consultation', h: 'contact.html' } },
+    { ic: 'probono', h: 'Pro bono consulting', p: 'For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and recommend the right next steps.', link: { l: 'Book a Free Consultation', h: 'https://forms.gle/vfMNUNHTwDWB4qm66', ext: true } },
   ];
   return (
     <section className="pg-section alt">

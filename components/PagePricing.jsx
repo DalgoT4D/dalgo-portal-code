@@ -230,7 +230,7 @@ const ProBonoBand = () => (
         <h2 className="probono-h">Pro Bono Data Consulting</h2>
         <p className="probono-sub">A complimentary one-hour discovery session: we'll understand your organisation's data challenges, assess your current setup, and recommend the most appropriate next steps — including a Dalgo solution, if it's the right fit.</p>
       </div>
-      <a className="cmh-btn cmh-btn-primary probono-cta" href="contact.html">
+      <a className="cmh-btn cmh-btn-primary probono-cta" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
         Book a Free Consultation
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
       </a>

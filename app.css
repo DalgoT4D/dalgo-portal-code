@@ -1235,7 +1235,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 .co-pillar h3 { font-size: 19px; font-weight: 700; color: var(--ink); margin: 0 0 8px; }
 .co-pillar p { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 @media (max-width: 768px) { .co-pillars { grid-template-columns: 1fr; } }
-.co-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.co-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: 20px; }
 .co-card { background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 26px 22px; display: flex; flex-direction: column; gap: 8px; box-shadow: var(--shadow-md); transition: box-shadow .2s ease, transform .15s ease; }
 .co-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 .co-ico { width: 40px; height: 40px; color: var(--teal-ink); }
