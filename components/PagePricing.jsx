@@ -35,27 +35,31 @@ const PricingHero = () => (
 );
 
 const Check = () => (
-  <svg className="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
+  <span className="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg></span>
 );
 
-// Region-priced SaaS + optional support (Superset, hourly consulting). Figures confirmed 31 Jul 2026:
-// India ₹2.04L/yr SaaS, ₹48,000/yr Superset, from ₹2,500/hr consulting. Intl $3,600/yr SaaS
-// (confirmed over a conflicting $3,000/yr figure elsewhere in source docs — Stuti, 31 Jul),
-// $500/mo Superset, from $25/hr consulting.
+// Region-priced SaaS + Consulting, shown as two headline cards (Anthropic-style tier disclosure —
+// icon, tagline, price, CTA, "Includes" checklist). Figures confirmed 1 Aug 2026 pricing sheet:
+// India ₹2.04L/yr SaaS, ₹2,500/hr consulting. Intl $3,000/yr SaaS, $35/hr consulting (supersedes the
+// $3,600/$25 figures from the 31 Jul doc — reversed per the 1 Aug pricing sheet). Superset/viz tooling
+// is BYO only (ground-truth.md) — the earlier "Hosted Superset ₹48,000/yr" line item was wrong and is removed.
 const PRICING_REGIONS = {
   india: {
     label: 'Based in India',
     saas: { price: '₹2.04L', period: '/year', alt: 'or ₹17,000/month' },
-    superset: { price: '₹48,000', period: '/year' },
     consulting: { price: '₹2,500', period: '/hour' },
   },
   intl: {
     label: 'Based outside India',
-    saas: { price: '$3,600', period: '/year', alt: 'or $300/month' },
-    superset: { price: '$500', period: '/month' },
-    consulting: { price: '$25', period: '/hour' },
+    saas: { price: '$3,000', period: '/year', alt: 'or $250/month' },
+    consulting: { price: '$35', period: '/hour' },
   },
 };
+
+const CONSULTING_AREAS = [
+  'Data discovery', 'Advisory', 'Capacity building', 'AI readiness',
+  'Monitoring & evaluation', 'Data strategy', 'Implementation support',
+];
 
 const PricingPlans = () => {
   const [region, setRegion] = React.useState('india');
@@ -65,73 +69,80 @@ const PricingPlans = () => {
     <section className="pricing-section" id="plans">
       <div className="container">
         <div className="section-head section-head-center">
-          <p className="pf-eyebrow">Choose your pricing</p>
+          <h2 className="section-title">Choose your <span className="hl-underline">pricing</span></h2>
         </div>
         <div className="pricing-region-toggle" role="group" aria-label="Pricing region">
           {Object.entries(PRICING_REGIONS).map(([key, v]) => (
             <button key={key} type="button" className={'pr-toggle-btn' + (region === key ? ' is-active' : '')} aria-pressed={region === key} onClick={() => setRegion(key)}>{v.label}</button>
           ))}
         </div>
-        <div className="pricing-grid pricing-grid-support">
-          <article className="plan-card plan-card-accent">
-            <span className="plan-tag">Most NGOs choose this</span>
-            <h2 className="plan-name">Dalgo SaaS</h2>
-            <div className="plan-price">
-              <span>{r.saas.price}</span>
-              <span className="plan-period">{r.saas.period}</span>
+        <div className="pricing-grid pricing-grid-two">
+          <article className="plan-card">
+            <div className="plan-head">
+              <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg></span>
+              <h2 className="plan-name">Dalgo SaaS</h2>
+              <p className="plan-tagline">The platform, hosted and maintained for you.</p>
             </div>
-            <div className="plan-note">{r.saas.alt} · flat organisation pricing</div>
-            <p className="plan-desc">Dalgo hosts and maintains your instance, so your team can focus on the data.</p>
-            <ul className="plan-features">
-              <li><Check />Dalgo hosts &amp; maintains your instance</li>
-              <li><Check />Flat price, whether 10 or 100 users</li>
-              <li><Check />Updates, monitoring &amp; backups handled for you</li>
-              <li><Check />Priority support</li>
-            </ul>
-            <a className="cmh-btn plan-cta cmh-btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
+            <div className="plan-priceblock">
+              <div className="plan-price"><span className="plan-amt">{r.saas.price}</span><span className="plan-period">{r.saas.period}</span></div>
+              <div className="plan-note">{r.saas.alt}</div>
+            </div>
+            <a className="cmh-btn cmh-btn-primary plan-cta" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
               {tc.label}
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </a>
+            <div className="plan-includes">
+              <div className="plan-includes-h">Includes</div>
+              <ul className="plan-features">
+                <li><Check />Data integrations — 600+ sources</li>
+                <li><Check />Dashboards &amp; charts</li>
+                <li><Check />Reports &amp; alerts</li>
+                <li><Check />KPIs &amp; metrics</li>
+                <li><Check />Data quality, transformations &amp; RBAC</li>
+                <li><Check />Fully hosted &amp; maintained by Dalgo</li>
+                <li><Check />Flat price, whatever your team size</li>
+              </ul>
+            </div>
           </article>
-          <aside className="plan-support-card">
-            <h3 className="plan-support-h">Optional support</h3>
-            <div className="plan-support-row">
-              <span className="plan-support-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg></span>
-              <div className="plan-support-body">
-                <div className="plan-support-label">Hosted Superset</div>
-                <div className="plan-support-price">{r.superset.price}<span className="plan-support-period">{r.superset.period}</span></div>
-                <p className="plan-support-desc">Managed Superset instance with secure hosting and backups.</p>
-              </div>
+          <article className="plan-card">
+            <div className="plan-head">
+              <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /></svg></span>
+              <h2 className="plan-name">Consulting</h2>
+              <p className="plan-tagline">Hands-on help to design and run your data systems.</p>
             </div>
-            <div className="plan-support-row">
-              <span className="plan-support-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /></svg></span>
-              <div className="plan-support-body">
-                <div className="plan-support-label">Consulting</div>
-                <div className="plan-support-price"><span className="plan-support-from">from</span> {r.consulting.price}<span className="plan-support-period">{r.consulting.period}</span></div>
-                <p className="plan-support-desc">Expert help to design, set up and scale your data systems.</p>
-              </div>
+            <div className="plan-priceblock">
+              <div className="plan-price"><span className="plan-from">from</span><span className="plan-amt">{r.consulting.price}</span><span className="plan-period">{r.consulting.period}</span></div>
+              <div className="plan-note">Scoped with you before any work begins</div>
             </div>
-            <a className="plan-support-link" href="consulting.html">View consulting offerings <span aria-hidden="true">→</span></a>
-          </aside>
+            <a className="cmh-btn cmh-btn-primary plan-cta" href="contact.html">
+              Book a Free Consultation
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+            </a>
+            <div className="plan-includes">
+              <div className="plan-includes-h">Engagement areas</div>
+              <ul className="plan-features plan-features-tags">
+                {CONSULTING_AREAS.map((a) => <li key={a}><Check />{a}</li>)}
+              </ul>
+            </div>
+          </article>
         </div>
+        <p className="pricing-helper">Not sure what's right for you? <a href="contact.html">Schedule a call</a> and we'll help you figure out the right mix.</p>
       </div>
     </section>
   );
 };
 
-// "Costs to plan for" accordion (BM-351) — everything outside the flat SaaS fee that a
-// prospective org should budget for. One item open by default, matches the FAQ accordion pattern.
+// "Costs to plan for" accordion (BM-351) — the two things outside the flat SaaS fee that a
+// prospective org should budget for, neither borne by Dalgo. One item open by default, matches
+// the FAQ accordion pattern. (Custom API connectors and onboarding/consulting were dropped from
+// this list 1 Aug — consulting is now its own priced card above, not a footnote here.)
 const CostsToPlanFor = () => {
   const [open, setOpen] = React.useState(0);
   const items = [
-    { title: 'Provisioning your warehouse', body: 'AWS RDS PostgreSQL or BigQuery, billed by your cloud provider.',
+    { title: 'Warehouse', body: 'Not borne by Dalgo. Provision AWS RDS PostgreSQL or BigQuery — billed directly by your cloud provider, typically $250–500/year.',
       icon: <><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6" /><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" /></> },
-    { title: 'BI tool', body: "Dalgo native dashboards are included — but you can bring your own visualisation tool.",
+    { title: 'Additional Visualization Tool', body: "Not borne by Dalgo. Dalgo's native dashboards are included — bringing another BI tool (Power BI, Superset) is billed separately by that vendor.",
       icon: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></> },
-    { title: 'Custom API data sources', body: 'Connector building for custom systems without an existing connector.',
-      icon: <><polyline points="9 18 15 12 9 6" /></> },
-    { title: 'Onboarding and consulting', body: <>Some organisations can implement independently; others may want technical support from Dalgo. <a href="consulting.html">View consulting offerings <span aria-hidden="true">→</span></a></>,
-      icon: <><circle cx="9" cy="9" r="3.2" /><path d="M3.5 20c0-3.2 2.5-5.5 5.5-5.5s5.5 2.3 5.5 5.5" /><circle cx="17.5" cy="10.5" r="2.6" /><path d="M14.8 20c.2-2.6 2-4.4 4.5-4.4" /></> },
   ];
   return (
     <section className="ctpf-section" id="costs-to-plan-for">
@@ -199,15 +210,9 @@ const FeatureGrid = () => {
           ))}
         </div>
         <div className="feat-notes">
-          {/* NOTE: warehouse storage range ($250–500/yr) — verify against Jan 2026 pricing doc. */}
           <p className="feat-note">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10a4 4 0 0 0-7.7-1.3A3.5 3.5 0 1 0 7 16h10a3.5 3.5 0 0 0 1-6.9" /></svg>
-            Warehouse storage is billed separately by your cloud provider — typically $250–500/year. Your data stays in your own account.
-          </p>
-          {/* NOTE: Superset add-on has its own annual price (~₹48,000/yr) — omitted until verified. */}
-          <p className="feat-note">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg>
-            Use Dalgo's built-in visualisation and reporting, or bring the BI tool your team already knows — Power BI or Superset.
+            Warehouse and any additional visualisation tool are the two costs outside this fee — see "Costs to plan for" below.
           </p>
         </div>
       </div>
@@ -215,53 +220,18 @@ const FeatureGrid = () => {
   );
 };
 
-// Section 4 — What you get, and how we work together (replaces the old cost-driver section).
-const HowWeWork = () => {
-  // NOTE: engagement-area tags — verify verbatim against consulting blog terminology (BM-254).
-  const steps = [
-    { n: '1', title: 'Understand', value: 'We map where your data lives and what your team needs.',
-      tags: ['Data Lifecycle Audit', 'Data strategy & maturity mapping', 'MEL systems design'] },
-    { n: '2', title: 'Automate', value: 'Pipelines run, dashboards go live, reports build themselves.',
-      tags: ['Integration & setup', 'Pipeline automation', 'Dashboard build'] },
-    { n: '3', title: 'Learn, act, share', value: "Reviews grounded in data. Funder reports ready before they're asked for.",
-      tags: ['Training & enablement', 'Ongoing support', 'Community'] },
-  ];
-  return (
-    <section className="hww-section" id="how-we-work">
-      <div className="container">
-        <div className="section-head section-head-center">
-          <h2 className="section-title">What you get, and how we <span className="hl-underline">work together</span></h2>
-          <p className="section-sub" style={{ maxWidth: 640, margin: '12px auto 0' }}>Value and the work we do alongside your team — from first audit to funder-ready reporting.</p>
-        </div>
-        <div className="hww-grid">
-          {steps.map((s) => (
-            <article className="hww-card" key={s.n}>
-              <span className="hww-badge">{s.n}</span>
-              <h3 className="hww-title">{s.title}</h3>
-              <p className="hww-value">{s.value}</p>
-              <div className="hww-tags">
-                {s.tags.map((t, i) => <span className="hww-tag" key={i}>{t}</span>)}
-              </div>
-            </article>
-          ))}
-        </div>
-        <p className="hww-never">Never per-user, per-source, or per-row.</p>
-      </div>
-    </section>
-  );
-};
-
-// Section 5 — Not sure which plan fits? (pro bono escape hatch — appears exactly once)
+// Section 5 — Pro Bono Data Consulting (complimentary one-hour discovery session).
+// The Google-Form "apply" button and the consulting-card pro-bono line were removed 1 Aug;
+// the discovery session is now booked through Book a Free Consultation.
 const ProBonoBand = () => (
   <section className="probono-band" id="pro-bono">
     <div className="container probono-inner">
       <div className="probono-copy">
-        <h2 className="probono-h">Not sure which plan fits?</h2>
-        <p className="probono-sub">Apply for Pro Bono Data Consulting — we'll look at your data setup together and recommend the right path, no strings attached.</p>
+        <h2 className="probono-h">Pro Bono Data Consulting</h2>
+        <p className="probono-sub">A complimentary one-hour discovery session: we'll understand your organisation's data challenges, assess your current setup, and recommend the most appropriate next steps — including a Dalgo solution, if it's the right fit.</p>
       </div>
-      {/* NOTE: Pro Bono form URL confirmed current (July 2026). */}
-      <a className="cmh-btn cmh-btn-primary probono-cta" href="https://forms.gle/envgKD2VeRq3Un5y6" target="_blank" rel="noopener">
-        Apply for Pro Bono Consulting
+      <a className="cmh-btn cmh-btn-primary probono-cta" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
+        Book a Free Consultation
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
       </a>
     </div>
@@ -297,23 +267,9 @@ const PricingProof = () => (
   </section>
 );
 
-// Section 7 — How does pricing work? (kept, tightened, positively framed)
-const PricingFAQ = () => (
-  <section className="pricing-explainer" id="how-pricing-works">
-    <div className="container">
-      <div className="pricing-faq">
-        <h2 className="pfaq-q">How does pricing work?</h2>
-        <p className="pfaq-a">Dalgo is free to host — it's open source. Choose managed hosting for one flat annual fee that covers your whole team and every data source, and add consulting time whenever you want hands-on help. You always keep your data in your own warehouse.</p>
-      </div>
-    </div>
-  </section>
-);
-
 window.PricingHero = PricingHero;
 window.PricingPlans = PricingPlans;
 window.CostsToPlanFor = CostsToPlanFor;
 window.FeatureGrid = FeatureGrid;
-window.HowWeWork = HowWeWork;
 window.ProBonoBand = ProBonoBand;
 window.PricingProof = PricingProof;
-window.PricingFAQ = PricingFAQ;

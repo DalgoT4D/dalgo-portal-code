@@ -46,22 +46,23 @@ const CO_ICON = {
   probono: <svg viewBox="0 0 40 40"><path d="M20 33s-11-6.6-11-14a6.5 6.5 0 0 1 11-4.6A6.5 6.5 0 0 1 31 19c0 7.4-11 14-11 14z"></path></svg>,
 };
 const ConsultingOfferings = () => {
+  // Sentence-case headings (design-system copy rule); Pro bono last.
   const offers = [
-    { ic: 'discover', h: 'Data Discovery', p: 'A structured look at where your data stands today — sources, gaps, and the quickest wins. Often the first engagement.' },
-    { ic: 'strategy', h: 'Data Strategy', p: 'A realistic roadmap from where your data is now to where your mission needs it to be.' },
+    { ic: 'discover', h: 'Data discovery', p: 'A structured look at where your data stands today — sources, gaps, and the quickest wins. Often the first engagement.' },
     { ic: 'advisory', h: 'Advisory', p: 'Ongoing counsel for data decisions — tooling, governance, architecture, and hiring.' },
-    { ic: 'capacity', h: 'Capacity Building', p: 'Training for M&E and program teams, so the systems we build together keep working after the engagement ends.' },
-    { ic: 'ai', h: 'AI Readiness', p: 'Assess where AI can help your programmes, and get your data ready for it.' },
-    { ic: 'mel', h: 'Monitoring & Evaluation', p: 'Log frames, indicators, and collection formats that flow straight into your dashboards and reports.' },
-    { ic: 'impl', h: 'Implementation Support', p: 'Hands-on help connecting sources, cleaning data, and getting pipelines live in production.' },
-    { ic: 'probono', h: 'Pro Bono Consulting', p: 'For eligible nonprofits — one-on-one help mapping your data lifecycle and deciding what to build first.', link: { l: 'Apply for Pro Bono Consulting', h: 'https://forms.gle/envgKD2VeRq3Un5y6', ext: true } },
+    { ic: 'capacity', h: 'Capacity building', p: 'Training for M&E and program teams, so the systems we build together keep working after the engagement ends.' },
+    { ic: 'ai', h: 'AI readiness', p: 'Assess where AI can help your programmes, and get your data ready for it.' },
+    { ic: 'mel', h: 'Monitoring & evaluation', p: 'Log frames, indicators, and collection formats that flow straight into your dashboards and reports.' },
+    { ic: 'strategy', h: 'Data strategy', p: 'A realistic roadmap from where your data is now to where your mission needs it to be.' },
+    { ic: 'impl', h: 'Implementation support', p: 'Hands-on help connecting sources, cleaning data, and getting pipelines live in production.' },
+    { ic: 'probono', h: 'Pro bono consulting', p: 'For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and recommend the right next steps.', link: { l: 'Book a Free Consultation', h: 'https://forms.gle/vfMNUNHTwDWB4qm66', ext: true } },
   ];
   return (
     <section className="pg-section alt">
       <div className="container">
         <div className="pg-section-head">
           <h2 className="pg-h2">Common <span className="hl-underline">engagement areas</span></h2>
-          <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Every engagement is scoped with you. Platform plans start from Basic — see <a href="pricing.html">pricing</a>.</p>
+          <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Every engagement is scoped with you. See our flat <a href="pricing.html">platform pricing</a>.</p>
         </div>
         <div className="co-grid">
           {offers.map((o) => (
