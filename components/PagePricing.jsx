@@ -35,7 +35,7 @@ const PricingHero = () => (
 );
 
 const Check = () => (
-  <svg className="plan-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
+  <span className="plan-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg></span>
 );
 
 // Region-priced SaaS + Consulting, shown as two headline cards (Anthropic-style tier disclosure —
@@ -79,44 +79,49 @@ const PricingPlans = () => {
         <div className="pricing-grid pricing-grid-two">
           <article className="plan-card plan-card-accent">
             <span className="plan-tag">Most NGOs choose this</span>
-            <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg></span>
-            <h2 className="plan-name">Dalgo SaaS</h2>
-            <p className="plan-tagline">The platform, hosted and maintained for you</p>
-            <div className="plan-price">
-              <span>{r.saas.price}</span>
-              <span className="plan-period">{r.saas.period}</span>
+            <div className="plan-head">
+              <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2" /><path d="M8 20h8M12 18v2" /></svg></span>
+              <h2 className="plan-name">Dalgo SaaS</h2>
+              <p className="plan-tagline">The platform, hosted and maintained for you.</p>
             </div>
-            <div className="plan-note">{r.saas.alt} · flat organisation pricing</div>
-            <a className="cmh-btn plan-cta cmh-btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
+            <div className="plan-priceblock">
+              <div className="plan-price"><span className="plan-amt">{r.saas.price}</span><span className="plan-period">{r.saas.period}</span></div>
+              <div className="plan-note">{r.saas.alt} · flat organisation pricing</div>
+            </div>
+            <a className="cmh-btn cmh-btn-primary plan-cta" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
               {tc.label}
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </a>
-            <div className="plan-includes-h">Includes:</div>
-            <ul className="plan-features">
-              <li><Check />Dalgo hosts &amp; maintains your instance</li>
-              <li><Check />Flat price, whether 10 or 100 users</li>
-              <li><Check />Updates, monitoring &amp; backups handled for you</li>
-              <li><Check />Priority support</li>
-            </ul>
+            <div className="plan-includes">
+              <div className="plan-includes-h">Includes</div>
+              <ul className="plan-features">
+                <li><Check />Dalgo hosts &amp; maintains your instance</li>
+                <li><Check />Flat price, whether 10 or 100 users</li>
+                <li><Check />Updates, monitoring &amp; backups handled for you</li>
+                <li><Check />Priority support</li>
+              </ul>
+            </div>
           </article>
           <article className="plan-card">
-            <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /></svg></span>
-            <h2 className="plan-name">Consulting</h2>
-            <p className="plan-tagline">Hands-on help to design and run your data systems</p>
-            <div className="plan-price">
-              <span className="plan-from">from</span>
-              <span>{r.consulting.price}</span>
-              <span className="plan-period">{r.consulting.period}</span>
+            <div className="plan-head">
+              <span className="plan-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /></svg></span>
+              <h2 className="plan-name">Consulting</h2>
+              <p className="plan-tagline">Hands-on help to design and run your data systems.</p>
             </div>
-            <div className="plan-note">Scoped with you before any work begins</div>
-            <a className="cmh-btn plan-cta cmh-btn-ghost" href="contact.html">
+            <div className="plan-priceblock">
+              <div className="plan-price"><span className="plan-from">from</span><span className="plan-amt">{r.consulting.price}</span><span className="plan-period">{r.consulting.period}</span></div>
+              <div className="plan-note">Scoped with you before any work begins</div>
+            </div>
+            <a className="cmh-btn cmh-btn-primary plan-cta" href="contact.html">
               Book a Free Consultation
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </a>
-            <div className="plan-includes-h">Engagement areas:</div>
-            <ul className="plan-features plan-features-tags">
-              {CONSULTING_AREAS.map((a) => <li key={a}><Check />{a}</li>)}
-            </ul>
-            <a className="plan-support-link" href="https://forms.gle/envgKD2VeRq3Un5y6" target="_blank" rel="noopener">Or apply for Pro Bono Consulting <span aria-hidden="true">→</span></a>
+            <div className="plan-includes">
+              <div className="plan-includes-h">Engagement areas</div>
+              <ul className="plan-features plan-features-tags">
+                {CONSULTING_AREAS.map((a) => <li key={a}><Check />{a}</li>)}
+              </ul>
+            </div>
           </article>
         </div>
         <p className="pricing-helper">Not sure what's right for you? <a href="contact.html">Schedule a call</a> and we'll help you figure out the right mix.</p>
@@ -134,7 +139,7 @@ const CostsToPlanFor = () => {
   const items = [
     { title: 'Warehouse', body: 'Not borne by Dalgo. Provision AWS RDS PostgreSQL or BigQuery — billed directly by your cloud provider, typically $250–500/year.',
       icon: <><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6" /><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" /></> },
-    { title: 'Additional viz tool (optional)', body: "Not borne by Dalgo. Dalgo's native dashboards are included — bringing another BI tool (Power BI, Superset) is billed separately by that vendor.",
+    { title: 'Additional Visualization Tool', body: "Not borne by Dalgo. Dalgo's native dashboards are included — bringing another BI tool (Power BI, Superset) is billed separately by that vendor.",
       icon: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></> },
   ];
   return (
@@ -249,17 +254,18 @@ const HowWeWork = () => {
   );
 };
 
-// Section 5 — Not sure which plan fits? (pro bono escape hatch — appears exactly once)
+// Section 5 — Pro Bono Data Consulting (complimentary one-hour discovery session).
+// The Google-Form "apply" button and the consulting-card pro-bono line were removed 1 Aug;
+// the discovery session is now booked through Book a Free Consultation.
 const ProBonoBand = () => (
   <section className="probono-band" id="pro-bono">
     <div className="container probono-inner">
       <div className="probono-copy">
-        <h2 className="probono-h">Not sure which plan fits?</h2>
-        <p className="probono-sub">Apply for Pro Bono Data Consulting — we'll look at your data setup together and recommend the right path, no strings attached.</p>
+        <h2 className="probono-h">Pro Bono Data Consulting</h2>
+        <p className="probono-sub">A complimentary one-hour discovery session: we'll understand your organisation's data challenges, assess your current setup, and recommend the most appropriate next steps — including a Dalgo solution, if it's the right fit.</p>
       </div>
-      {/* NOTE: Pro Bono form URL confirmed current (July 2026). */}
-      <a className="cmh-btn cmh-btn-primary probono-cta" href="https://forms.gle/envgKD2VeRq3Un5y6" target="_blank" rel="noopener">
-        Apply for Pro Bono Consulting
+      <a className="cmh-btn cmh-btn-primary probono-cta" href="contact.html">
+        Book a Free Consultation
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
       </a>
     </div>
@@ -295,18 +301,6 @@ const PricingProof = () => (
   </section>
 );
 
-// Section 7 — How does pricing work? (kept, tightened, positively framed)
-const PricingFAQ = () => (
-  <section className="pricing-explainer" id="how-pricing-works">
-    <div className="container">
-      <div className="pricing-faq">
-        <h2 className="pfaq-q">How does pricing work?</h2>
-        <p className="pfaq-a">Dalgo is free to host — it's open source. Choose managed hosting for one flat annual fee that covers your whole team and every data source, and add consulting time whenever you want hands-on help. You always keep your data in your own warehouse.</p>
-      </div>
-    </div>
-  </section>
-);
-
 window.PricingHero = PricingHero;
 window.PricingPlans = PricingPlans;
 window.CostsToPlanFor = CostsToPlanFor;
@@ -314,4 +308,3 @@ window.FeatureGrid = FeatureGrid;
 window.HowWeWork = HowWeWork;
 window.ProBonoBand = ProBonoBand;
 window.PricingProof = PricingProof;
-window.PricingFAQ = PricingFAQ;

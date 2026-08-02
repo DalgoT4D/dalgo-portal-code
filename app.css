@@ -614,20 +614,22 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* ---------- 20. Pricing ---------- */
 .pricing-section { background: var(--surface-0); padding: clamp(56px, 7vw, 92px) 0; }
 .pricing-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 380px)); gap: 24px; align-items: stretch; justify-content: center; }
-.plan-card { display: flex; flex-direction: column; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 32px 28px; box-shadow: var(--shadow-md); }
+.plan-card { position: relative; display: flex; flex-direction: column; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 30px 28px 34px; box-shadow: var(--shadow-md); }
 .plan-card-accent { border-color: var(--teal); box-shadow: var(--shadow-lg); }
-.plan-card-accent::before { content: ""; display: block; height: 3px; width: 44px; border-radius: 3px; background: var(--teal-hover); margin-bottom: 18px; }
-.plan-name { margin: 0 0 14px; }
-.plan-price { display: flex; align-items: baseline; gap: 8px; font-weight: 700; font-size: 34px; line-height: 1; color: var(--ink); letter-spacing: -0.03em; }
-.plan-from { font-size: 14px; font-weight: 600; color: var(--ink-2); letter-spacing: 0; }
-.plan-tbd { font-size: 22px; color: var(--teal-ink); }
-.plan-note { margin-top: 8px; color: var(--ink-2); }
-.plan-desc { margin: 16px 0 20px; }
-.plan-features { list-style: none; margin: 0 0 26px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-.plan-features li { display: flex; align-items: flex-start; gap: 10px; }
-.plan-check { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; fill: none; stroke: var(--teal-hover); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.plan-cta { width: 100%; justify-content: center; margin-top: 20px; }
-.plan-period { font-size: 15px; font-weight: 500; color: var(--ink-2); letter-spacing: 0; }
+.plan-head { min-height: 140px; }
+.plan-name { margin: 0 0 6px; font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.plan-priceblock { min-height: 82px; margin-top: 4px; padding-top: 18px; border-top: 1px solid var(--hairline); }
+.plan-price { display: flex; align-items: baseline; gap: 7px; }
+.plan-amt { font-weight: 700; font-size: 34px; line-height: 1; color: var(--ink); letter-spacing: -0.03em; }
+.plan-from { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); }
+.plan-period { font-size: 15px; font-weight: 500; color: var(--ink-2); }
+.plan-note { margin-top: 8px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.plan-cta { width: 100%; justify-content: center; margin-top: 18px; padding-top: 11px; padding-bottom: 11px; }
+.plan-includes { display: flex; flex-direction: column; flex: 1; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.plan-features { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
+.plan-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.45; color: var(--ink); }
+.plan-check { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: color-mix(in srgb, var(--teal) 13%, #fff); display: grid; place-items: center; }
+.plan-check svg { width: 14px; height: 14px; fill: none; stroke: var(--teal-hover); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Region toggle + two headline plan cards, Anthropic-style tier disclosure (pricing page) */
 .pricing-region-toggle { display: flex; justify-content: center; gap: 8px; margin: 20px 0 40px; flex-wrap: wrap; }
@@ -635,15 +637,13 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .pr-toggle-btn:hover { background: var(--surface-1); border-color: var(--teal); }
 .pr-toggle-btn.is-active { background: var(--teal-ink); border-color: var(--teal-ink); color: #fff; box-shadow: var(--shadow-md); }
 .pricing-grid-two { grid-template-columns: repeat(2, minmax(0, 400px)); }
-.plan-ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: var(--surface-1); margin-bottom: 18px; }
+.plan-ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: var(--surface-1); margin-bottom: 16px; }
 .plan-ic svg { width: 22px; height: 22px; fill: none; stroke: var(--teal-ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.plan-tagline { margin: 0 0 18px; font-size: 14.5px; color: var(--ink-2); }
-.plan-includes-h { margin: 22px 0 12px; padding-top: 22px; border-top: 1px solid var(--hairline); font-size: 12.5px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
-.plan-features-tags li { font-size: 14.5px; }
+.plan-tagline { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+.plan-includes-h { margin: 0 0 14px; font-size: 12px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
+.plan-features-tags li { font-size: 15px; }
 .pricing-helper { text-align: center; margin: 32px 0 0; font-size: 14.5px; color: var(--ink-2); }
 .pricing-helper a { color: var(--teal-ink); font-weight: 600; }
-.plan-support-link { display: inline-block; margin-top: auto; padding-top: 16px; font-size: 13.5px; font-weight: 600; color: var(--teal-ink); }
-.plan-support-link:hover { color: var(--navy); }
 
 /* Costs-to-plan-for accordion (pricing page) */
 .ctpf-section { background: var(--surface-1); border-top: 1px solid var(--hairline); padding: clamp(56px, 7vw, 92px) 0; }
