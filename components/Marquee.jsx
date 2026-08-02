@@ -1,3 +1,5 @@
+// Trust — single-line auto-scrolling logo marquee. Every logo sits in an identical
+// container and is rendered monochrome for consistent visual weight.
 const Marquee = () => {
   const logos = [
   { name: 'SHRI', src: 'assets/logos/SHRI.png' },
@@ -18,19 +20,15 @@ const Marquee = () => {
 
   const track = [...logos, ...logos];
   return (
-    <div className="marquee-wrap" data-comment-anchor="b6144152ed-div-21-5">
+    <div className="marquee-wrap">
       <div className="marquee-label">Trusted by 25+ nonprofits across multiple sectors</div>
       <div className="logo-marquee">
         <div className="logo-marquee-track">
-          {track.map((l, i) =>
-          <div className="logo-tile" key={`${l.name}-${i}`} aria-hidden={i >= logos.length ? 'true' : undefined}>
-            <img
-              src={l.src}
-              alt={i >= logos.length ? '' : l.name}
-              className="logo-img"
-              loading="lazy" />
-          </div>
-          )}
+          {track.map((l, i) => (
+            <div className="logo-tile" key={`${l.name}-${i}`} aria-hidden={i >= logos.length ? 'true' : undefined}>
+              <img src={l.src} alt={i >= logos.length ? '' : l.name} className="logo-img" loading="lazy" />
+            </div>
+          ))}
         </div>
       </div>
     </div>);

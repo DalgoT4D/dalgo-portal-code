@@ -32,8 +32,8 @@ const Nurture = () => {
       <div className="container">
         <div className="section-head section-head-center">
           <h2 className="section-title">Join the Dalgo <span className="hl-underline">community</span></h2>
+          <p className="section-sub nurture-intro">Whether you're already using Dalgo or simply looking to improve your organisation's data practices, our community offers practical resources, live learning, and peer support.</p>
         </div>
-        <p className="section-sub nurture-intro">Whether you're already using Dalgo or simply looking to improve your organisation's data practices, our community offers practical resources, live learning, and peer support.</p>
         <div className="nurture-grid nurture-grid-4">
           {cards.map((c, i) =>
           <div key={i} className="nurture-card">

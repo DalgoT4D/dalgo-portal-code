@@ -75,7 +75,7 @@ p { margin: 0; }
 .plan-desc, .plan-features li, .pex-card p, .pfaq-a, .legal-block p, .legal-list li,
 .we-desc, .we-row-d, .csf-copy, .cmh-news-desc, .why-copy p, .pl-mission-body p, .pl-afford-card p,
 .st-body, .flow-row p, .imx-seq-card p, .about-triad-col p
-{ font-size: 18px; line-height: 1.6; color: var(--ink-2); }
+{ font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 66ch; }
 
 /* Small / caption (14) */
 .team-role, .team-li, .price-note, .si-pill, .csf-metric-cap, .cmh-news-tagline,
@@ -85,7 +85,8 @@ p { margin: 0; }
 /* Eyebrows / labels — uppercase, teal-ink (AA on white) */
 .cvh-eyebrow, .pg-eyebrow, .nurture-label, .prf-stat-overline, .st-label, .st-intro-eyebrow,
 .imx-seq-step, .tc-eyebrow, .final-cta-eyebrow, .cmh-eyebrow, .ll-eyebrow, .pf-eyebrow,
-.we-panel-tag, .csf-eyebrow, .faq-cat, .marquee-label, .cust-ba-label {
+.we-panel-tag, .csf-eyebrow, .faq-cat, .marquee-label, .cust-ba-label,
+.hdh-eyebrow, .hdh-cat {
   font-family: "Inter", sans-serif;
   font-size: 13px; font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase;
@@ -149,8 +150,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* ---------- 5. Section utilities ---------- */
 .section { padding: var(--section-pad) 0; position: relative; }
 .section-head { margin: 0 auto 48px; max-width: 760px; }
-.section-head-center { text-align: center; max-width: 760px; margin: 0 auto 48px; }
-.section-head-center .section-sub { margin: 16px auto 0; max-width: 640px; }
+.section-head-center { text-align: center; max-width: 100%; margin: 0 auto 48px; }
+.section-head-center .section-sub { margin: 16px auto 0; max-width: 100%; }
 
 /* ---------- 6. Nav ---------- */
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.9); -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid transparent; transition: border-color .2s ease; }
@@ -274,13 +275,28 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* ---------- 10. Marquee ---------- */
 .marquee-wrap { padding: var(--section-pad) 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
 .marquee-label { text-align: center; color: color-mix(in srgb, var(--ink-2) 82%, #fff); margin-bottom: 32px; }
-.logo-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
-.logo-marquee-track { display: flex; align-items: stretch; gap: 20px; width: max-content; animation: logoScroll 60s linear infinite; }
+.logo-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.logo-marquee-track { display: flex; align-items: stretch; gap: 28px; width: max-content; animation: logoScroll 60s linear infinite; }
 @keyframes logoScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .logo-marquee:hover .logo-marquee-track { animation-play-state: paused; }
-.logo-tile { flex-shrink: 0; width: 148px; height: 92px; display: grid; place-items: center; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 18px 22px; box-shadow: var(--shadow-sm); transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease; }
-.logo-tile:hover { box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--ink) 12%, #fff); transform: translateY(-2px); }
-.logo-tile .logo-img { height: auto; max-height: 46px; max-width: 100%; width: auto; }
+.logo-tile { flex-shrink: 0; width: 150px; height: 84px; display: grid; place-items: center; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 16px 22px; box-shadow: var(--shadow-sm); }
+.logo-tile .logo-img { max-height: 38px; max-width: 100%; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(0.85); opacity: 0.72; }
+
+/* ---------- 10b. How Dalgo Helps (solution cards) ---------- */
+.hdh-section { padding: var(--section-pad) 0; }
+.hdh-eyebrow { margin: 0 0 12px; }
+.hdh-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 44px; }
+.hdh-card { display: flex; flex-direction: column; overflow: hidden; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.hdh-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: color-mix(in srgb, var(--ink) 12%, #fff); }
+.hdh-thumb { aspect-ratio: 3 / 2; overflow: hidden; background: var(--surface-2); }
+.hdh-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hdh-body { display: flex; flex-direction: column; flex: 1; padding: 24px 24px 26px; gap: 10px; }
+.hdh-cat { margin: 0; }
+.hdh-title { font-size: 20px; font-weight: 700; line-height: 1.25; color: var(--ink); margin: 2px 0 0; }
+.hdh-text { color: var(--ink-2); line-height: 1.6; margin: 0; flex: 1; }
+.hdh-cta { align-self: flex-start; margin-top: 6px; }
+@media (max-width: 900px) { .hdh-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .hdh-grid { grid-template-columns: 1fr; } }
 
 /* ---------- 11. Proof collage ---------- */
 .pcx-section { background: var(--surface-0); padding: 72px 0; }
@@ -491,7 +507,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .pg-section-head { max-width: 760px; margin: 0 auto 48px; text-align: center; }
 .pg-section-head.left { text-align: left; margin-left: 0; }
 .pg-h2 { margin: 0; }
-.pg-section-sub { margin: 16px auto 0; max-width: 640px; }
+.pg-section-sub { margin: 16px auto 0; max-width: 560px; }
 .pg-section-head.left .pg-section-sub { margin-left: 0; }
 /* Legal / privacy */
 .legal-hero { padding-bottom: 64px; }
@@ -1319,8 +1335,8 @@ html, body { max-width: 100%; overflow-x: clip; }
 .pcx-eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-ink); margin: 0 0 14px; }
 .prf-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; max-width: var(--container); margin: 0 auto; }
 .prf-tcard { display: flex; flex-direction: column; margin: 0; background: var(--surface-1); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 28px; }
-.prf-tcard blockquote { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink); }
-.prf-tcard figcaption { margin-top: auto; padding-top: 14px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--hairline) 70%, transparent); display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.prf-tcard blockquote { margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: var(--ink); }
+.prf-tcard figcaption { margin-top: auto; min-height: 120px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--hairline) 70%, transparent); display: flex; flex-direction: column; justify-content: flex-start; gap: 3px; font-size: 14px; }
 .prf-tname { font-weight: 600; color: var(--ink); }
 .prf-trole { color: var(--ink-2); }
 @media (max-width: 768px) { .prf-wall { grid-template-columns: 1fr; max-width: 640px; } }

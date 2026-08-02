@@ -49,7 +49,7 @@
   --space-8: 96px;
 
   /* Section padding & container */
-  --section-pad: 96px;
+  --section-pad: 64px;
   --container: 1200px;
 }
-@media (max-width: 768px) { :root { --section-pad: 48px; } }
+@media (max-width: 768px) { :root { --section-pad: 40px; } }
