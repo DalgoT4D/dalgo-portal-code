@@ -31,7 +31,7 @@ const FooterV2 = () =>
         <div className="fx-col">
           <h2 className="fx-h">Resources</h2>
           <a href="about.html">About</a>
-          <a href="learn.html">Learn</a>
+          <a href="community.html">Community</a>
           <a href="faq.html">Frequently Asked Questions</a>
         </div>
         <div className="fx-col">

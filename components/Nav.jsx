@@ -35,13 +35,13 @@ const Nav = () => {
   page = page.toLowerCase().replace(/\.html$/, '');
   const isHome = page === '' || page === 'index' || page === 'home page';
   const is = (k) => page === k;
-  const resourcesActive = is('learn') || is('faq');
+  const resourcesActive = is('community') || is('faq');
   // BM-337 (resolved 30 Jul): nav label renamed "Case Studies", href stays case-studies.html
   // BM-335/346 (resolved 30 Jul): About moved out of Resources into footer-only; Learn + FAQ stay under Resources
   const tc = window.trialCta ? window.trialCta() : { label: 'Start Free Trial', href: 'https://insights.dalgo.org/trial', ext: true };
   const trialReady = !!(window.SITE_CONFIG && window.SITE_CONFIG.TRIAL_READY);
   const resourceLinks = [
-    { href: 'learn.html', label: 'Learn' },
+    { href: 'community.html', label: 'Community' },
     { href: 'faq.html', label: 'FAQs' },
   ];
   const NavLink = ({ href, active, extra, children }) => (

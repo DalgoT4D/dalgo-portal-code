@@ -21,8 +21,13 @@
       "permanent": true
     },
     {
+      "source": "/learn",
+      "destination": "/community",
+      "permanent": true
+    },
+    {
       "source": "/join-us",
-      "destination": "/learn",
+      "destination": "/community",
       "permanent": true
     },
     {
@@ -37,7 +42,7 @@
     },
     {
       "source": "/resources",
-      "destination": "/learn",
+      "destination": "/community",
       "permanent": true
     }
   ],
