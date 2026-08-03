@@ -73,7 +73,7 @@ const CommunityWebinar = () => (
             Register for the next session, or explore everything on our calendar.
           </p>
           <div className="cmh-webinar-actions">
-            <a href="https://luma.com/event/evt-puR9eu8WHSDp0op" target="_blank" rel="noopener" className="cmh-btn cmh-btn-primary">
+            <a href="https://luma.com/88btx8qo" target="_blank" rel="noopener" className="cmh-btn cmh-btn-primary">
               Register Now
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
@@ -82,7 +82,7 @@ const CommunityWebinar = () => (
         </div>
         <div className="cmh-webinar-embed">
           <iframe
-            src="https://luma.com/embed/event/evt-puR9eu8WHSDp0op/simple"
+            src="https://luma.com/embed/event/evt-JDiLqiFoziCQFvm/simple"
             width="100%"
             height="600"
             frameBorder="0"
