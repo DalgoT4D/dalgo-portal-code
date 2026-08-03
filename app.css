@@ -1446,7 +1446,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 /* Pro bono — a light-green accent card sitting in the grid, with the CTA inside it. */
 .co-probono-card { background: var(--surface-1); box-shadow: var(--shadow-md), inset 0 0 0 1px color-mix(in srgb, var(--teal) 22%, transparent); }
 .co-probono-card .co-ico { color: var(--teal-ink); }
-.co-probono-btn { margin-top: auto; align-self: flex-start; }
+.co-probono-btn { margin-top: 16px; align-self: flex-start; font-size: 13px; line-height: 1; padding: 10px 18px; }
 @media (max-width: 1024px) { .co-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .co-grid { grid-template-columns: 1fr; } }
 .ct-steps { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
