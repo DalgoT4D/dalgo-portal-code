@@ -9,7 +9,7 @@ const ConsultingHero = () => (
     eyebrow="Consulting"
     headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
-    ctas={<HeroCTAs primaryLabel="Talk to an Expert" primaryHref="contact.html" secondaryLabel="Explore Our Work" secondaryHref="case-studies.html" />}
+    ctas={<HeroCTAs primaryLabel="Book Free Consultation" primaryHref="contact.html" secondaryLabel="Explore Our Work" secondaryHref="case-studies.html" />}
   >
     <div className="cvh-visual">
       <figure className="cvh-figure">
@@ -17,17 +17,6 @@ const ConsultingHero = () => (
       </figure>
     </div>
   </SiteHero>
-);
-const WhatIsConsulting = () => (
-  <section className="pg-section">
-    <div className="container">
-      <div className="section-head section-head-center">
-        <p className="pg-eyebrow">What is Dalgo Consulting?</p>
-        <h2 className="section-title">Strategic data expertise for <span className="hl-underline">every stage</span> of your data journey</h2>
-        <p className="section-sub">Whether you're building a monitoring framework, cleaning fragmented data, designing executive dashboards, evaluating programme performance, or preparing for AI adoption, our consultants work alongside your team to solve real operational challenges. We combine deep nonprofit expertise with Dalgo's technology to help organizations build data systems they can trust and sustain.</p>
-      </div>
-    </div>
-  </section>
 );
 const CO_ICON = {
   discover: <svg viewBox="0 0 40 40"><circle cx="18" cy="18" r="9"></circle><path d="M25 25l8 8"></path></svg>,
@@ -39,8 +28,8 @@ const CO_ICON = {
   impl: <svg viewBox="0 0 40 40"><circle cx="13" cy="20" r="6"></circle><circle cx="27" cy="20" r="6"></circle><path d="M19 20h2"></path></svg>,
   probono: <svg viewBox="0 0 40 40"><path d="M20 33s-11-6.6-11-14a6.5 6.5 0 0 1 11-4.6A6.5 6.5 0 0 1 31 19c0 7.4-11 14-11 14z"></path></svg>,
 };
-const ConsultingOfferings = () => {
-  // Sentence-case headings (design-system copy rule); Pro bono last.
+const StrategicExpertise = () => {
+  // Sentence-case headings (design-system copy rule). Pro bono lives as a line + button below the grid.
   const offers = [
     { ic: 'discover', h: 'Data discovery', p: 'A structured look at where your data stands today — sources, gaps, and the quickest wins. Often the first engagement.' },
     { ic: 'advisory', h: 'Advisory', p: 'Ongoing counsel for data decisions — tooling, governance, architecture, and hiring.' },
@@ -49,14 +38,14 @@ const ConsultingOfferings = () => {
     { ic: 'mel', h: 'Monitoring & evaluation', p: 'Log frames, indicators, and collection formats that flow straight into your dashboards and reports.' },
     { ic: 'strategy', h: 'Data strategy', p: 'A realistic roadmap from where your data is now to where your mission needs it to be.' },
     { ic: 'impl', h: 'Implementation support', p: 'Hands-on help connecting sources, cleaning data, and getting pipelines live in production.' },
-    { ic: 'probono', h: 'Pro bono consulting', p: 'For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and recommend the right next steps.', link: { l: 'Book a Free Consultation', h: 'https://forms.gle/vfMNUNHTwDWB4qm66', ext: true } },
   ];
   return (
     <section className="pg-section alt">
       <div className="container">
-        <div className="pg-section-head">
-          <h2 className="pg-h2">Common <span className="hl-underline">engagement areas</span></h2>
-          <p className="pg-section-sub" style={{ margin: '12px auto 0' }}>Every engagement is scoped with you. See our flat <a href="pricing.html">platform pricing</a>.</p>
+        <div className="section-head section-head-center">
+          <p className="pg-eyebrow">What Dalgo Consulting does</p>
+          <h2 className="section-title">Strategic data expertise for <span className="hl-underline">every stage</span> of your data journey</h2>
+          <p className="section-sub se-sub">From monitoring frameworks to executive dashboards to AI readiness, our consultants pair nonprofit expertise with Dalgo's technology to build data systems you can trust.</p>
         </div>
         <div className="co-grid">
           {offers.map((o) => (
@@ -64,57 +53,122 @@ const ConsultingOfferings = () => {
               <span className="co-ico" aria-hidden="true">{CO_ICON[o.ic]}</span>
               <h3>{o.h}</h3>
               <p>{o.p}</p>
-              {o.link && <a className="co-link" href={o.link.h} target={o.link.ext ? "_blank" : undefined} rel={o.link.ext ? "noopener" : undefined}>{o.link.l} {o.link.ext ? <svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg> : <span aria-hidden="true">→</span>}</a>}
             </article>
+          ))}
+          <article className="co-card co-probono-card">
+            <span className="co-ico" aria-hidden="true">{CO_ICON.probono}</span>
+            <h3>Pro bono consulting</h3>
+            <p>For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and the right next steps.</p>
+            <a className="btn btn-primary co-probono-btn" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">Book Free Consultation</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+};
+// Customer voices — single-row testimonial carousel. Uniform full-width text cards (visual
+// consistency prioritised; no per-card images since full verbatim quotes crowd a side panel).
+// Quotes are VERBATIM from the customer-voice sheet (verified 2026-08), with a SINGLE bolded outcome each.
+const CONSULT_DESK = [
+  { tag: 'Team Capacity Building', org: 'SHOFCO', logo: 'assets/logos/SHOFCO.png',
+    quote: <>We were able to undertake training from the Dalgo team — Pratiksha, who trained us; there were three of us, and I was one member of that training cohort. They were able to take us through different data engineering concepts, and gave us <strong>over 40 hours of training to build our capacity.</strong></>,
+    name: 'Sheila Codawa', desig: 'IT Officer' },
+  { tag: 'Schema Co-Design', org: 'Bhumi', logo: 'assets/logos/Bhumi.png', avatar: 'assets/voices/anusha-avatar.webp',
+    quote: <>Even so, when we came to Dalgo we had our own schema in mind, and Rito and the team helped us see why what we had drawn up wouldn't actually work well — both for using the tool and for summarising our data the way we needed. They helped us redesign it, and we ended up with <strong>a schema that was much more efficient for our reporting.</strong></>,
+    name: 'Anusha Vishwanath', desig: 'EA to the Co-founder' },
+  { tag: 'Consulting-led Setup', org: 'INREM Foundation', logo: 'assets/logos/INREM.webp', accent: true,
+    quote: <>For us, we had a lot of help from the Dalgo team — a lot of consulting, and just being able to <strong>set up the platform for us.</strong> A lot of it was done with the support from the Dalgo team. My colleague Kiran was working closely with the Dalgo team, and figuring a lot of things out.</>,
+    name: 'Rashika Pullam Chetti', desig: 'Program Lead – M&E' },
+  { tag: 'Sector Expertise', org: 'Baala', logo: 'assets/logos/Baala.png', avatar: 'assets/voices/karishma-avatar.webp',
+    quote: <>They (Dalgo) bring in a lot of sector knowledge in terms of what dashboards can look like, what is the kind of effort that we need to put in before and after that. So I think that helped us get into <strong>a very good space of getting our expectations clear.</strong></>,
+    name: 'Karishma Navalkar', desig: 'M&E Lead' },
+  { tag: 'Consultant Partnership', org: 'Durga India', logo: null, accent: true,
+    quote: <>Our Dalgo SPOC, Himanshu Dube, was super patient, helpful, and approachable in understanding our requirements and challenges. He helped us envision how Dalgo could support us — not just in creating dashboards, but <strong>in showing how data works in the transform stage.</strong></>,
+    name: 'Rajalakshmi R', desig: 'Learnings & Outcomes Lead' },
+  { tag: 'AI-Assisted Upskilling', org: 'Make A Difference', logo: 'assets/logos/MAD.png',
+    quote: <>One more thing Dalgo has helped us with — especially Siddhant during consultation — is teaching us how to use AI to build and manipulate these views that we then use to represent the data. <strong>That helped me a lot, because I'm not a coder.</strong></>,
+    name: 'Chetan', desig: 'Product Manager' },
+  { tag: 'Pipeline Engineering', org: 'Dasra', logo: 'assets/logos/Dasra.png',
+    quote: <>The consultant supported us with data engineering to <strong>set up and streamline the pipeline from Salesforce to Tableau</strong> via Dalgo. This is enabling automated data flow into our dashboards, reducing manual data handling and improving the reliability and timeliness of our reporting.</>,
+    name: 'Wayne Fernandes', desig: 'Data Associate' },
+  { tag: 'Hands-on Capability Building', org: 'Bhumi', logo: 'assets/logos/Bhumi.png', avatar: 'assets/voices/anusha-avatar.webp',
+    quote: <>In September we had a <strong>three-day in-person bootcamp</strong> with the Dalgo team where we learned to use the tool more deeply — including coding in DBT under Rito's guidance. That gave us real confidence to handle smaller problems on our own.</>,
+    name: 'Anusha Vishwanath', desig: 'EA to the Co-founder' },
+  { tag: 'Data Ownership', org: 'SHOFCO', logo: 'assets/logos/SHOFCO.png',
+    quote: <>So it has really built my capacity to not just be an IT Officer, but to be a point of support for the data team and the MEL teams. When they have challenges, now they can come to us to be able to <strong>start the troubleshooting process, rather than going directly to the consultant.</strong> So we appreciate that.</>,
+    name: 'Sheila Codawa', desig: 'IT Officer' },
+  { tag: 'Patient, Hands-on Setup', org: 'Goonj', logo: 'assets/logos/Goonj.png',
+    quote: <>Pratiksha and Siddhant were very helpful during the initial setup. They were <strong>very patient with team members and explained processes properly</strong> and sometime multiple times as well.</>,
+    name: 'Shivangi Desai', desig: 'Tech Lead' },
+];
+const ConsultantsDesk = () => {
+  const viewportRef = React.useRef(null);
+  const emblaRef = React.useRef(null);
+  const [active, setActive] = React.useState(0);
+  const [snaps, setSnaps] = React.useState([0]);
+  React.useEffect(() => {
+    const Embla = window.EmblaCarousel;
+    const AutoScroll = window.EmblaCarouselAutoScroll;
+    const vp = viewportRef.current;
+    if (!Embla || !vp) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Official AutoScroll plugin: slow, constant, continuous motion (marquee-like). Pauses on
+    // hover / keyboard focus and resumes on leave; a manual drag takes over smoothly. Off under reduced-motion.
+    const plugins = (!reduce && AutoScroll)
+      ? [AutoScroll({ speed: 0.8, startDelay: 0, stopOnInteraction: false, stopOnMouseEnter: true, stopOnFocusIn: true })]
+      : [];
+    const embla = Embla(vp, { loop: true, align: 'start', containScroll: 'trimSnaps', dragFree: true, duration: 26 }, plugins);
+    emblaRef.current = embla;
+    const sync = () => { setSnaps(embla.scrollSnapList()); setActive(embla.selectedScrollSnap()); };
+    sync();
+    embla.on('select', () => setActive(embla.selectedScrollSnap()));
+    embla.on('reInit', sync);
+    return () => { embla.destroy(); };
+  }, []);
+  return (
+    <section className="pg-section cvc-section" aria-label="Why nonprofits choose to partner with Dalgo">
+      <div className="container">
+        <div className="section-head section-head-center">
+          <p className="pg-eyebrow">Customer voices</p>
+          <h2 className="section-title">Why nonprofits choose to partner with <span className="hl-underline">Dalgo</span></h2>
+        </div>
+        <div className="cvc-embla" ref={viewportRef}>
+          <div className="cvc-embla-container">
+            {CONSULT_DESK.map((c, i) => (
+              <div className="cvc-slide" key={i}>
+                <article className={`cvc-card${c.img ? ' cvc-has-photo' : ''}${c.accent ? ' is-accent' : ''}`}>
+                  <div className="cvc-body">
+                    <div className="cvc-head">
+                      {c.logo
+                        ? <img className="cvc-logo" src={c.logo} alt={c.org} loading="lazy" />
+                        : <span className="cvc-org-top">{c.org}</span>}
+                      <span className="cvc-mark" aria-hidden="true">“</span>
+                    </div>
+                    <h3 className="cvc-tag">{c.tag}</h3>
+                    <blockquote className="cvc-quote">{c.quote}</blockquote>
+                  </div>
+                  <footer className="cvc-attr">
+                    {c.avatar && <img className="cvc-avatar" src={c.avatar} alt={c.name} width="48" height="48" loading="lazy" />}
+                    <span className="cvc-who">
+                      <span className="cvc-name">{c.name}</span>
+                      <span className="cvc-desig">{c.desig}</span>
+                      <span className="cvc-orgname">{c.org}</span>
+                    </span>
+                  </footer>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="cvc-dots">
+          {snaps.map((_, i) => (
+            <button type="button" key={i} className={'cvc-dot' + (i === active ? ' on' : '')} aria-label={`Go to slide ${i + 1}`} onClick={() => emblaRef.current && emblaRef.current.scrollTo(i)} />
           ))}
         </div>
       </div>
     </section>
   );
 };
-// From the Consultant's Desk — paired consultant + partner quotes.
-// ⚑ PLACEHOLDER CONTENT: exact quotes/attribution to be supplied by Stuti.
-const CONSULT_DESK = [
-  {
-    org: 'SHOFCO',
-    consultantQuote: "SHOFCO had ambitious programmes, but reporting was spread across multiple systems. Our focus wasn't simply building dashboards. It was creating a reporting workflow their teams could actually rely on every day.",
-    consultant: 'Pratiksha', consultantRole: 'Lead Consultant, Dalgo',
-    orgQuote: "Pratiksha quickly understood our operating model and translated complex reporting needs into practical solutions. The engagement helped us move from reactive reporting to proactive decision making.",
-    orgPerson: 'Alexander', orgRole: 'SHOFCO',
-  },
-  {
-    org: 'Bhumi',
-    consultantQuote: "Rather than introducing another tool, we worked with Bhumi to strengthen the processes behind their data so every report reflected the same source of truth.",
-    consultant: 'Dalgo Consultant', consultantRole: 'Dalgo',
-    orgQuote: "The Dalgo team felt like an extension of our own. They helped us simplify reporting, improve confidence in our data, and build systems our team continues to use today.",
-    orgPerson: 'Bhumi Team', orgRole: 'Bhumi',
-  },
-];
-const ConsultantsDesk = () => (
-  <section className="pg-section">
-    <div className="container">
-      <div className="section-head section-head-center">
-        <h2 className="section-title">From the <span className="hl-underline">Consultant's Desk</span></h2>
-        <p className="section-sub">Behind every dashboard is a team solving complex operational challenges. Hear directly from the consultants who partnered with nonprofits to build stronger data systems — and from the organizations they worked alongside.</p>
-      </div>
-      <div className="cd-grid">
-        {CONSULT_DESK.map((c) => (
-          <article className="cd-card" key={c.org}>
-            <div className="cd-org">{c.org}</div>
-            <blockquote className="cd-quote cd-quote-consultant">
-              <p>“{c.consultantQuote}”</p>
-              <footer className="cd-attr"><span className="cd-name">{c.consultant}</span><span className="cd-role">{c.consultantRole}</span></footer>
-            </blockquote>
-            <blockquote className="cd-quote cd-quote-org">
-              <p>“{c.orgQuote}”</p>
-              <footer className="cd-attr"><span className="cd-name">{c.orgPerson}</span><span className="cd-role">{c.orgRole}</span></footer>
-            </blockquote>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-);
 
 const ConsultingFinalCTA = () => (
   <section className="final-cta final-cta-photo" id="final-cta">
@@ -135,7 +189,6 @@ const ConsultingFinalCTA = () => (
 );
 
 window.ConsultingHero = ConsultingHero;
-window.WhatIsConsulting = WhatIsConsulting;
-window.ConsultingOfferings = ConsultingOfferings;
+window.StrategicExpertise = StrategicExpertise;
 window.ConsultantsDesk = ConsultantsDesk;
 window.ConsultingFinalCTA = ConsultingFinalCTA;

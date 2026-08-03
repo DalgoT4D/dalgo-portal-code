@@ -1,22 +1,26 @@
 // Trust — single-line auto-scrolling logo marquee. Every logo sits in an identical
 // container and is rendered monochrome for consistent visual weight.
 const Marquee = () => {
+  // Partner roster — local transparent assets only. Missing officials (ATECF, Goonj,
+  // Dani Sports Foundation, 1000 Days Fund, Peepul, Scouts Australia, Protsahan) are
+  // added to assets/logos/ as they arrive, then appended here.
   const logos = [
-  { name: 'SHRI', src: 'assets/logos/SHRI.png' },
-  { name: 'STiR Education', src: 'assets/logos/STiREducation.png' },
-  { name: 'Noora Health', src: 'assets/logos/NooraHealth.png' },
-  { name: 'Ummeed', src: 'assets/logos/Ummeed.png' },
-  { name: 'SHOFCO', src: 'assets/logos/SHOFCO.png' },
   { name: 'SNEHA', src: 'assets/logos/SNEHA.png' },
-  { name: 'TAP', src: 'assets/logos/TAP.png' },
-  { name: 'AKRSP', src: 'assets/logos/AKRSP.png' },
-  { name: 'Bhumi', src: 'assets/logos/Bhumi.png' },
-  { name: "People's Courage", src: 'assets/logos/PeoplesCourage.webp' },
+  { name: 'INREM', src: 'assets/logos/INREM.webp' },
+  { name: 'The Apprentice Project', src: 'assets/logos/TAP.png' },
+  { name: 'Antarang', src: 'assets/logos/Antarang.webp' },
+  { name: 'SHRI', src: 'assets/logos/SHRI.png' },
+  { name: 'Noora Health', src: 'assets/logos/NooraHealth.png' },
+  { name: 'SHOFCO', src: 'assets/logos/SHOFCO.png' },
+  { name: 'Ummeed', src: 'assets/logos/Ummeed.png' },
   { name: 'Janaagraha', src: 'assets/logos/Janaagraha.svg' },
   { name: 'MAD', src: 'assets/logos/MAD.png' },
+  { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png' },
+  { name: 'Baala', src: 'assets/logos/Baala.png' },
+  { name: 'Bhumi', src: 'assets/logos/Bhumi.png' },
+  { name: 'AKRSP', src: 'assets/logos/AKRSP.png' },
   { name: 'Dasra', src: 'assets/logos/Dasra.png' },
-  { name: 'SEARCH', src: 'assets/logos/SEARCH.png' },
-  { name: 'Baala', src: 'assets/logos/Baala.png' }];
+  { name: 'SEARCH', src: 'assets/logos/SEARCH.png' }];
 
   const track = [...logos, ...logos];
   return (
