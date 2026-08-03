@@ -278,14 +278,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .marquee-wrap { padding: var(--section-pad) 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
 .marquee-label { text-align: center; color: color-mix(in srgb, var(--ink-2) 82%, #fff); margin-bottom: 32px; }
 .logo-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-/* Seamless loop: each tile OWNS its trailing gap (margin-right), so translateX(-50%)
-   equals exactly one full set — no half-gap mismatch, no jump at the seam. GPU-composited. */
-.logo-marquee-track { display: flex; align-items: center; width: max-content; animation: logoScroll 60s linear infinite; will-change: transform; }
+/* Seamless loop: tiles have a FIXED width, so the track is exactly 2 identical sets and
+   translateX(-50%) lands precisely on one set — no jump, no gap, and (crucially) the geometry
+   does NOT depend on images loading. GPU-composited. */
+.logo-marquee-track { display: flex; align-items: center; width: max-content; animation: logoScroll 55s linear infinite; will-change: transform; }
 @keyframes logoScroll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
 .logo-marquee:hover .logo-marquee-track { animation-play-state: paused; }
-/* No card — logos sit on a common baseline, centered, uniform spacing via each tile's margin. */
-.logo-tile { flex: 0 0 auto; display: grid; place-items: center; height: 44px; margin-right: 72px; }
-.logo-tile .logo-img { height: 34px; width: auto; max-width: 168px; object-fit: contain; filter: grayscale(1) contrast(1.05); opacity: 0.88; }
+/* Fixed-width slots → uniform spacing, load-independent layout, centered logos. */
+.logo-tile { flex: 0 0 auto; width: 190px; height: 44px; display: grid; place-items: center; }
+.logo-tile .logo-img { height: 34px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) brightness(0.5) contrast(1.05); opacity: 1; }
 
 /* ---------- 10b. How Dalgo Helps (solution cards) ---------- */
 .hdh-section { padding: var(--section-pad) 0; }

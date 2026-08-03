@@ -30,7 +30,7 @@ const Marquee = () => {
         <div className="logo-marquee-track">
           {track.map((l, i) => (
             <div className="logo-tile" key={`${l.name}-${i}`} aria-hidden={i >= logos.length ? 'true' : undefined}>
-              <img src={l.src} alt={i >= logos.length ? '' : l.name} className="logo-img" loading="lazy" />
+              <img src={l.src} alt={i >= logos.length ? '' : l.name} className="logo-img" decoding="async" />
             </div>
           ))}
         </div>
