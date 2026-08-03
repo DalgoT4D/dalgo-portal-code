@@ -157,7 +157,7 @@ const FaqItem = ({ q, id }) => {
   );
 };
 const FaqMaster = () => {
-  const [openG, setOpenG] = React.useState(0);
+  const [openG, setOpenG] = React.useState(-1); // all groups closed by default (composition principles)
   return (
     <section className="faq-section" data-screen-label="FAQ — all groups">
       <div className="faq-wrap">
@@ -191,7 +191,7 @@ const FaqMini = ({ page }) => {
   return (
     <section className="faq-section faq-mini" data-screen-label="Frequently asked questions">
       <div className="faq-wrap">
-        <div className="section-head section-head-center" style={{ marginBottom: 36 }}>
+        <div className="section-head section-head-center">
           <h2 className="faq-h">Frequently asked <span className="hl-underline">questions</span></h2>
         </div>
         <div className="faq-list">

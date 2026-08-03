@@ -10,20 +10,25 @@ const ImpactHero = () => (
   />
 );
 
-// Clean single testimonial directly below the hero (Lattice-style: large quote, avatar + role).
+// Testimonial below the hero — the ONE canonical quote-card pattern (composition principles §4).
 const ImpactTestimonial = () => (
-  <section className="cs-tq">
+  <section className="imx-section">
     <div className="container">
-      <figure className="cs-tq-fig">
-        <blockquote className="cs-tq-quote">
-          <span className="cs-tq-mark" aria-hidden="true">&ldquo;</span>
-          Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <strong>That&rsquo;s a really big upgrade.</strong><span className="cs-tq-mark cs-tq-mark-close" aria-hidden="true">&rdquo;</span>
-        </blockquote>
-        <figcaption className="cs-tq-attr">
-          <img className="cs-tq-av" src="assets/opt/chetan.webp" alt="Chetan Pruthi" width="52" height="52" loading="lazy" />
-          <span className="cs-tq-who"><strong>Chetan Pruthi</strong><span>Product Manager · Make A Difference</span></span>
-        </figcaption>
-      </figure>
+      <div className="imx-band imx-band-solo">
+        <div className="imx-band-main">
+          <span className="imx-band-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote className="imx-band-quote">
+            Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <mark className="imx-mark">That&rsquo;s a really big upgrade.</mark>
+          </blockquote>
+          <div className="imx-band-attr imx-band-attr-row">
+            <img className="imx-band-av" src="assets/opt/chetan.webp" alt="Chetan Pruthi" width="52" height="52" loading="lazy" />
+            <span className="imx-band-who">
+              <span className="imx-band-name">Chetan Pruthi</span>
+              <span className="imx-band-role">Product Manager, Make A Difference</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 );
@@ -66,9 +71,8 @@ const StirSpotlight = () => (
       </div>
 
       <div className="imx-seq">
-        <article className="imx-seq-card imx-seq-card-cream">
-          <div className="imx-seq-num">01</div>
-          <div className="imx-seq-step">The Problem</div>
+        <article className="imx-seq-card">
+          <div className="imx-seq-step">01 — The Problem</div>
           <p>Every monthly reflection took at least two days of work — repeated across six regions. Compiling data into a form program teams could use took a full week, using scattered tools like SurveyCTO, Zoho Analytics, and Data Studio.</p>
           <div className="imx-seq-tags">
             <span className="imx-seq-tag">2 days per reflection</span>
@@ -76,10 +80,8 @@ const StirSpotlight = () => (
             <span className="imx-seq-tag">1 week to compile</span>
           </div>
         </article>
-        <div className="imx-seq-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" /></svg></div>
-        <article className="imx-seq-card imx-seq-card-mint">
-          <div className="imx-seq-num">02</div>
-          <div className="imx-seq-step">The Solution</div>
+        <article className="imx-seq-card">
+          <div className="imx-seq-step">02 — The Solution</div>
           <p>Dalgo automated the cleaning, aggregation, and dashboard updates through integrated pipelines — replacing a patchwork of disconnected tools with one system feeding self-service dashboards for program teams, leadership, and donors.</p>
           <div className="imx-seq-tags">
             <span className="imx-seq-tag">One unified system</span>
@@ -87,10 +89,8 @@ const StirSpotlight = () => (
             <span className="imx-seq-tag">Self-service dashboards</span>
           </div>
         </article>
-        <div className="imx-seq-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" /></svg></div>
-        <article className="imx-seq-card imx-seq-card-cream">
-          <div className="imx-seq-num">03</div>
-          <div className="imx-seq-step">The Transformation</div>
+        <article className="imx-seq-card">
+          <div className="imx-seq-step">03 — The Transformation</div>
           <div className="imx-seq-stats">
             <div className="imx-seq-stat">
               <div className="imx-seq-stat-row"><span className="imx-seq-before">1 week</span><svg className="imx-seq-statarrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" /></svg><span className="imx-seq-after">1 hour</span></div>

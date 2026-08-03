@@ -137,7 +137,7 @@ const PricingPlans = () => {
 // the FAQ accordion pattern. (Custom API connectors and onboarding/consulting were dropped from
 // this list 1 Aug — consulting is now its own priced card above, not a footnote here.)
 const CostsToPlanFor = () => {
-  const [open, setOpen] = React.useState(0);
+  const [open, setOpen] = React.useState(-1); // all closed by default (composition principles: accordions)
   const items = [
     { title: 'Warehouse', body: 'Not borne by Dalgo. Provision AWS RDS PostgreSQL or BigQuery — billed directly by your cloud provider, typically $250–500/year.',
       icon: <><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6" /><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" /></> },

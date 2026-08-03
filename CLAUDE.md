@@ -4,3 +4,11 @@
 - **Never underline or decorate H1/heading accent words.** The accent (`.hl-underline`, `.cvh-hl`, `.pf-title-hl`, and any headline highlight span) is teal **colour only** — no underline, squiggle, border, or `::after` decoration, anywhere.
 - CSS architecture: exactly two stylesheets ship — `tokens.css` (variables only, single `:root`) and `app.css` (all components, **zero `!important`**). Solve specificity with selector scope, not `!important`.
 - Type: Inter only (no serif/Spectral/DM Sans). Teal is never used for body text (links excepted).
+
+## Composition rules (full doc: `~/Downloads/Dalgo/Dalgo website/Website Design Sytem /03 Aug/dalgo-composition-principles.md`)
+- **Section backgrounds: 3 only** — `--surface-0` (default), `--surface-1` (the ONE tint), `--navy`/`--navy-2` (max 1–2 dark bands/page). `--surface-2` is component-only (inputs/chips/thumbs), never a section bg. Never two tinted sections adjacent.
+- **Section padding: 3 values only** — `--section-pad` (96, white), `--section-pad-lg` (128, tinted/dark bands), `--section-pad-sm` (64, slim strips). No custom section paddings.
+- **One quote-card pattern for every testimonial**: white card, `--r-xl`, `--shadow-card`, quote ≤28px **weight 500**, ONE mint `<mark>` highlight (replaces bold), name/role attribution, optional real-photo panel. No naked pull-quotes.
+- **Step sequences**: uniform white cards on a tinted band; number inside the step label; no watermark numerals, no arrows, no per-card colour alternation.
+- **Accordions closed by default.** Display text ≥20px is weight ≤500 (headings exempt).
+- **QA gate**: verify every change at section boundaries in full-page context (screenshot the seams), across ≥2 viewports, against these rules — not just token conformance.

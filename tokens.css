@@ -106,8 +106,11 @@
   --space-7: 64px;
   --space-8: 96px;
 
-  /* Section padding & container — one equal value, hero and body sections alike (P9) */
+  /* Section rhythm (composition principles §2) — exactly three values:
+     white sections / tinted+dark chapter bands / slim strips */
   --section-pad: 96px;
+  --section-pad-lg: 128px;
+  --section-pad-sm: 64px;
   --container: 1200px;
 }
-@media (max-width: 768px) { :root { --section-pad: 48px; } }
+@media (max-width: 768px) { :root { --section-pad: 48px; --section-pad-lg: 64px; --section-pad-sm: 40px; } }
