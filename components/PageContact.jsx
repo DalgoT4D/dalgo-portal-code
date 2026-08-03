@@ -4,7 +4,18 @@ const ContactHero = () => (
     eyebrow="Contact"
     headline={<>Get in <span className="cvh-hl">touch</span></>}
     body="Tell us about your data challenges and we'll show you exactly how Dalgo can help."
-  />
+  >
+    <div className="cvh-visual">
+      <div className="contact-trust">
+        <img src="assets/dpg-badge.png" alt="Recognised as a Digital Public Good" className="contact-trust-badge" />
+        <ul className="contact-trust-list">
+          <li>We reply within one business day.</li>
+          <li>DPDP-compliant Data Processor, independently audited by Pacta.</li>
+          <li>Open-source — your data stays in your own warehouse.</li>
+        </ul>
+      </div>
+    </div>
+  </SiteHero>
 );
 
 // Native contact form (BM-344, §9): 4 fields POSTing straight to the same Google Form the old

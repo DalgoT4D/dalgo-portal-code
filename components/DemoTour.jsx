@@ -1,20 +1,20 @@
-// DemoTour v2 — combined 27-step interactive demo: Ingest (5) + Transform (8) + Visualise (14) with a scope switcher.
+// DemoTour v2 — combined 27-step interactive demo: Connect (5) + Clean (8) + Visualize (14) with a scope switcher.
 // Strictly linear within scope; progress segments are read-only. Step data ported verbatim from the reference build.
 const DTR_STEPS = [
-  { p: "ingest", img: "assets/demo/ingest/1.webp", w: 1600, h: 856, alt: "Ingest page - empty state", hs: { t: 13.5, l: 95 }, side: "above", title: "Add a new data source", desc: "Click the \"+ NEW SOURCE\" button to start bringing data into Dalgo from tools like Google Sheets, KoboToolbox, or CommCare.", url: "insights.dalgo.org/impact" },
+  { p: "ingest", img: "assets/demo/ingest/1.webp", w: 1600, h: 856, alt: "Connect page - empty state", hs: { t: 13.5, l: 95 }, side: "above", title: "Add a new data source", desc: "Click the \"+ NEW SOURCE\" button to start bringing data into Dalgo from tools like Google Sheets, KoboToolbox, or CommCare.", url: "insights.dalgo.org/impact" },
   { p: "ingest", img: "assets/demo/ingest/2.webp", w: 1600, h: 866, alt: "Choose your data source", hs: { t: 56, l: 40 }, side: "above", title: "Pick Google Sheets", desc: "Choose from popular sources or search the catalog. Dalgo supports spreadsheets, survey tools, databases, and more.", url: "insights.dalgo.org/impact" },
   { p: "ingest", img: "assets/demo/ingest/3.webp", w: 1600, h: 869, alt: "Configure Google Sheets source", hs: { t: 87, l: 72 }, side: "above", title: "Configure your source", desc: "Paste your spreadsheet link and authenticate with Google. Dalgo handles the schema mapping automatically.", url: "insights.dalgo.org/impact" },
   { p: "ingest", img: "assets/demo/ingest/4.webp", w: 1600, h: 867, alt: "Connection syncing - Locked status", hs: { t: 48, l: 72 }, side: "below", title: "First sync in progress", desc: "Your connection is now syncing data for the first time. The \"Locked\" status means Dalgo is pulling records into your warehouse.", url: "insights.dalgo.org/impact" },
   { p: "ingest", img: "assets/demo/ingest/5.webp", w: 1600, h: 867, alt: "Connection synced - Success", hs: { t: 46, l: 71 }, side: "below", title: "Data synced successfully!", desc: "Your Google Sheets data is now in your warehouse. From here, you can transform it, build dashboards, and track KPIs.", url: "insights.dalgo.org/impact" },
-  { p: "transform", img: "assets/demo/transform/1.webp", w: 1600, h: 805, alt: "Transform overview - DBT Repository connected", hs: { t: 47, l: 92 }, side: "below", title: "Open the workflow builder", desc: "Your dbt repository is already connected. Click \"Edit Workflow\" to start building your transformation pipeline visually — no need to write SQL from scratch.", url: "insights.dalgo.org/impact" },
-  { p: "transform", img: "assets/demo/transform/2.webp", w: 1600, h: 809, alt: "Workflow canvas with source table tree", hs: { t: 24, l: 21 }, side: "below", title: "Bring in a source table", desc: "Every table synced from Ingest shows up in this tree. Click the + next to any table to drop it onto your canvas as a starting point.", url: "insights.dalgo.org/impact" },
+  { p: "transform", img: "assets/demo/transform/1.webp", w: 1600, h: 805, alt: "Clean overview - DBT Repository connected", hs: { t: 47, l: 92 }, side: "below", title: "Open the workflow builder", desc: "Your dbt repository is already connected. Click \"Edit Workflow\" to start building your transformation pipeline visually — no need to write SQL from scratch.", url: "insights.dalgo.org/impact" },
+  { p: "transform", img: "assets/demo/transform/2.webp", w: 1600, h: 809, alt: "Workflow canvas with source table tree", hs: { t: 24, l: 21 }, side: "below", title: "Bring in a source table", desc: "Every table synced from Connect shows up in this tree. Click the + next to any table to drop it onto your canvas as a starting point.", url: "insights.dalgo.org/impact" },
   { p: "transform", img: "assets/demo/transform/3.webp", w: 1600, h: 801, alt: "Cast node added to canvas with Create Table and Add Function options", hs: { t: 32, l: 87 }, side: "below", title: "Add a transformation step", desc: "Attach a Cast node to your source, then fix column types or add a custom SQL function. Dalgo builds the underlying dbt model for you.", url: "insights.dalgo.org/impact" },
   { p: "transform", img: "assets/demo/transform/4.webp", w: 1600, h: 804, alt: "Casting the AQI column to a numeric type", hs: { t: 50, l: 92 }, side: "above", title: "Fix data types", desc: "Cast text columns into numbers, dates, or timestamps. Getting types right here means every dashboard and chart downstream can trust the data.", url: "insights.dalgo.org/impact" },
   { p: "transform", img: "assets/demo/transform/5.webp", w: 1600, h: 804, alt: "Naming the output table and choosing a schema", hs: { t: 47, l: 87 }, side: "below", title: "Name your output table", desc: "Give the cleaned table a name and pick a schema — \"intermediate\" for work-in-progress, \"production\" for models ready to power dashboards.", url: "insights.dalgo.org/impact" },
   { p: "transform", img: "assets/demo/transform/6.webp", w: 1600, h: 804, alt: "Choosing a directory under models for the new table", hs: { t: 57, l: 87 }, side: "above", title: "Choose where it lives", desc: "Pick or create a folder under models/ — like staging/ or analytics/ — to keep your dbt project organized as the pipeline grows.", url: "insights.dalgo.org/impact" },
   { p: "transform", img: "assets/demo/transform/7.webp", w: 1600, h: 805, alt: "Running the workflow - dbt clean executing", hs: { t: 34, l: 61 }, side: "below", title: "Run the transformation", desc: "Hit Run to execute your model. Dalgo runs \"dbt clean\" behind the scenes and streams the logs here in real time.", url: "insights.dalgo.org/impact" },
   { p: "transform", img: "assets/demo/transform/8.webp", w: 1600, h: 806, alt: "Completed production pipeline with multiple transform steps and preview data", hs: { t: 30, l: 94 }, side: "below", title: "See your pipeline come together", desc: "Chain as many cast, join, and drop steps as you need, then publish. The clean, modeled table is now ready to power dashboards and reports.", url: "insights.dalgo.org/impact" },
-  { p: "visualise", img: "assets/demo/visualise/1.webp", w: 1600, h: 804, alt: "Create a new chart - choose a dataset", hs: { t: 26.7, l: 15.5 }, side: "above", title: "Pick your dataset", desc: "Every chart starts with a dataset. Search or browse tables synced from Ingest and Transform, then pick one to visualize.", url: "insights.dalgo.org/impact" },
+  { p: "visualise", img: "assets/demo/visualise/1.webp", w: 1600, h: 804, alt: "Create a new chart - choose a dataset", hs: { t: 26.7, l: 15.5 }, side: "above", title: "Pick your dataset", desc: "Every chart starts with a dataset. Search or browse tables synced from Connect and Clean, then pick one to visualize.", url: "insights.dalgo.org/impact" },
   { p: "visualise", img: "assets/demo/visualise/2.webp", w: 1600, h: 804, alt: "Configure the chart type, axis, and metrics", hs: { t: 35.7, l: 8.6 }, side: "below", title: "Design the chart", desc: "Pick a chart type, choose your X-axis and metrics, and watch the preview update live on the right — no code required.", url: "insights.dalgo.org/impact" },
   { p: "visualise", img: "assets/demo/visualise/3.webp", w: 1600, h: 801, alt: "Chart styling options - orientation, labels, legend", hs: { t: 61, l: 8.5 }, side: "below", title: "Style it your way", desc: "Switch orientation, toggle legends and tooltips, and control data labels — all without touching a design tool.", url: "insights.dalgo.org/impact" },
   { p: "visualise", img: "assets/demo/visualise/4.webp", w: 1600, h: 807, alt: "Saved chart with interactive tooltip showing values", hs: { t: 43.9, l: 85.6 }, side: "below", title: "See it come alive", desc: "Hover any bar to see exact values. Once you're happy, your chart is saved and ready to drop into a dashboard.", url: "insights.dalgo.org/impact" },
@@ -29,7 +29,7 @@ const DTR_STEPS = [
   { p: "visualise", img: "assets/demo/visualise/13.webp", w: 1600, h: 805, alt: "Dashboard in viewer mode with Edit Dashboard and Share buttons", hs: { t: 4.4, l: 86.4 }, side: "below", title: "Preview the finished dashboard", desc: "Exit edit mode to see exactly what your audience will see — filters, KPIs, and charts working together.", url: "insights.dalgo.org/impact" },
   { p: "visualise", img: "assets/demo/visualise/14.webp", w: 1600, h: 869, alt: "Public read-only view of the dashboard, powered by Dalgo branding", hs: { t: 4.6, l: 23.1 }, side: "below", title: "Share it with anyone", desc: "Publish a read-only public link — no login required. Anyone with the URL sees a live, filterable version of your dashboard, branded with Dalgo.", url: "insights.dalgo.org/impact" }
 ];
-const DTR_LABEL = { ingest: "Ingest", transform: "Transform", visualise: "Visualise" };
+const DTR_LABEL = { ingest: "Connect", transform: "Clean", visualise: "Visualize" };
 const DTR_PHASE_START = { ingest: 0, transform: 5, visualise: 13 };
 const DTR_PHASE_N = { ingest: 5, transform: 8, visualise: 14 };
 const DTR_INTRO = {
@@ -40,11 +40,11 @@ const DTR_INTRO = {
 };
 const DTR_END = {
   all: { title: "That's the full Dalgo journey", desc: "You just watched data flow from a raw spreadsheet all the way to a public, filterable dashboard — no code, start to finish.", next: null, replay: "Replay Demo" },
-  ingest: { title: "Ingest: complete", desc: "Your data is flowing into the warehouse. Next, see how Dalgo cleans and models it into something dashboard-ready.", next: "transform", nextLabel: "Continue to Transform →", replay: "Replay Ingest" },
-  transform: { title: "Transform: complete", desc: "Your table is clean, typed, and modeled. Next, turn it into a chart and a shareable dashboard.", next: "visualise", nextLabel: "Continue to Visualise →", replay: "Replay Transform" },
-  visualise: { title: "That's the full picture", desc: "You've built a chart, assembled a dashboard, and published it publicly. That's the complete Dalgo workflow.", next: null, replay: "Replay Visualise" }
+  ingest: { title: "Connect: complete", desc: "Your data is flowing into the warehouse. Next, see how Dalgo cleans and models it into something dashboard-ready.", next: "transform", nextLabel: "Continue to Clean →", replay: "Replay Connect" },
+  transform: { title: "Clean: complete", desc: "Your table is clean, typed, and modeled. Next, turn it into a chart and a shareable dashboard.", next: "visualise", nextLabel: "Continue to Visualize →", replay: "Replay Clean" },
+  visualise: { title: "That's the full picture", desc: "You've built a chart, assembled a dashboard, and published it publicly. That's the complete Dalgo workflow.", next: null, replay: "Replay Visualize" }
 };
-const DTR_MODES = [["all", "Full Journey", 27], ["ingest", "Ingest", 5], ["transform", "Transform", 8], ["visualise", "Visualise", 14]];
+const DTR_MODES = [["all", "Full Journey", 27], ["ingest", "Connect", 5], ["transform", "Clean", 8], ["visualise", "Visualize", 14]];
 const DemoTour = () => {
   const [scope, setScope] = React.useState("all");
   const [mode, setMode] = React.useState("intro"); // intro | run | end
@@ -117,14 +117,14 @@ const DemoTour = () => {
       <div className="container">
         <div className="section-head section-head-center">
           <h2 className="pg-h2">See Dalgo <span className="hl-underline">in action</span></h2>
-          <p className="pg-section-sub" style={{ margin: "12px auto 0" }}>Click through Dalgo's real product screens — ingest, transform, and visualise — no signup needed.</p>
+          <p className="pg-section-sub" style={{ margin: "12px auto 0" }}>Click through Dalgo's real product screens — connect, clean, and visualize — no signup needed.</p>
         </div>
         <div className="dtr-modes" role="tablist" aria-label="Choose demo scope">
           {DTR_MODES.map(([k, label, n]) => (
             <button key={k} type="button" role="tab" aria-selected={scope === k} className={"dtr-mode" + (scope === k ? " is-active" : "")} onClick={() => selectScope(k)}>{label}<span className="dtr-mode-n">{n}</span></button>
           ))}
         </div>
-        <div className={"dtr-frame" + (expanded ? " is-expanded" : "")} ref={frameRef} tabIndex={0} role="group" aria-label="Interactive product tour: ingest, transform, and visualise in Dalgo" onKeyDown={onKey}>
+        <div className={"dtr-frame" + (expanded ? " is-expanded" : "")} ref={frameRef} tabIndex={0} role="group" aria-label="Interactive product tour: connect, clean, and visualize in Dalgo" onKeyDown={onKey}>
           <div className="dtr-chrome">
             <span className="dtr-dot dtr-dot-r"></span><span className="dtr-dot dtr-dot-y"></span><span className="dtr-dot dtr-dot-g"></span>
             <span className="dtr-url">{s.url}</span>

@@ -6,9 +6,8 @@ const R = (id, f) => (window.__resources && window.__resources[id]) || f;
 const AboutHero = () => (
   <SiteHero
     eyebrow="Product"
-    headline={<>We are a combination of <span className="cvh-hl">people</span>, <span className="cvh-hl">purpose</span>, and <span className="cvh-hl">platform</span></>}
-    body="We believe the social sector deserves better data systems — built with the same care as the missions they serve."
-    ctas={<HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="contact.html" />}
+    headline={<>One platform for all your <span className="cvh-hl">nonprofit data needs</span></>}
+    body="Surveys, spreadsheets, CRMs and case tools — brought together, cleaned, and connected in one place your whole team can trust."
   >
     <div className="cvh-visual">
       <figure className="cvh-figure">
@@ -254,10 +253,11 @@ const WatchDemo = () => (
 
 const DashboardShowcase = () => {
   const orgs = [
+    { name: 'SHRI', logo: 'assets/dash/shri.webp', use: 'Sanitation and health rights in India.', links: [{ l: 'View dashboards', h: 'https://www.data.sanrights.org/' }] },
     { name: 'Noora Health', logo: 'assets/logos/NooraHealth.png', use: 'Equipping families with the skills to care for patients at the bedside.', links: [{ l: 'Program dashboard', h: 'https://noora.dalgo.org/superset/dashboard/25/' }] },
     { name: 'SHOFCO', logo: 'assets/dash/shofco.webp', use: "Urban transformation across Kenya's informal settlements.", links: [{ l: 'Dashboard 1', h: 'https://shofco.dalgo.org/superset/dashboard/97/' }, { l: 'Dashboard 2', h: 'https://shofco.dalgo.org/superset/dashboard/98/' }] },
-    { name: 'INREM Foundation', logo: 'assets/dash/inrem.webp', use: 'Safe drinking water and fluorosis mitigation.', links: [{ l: 'Water quality', h: 'https://inrem.dalgo.org/superset/dashboard/waterquality/' }, { l: 'Program metrics', h: 'https://inrem.dalgo.org/superset/dashboard/12/' }] },
-    { name: 'SHRI', logo: 'assets/dash/shri.webp', use: 'Sanitation and health rights in India.', links: [{ l: 'View dashboards', h: 'https://www.data.sanrights.org/' }] },
+    { name: 'Dalgo Native Dashboard', native: true, logo: 'assets/dalgo-logo.png', use: 'A live, interactive dashboard built directly in Dalgo — explore the native experience end to end.', links: [{ l: 'Open dashboard', h: 'https://insights.dalgo.org/share/dashboard/0u8iLdDWNbLo1p8Yj8oxMU7MjLkgxCRtftelFiL-Qf26SAYO4JQ6WcfuqFoeaogI' }] },
+    { name: 'Dalgo Native Report', native: true, logo: 'assets/dalgo-logo.png', use: 'A shareable report generated in Dalgo, frozen to a reporting period and opened from a single link.', links: [{ l: 'Open report', h: 'https://insights.dalgo.org/share/report/2xIniNI--bv97Jj7OktKkjc4pMnhUq1UkYAgswOZcbqNZhAvaCUAS5DLzflLZezG' }] },
   ];
   return (
     <section className="dsh-section">
@@ -265,11 +265,12 @@ const DashboardShowcase = () => {
         <div className="pf-header">
           <p className="pf-eyebrow">Live dashboards</p>
           <h2 className="pf-title">Explore dashboards <span className="pf-title-hl">powered by Dalgo</span></h2>
-          <p className="pf-sub">Real dashboards nonprofits run on Dalgo today — open them to see program data in action.</p>
+          <p className="pf-sub">Live dashboards and reports nonprofits run on Dalgo today — including native examples built directly in the platform.</p>
         </div>
         <div className="dsh-grid">
           {orgs.map((o) => (
-            <article className="dsh-card" key={o.name}>
+            <article className={"dsh-card" + (o.native ? " dsh-card-native" : "")} key={o.name}>
+              {o.native && <span className="dsh-native-badge">Dalgo Native</span>}
               <div className="dsh-logo"><img src={o.logo} alt={o.name} loading="lazy" /></div>
               <h3 className="dsh-name">{o.name}</h3>
               <p className="dsh-use">{o.use}</p>

@@ -27,16 +27,44 @@
   --hairline: rgba(10,37,64,.10);
   --focus: #0A66C2;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(10,37,64,.06);
-  --shadow-md: 0 4px 12px rgba(10,37,64,.08);
-  --shadow-lg: 0 12px 32px rgba(10,37,64,.12);
+  /* Elevation — layered navy-tinted ramp with the 1px hairline ring baked into
+     the last layer (P2/P6). Cards drop their separate border and use these. */
+  --shadow-sm:
+    rgba(10,37,64,.05) 0 2px 4px -2px,
+    rgba(10,37,64,.05) 0 1px 1px -.5px,
+    var(--hairline) 0 0 0 1px;
+  --shadow-card:
+    rgba(10,37,64,.04) 0 12px 12px -6px,
+    rgba(10,37,64,.05) 0 4px 6px -3px,
+    rgba(10,37,64,.06) 0 1px 1px -.5px,
+    var(--hairline) 0 0 0 1px;
+  --shadow-pop:
+    rgba(10,37,64,.06) 0 28px 32px -14px,
+    rgba(10,37,64,.05) 0 10px 12px -6px,
+    rgba(10,37,64,.06) 0 2px 2px -1px,
+    var(--hairline) 0 0 0 1px;
+  /* legacy aliases → the ramp, so existing shadow-md/lg usages lift too */
+  --shadow-md: var(--shadow-card);
+  --shadow-lg: var(--shadow-pop);
 
-  /* Radius */
+  /* Motion (P5) — one curve, one family of durations */
+  --ease: cubic-bezier(.215,.61,.355,1);
+  --spring: linear(0,.039 1.6%,.157 3.4%,1.03 12.4%,1.174 15%,1.243 17.8%,1.227 21.4%,1.003 30.8%,.94 36.6%,1.015 55.2%,1);
+  --dur-fast: 150ms;
+  --dur: 240ms;
+  --dur-slow: 320ms;
+  --t: var(--dur) var(--ease);
+
+  /* Radius — scales with element size (P4) */
   --r-sm: 8px;
   --r-md: 12px;
   --r-lg: 16px;
+  --r-xl: 24px;
+  --r-2xl: 32px;
   --r-pill: 999px;
+
+  /* Reading measure */
+  --measure: 66ch;
 
   /* Spacing — 8pt scale */
   --space-1: 4px;
@@ -48,8 +76,8 @@
   --space-7: 64px;
   --space-8: 96px;
 
-  /* Section padding & container */
-  --section-pad: 64px;
+  /* Section padding & container — one equal value, hero and body sections alike (P9) */
+  --section-pad: 96px;
   --container: 1200px;
 }
-@media (max-width: 768px) { :root { --section-pad: 40px; } }
+@media (max-width: 768px) { :root { --section-pad: 48px; } }
