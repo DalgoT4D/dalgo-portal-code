@@ -456,39 +456,73 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .final-cta-h { color: #fff; margin: 0 auto 28px; max-width: 18ch; }
 .final-cta-h .hl-underline { color: color-mix(in srgb, var(--teal) 55%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--teal) 55%, #fff); }
 .final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.final-cta-sub { max-width: 60ch; margin: -8px auto 30px; color: var(--on-dark); font-size: 17px; line-height: 1.6; }
+
+/* From the Consultant's Desk — paired consultant + partner quotes */
+.cd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
+.cd-card { display: flex; flex-direction: column; gap: 22px; background: var(--surface-0); border-radius: var(--r-xl); box-shadow: var(--shadow-card); padding: 32px 34px; transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.cd-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
+.cd-org { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-ink); }
+.cd-quote { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.cd-quote p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink); }
+.cd-quote-consultant { border-left: 3px solid var(--teal-ink); padding-left: 18px; }
+.cd-quote-org { border-top: 1px solid var(--hairline); padding-top: 22px; }
+.cd-quote-org p { color: var(--ink-2); }
+.cd-attr { display: flex; flex-direction: column; gap: 1px; }
+.cd-name { font-weight: 700; font-size: 14.5px; color: var(--ink); }
+.cd-role { font-size: 13px; color: var(--ink-2); }
+@media (max-width: 820px) { .cd-grid { grid-template-columns: 1fr; } }
 .final-cta-btn { background: #fff; color: var(--navy); }
 .final-cta-btn:hover { background: var(--surface-1); color: var(--navy); transform: translateY(-1px); }
 .final-cta-btn-ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.5); }
 .final-cta-btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.1); color: #fff; }
 
-/* ---------- 17. Footer (light) ---------- */
-.fx-links { background: var(--surface-2); color: var(--ink-2); padding: 88px 0 32px; position: relative; }
-.fx-links-inner { max-width: var(--container); margin: 0 auto 56px; padding: 0 32px; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; }
-.fx-brand-col { max-width: 340px; }
-.fx-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-.fx-brand-col p { color: var(--ink-2); line-height: 1.6; margin: 0 0 12px; }
+/* ---------- 17. Footer (light) — redesigned: a calm destination,
+   not a dense list. Wider brand rail, credentials in-flow, links with
+   an underline-grow micro-interaction, social as consistent icon chips. */
+.fx-links { background: var(--surface-2); color: var(--ink-2); padding: clamp(64px, 8vw, 104px) 0 32px; position: relative; border-top: 1px solid var(--hairline); }
+.fx-links-inner { max-width: var(--container); margin: 0 auto clamp(48px, 6vw, 72px); padding: 0 32px; display: grid; grid-template-columns: 1.9fr 1fr 1fr 1.1fr; gap: clamp(32px, 4vw, 64px); }
+.fx-brand-col { max-width: 380px; }
+.fx-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.fx-brand-tag { color: var(--ink-2); line-height: 1.6; margin: 0 0 18px; font-size: 15px; max-width: 34ch; }
+.fx-initiative { margin: 18px 0 0; font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--ink-2) 88%, #fff); }
 .fx-initiative a { color: var(--teal-ink); font-weight: 600; }
-.fx-sub-form { display: flex; gap: 8px; background: var(--surface-0); border: 1.5px solid var(--hairline); border-radius: var(--r-pill); padding: 4px; margin-top: 8px; }
-.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 8px 14px; font-size: 13px; outline: none; font-family: inherit; }
-.fx-sub-form input::placeholder { color: color-mix(in srgb, var(--ink-2) 60%, #fff); }
-.fx-sub-form button { background: var(--teal-ink); color: #fff; padding: 10px 20px; font-size: 13px; font-weight: 600; border-radius: var(--r-pill); white-space: nowrap; flex-shrink: 0; }
-.fx-sub-form button:hover { background: color-mix(in srgb, var(--teal-ink) 80%, #000); }
-.fx-col .fx-h { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin: 0 0 16px; }
-.fx-col a { display: flex; align-items: center; color: var(--ink-2); text-decoration: none; padding: 7px 0; font-size: 14px; }
-.fx-col a:hover { color: var(--teal-ink); }
-.fx-soc { width: 16px; height: 16px; margin-right: 8px; fill: none; stroke: color-mix(in srgb, var(--ink-2) 80%, #fff); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; vertical-align: -3px; }
-.fx-soc-brand { fill: color-mix(in srgb, var(--ink-2) 80%, #fff); stroke: none; }
-.fx-badges-tr { position: absolute; top: 40px; right: 40px; display: flex; align-items: center; gap: 12px; z-index: 2; }
-.fx-trust-badge { height: 40px; display: block; }
-.fx-trust-badge-link { display: inline-flex; transition: transform var(--dur) var(--ease); }
+/* Newsletter capture */
+.fx-sub-form { display: flex; gap: 8px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 5px; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.fx-sub-form:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 16%, transparent); }
+.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 9px 14px; font-size: 14px; outline: none; font-family: inherit; }
+.fx-sub-form input::placeholder { color: color-mix(in srgb, var(--ink-2) 58%, #fff); }
+.fx-sub-form button { background: var(--teal-ink); color: #fff; padding: 10px 20px; font-size: 13.5px; font-weight: 600; border-radius: var(--r-pill); white-space: nowrap; flex-shrink: 0; transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+.fx-sub-form button:hover { background: color-mix(in srgb, var(--teal-ink) 82%, #000); transform: translateY(-1px); }
+.fx-sub-form button:active { transform: translateY(0); }
+/* Credentials cluster — in the flow, not floating */
+.fx-creds { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+.fx-trust-badge { height: 46px; display: block; }
+.fx-trust-badge-link { display: inline-flex; border-radius: var(--r-md); transition: transform var(--dur) var(--ease); }
 .fx-trust-badge-link:hover { transform: translateY(-2px); }
-.fx-os-badge { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 8px 16px; font-size: 14px; font-weight: 600; }
-.fx-os-badge svg { width: 18px; height: 18px; fill: var(--ink); }
-.fx-os-badge:hover { border-color: var(--teal); }
-.fx-bottom { max-width: var(--container); margin: 0 auto; padding: 28px 32px 0; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 12px; color: color-mix(in srgb, var(--ink-2) 70%, #fff); }
-.fx-bottom-right { display: flex; gap: 20px; flex-wrap: wrap; }
-.fx-bottom-right a { color: color-mix(in srgb, var(--ink-2) 78%, #fff); }
+.fx-os-badge { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 9px 16px; font-size: 13.5px; font-weight: 600; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.fx-os-badge svg:first-child { width: 18px; height: 18px; fill: var(--ink); }
+.fx-os-badge:hover { border-color: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+/* Link columns */
+.fx-col { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+.fx-col .fx-h { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin: 0 0 18px; }
+.fx-col > a { position: relative; display: inline-flex; align-items: center; width: fit-content; color: var(--ink-2); text-decoration: none; padding: 6px 0; font-size: 14.5px; transition: color var(--dur-fast) var(--ease); }
+.fx-col > a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 3px; height: 1.5px; background: var(--teal-ink); border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform var(--dur) var(--ease); }
+.fx-col > a:hover { color: var(--teal-ink); }
+.fx-col > a:hover::after { transform: scaleX(1); }
+/* Social icon chips */
+.fx-social { display: flex; gap: 10px; margin-top: 18px; }
+.fx-social a { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-0); border: 1px solid var(--hairline); color: var(--ink-2); box-shadow: var(--shadow-sm); transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.fx-social a:hover { color: var(--teal-ink); border-color: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.fx-social svg { width: 18px; height: 18px; fill: currentColor; }
+.fx-social .fx-soc-line { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+/* Bottom bar */
+.fx-bottom { max-width: var(--container); margin: 0 auto; padding: 28px 32px 0; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 12.5px; color: color-mix(in srgb, var(--ink-2) 72%, #fff); }
+.fx-bottom-right { display: flex; gap: 24px; flex-wrap: wrap; }
+.fx-bottom-right a { color: color-mix(in srgb, var(--ink-2) 80%, #fff); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
 .fx-bottom-right a:hover { color: var(--teal-ink); }
+@media (max-width: 900px) { .fx-links-inner { grid-template-columns: 1fr 1fr; } .fx-brand-col { grid-column: 1 / -1; max-width: 460px; } }
+@media (max-width: 560px) { .fx-links-inner { grid-template-columns: 1fr; } .fx-bottom { flex-direction: column; gap: 12px; } }
 
 /* ---------- 18. Inner-page hero + sections ---------- */
 .pg-hero { padding: 116px 0 96px; background: var(--navy-2); text-align: center; }
@@ -968,6 +1002,95 @@ textarea:focus-visible, [tabindex]:focus-visible, [role="tab"]:focus-visible,
 }
 html, body { max-width: 100%; overflow-x: clip; }
 
+/* ============================================================
+   27. Interaction & State System
+   Completes the state matrix (pressed / disabled / loading),
+   adds skeleton loading, scroll-reveal, and micro-interactions.
+   New selectors only; placed after all component defs so states
+   win by source order — no importance overrides (house rule).
+   ============================================================ */
+
+/* --- Buttons: pressed (rest + hover already defined in §4) --- */
+.btn:active, .cmh-btn:active, .pg-btn:active, .nurture-btn:active,
+.hero-cta-primary:active, .hero-cta-secondary:active, .final-cta-btn:active,
+.final-cta-btn-ghost:active, .pf-cta:active, .comm-cta-btn:active,
+.webinar-register:active, .cmh-btn-wa:active {
+  transform: translateY(0) scale(.98);
+  transition-duration: var(--dur-fast);
+}
+
+/* --- Buttons: disabled --- */
+.btn:disabled, .btn[disabled], .btn[aria-disabled="true"],
+.pg-btn[disabled], .cmh-btn[disabled] {
+  opacity: .5; cursor: not-allowed; box-shadow: var(--shadow-sm);
+  transform: none; filter: saturate(.85);
+}
+.btn:disabled:hover, .btn[disabled]:hover, .btn[aria-disabled="true"]:hover {
+  transform: none; box-shadow: var(--shadow-sm);
+}
+
+/* --- Buttons: loading (add .is-loading + aria-busy). Label fades,
+       centred spinner appears; ::after arrow inherits transparent. --- */
+.btn.is-loading, .pg-btn.is-loading, .cmh-btn.is-loading {
+  color: transparent; pointer-events: none; position: relative;
+}
+.btn.is-loading::before, .pg-btn.is-loading::before, .cmh-btn.is-loading::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.4); border-top-color: #fff;
+  animation: dg-spin .7s linear infinite;
+}
+.btn-ghost.is-loading::before, .btn-secondary.is-loading::before,
+.hero-cta-secondary.is-loading::before, .pg-btn-ghost.is-loading::before {
+  border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+  border-top-color: var(--ink);
+}
+@keyframes dg-spin { to { transform: rotate(360deg); } }
+
+/* --- Linked cards: pressed feedback --- */
+.hdh-card:active, .si-card:active, .ch-card:active, .nurture-card:active,
+.cmh-news-card:active, .res-card:active, .imx-tile-link:active {
+  transform: translateY(-1px) scale(.995);
+  transition-duration: var(--dur-fast);
+}
+
+/* --- Logo tiles: reveal colour + lift on hover (marquee pauses on hover) --- */
+.logo-tile { transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.logo-img { transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease); }
+.logo-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.logo-tile:hover .logo-img { filter: grayscale(0) contrast(1); opacity: 1; }
+
+/* --- Skeleton loading placeholder (utility) --- */
+.skeleton {
+  position: relative; overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 7%, var(--surface-2));
+  border-radius: var(--r-sm);
+}
+.skeleton::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+  animation: dg-shimmer 1.4s ease-in-out infinite;
+}
+@keyframes dg-shimmer { 100% { transform: translateX(100%); } }
+
+/* --- Progressive reveal — CSS scroll-driven, no JS. Cards fade + rise as
+       they enter the viewport. Pure progressive enhancement: browsers
+       without scroll-timeline simply show content normally. --- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hdh-card, .si-card, .ch-card, .nurture-card, .cmh-news-card,
+    .prf-card, .dsh-card, .pex-card, .imx-tile, .plan-card, .res-card {
+      animation: dg-reveal both linear;
+      animation-timeline: view();
+      animation-range: entry 0% entry 62%;
+    }
+    @keyframes dg-reveal {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+  }
+}
+
 @media (max-width: 1024px) {
   .nav-links, .nav-right { display: none; }
   .nav-inner { padding: 0 20px; }
@@ -1366,6 +1489,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .hdh-card:hover, .dsh-card:hover, .res-card:hover, .cmh-news-card:hover, .ch-card:hover, .co-card:hover, .imx-tile-link:hover,
   .btn-primary:hover, .btn:hover, .pg-btn:hover, .nurture-btn:hover, .hdh-cta:hover { transform: none; }
   .btn-primary:hover .arw, .nurture-btn:hover::after, .btn:hover::after { transform: none; }
+  /* image scale-on-hover and shimmer are motion too */
+  .nurture-card:hover .nurture-thumb img, .cmh-news-card:hover .cmh-news-thumb img,
+  .res-card-video:hover .res-thumb img, .logo-tile:hover .logo-img { transform: none; }
+  .skeleton::after { animation: none; }
 }
 
 /* ---------- 37. Impeccable audit (BM-357): tokenized implementation-partner block ---------- */

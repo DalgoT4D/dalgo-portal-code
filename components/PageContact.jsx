@@ -83,7 +83,7 @@ const ContactForm = () => {
       <CFField id="org" label="Organisation" errs={errs} />
       <CFField id="message" label="Message" textarea errs={errs} />
       {status === 'error' && <p className="cf-fail" role="alert">Something went wrong sending your message. Please retry, or email <a href="mailto:support@dalgo.org">support@dalgo.org</a>.</p>}
-      <button type="submit" className="btn btn-primary cf-submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Sending…' : 'Send Message'}</button>
+      <button type="submit" className={"btn btn-primary cf-submit" + (status === 'submitting' ? ' is-loading' : '')} disabled={status === 'submitting'} aria-busy={status === 'submitting' ? 'true' : undefined}>{status === 'submitting' ? 'Sending…' : 'Send Message'}</button>
     </form>
   );
 };

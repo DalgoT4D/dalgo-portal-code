@@ -7,34 +7,28 @@
 const ConsultingHero = () => (
   <SiteHero
     eyebrow="Consulting"
-    headline={<>Expert help, priced for <span className="cvh-hl">nonprofits</span></>}
-    body="Work with a team fluent in M&E, log frames, and funder reporting. We design the data systems your programmes rely on — and build your team's confidence to run them."
-    ctas={<HeroCTAs primaryLabel="Contact Us" primaryHref="contact.html" secondaryLabel="Explore Pricing" secondaryHref="pricing.html" />}
+    headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
+    body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
+    ctas={<HeroCTAs primaryLabel="Talk to an Expert" primaryHref="contact.html" secondaryLabel="Explore Our Work" secondaryHref="case-studies.html" />}
   >
     <div className="cvh-visual">
       <figure className="cvh-figure">
-        <img src="assets/illus/dashboards.svg" alt="Dalgo consultants designing dashboards, charts and KPIs with a nonprofit team" width="680" height="425" />
+        <img loading="lazy" src="assets/opt/people-1.webp" alt="A Dalgo consultant working through data systems with a nonprofit team" width="1400" height="787" />
       </figure>
     </div>
   </SiteHero>
 );
-const ConsultingPillars = () => {
-  const pillars = [
-    { h: 'Sector fluency', p: 'M&E frameworks, log frames, funder reporting — our consultants work in the language your programmes already speak.' },
-    { h: 'Hands-on, end to end', p: 'The team that scopes your engagement stays through implementation, until the system runs in production.' },
-    { h: 'Nonprofit pricing', p: 'Flat, transparent engagements scoped with you — no per-user or per-source fees on the platform underneath.' },
-  ];
-  return (
-    <section className="pg-section">
-      <div className="container">
-        <div className="pg-section-head"><h2 className="pg-h2">Why teams <span className="hl-underline">work with us</span></h2></div>
-        <div className="co-pillars">
-          {pillars.map((x) => <div key={x.h} className="co-pillar"><h3>{x.h}</h3><p>{x.p}</p></div>)}
-        </div>
+const WhatIsConsulting = () => (
+  <section className="pg-section">
+    <div className="container">
+      <div className="section-head section-head-center">
+        <p className="pg-eyebrow">What is Dalgo Consulting?</p>
+        <h2 className="section-title">Strategic data expertise for <span className="hl-underline">every stage</span> of your data journey</h2>
+        <p className="section-sub">Whether you're building a monitoring framework, cleaning fragmented data, designing executive dashboards, evaluating programme performance, or preparing for AI adoption, our consultants work alongside your team to solve real operational challenges. We combine deep nonprofit expertise with Dalgo's technology to help organizations build data systems they can trust and sustain.</p>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 const CO_ICON = {
   discover: <svg viewBox="0 0 40 40"><circle cx="18" cy="18" r="9"></circle><path d="M25 25l8 8"></path></svg>,
   strategy: <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14"></circle><circle cx="20" cy="20" r="7"></circle><circle cx="20" cy="20" r="1.6" fill="currentColor" stroke="none"></circle></svg>,
@@ -78,6 +72,70 @@ const ConsultingOfferings = () => {
     </section>
   );
 };
+// From the Consultant's Desk — paired consultant + partner quotes.
+// ⚑ PLACEHOLDER CONTENT: exact quotes/attribution to be supplied by Stuti.
+const CONSULT_DESK = [
+  {
+    org: 'SHOFCO',
+    consultantQuote: "SHOFCO had ambitious programmes, but reporting was spread across multiple systems. Our focus wasn't simply building dashboards. It was creating a reporting workflow their teams could actually rely on every day.",
+    consultant: 'Pratiksha', consultantRole: 'Lead Consultant, Dalgo',
+    orgQuote: "Pratiksha quickly understood our operating model and translated complex reporting needs into practical solutions. The engagement helped us move from reactive reporting to proactive decision making.",
+    orgPerson: 'Alexander', orgRole: 'SHOFCO',
+  },
+  {
+    org: 'Bhumi',
+    consultantQuote: "Rather than introducing another tool, we worked with Bhumi to strengthen the processes behind their data so every report reflected the same source of truth.",
+    consultant: 'Dalgo Consultant', consultantRole: 'Dalgo',
+    orgQuote: "The Dalgo team felt like an extension of our own. They helped us simplify reporting, improve confidence in our data, and build systems our team continues to use today.",
+    orgPerson: 'Bhumi Team', orgRole: 'Bhumi',
+  },
+];
+const ConsultantsDesk = () => (
+  <section className="pg-section">
+    <div className="container">
+      <div className="section-head section-head-center">
+        <h2 className="section-title">From the <span className="hl-underline">Consultant's Desk</span></h2>
+        <p className="section-sub">Behind every dashboard is a team solving complex operational challenges. Hear directly from the consultants who partnered with nonprofits to build stronger data systems — and from the organizations they worked alongside.</p>
+      </div>
+      <div className="cd-grid">
+        {CONSULT_DESK.map((c) => (
+          <article className="cd-card" key={c.org}>
+            <div className="cd-org">{c.org}</div>
+            <blockquote className="cd-quote cd-quote-consultant">
+              <p>“{c.consultantQuote}”</p>
+              <footer className="cd-attr"><span className="cd-name">{c.consultant}</span><span className="cd-role">{c.consultantRole}</span></footer>
+            </blockquote>
+            <blockquote className="cd-quote cd-quote-org">
+              <p>“{c.orgQuote}”</p>
+              <footer className="cd-attr"><span className="cd-name">{c.orgPerson}</span><span className="cd-role">{c.orgRole}</span></footer>
+            </blockquote>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const ConsultingFinalCTA = () => (
+  <section className="final-cta final-cta-photo" id="final-cta">
+    <div className="final-cta-bg" aria-hidden="true">
+      <img width="1400" height="933" src="assets/opt/story-mission.webp" alt="" loading="lazy" />
+    </div>
+    <div className="container">
+      <div className="final-cta-eyebrow">Dalgo Consulting</div>
+      <h2 className="final-cta-h">Ready to strengthen your organization's <span className="hl-underline">data capabilities?</span></h2>
+      <p className="final-cta-sub">Whether you're improving reporting, designing a new MEL framework, integrating systems, or preparing for AI, we'll help you build a data foundation that supports better decisions and greater impact.</p>
+      <div className="final-cta-actions">
+        <a href="contact.html" className="final-cta-btn">Book a Free Consultation
+          <svg className="i" viewBox="0 0 24 24" style={{ width: 18, height: 18, stroke: 'currentColor', fill: 'none', strokeWidth: 2 }}><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
 window.ConsultingHero = ConsultingHero;
-window.ConsultingPillars = ConsultingPillars;
+window.WhatIsConsulting = WhatIsConsulting;
 window.ConsultingOfferings = ConsultingOfferings;
+window.ConsultantsDesk = ConsultantsDesk;
+window.ConsultingFinalCTA = ConsultingFinalCTA;
