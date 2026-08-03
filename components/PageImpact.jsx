@@ -15,9 +15,9 @@ const ImpactTestimonial = () => (
   <section className="cs-tq">
     <div className="container">
       <figure className="cs-tq-fig">
-        <span className="cs-tq-mark" aria-hidden="true">&ldquo;</span>
         <blockquote className="cs-tq-quote">
-          Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <strong>That&rsquo;s a really big upgrade.</strong>
+          <span className="cs-tq-mark" aria-hidden="true">&ldquo;</span>
+          Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <strong>That&rsquo;s a really big upgrade.</strong><span className="cs-tq-mark cs-tq-mark-close" aria-hidden="true">&rdquo;</span>
         </blockquote>
         <figcaption className="cs-tq-attr">
           <img className="cs-tq-av" src="assets/opt/chetan.webp" alt="Chetan Pruthi" width="52" height="52" loading="lazy" />

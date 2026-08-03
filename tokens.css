@@ -27,6 +27,27 @@
   --hairline: rgba(10,37,64,.10);
   --focus: #0A66C2;
 
+  /* Semantic accents (audit: previously hardcoded in app.css/JSX) */
+  --error: #C43D4B;
+  /* Pending/amber status (one palette — used by pricing + FAQ tags) */
+  --pending-ink: #9A6A2E;
+  --pending-bg: #FBF1E3;
+  --pending-border: #F0DCBE;
+  /* Sticky-note (hero collage decoration) */
+  --note-bg: #FFF7C2;
+  --note-border: #F0E098;
+  --note-ink: #5C4D12;
+  --note-accent: #A8901F;
+  /* WhatsApp brand greens (fixed brand colours, tokenised for reuse) */
+  --wa-green: #25D366;
+  --wa-dark: #075E54;
+  --wa-mid: #128C7E;
+  /* Initial-avatar palette (used in JSX avatar stacks) */
+  --avatar-blue: #2A6FDB;
+  --avatar-rust: #C4703A;
+  --avatar-pine: #0F5C52;
+  --avatar-violet: #6D4FC4;
+
   /* Elevation — layered navy-tinted ramp with the 1px hairline ring baked into
      the last layer (P2/P6). Cards drop their separate border and use these. */
   --shadow-sm:

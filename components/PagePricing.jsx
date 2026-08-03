@@ -23,9 +23,9 @@ const PricingHero = () => (
         </div>
         <div className="hc-avs">
           <span className="hc-avs-stack">
-            <span className="hc-avs-av" style={{ background: '#2A6FDB' }}>SN</span>
-            <span className="hc-avs-av" style={{ background: '#C4703A' }}>MD</span>
-            <span className="hc-avs-av" style={{ background: '#0F5C52' }}>SR</span>
+            <span className="hc-avs-av av-blue">SN</span>
+            <span className="hc-avs-av av-rust">MD</span>
+            <span className="hc-avs-av av-pine">SR</span>
           </span>
           Trusted by 25+ nonprofits
         </div>
@@ -255,10 +255,10 @@ const PricingProof = () => (
         </div>
         <div className="pproof-aside">
           <span className="hc-avs-stack">
-            <span className="hc-avs-av" style={{ background: '#2A6FDB' }}>SN</span>
-            <span className="hc-avs-av" style={{ background: '#C4703A' }}>MD</span>
-            <span className="hc-avs-av" style={{ background: '#0F5C52' }}>SR</span>
-            <span className="hc-avs-av" style={{ background: '#6D4FC4' }}>ST</span>
+            <span className="hc-avs-av av-blue">SN</span>
+            <span className="hc-avs-av av-rust">MD</span>
+            <span className="hc-avs-av av-pine">SR</span>
+            <span className="hc-avs-av av-violet">ST</span>
           </span>
           <span className="pproof-trust">Trusted by 25+ nonprofits</span>
         </div>

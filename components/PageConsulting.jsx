@@ -136,7 +136,7 @@ const ConsultantsDesk = () => {
           <div className="cvc-embla-container">
             {CONSULT_DESK.map((c, i) => (
               <div className="cvc-slide" key={i}>
-                <article className={`cvc-card${c.img ? ' cvc-has-photo' : ''}${c.accent ? ' is-accent' : ''}`}>
+                <article className={`cvc-card${c.accent ? ' is-accent' : ''}`}>
                   <div className="cvc-body">
                     <div className="cvc-head">
                       {c.logo

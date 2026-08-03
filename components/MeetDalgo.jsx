@@ -90,9 +90,8 @@ const CaseFeature = () => {
         {!reduce && (
           <button type="button" className="csf-playpause" aria-pressed={!playing}
             aria-label={playing ? 'Pause story rotation' : 'Play story rotation'}
-            onClick={() => setPlaying(p => !p)}
-            style={{marginLeft:8,width:34,height:34,borderRadius:'50%',border:'1px solid #E7EEEC',background:'#fff',display:'grid',placeItems:'center',cursor:'pointer',flexShrink:0}}>
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="#0A2540" aria-hidden="true">{playing ? <path d="M7 5h4v14H7zM13 5h4v14h-4z"/> : <path d="M8 5v14l11-7z"/>}</svg>
+            onClick={() => setPlaying(p => !p)}>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">{playing ? <path d="M7 5h4v14H7zM13 5h4v14h-4z"/> : <path d="M8 5v14l11-7z"/>}</svg>
           </button>
         )}
       </div>

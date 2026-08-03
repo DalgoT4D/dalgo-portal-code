@@ -33,12 +33,12 @@ const CommunityHero = () => (
             Dalgo Data Community
           </div>
           <div className="cvh-wa-msg">
-            <span className="cvh-wa-av" style={{ background: '#C4703A' }}>PR</span>
+            <span className="cvh-wa-av av-rust">PR</span>
             <span className="cvh-wa-bubble">How are you all syncing KoboToolbox into your warehouse?</span>
           </div>
           <div className="cvh-wa-msg cvh-wa-me">
             <span className="cvh-wa-bubble cvh-wa-bubble-me">We set it up in Dalgo in ~10 min — happy to share!</span>
-            <span className="cvh-wa-av" style={{ background: '#0F5C52' }}>AK</span>
+            <span className="cvh-wa-av av-pine">AK</span>
           </div>
         </div>
       </div>

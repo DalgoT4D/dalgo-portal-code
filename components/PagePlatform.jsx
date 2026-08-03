@@ -244,8 +244,8 @@ const WatchDemo = () => (
         <h2 className="pg-h2">Watch a <span className="hl-underline">10-minute demo</span></h2>
         <p className="pg-section-sub" style={{ margin: '12px auto 0', maxWidth: 'none', whiteSpace: 'nowrap' }}>See how nonprofits go from scattered data to live dashboards with Dalgo.</p>
       </div>
-      <div style={{ position: 'relative', width: '100%', maxWidth: 900, margin: '0 auto', aspectRatio: '16 / 9', borderRadius: 16, overflow: 'hidden', boxShadow: '0 30px 64px -34px rgba(10,37,64,0.4)', border: '1px solid #E7EEEC' }}>
-        <iframe style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }} src="https://www.youtube.com/embed/I04SqPYQHIs?si=n_iFrrJAj3LHCAXy" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+      <div className="pl-video-frame">
+        <iframe src="https://www.youtube.com/embed/I04SqPYQHIs?si=n_iFrrJAj3LHCAXy" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
       </div>
     </div>
   </section>
