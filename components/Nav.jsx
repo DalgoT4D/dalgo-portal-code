@@ -41,9 +41,11 @@ const Nav = () => {
   const tc = window.trialCta ? window.trialCta() : { label: 'Start Free Trial', href: 'https://insights.dalgo.org/trial', ext: true };
   const trialReady = !!(window.SITE_CONFIG && window.SITE_CONFIG.TRIAL_READY);
   const resourceLinks = [
-    { href: 'community.html', label: 'Community' },
-    { href: 'faq.html', label: 'FAQs' },
+    { href: 'community.html', label: 'Community', desc: 'Webinars, meetups, and the Dalgo network' },
+    { href: 'faq.html', label: 'FAQs', desc: 'Answers on pricing, setup, and security' },
   ];
+  // Featured slot (psychology #4 Von Restorff, #11 self-expiring): next webinar from site-config.
+  const featured = window.featuredWebinar ? window.featuredWebinar() : null;
   const NavLink = ({ href, active, extra, children }) => (
     <a href={href} className={'nav-link' + (active ? ' is-active' : '') + (extra ? ' ' + extra : '')} aria-current={active ? 'page' : undefined}>{children}</a>
   );
@@ -74,7 +76,26 @@ const Nav = () => {
                   if (e.key === 'ArrowDown') { e.preventDefault(); (links[at + 1] || links[0]).focus(); }
                   else if (e.key === 'ArrowUp') { e.preventDefault(); (links[at - 1] || links[links.length - 1]).focus(); }
                 }}>
-                {resourceLinks.map((l) => <a key={l.href} href={l.href} role="menuitem">{l.label}</a>)}
+                <div className="nav-dd-col">
+                  <div className="nav-dd-col-label" aria-hidden="true">Resources</div>
+                  {resourceLinks.map((l) => (
+                    <a key={l.href} href={l.href} role="menuitem" className="nav-dd-item">
+                      <span className="nav-dd-item-t">{l.label}</span>
+                      <span className="nav-dd-item-d">{l.desc}</span>
+                    </a>
+                  ))}
+                </div>
+                {featured && (
+                  <div className="nav-dd-col">
+                    <div className="nav-dd-col-label" aria-hidden="true">Featured</div>
+                    <a className="nav-dd-featcard" href={featured.href} target="_blank" rel="noopener" role="menuitem">
+                      <span className="nav-dd-feattag">{featured.tag}</span>
+                      <span className="nav-dd-feattitle">{featured.title}</span>
+                      <span className="nav-dd-featdate">{featured.dateLabel}</span>
+                      <span className="nav-dd-featcta">{featured.cta || 'Register'} <span aria-hidden="true">→</span></span>
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -12,26 +12,10 @@ const PricingHero = () => (
       <p className="pricing-anchor"></p>
       <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="contact.html" />
     </>}
-  >
-    <div className="cvh-visual">
-      <div className="hc-collage" aria-hidden="true">
-        <div className="hc-card hc-a hc-shot"><img src="assets/product/dashboard.webp" alt="" /></div>
-        <div className="hc-card hc-b hc-shot"><img src="assets/product/scorecards.webp" alt="" /></div>
-        <div className="hc-cred">
-          <img src="assets/dpg-badge.png" alt="Recognised as a Digital Public Good" />
-          <span className="hc-cred-label">Recognised as a<br />Digital Public Good</span>
-        </div>
-        <div className="hc-avs">
-          <span className="hc-avs-stack">
-            <span className="hc-avs-av av-blue">SN</span>
-            <span className="hc-avs-av av-rust">MD</span>
-            <span className="hc-avs-av av-pine">SR</span>
-          </span>
-          Trusted by 25+ nonprofits
-        </div>
-      </div>
-    </div>
-  </SiteHero>
+  />
+  // Hero is copy-only (psychology #2 cognitive load): the collage of floating screenshots +
+  // DPG badge was decoration without information — trust signals live in context (footer creds,
+  // the proof quote's avatar cluster), not as hero clutter.
 );
 
 const Check = () => (
@@ -242,27 +226,28 @@ const ProBonoBand = () => (
 const PricingProof = () => (
   <section className="pproof-section">
     <div className="container">
-      <article className="pproof-card">
-        <div className="pproof-main">
-          <span className="pproof-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote className="pproof-quote">
-            Irrespective of the questions that come our way — whether from donors or the government — we're now able to focus much more on <mark className="pproof-hl">building the story</mark>, rather than spending time working on the data to build that story.
+      {/* Canonical quote card (composition §4 / psychology #1 Jakob's law) — same pattern as case-studies. */}
+      <div className="imx-band">
+        <div className="imx-band-main">
+          <span className="imx-band-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote className="imx-band-quote">
+            Irrespective of the questions that come our way — whether from donors or the government — we're now able to focus much more on <mark className="imx-mark">building the story</mark>, rather than spending time working on the data to build that story.
           </blockquote>
-          <div className="pproof-attr">
-            <span className="pproof-name">Arun Maruthi Selvan</span>
-            <span className="pproof-role">Senior Manager, STiR Education</span>
+          <div className="imx-band-attr">
+            <span className="imx-band-name">Arun Maruthi Selvan</span>
+            <span className="imx-band-role">Senior Manager, STiR Education</span>
           </div>
         </div>
-        <div className="pproof-aside">
+        <div className="imx-band-aside">
           <span className="hc-avs-stack">
             <span className="hc-avs-av av-blue">SN</span>
             <span className="hc-avs-av av-rust">MD</span>
             <span className="hc-avs-av av-pine">SR</span>
             <span className="hc-avs-av av-violet">ST</span>
           </span>
-          <span className="pproof-trust">Trusted by 25+ nonprofits</span>
+          <span className="imx-band-trust">Trusted by 25+ nonprofits</span>
         </div>
-      </article>
+      </div>
     </div>
   </section>
 );

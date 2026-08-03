@@ -2,7 +2,24 @@
 window.SITE_CONFIG = {
   TRIAL_READY: true, // reverted per request: Start Free Trial ships as primary CTA sitewide
   TRIAL_URL: 'https://dashboard.dalgo.org',
-  GA4_ID: '' // TODO: paste the GA4 clean-slate property id (G-XXXXXXX) before launch
+  GA4_ID: '', // TODO: paste the GA4 clean-slate property id (G-XXXXXXX) before launch
+  // Featured resource in the nav Resources panel. Time-bound content self-expires (psychology
+  // principles #11) — past `expires`, the card hides itself sitewide with no rebuild needed.
+  // A monthly scheduled task refreshes this from https://luma.com/dalgo (next webinar, else latest recording).
+  FEATURED_WEBINAR: {
+    tag: 'Live webinar',
+    title: 'Understanding Data + AI Lifecycle: A Practical Guide for NGOs (Part 2)',
+    dateLabel: 'Wed 6 Aug · 2:00 PM IST',
+    href: 'https://luma.com/88btx8qo',
+    cta: 'Register',
+    expires: '2026-08-06T10:00:00Z' // hides once the session wraps
+  }
+};
+// Returns the featured webinar, or null when unset/expired (nav hides the Featured column).
+window.featuredWebinar = function () {
+  var w = window.SITE_CONFIG.FEATURED_WEBINAR;
+  if (!w || (w.expires && Date.now() > Date.parse(w.expires))) return null;
+  return w;
 };
 // Every primary trial CTA ("Try the Platform") resolves through this: flag off => Contact Us → /contact (BM-307: label always matches destination).
 window.trialCta = function () {

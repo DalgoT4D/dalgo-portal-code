@@ -177,6 +177,19 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .nav-dd:hover .nav-dd-menu, .nav-dd-menu.is-open, .nav-dd:focus-within .nav-dd-menu { opacity: 1; visibility: visible; transform: translateY(4px); }
 .nav-dd-menu a { display: block; padding: 9px 12px; border-radius: var(--r-sm); font-size: 14px; color: var(--ink); }
 .nav-dd-menu a:hover { background: var(--surface-1); color: var(--teal-ink); }
+/* Resources panel — grouped columns with descriptions + ONE featured card (psychology #3, #4, #10) */
+#nav-dd-resources { display: flex; gap: 8px; min-width: 480px; padding: 14px; }
+.nav-dd-col { display: flex; flex-direction: column; gap: 2px; min-width: 220px; }
+.nav-dd-col-label { font-size: 11.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); padding: 6px 12px 8px; }
+.nav-dd-menu a.nav-dd-item { display: flex; flex-direction: column; gap: 1px; padding: 9px 12px; }
+.nav-dd-item-t { font-weight: 600; font-size: 14px; color: var(--ink); }
+.nav-dd-item-d { font-size: 12.5px; color: var(--ink-2); }
+.nav-dd-menu a.nav-dd-featcard { display: flex; flex-direction: column; gap: 5px; background: var(--surface-1); border-radius: var(--r-md); padding: 14px 16px; max-width: 250px; }
+.nav-dd-menu a.nav-dd-featcard:hover { background: color-mix(in srgb, var(--teal) 10%, #fff); }
+.nav-dd-feattag { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-ink); }
+.nav-dd-feattitle { font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.nav-dd-featdate { font-size: 12.5px; color: var(--ink-2); }
+.nav-dd-featcta { font-size: 13px; font-weight: 600; color: var(--teal-ink); margin-top: 3px; }
 /* Mobile chrome hidden on desktop */
 .nav-burger { display: none; }
 .nav-mobile, .nav-scrim { display: none; }
@@ -219,17 +232,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
 
 
 /* ---------- 8. Collage / product visual / triad / portrait ---------- */
-.hc-collage { position: relative; height: 430px; }
-.hc-card { position: absolute; display: block; border-radius: var(--r-lg); overflow: hidden; background: var(--surface-0); box-shadow: var(--shadow-lg); }
-.hc-card img { width: 100%; height: 100%; object-fit: cover; }
-.hc-a { width: 55%; height: 210px; top: 0; left: 0; transform: rotate(-3deg); z-index: 1; }
-.hc-b { width: 62%; height: 236px; top: 25%; right: 0; transform: rotate(2deg); z-index: 3; }
-.hc-shot { background: #fff; }
-.hc-shot img { object-position: left top; }
-.hc-cred { position: absolute; z-index: 5; left: 3%; top: 52%; display: inline-flex; align-items: center; gap: 13px; background: var(--surface-0); border-radius: var(--r-lg); padding: 12px 17px 12px 14px; box-shadow: var(--shadow-pop); }
-.hc-cred img { width: 60px; height: auto; display: block; flex-shrink: 0; }
-.hc-cred-label { font-weight: 600; font-size: 12px; line-height: 1.35; color: var(--ink); white-space: nowrap; }
-.hc-avs { position: absolute; z-index: 6; right: 2%; top: 61%; display: inline-flex; align-items: center; gap: 10px; background: var(--surface-0); border-radius: var(--r-pill); padding: 8px 16px 8px 10px; font-weight: 600; font-size: 12.5px; color: var(--ink); box-shadow: var(--shadow-md); white-space: nowrap; }
 .hc-avs-stack { display: inline-flex; }
 .hc-avs-av { width: 30px; height: 30px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 700; font-size: 10.5px; letter-spacing: .02em; border: 2px solid #fff; }
 /* Initial-avatar palette (tokens) — replaces per-span inline backgrounds */
@@ -840,6 +842,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .imx-band-attr-row { flex-direction: row; align-items: center; gap: 14px; }
 .imx-band-av { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px var(--hairline); background: var(--surface-2); flex-shrink: 0; }
 .imx-band-who { display: flex; flex-direction: column; gap: 2px; }
+.imx-band-aside { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; justify-content: center; border-left: 1px solid var(--hairline); padding: 36px 36px 36px 40px; }
+.imx-band-trust { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
 .imx-band-photo { position: relative; min-height: 240px; }
 .imx-band-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 26%; }
 
@@ -1260,29 +1264,16 @@ html, body { max-width: 100%; overflow-x: clip; }
 
 /* Section 6 — social proof card */
 .pproof-section { padding: var(--section-pad) 0; }
-.pproof-card { display: grid; grid-template-columns: 1fr 260px; gap: 40px; align-items: center; background: var(--surface-0); border-radius: var(--r-lg); padding: 44px 48px; box-shadow: var(--shadow-md); }
-.pproof-main { position: relative; }
-.pproof-mark { position: absolute; top: -28px; left: -8px; font-size: 72px; line-height: 1; color: color-mix(in srgb, var(--teal) 30%, #fff); font-family: "Inter", sans-serif; }
-.pproof-quote { position: relative; font-size: 23px; line-height: 1.5; font-weight: 500; color: var(--ink); margin: 0 0 22px; letter-spacing: -0.01em; }
-.pproof-hl { background: color-mix(in srgb, var(--teal) 16%, #fff); color: var(--teal-ink); padding: 0 4px; border-radius: 4px; }
-.pproof-attr { display: flex; flex-direction: column; gap: 2px; }
-.pproof-name { font-weight: 700; color: var(--ink); font-size: 15px; }
-.pproof-role { font-size: 13.5px; color: var(--ink-2); }
-.pproof-aside { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; border-left: 1px solid var(--hairline); padding-left: 40px; }
-.pproof-trust { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
 
 @media (max-width: 900px) {
   .feat-grid { grid-template-columns: repeat(2, 1fr); }
   .hww-grid { grid-template-columns: 1fr; }
-  .pproof-card { grid-template-columns: 1fr; gap: 28px; padding: 34px 28px; }
-  .pproof-aside { border-left: 0; border-top: 1px solid var(--hairline); padding-left: 0; padding-top: 24px; flex-direction: row; align-items: center; gap: 18px; }
-}
+    }
 @media (max-width: 560px) {
   .feat-grid { grid-template-columns: 1fr; }
   .probono-inner { flex-direction: column; align-items: flex-start; }
   .probono-cta { width: 100%; justify-content: center; }
-  .pproof-quote { font-size: 20px; }
-}
+  }
 
 /* ---------- 31. Interactive demo tour (About) ---------- */
 .dtr-frame { position: relative; max-width: 1000px; margin: 0 auto; background: var(--surface-0); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; outline: none; }
