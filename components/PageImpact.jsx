@@ -1,25 +1,31 @@
 // ===== Impact page (Customers.html) =====
 
 // 1. Hero — one shared template (white, left-aligned, product collage on the right)
+// Hero — copy only for now (right-hand side intentionally left empty).
 const ImpactHero = () => (
   <SiteHero
     eyebrow="Impact"
     headline={<>Real outcomes,<br /><span className="cvh-hl">across 25+ nonprofits</span></>}
     body="From a week of reporting down to an hour — see what nonprofits do once their data is clean, connected, and finally theirs."
-  >
-    <div className="cvh-visual">
-      <figure className="impact-portrait">
-        <div className="ip-quote">
-          <span className="ip-mark" aria-hidden="true">&ldquo;</span>
-          <p>&ldquo;Two things stood out (about Dalgo 2.0). First, the map of the country &mdash; you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. That&rsquo;s a really big upgrade.&rdquo;</p>
-          <span className="ip-attr">
-            <span className="ip-av"><img src="assets/opt/chetan.webp" alt="Chetan Pruthi" /></span>
-            <span className="ip-who"><strong>Chetan Pruthi</strong><span className="ip-org">Make A Difference</span></span>
-          </span>
-        </div>
+  />
+);
+
+// Clean single testimonial directly below the hero (Lattice-style: large quote, avatar + role).
+const ImpactTestimonial = () => (
+  <section className="cs-tq">
+    <div className="container">
+      <figure className="cs-tq-fig">
+        <span className="cs-tq-mark" aria-hidden="true">&ldquo;</span>
+        <blockquote className="cs-tq-quote">
+          Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <strong>That&rsquo;s a really big upgrade.</strong>
+        </blockquote>
+        <figcaption className="cs-tq-attr">
+          <img className="cs-tq-av" src="assets/opt/chetan.webp" alt="Chetan Pruthi" width="52" height="52" loading="lazy" />
+          <span className="cs-tq-who"><strong>Chetan Pruthi</strong><span>Product Manager · Make A Difference</span></span>
+        </figcaption>
       </figure>
     </div>
-  </SiteHero>
+  </section>
 );
 
 // 2. Impact at a glance — compact use-case tiles
@@ -190,6 +196,8 @@ const BrowseCaseStudies = () => {
     { sector: 'Maternal & Child Health', org: 'SNEHA', title: 'Harnessing real-time data for social impact', img: 'assets/cases/sneha.webp', href: 'https://projecttech4dev.org/harnessing-real-time-data-for-social-impact-snehas-journey-with-dalgo/' },
     { sector: 'Education', org: 'Antarang', title: "Antarang's data breakthrough with GoalKeep and Dalgo", img: 'assets/cases/antarang.png', href: 'https://projecttech4dev.org/fueling-success-antarangs-data-breakthrough-with-goalkeep-and-dalgo/' },
     { sector: 'Community Empowerment', org: 'SHOFCO', title: 'Shining hope from within — SHOFCO’s empowerment story', img: 'assets/cases/shofco-partnership.png', href: 'https://projecttech4dev.org/shining-hope-from-within-shofcos-empowerment-story-with-dalgo/' },
+    { sector: 'Water & Environment', org: 'A.T.E. Chandra Foundation', title: 'Rejuvenating 5,000+ waterbodies, tracked on one dashboard', img: 'assets/cases/atecf.webp', href: 'https://projecttech4dev.org/waterbody-rejuvenation-project-a-t-e-chandra-foundation/' },
+    { sector: 'Water & Rural Development', org: 'Arghyam', title: 'Unifying piped-water-supply data across Bihar', img: 'assets/cases/arghyam.webp', href: 'https://projecttech4dev.org/jal-jeevan-mission-arghyam/' },
   ];
   return (
     <section className="imx-section imx-browse" id="case-studies">
@@ -215,6 +223,7 @@ const BrowseCaseStudies = () => {
 };
 
 window.ImpactHero = ImpactHero;
+window.ImpactTestimonial = ImpactTestimonial;
 window.ImpactGlance = ImpactGlance;
 window.StirSpotlight = StirSpotlight;
 window.BrowseSector = BrowseSector;
