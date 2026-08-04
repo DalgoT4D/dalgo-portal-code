@@ -7,8 +7,9 @@
 
 ## Composition rules (full doc: `~/Downloads/Dalgo/Dalgo website/Website Design Sytem /03 Aug/dalgo-composition-principles.md`)
 - **Section backgrounds: 3 only** — `--surface-0` (default), `--surface-1` (the ONE tint), `--navy`/`--navy-2` (max 1–2 dark bands/page). `--surface-2` is component-only (inputs/chips/thumbs), never a section bg. Never two tinted sections adjacent.
-- **Section padding: 3 values only** — `--section-pad` (96, white), `--section-pad-lg` (128, tinted/dark bands), `--section-pad-sm` (64, slim strips). No custom section paddings.
+- **Section padding: 3 values only** — `--section-pad` (56, white), `--section-pad-lg` (80, tinted/dark bands), `--section-pad-sm` (32, slim strips); mobile 40/56/24. No custom section paddings.
 - **One quote-card pattern for every testimonial**: white card, `--r-xl`, `--shadow-card`, quote ≤28px **weight 500**, ONE mint `<mark>` highlight (replaces bold), name/role attribution, optional real-photo panel. No naked pull-quotes.
+- **Hero visual = one `.cvh-figure` per page, one image, no collages.** Three variants: default (photo, 4:3, `max-width:512px`), `.cvh-figure-illus` (product-illustration, 16:10, softer `--shadow-card`, mint bg), `.cvh-figure-cover` (end-to-end photo panel — stretches to full copy-column height via `.cvh-grid:has(.cvh-visual-cover)`). A hero shows a product illustration OR a photo of the people it describes — never another page's customer photo.
 - **Step sequences**: uniform white cards on a tinted band; number inside the step label; no watermark numerals, no arrows, no per-card colour alternation.
 - **Accordions closed by default.** Display text ≥20px is weight ≤500 (headings exempt).
 - **QA gate**: verify every change at section boundaries in full-page context (screenshot the seams), across ≥2 viewports, against these rules — not just token conformance.

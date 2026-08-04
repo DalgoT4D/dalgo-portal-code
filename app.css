@@ -211,6 +211,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvh-visual { position: relative; min-width: 0; align-self: center; }
 .cvh-figure { position: relative; width: 100%; max-width: 512px; margin-left: auto; aspect-ratio: 4/3; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
 .cvh-figure img { width: 100%; height: 100%; object-fit: cover; }
+/* Illustration hero (product): wider ratio so the mint-gradient artwork isn't cropped;
+   softer elevation because it's a graphic, not a photo. */
+.cvh-figure-illus { aspect-ratio: 16 / 10; box-shadow: var(--shadow-card); background: var(--surface-1); }
+.cvh-figure-illus img { object-fit: cover; }
+/* End-to-end frame (consulting): the photo panel stretches to the full height of the
+   copy column and fills its column width edge-to-edge — a bolder, framed portrait. */
+.cvh-grid:has(.cvh-visual-cover) { align-items: stretch; }
+.cvh-visual-cover { align-self: stretch; display: flex; }
+.cvh-figure-cover { max-width: none; aspect-ratio: auto; height: 100%; min-height: 380px; }
 /* Community-hero collage */
 .cvh-collage { position: relative; height: 540px; }
 .cvh-card { position: absolute; border-radius: var(--r-md); overflow: hidden; background: var(--surface-0); box-shadow: var(--shadow-lg); }

@@ -49,15 +49,6 @@ const CaseFeature = () => {
       read: 'https://projecttech4dev.org/flushing-out-inefficiencies-shri-dalgos-data-driven-approach-to-better-quality-sanitation/',
     },
     {
-      org: 'SNEHA', logo: 'assets/logos/SNEHA.png', img: 'assets/people-1.jpg',
-      headline: "Enter today's work. See it reflected tomorrow",
-      copy: 'Dalgo transformed reporting from monthly static updates into next-day operational visibility through live dashboards.',
-      m1: { before: 'Monthly', after: 'Next day', cap: 'Reporting cadence' },
-      m2: { after: 'Real-time dashboards', cap: 'Operational visibility' },
-      ctx: ['Leadership and programme teams see the impact of their work almost immediately', 'Dashboards replaced offline statistical workflows', 'Platform improvements shaped in close collaboration with the SNEHA team'],
-      read: 'case-studies.html',
-    },
-    {
       org: 'Ummeed', logo: 'assets/logos/Ummeed.png', img: 'https://projecttech4dev.org/wp-content/uploads/2025/04/ummeed2.jpg',
       headline: "One child's journey. Finally visible in one place",
       copy: "Dalgo unified multiple systems so every child's complete journey can be viewed across clinical care and professional training programmes.",

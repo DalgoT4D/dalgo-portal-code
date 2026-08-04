@@ -10,8 +10,8 @@ const AboutHero = () => (
     body="Surveys, spreadsheets, CRMs and case tools — brought together, cleaned, and connected in one place your whole team can trust."
   >
     <div className="cvh-visual">
-      <figure className="cvh-figure">
-        <img loading="lazy" width="1400" height="933" src="assets/opt/story-dashboard.webp" alt="Two Dalgo team members reviewing a live data dashboard together on a laptop" />
+      <figure className="cvh-figure cvh-figure-illus">
+        <img loading="lazy" width="1100" height="654" src="assets/illus/dashboard-charts.webp" alt="A Dalgo dashboard illustration — programme metrics and monthly totals at a glance" />
       </figure>
     </div>
   </SiteHero>

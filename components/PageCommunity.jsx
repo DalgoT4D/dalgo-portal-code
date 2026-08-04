@@ -19,28 +19,10 @@ const CommunityHero = () => (
           <a className="cmh-btn cmh-btn-ghost" href="#latest-webinar">Browse Upcoming Webinars</a>
         </div>
       </div>
-      <div className="cvh-collage" aria-hidden="true">
-        <div className="cvh-card cvh-c1"><img src="assets/community-cards/webinars.webp" alt="" /></div>
-        <div className="cvh-note">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-          Next webinar · Thu, 4 PM IST
-        </div>
-        <div className="cvh-card cvh-c2"><img src="assets/community-cards/data-decoded.webp" alt="" /></div>
-        <div className="cvh-card cvh-c3"><img src="assets/community/bootcamp-2.webp" alt="" /></div>
-        <div className="cvh-card cvh-c4 cvh-wa">
-          <div className="cvh-wa-head">
-            <span className="cvh-wa-dot"></span>
-            Dalgo Data Community
-          </div>
-          <div className="cvh-wa-msg">
-            <span className="cvh-wa-av av-rust">PR</span>
-            <span className="cvh-wa-bubble">How are you all syncing KoboToolbox into your warehouse?</span>
-          </div>
-          <div className="cvh-wa-msg cvh-wa-me">
-            <span className="cvh-wa-bubble cvh-wa-bubble-me">We set it up in Dalgo in ~10 min — happy to share!</span>
-            <span className="cvh-wa-av av-pine">AK</span>
-          </div>
-        </div>
+      <div className="cvh-visual">
+        <figure className="cvh-figure">
+          <img loading="lazy" width="1600" height="1067" src="assets/community/bootcamp-2.webp" alt="Nonprofit data practitioners at a Dalgo community workshop" />
+        </figure>
       </div>
     </div>
   </section>

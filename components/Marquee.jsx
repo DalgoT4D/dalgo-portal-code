@@ -28,7 +28,6 @@ const Marquee = () => {
   { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png' },
   { name: 'Baala', src: 'assets/logos/Baala.png', solid: true },
   { name: 'Bhumi', src: 'assets/logos/Bhumi.png' },
-  { name: 'AKRSP', src: 'assets/logos/AKRSP.png' },
   { name: 'Dasra', src: 'assets/logos/Dasra.png', solid: true },
   { name: 'SEARCH', src: 'assets/logos/SEARCH.png' }];
 

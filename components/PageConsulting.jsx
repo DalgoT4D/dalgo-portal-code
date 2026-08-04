@@ -11,9 +11,9 @@ const ConsultingHero = () => (
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
     ctas={<HeroCTAs primaryLabel="Book Free Consultation" primaryHref="contact.html" secondaryLabel="Explore Our Work" secondaryHref="case-studies.html" />}
   >
-    <div className="cvh-visual">
-      <figure className="cvh-figure">
-        <img loading="lazy" src="assets/opt/people-1.webp" alt="A Dalgo consultant working through data systems with a nonprofit team" width="1400" height="787" />
+    <div className="cvh-visual cvh-visual-cover">
+      <figure className="cvh-figure cvh-figure-cover">
+        <img loading="lazy" src="assets/opt/consulting-hero.webp" alt="Two nonprofit data practitioners working through their data systems together at a Dalgo consulting workshop" width="1600" height="1067" />
       </figure>
     </div>
   </SiteHero>
