@@ -10,7 +10,7 @@ const PricingHero = () => (
     body="Flat pricing. No per-user, per-source, or per-row fees — add your whole team and every data source for one predictable cost. Tell us about your organisation and we'll tailor the right plan for you."
     ctas={<>
       <p className="pricing-anchor"></p>
-      <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="contact.html" />
+      <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="https://forms.gle/vfMNUNHTwDWB4qm66" />
     </>}
   />
   // Hero is copy-only (psychology #2 cognitive load): the collage of floating screenshots +
@@ -98,7 +98,7 @@ const PricingPlans = () => {
               <div className="plan-price"><span className="plan-from">from</span><span className="plan-amt">{r.consulting.price}</span><span className="plan-period">{r.consulting.period}</span></div>
               <div className="plan-note">Scoped with you before any work begins</div>
             </div>
-            <a className="cmh-btn cmh-btn-primary plan-cta" href="contact.html">
+            <a className="cmh-btn cmh-btn-primary plan-cta" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
               Book a Free Consultation
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </a>
@@ -110,7 +110,13 @@ const PricingPlans = () => {
             </div>
           </article>
         </div>
-        <p className="pricing-helper">Not sure what's right for you? <a href="contact.html">Schedule a call</a> and we'll help you figure out the right mix.</p>
+        <div className="pricing-help-cta">
+          <p className="pricing-help-text">Not sure what's right for you? Schedule a call and we'll help you figure out the right mix.</p>
+          <a className="cmh-btn cmh-btn-primary" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
+            Schedule a Call
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -156,73 +162,7 @@ const CostsToPlanFor = () => {
   );
 };
 
-// Section 3 — Everything, in every plan (feature grid). Line icons in soft tinted chips.
-const FeatureGrid = () => {
-  const tiles = [
-    { tint: '#E6F7F2', ink: '#00897B', label: 'Data pipelines', desc: 'Automated syncs through custom NGO connectors — Kobo, MGrant, ODK, SurveyCTO — plus 600+ more sources via Airbyte.',
-      icon: <><path d="M4 8h11a4 4 0 0 1 0 8h-1" /><path d="M8 4L4 8l4 4" /><path d="M20 16H9a4 4 0 0 1 0-8h1" /><path d="M16 20l4-4-4-4" /></> },
-    { tint: '#EAF1FE', ink: '#2A6FDB', label: 'Dashboards', desc: 'Live views your whole team can open.',
-      icon: <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></> },
-    { tint: '#FDF0E7', ink: '#C4703A', label: 'Charts', desc: 'Bar, line, pie, maps, pivots and more.',
-      icon: <><path d="M5 20V10M12 20V4M19 20v-7" /></> },
-    { tint: '#FBEBEF', ink: '#C33F63', label: 'Alerts', desc: 'Know when a number needs attention.',
-      icon: <><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.7 21a2 2 0 0 1-3.4 0" /></> },
-    { tint: '#EFEBFB', ink: '#6D4FC4', label: 'KPIs', desc: 'Track the metrics your programs run on.',
-      icon: <><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3.5" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3" /></> },
-    { tint: '#E7F6EE', ink: '#1F8A54', label: 'Data management', desc: 'Quality checks, transformations, RBAC.',
-      icon: <><ellipse cx="12" cy="6" rx="7" ry="3" /><path d="M5 6v12c0 1.66 3.13 3 7 3s7-1.34 7-3V6" /><path d="M5 12c0 1.66 3.13 3 7 3s7-1.34 7-3" /></> },
-  ];
-  return (
-    <section className="feat-section" id="included">
-      <div className="container">
-        <div className="section-head section-head-center">
-          <p className="pf-eyebrow">Everything, in every plan</p>
-          <h2 className="section-title">One flat fee, the <span className="hl-underline">whole platform</span></h2>
-          <p className="section-sub" style={{ maxWidth: 760, margin: '12px auto 0' }}>Every capability is included in every plan — no feature gating, no upsell asterisks.</p>
-        </div>
-        <div className="feat-grid">
-          {tiles.map((t, i) => (
-            <div className="feat-tile" key={i}>
-              <span className="feat-ic" style={{ background: t.tint }}>
-                <svg viewBox="0 0 24 24" aria-hidden="true" style={{ stroke: t.ink }}>{t.icon}</svg>
-              </span>
-              <div className="feat-body">
-                <div className="feat-label">{t.label}</div>
-                <div className="feat-desc">{t.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="feat-notes">
-          <p className="feat-note">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10a4 4 0 0 0-7.7-1.3A3.5 3.5 0 1 0 7 16h10a3.5 3.5 0 0 0 1-6.9" /></svg>
-            Warehouse and any additional visualisation tool are the two costs outside this fee — see "Costs to plan for" below.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// Section 5 — Pro Bono Data Consulting (complimentary one-hour discovery session).
-// The Google-Form "apply" button and the consulting-card pro-bono line were removed 1 Aug;
-// the discovery session is now booked through Book a Free Consultation.
-const ProBonoBand = () => (
-  <section className="probono-band" id="pro-bono">
-    <div className="container probono-inner">
-      <div className="probono-copy">
-        <h2 className="probono-h">Pro Bono Data Consulting</h2>
-        <p className="probono-sub">A complimentary one-hour discovery session: we'll understand your organisation's data challenges, assess your current setup, and recommend the most appropriate next steps — including a Dalgo solution, if it's the right fit.</p>
-      </div>
-      <a className="cmh-btn cmh-btn-primary probono-cta" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
-        Book a Free Consultation
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-      </a>
-    </div>
-  </section>
-);
-
-// Section 6 — Social proof at the decision point (verified STiR quote, verbatim)
+// Social proof at the decision point (verified STiR quote, verbatim)
 const PricingProof = () => (
   <section className="pproof-section">
     <div className="container">
@@ -249,6 +189,4 @@ const PricingProof = () => (
 window.PricingHero = PricingHero;
 window.PricingPlans = PricingPlans;
 window.CostsToPlanFor = CostsToPlanFor;
-window.FeatureGrid = FeatureGrid;
-window.ProBonoBand = ProBonoBand;
 window.PricingProof = PricingProof;

@@ -8,7 +8,7 @@ const FooterV2 = () =>
           </div>
           <p className="fx-brand-tag">Join our community to get updates on Data + AI webinars, nonprofit stories, and offline meetups.</p>
           <form className="fx-sub-form" onSubmit={(e) => { e.preventDefault(); window.open('https://zcmp.in/byTZ', '_blank', 'noopener'); }}>
-            <input type="email" placeholder="your@email" aria-label="Email address" data-comment-anchor="2f58a44c40-input-18-13" />
+            <input type="email" placeholder="Enter your email" aria-label="Email address" data-comment-anchor="2f58a44c40-input-18-13" />
             <button type="submit">Subscribe</button>
           </form>
           <div className="fx-creds">

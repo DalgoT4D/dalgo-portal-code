@@ -577,13 +577,17 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .fx-initiative { margin: 18px 0 0; font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--ink-2) 88%, #fff); }
 .fx-initiative a { color: var(--teal-ink); font-weight: 600; }
 /* Newsletter capture */
-.fx-sub-form { display: flex; gap: 8px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 5px; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+/* One unified control: a single pill shell (one border, one shadow) holding the input and
+   an integrated full-height button. align-items:stretch makes the button fill the shell's
+   inner height so it reads as part of the field, not a pill floating inside a pill. */
+.fx-sub-form { display: flex; align-items: stretch; gap: 6px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 6px; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
 .fx-sub-form:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 16%, transparent); }
-.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 9px 14px; font-size: 14px; outline: none; font-family: inherit; }
+/* Balanced left/right breathing room around the input text; native vertical centring. */
+.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 0 18px; font-size: 14px; line-height: 1.2; outline: none; font-family: inherit; }
 .fx-sub-form input::placeholder { color: color-mix(in srgb, var(--ink-2) 58%, #fff); }
-.fx-sub-form button { background: var(--teal-ink); color: #fff; padding: 10px 20px; font-size: 13.5px; font-weight: 600; border-radius: var(--r-pill); white-space: nowrap; flex-shrink: 0; transition: background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
-.fx-sub-form button:hover { background: color-mix(in srgb, var(--teal-ink) 82%, #000); transform: translateY(-1px); }
-.fx-sub-form button:active { transform: translateY(0); }
+/* Button: full inner height, generous inset, text centred both axes, no separate elevation. */
+.fx-sub-form button { display: inline-flex; align-items: center; justify-content: center; background: var(--teal-ink); color: #fff; padding: 12px 26px; font-size: 13.5px; font-weight: 600; border-radius: var(--r-pill); white-space: nowrap; flex-shrink: 0; transition: background var(--dur-fast) var(--ease); }
+.fx-sub-form button:hover { background: color-mix(in srgb, var(--teal-ink) 82%, #000); }
 /* Credentials cluster — in the flow, not floating */
 .fx-creds { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
 .fx-trust-badge { height: 46px; display: block; }
@@ -786,8 +790,9 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .plan-tagline { margin: 0; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
 .plan-includes-h { margin: 0 0 14px; font-size: 12px; font-weight: 700; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
 .plan-features-tags li { font-size: 15px; }
-.pricing-helper { text-align: center; margin: 32px 0 0; font-size: 14.5px; color: var(--ink-2); }
-.pricing-helper a { color: var(--teal-ink); font-weight: 600; }
+/* Prominent "not sure? schedule a call" callout — tinted card, centred, → consultation form. */
+.pricing-help-cta { margin: 40px auto 0; max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; padding: 32px; background: var(--surface-1); border-radius: var(--r-xl); box-shadow: var(--shadow-sm); }
+.pricing-help-text { margin: 0; font-size: 20px; font-weight: 500; line-height: 1.4; color: var(--ink); max-width: 32ch; }
 
 /* Costs-to-plan-for accordion (pricing page) */
 .ctpf-section { background: var(--surface-1); border-top: 1px solid var(--hairline); padding: var(--section-pad-lg) 0; }
