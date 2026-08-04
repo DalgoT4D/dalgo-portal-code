@@ -12,3 +12,4 @@
 - **Step sequences**: uniform white cards on a tinted band; number inside the step label; no watermark numerals, no arrows, no per-card colour alternation.
 - **Accordions closed by default.** Display text ≥20px is weight ≤500 (headings exempt).
 - **QA gate**: verify every change at section boundaries in full-page context (screenshot the seams), across ≥2 viewports, against these rules — not just token conformance.
+- **Logo/asset visibility gate**: for any monochrome logo wall or image-on-background, verify EACH asset is visible against its background — measure per-asset luminance, don't eyeball one and assume the rest. A luminance-preserving filter (grayscale/contrast) CANNOT rescue a pale asset on white; pale wordmarks need `brightness(0)` silhouette, solid filled emblems need grayscale (silhouette turns them into black blobs). The marquee splits on `.logo-img` (silhouette) vs `.logo-img.is-solid` (grayscale) — see `Marquee.jsx` header.

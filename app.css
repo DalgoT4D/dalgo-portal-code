@@ -296,7 +296,12 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .logo-marquee:hover .logo-marquee-track { animation-play-state: paused; }
 /* Fixed-width slots → uniform spacing, load-independent layout, centered logos. */
 .logo-tile { flex: 0 0 auto; width: 190px; height: 44px; display: grid; place-items: center; }
-.logo-tile .logo-img { height: 34px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) contrast(1.08); opacity: 0.9; }
+/* Monochrome logo wall — TWO measured treatments (see Marquee.jsx header):
+   default = SILHOUETTE (brightness(0)) so pale wordmarks (TAP/Antarang/MAD) are visible;
+   .is-solid = GRAYSCALE for filled emblems (SHOFCO/Ummeed/Baala/Dasra) that would
+   otherwise collapse to black blobs. Both land at a similar grey weight. */
+.logo-tile .logo-img { height: 34px; width: auto; max-width: 150px; object-fit: contain; filter: brightness(0); opacity: 0.55; }
+.logo-tile .logo-img.is-solid { filter: grayscale(1) contrast(1.02); opacity: 0.72; }
 
 /* ---------- 10b. How Dalgo Helps (solution cards) ---------- */
 .hdh-section { padding: var(--section-pad) 0; }
@@ -1107,7 +1112,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 
 /* --- Logo tiles: reveal colour + lift on hover (marquee pauses on hover) --- */
 .logo-img { transition: filter var(--dur) var(--ease), opacity var(--dur) var(--ease); }
-.logo-tile:hover .logo-img { filter: grayscale(0); opacity: 1; }
+.logo-tile:hover .logo-img, .logo-tile:hover .logo-img.is-solid { filter: none; opacity: 1; }
 
 /* --- Skeleton loading placeholder (utility) --- */
 .skeleton {
