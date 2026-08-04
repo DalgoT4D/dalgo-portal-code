@@ -119,7 +119,7 @@ const StirSpotlight = () => (
           </div>
         </div>
         <div className="imx-band-photo">
-          <img loading="lazy" width="1400" height="787" src="assets/opt/people-1.webp" alt="Arun Maruthi Selvan of STiR Education at a Dalgo working session" />
+          <img loading="lazy" width="1400" height="787" src="assets/opt/arun.webp" alt="Arun Maruthi Selvan of STiR Education at a Dalgo working session" />
         </div>
       </div>
     </div>

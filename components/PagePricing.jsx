@@ -239,7 +239,7 @@ const PricingProof = () => (
           </div>
         </div>
         <div className="imx-band-photo">
-          <img src="assets/opt/people-1.webp" alt="Arun Maruthi Selvan of STiR Education at a Dalgo working session" width="1400" height="787" loading="lazy" />
+          <img src="assets/opt/arun.webp" alt="Arun Maruthi Selvan of STiR Education at a Dalgo working session" width="1400" height="787" loading="lazy" />
         </div>
       </div>
     </div>

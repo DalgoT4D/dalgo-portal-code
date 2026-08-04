@@ -296,7 +296,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .logo-marquee:hover .logo-marquee-track { animation-play-state: paused; }
 /* Fixed-width slots → uniform spacing, load-independent layout, centered logos. */
 .logo-tile { flex: 0 0 auto; width: 190px; height: 44px; display: grid; place-items: center; }
-.logo-tile .logo-img { height: 34px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) brightness(0.5) contrast(1.05); opacity: 1; }
+.logo-tile .logo-img { height: 34px; width: auto; max-width: 150px; object-fit: contain; filter: grayscale(1) contrast(1.08); opacity: 0.9; }
 
 /* ---------- 10b. How Dalgo Helps (solution cards) ---------- */
 .hdh-section { padding: var(--section-pad) 0; }

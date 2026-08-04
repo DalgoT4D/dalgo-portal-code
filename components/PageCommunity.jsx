@@ -26,7 +26,7 @@ const CommunityHero = () => (
           Next webinar · Thu, 4 PM IST
         </div>
         <div className="cvh-card cvh-c2"><img src="assets/community-cards/data-decoded.webp" alt="" /></div>
-        <div className="cvh-card cvh-c3"><img src="assets/community/bootcamp-2.jpg" alt="" /></div>
+        <div className="cvh-card cvh-c3"><img src="assets/community/bootcamp-2.webp" alt="" /></div>
         <div className="cvh-card cvh-c4 cvh-wa">
           <div className="cvh-wa-head">
             <span className="cvh-wa-dot"></span>
