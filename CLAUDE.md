@@ -5,7 +5,7 @@
 - CSS architecture: exactly two stylesheets ship — `tokens.css` (variables only, single `:root`) and `app.css` (all components, **zero `!important`**). Solve specificity with selector scope, not `!important`.
 - Type: Inter only (no serif/Spectral/DM Sans). Teal is never used for body text (links excepted).
 
-## Composition rules (full doc: `~/Downloads/Dalgo/Dalgo website/Website Design Sytem /03 Aug/dalgo-composition-principles.md`)
+## Composition rules (full doc: `~/Downloads/Dalgo/Dalgo website/Website Design Sytem /02-composition-principles.md`)
 - **Section backgrounds: 3 only** — `--surface-0` (default), `--surface-1` (the ONE tint), `--navy`/`--navy-2` (max 1–2 dark bands/page). `--surface-2` is component-only (inputs/chips/thumbs), never a section bg. Never two tinted sections adjacent.
 - **Section padding: 3 values only** — `--section-pad` (56, white), `--section-pad-lg` (80, tinted/dark bands), `--section-pad-sm` (32, slim strips); mobile 40/56/24. No custom section paddings.
 - **One quote-card pattern for every testimonial**: white card, `--r-xl`, `--shadow-card`, quote ≤28px **weight 500**, ONE mint `<mark>` highlight (replaces bold), name/role attribution, optional real-photo panel. No naked pull-quotes.
