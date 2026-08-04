@@ -238,14 +238,8 @@ const PricingProof = () => (
             <span className="imx-band-role">Senior Manager, STiR Education</span>
           </div>
         </div>
-        <div className="imx-band-aside">
-          <span className="hc-avs-stack">
-            <span className="hc-avs-av av-blue">SN</span>
-            <span className="hc-avs-av av-rust">MD</span>
-            <span className="hc-avs-av av-pine">SR</span>
-            <span className="hc-avs-av av-violet">ST</span>
-          </span>
-          <span className="imx-band-trust">Trusted by 25+ nonprofits</span>
+        <div className="imx-band-photo">
+          <img src="assets/opt/people-1.webp" alt="Arun Maruthi Selvan of STiR Education at a Dalgo working session" width="1400" height="787" loading="lazy" />
         </div>
       </div>
     </div>

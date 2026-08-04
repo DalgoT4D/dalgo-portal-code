@@ -12,21 +12,24 @@ const ImpactHero = () => (
 
 // Testimonial below the hero — the ONE canonical quote-card pattern (composition principles §4).
 const ImpactTestimonial = () => (
-  <section className="imx-section">
+  <section className="imx-section imx-quote-strip">
     <div className="container">
-      <div className="imx-band imx-band-solo">
+      <div className="imx-band">
         <div className="imx-band-main">
           <span className="imx-band-mark" aria-hidden="true">&ldquo;</span>
           <blockquote className="imx-band-quote">
-            Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <mark className="imx-mark">That&rsquo;s a really big upgrade.</mark>
+            It&rsquo;s thrilling to finally see an <mark className="imx-mark">affordable service built on open-source software</mark> to support non-profits in making evidence-based decisions.
           </blockquote>
-          <div className="imx-band-attr imx-band-attr-row">
-            <img className="imx-band-av" src="assets/opt/chetan.webp" alt="Chetan Pruthi" width="52" height="52" loading="lazy" />
-            <span className="imx-band-who">
-              <span className="imx-band-name">Chetan Pruthi</span>
-              <span className="imx-band-role">Product Manager, Make A Difference</span>
-            </span>
+          <div className="imx-band-attr">
+            <span className="imx-band-name">Jacob Hughey</span>
+            <span className="imx-band-role">Core Team Member, The Agency Fund</span>
           </div>
+        </div>
+        <div className="imx-band-photo is-placeholder" role="img" aria-label="Speaker photo (to be added)">
+          {/* TODO(Stuti): replace this placeholder with the real speaker photo:
+              <img src="assets/opt/NAME.webp" alt="NAME of ORG" width="1400" height="900" loading="lazy" /> */}
+          <svg className="imx-band-ph-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 20c0-3.6 3-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
+          <span className="imx-band-ph-label">Photo to add</span>
         </div>
       </div>
     </div>

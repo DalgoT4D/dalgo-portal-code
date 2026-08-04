@@ -89,7 +89,9 @@ const Nav = () => {
                   <div className="nav-dd-col">
                     <div className="nav-dd-col-label" aria-hidden="true">Featured</div>
                     <a className="nav-dd-featcard" href={featured.href} target="_blank" rel="noopener" role="menuitem">
-                      <span className="nav-dd-feattag">{featured.tag}</span>
+                      {featured.img
+                        ? <span className="nav-dd-featimg"><img src={featured.img} alt="" width="800" height="420" loading="lazy" /></span>
+                        : <span className="nav-dd-feattag">{featured.tag}</span>}
                       <span className="nav-dd-feattitle">{featured.title}</span>
                       <span className="nav-dd-featdate">{featured.dateLabel}</span>
                       <span className="nav-dd-featcta">{featured.cta || 'Register'} <span aria-hidden="true">→</span></span>

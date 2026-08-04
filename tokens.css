@@ -108,9 +108,9 @@
 
   /* Section rhythm (composition principles §2) — exactly three values:
      white sections / tinted+dark chapter bands / slim strips */
-  --section-pad: 96px;
-  --section-pad-lg: 128px;
-  --section-pad-sm: 64px;
+  --section-pad: 56px;      /* white sections → 112px between two whites */
+  --section-pad-lg: 80px;   /* tinted / dark chapter bands */
+  --section-pad-sm: 32px;   /* slim strips + quote interstitials */
   --container: 1200px;
 }
-@media (max-width: 768px) { :root { --section-pad: 48px; --section-pad-lg: 64px; --section-pad-sm: 40px; } }
+@media (max-width: 768px) { :root { --section-pad: 40px; --section-pad-lg: 56px; --section-pad-sm: 24px; } }

@@ -292,6 +292,31 @@ const DashboardShowcase = () => {
 
 window.DashboardShowcase = DashboardShowcase;
 window.WatchDemo = WatchDemo;
+
+// Proof directly below the hero (case-studies pattern; psychology: social proof early, Jakob's law).
+const ProductProof = () => (
+  <section className="imx-section imx-quote-strip">
+    <div className="container">
+      <div className="imx-band">
+        <div className="imx-band-main">
+          <span className="imx-band-mark" aria-hidden="true">&ldquo;</span>
+          <blockquote className="imx-band-quote">
+            Two things stood out about Dalgo 2.0. First, the map of the country — you can drill down, and as NGOs we can use that for so many representations. Second, sharing dashboards publicly: it&rsquo;s much easier to just give people a link than to keep generating logins for every layer. <mark className="imx-mark">That&rsquo;s a really big upgrade.</mark>
+          </blockquote>
+          <div className="imx-band-attr">
+            <span className="imx-band-name">Chetan Pruthi</span>
+            <span className="imx-band-role">Product Manager, Make A Difference</span>
+          </div>
+        </div>
+        <div className="imx-band-photo">
+          <img src="assets/opt/chetan.webp" alt="Chetan Pruthi of Make A Difference" width="1400" height="890" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+);
+window.ProductProof = ProductProof;
+
 window.AboutHero = AboutHero;
 window.AboutTriad = AboutTriad;
 window.TrustLayer = TrustLayer;

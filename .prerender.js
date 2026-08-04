@@ -39,7 +39,8 @@ function rebake(page){
       const rendered = window.document.getElementById('app').outerHTML;
       // Replace the existing snapshot: from `<div id="app">` up to the newline
       // before `<script src="site-config.js">`.
-      const anchor = '\n<script src="site-config.js">';
+      // Prefix match so a ?v= cache-buster on site-config.js doesn't break the anchor.
+      const anchor = '\n<script src="site-config.js';
       const start = html.indexOf('<div id="app">');
       const anchorIdx = html.indexOf(anchor, start);
       if (start === -1 || anchorIdx === -1) { console.log('  SKIP (anchor not found):', page); return resolve(false); }

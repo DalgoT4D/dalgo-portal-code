@@ -11,6 +11,7 @@ window.SITE_CONFIG = {
     title: 'Understanding Data + AI Lifecycle: A Practical Guide for NGOs (Part 2)',
     dateLabel: 'Wed 6 Aug · 2:00 PM IST',
     href: 'https://luma.com/88btx8qo',
+    img: 'assets/webinars/featured-webinar.webp', // event cover (downloaded from the Luma page by the monthly task)
     cta: 'Register',
     expires: '2026-08-06T10:00:00Z' // hides once the session wraps
   }
@@ -19,7 +20,9 @@ window.SITE_CONFIG = {
 window.featuredWebinar = function () {
   var w = window.SITE_CONFIG.FEATURED_WEBINAR;
   if (!w || (w.expires && Date.now() > Date.parse(w.expires))) return null;
-  return w;
+  // Luma UTM tagging: source attribution is appended here automatically, so config hrefs stay clean.
+  var href = w.href + (w.href.indexOf('?') > -1 ? '&' : '?') + 'utm_source=website&utm_medium=nav_featured';
+  return Object.assign({}, w, { href: href });
 };
 // Every primary trial CTA ("Try the Platform") resolves through this: flag off => Contact Us → /contact (BM-307: label always matches destination).
 window.trialCta = function () {

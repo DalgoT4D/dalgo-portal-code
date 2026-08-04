@@ -149,8 +149,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 
 /* ---------- 5. Section utilities ---------- */
 .section { padding: var(--section-pad) 0; position: relative; }
-.section-head { margin: 0 auto 48px; max-width: 760px; }
-.section-head-center { text-align: center; max-width: 780px; margin: 0 auto 48px; }
+.section-head { margin: 0 auto 32px; max-width: 760px; }
+.section-head-center { text-align: center; max-width: 780px; margin: 0 auto 32px; }
 .section-head-center .section-sub { margin: 16px auto 0; max-width: var(--measure); }
 .section-head-center .se-sub { max-width: 860px; }
 .cvc-section .section-head-center { max-width: none; }
@@ -184,9 +184,12 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .nav-dd-menu a.nav-dd-item { display: flex; flex-direction: column; gap: 1px; padding: 9px 12px; }
 .nav-dd-item-t { font-weight: 600; font-size: 14px; color: var(--ink); }
 .nav-dd-item-d { font-size: 12.5px; color: var(--ink-2); }
-.nav-dd-menu a.nav-dd-featcard { display: flex; flex-direction: column; gap: 5px; background: var(--surface-1); border-radius: var(--r-md); padding: 14px 16px; max-width: 250px; }
-.nav-dd-menu a.nav-dd-featcard:hover { background: color-mix(in srgb, var(--teal) 10%, #fff); }
-.nav-dd-feattag { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-ink); }
+.nav-dd-menu a.nav-dd-featcard { display: flex; flex-direction: column; gap: 6px; padding: 9px 12px; max-width: 264px; border-radius: var(--r-md); }
+.nav-dd-menu a.nav-dd-featcard:hover .nav-dd-feattitle { color: var(--teal-ink); }
+.nav-dd-featimg { position: relative; display: block; border-radius: var(--r-md); overflow: hidden; aspect-ratio: 800 / 420; background: var(--surface-1); margin-bottom: 4px; }
+.nav-dd-featimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nav-dd-featimg .nav-dd-feattag { position: absolute; top: 10px; left: 10px; background: rgba(255,255,255,.92); border-radius: var(--r-pill); padding: 3px 9px; }
+.nav-dd-feattag { font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-ink); }
 .nav-dd-feattitle { font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--ink); }
 .nav-dd-featdate { font-size: 12.5px; color: var(--ink-2); }
 .nav-dd-featcta { font-size: 13px; font-weight: 600; color: var(--teal-ink); margin-top: 3px; }
@@ -195,8 +198,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .nav-mobile, .nav-scrim { display: none; }
 
 /* ---------- 7. SiteHero (.cvh) ---------- */
-.cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: clamp(56px, 7vw, 88px) 0; }
-.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: stretch; min-height: clamp(360px, 42vw, 460px); }
+.cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: clamp(28px, 3.5vw, 48px) 0; }
+.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: center; min-height: 0; }
 .cvh-grid-solo { grid-template-columns: 1fr; min-height: auto; }
 .cvh-copy { min-width: 0; align-self: start; }
 .cvh-eyebrow { margin-bottom: 18px; }
@@ -601,7 +604,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .pg-section { padding: var(--section-pad) 0; }
 .pg-section.alt { background: var(--surface-1); padding: var(--section-pad-lg) 0; }
 .pg-section .container { max-width: var(--container); }
-.pg-section-head { max-width: 760px; margin: 0 auto 48px; text-align: center; }
+.pg-section-head { max-width: 760px; margin: 0 auto 32px; text-align: center; }
 .pg-section-head.left { text-align: left; margin-left: 0; }
 .pg-h2 { margin: 0; }
 .pg-section-sub { margin: 16px auto 0; max-width: 560px; }
@@ -805,6 +808,9 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* ---------- 21. Impact page ---------- */
 /* (Old .imx-hero collage block removed — page uses the shared SiteHero/.cvh pattern.) */
 .imx-section { padding: var(--section-pad) 0; }
+/* Quote interstitial directly below a hero — slim strip: 64 top (air off the hero hairline),
+   0 bottom (the next section's own --section-pad provides exactly one unit of separation). */
+.imx-quote-strip { padding: var(--section-pad-sm) 0 0; }
 .imx-glance, .imx-browse { background: var(--surface-0); }
 .imx-spotlight, .imx-byorg { background: var(--surface-1); padding: var(--section-pad-lg) 0; }
 .imx-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -846,6 +852,9 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .imx-band-trust { font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
 .imx-band-photo { position: relative; min-height: 240px; }
 .imx-band-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 26%; }
+.imx-band-photo.is-placeholder { display: grid; place-items: center; background: var(--surface-2); }
+.imx-band-ph-ic { width: 56px; height: 56px; fill: none; stroke: color-mix(in srgb, var(--ink) 22%, #fff); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.imx-band-ph-label { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 11.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: color-mix(in srgb, var(--ink) 34%, #fff); }
 
 .imx-si-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .imx-select-wrap { position: relative; max-width: 420px; margin: 0 auto; }
