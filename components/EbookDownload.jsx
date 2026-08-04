@@ -8,6 +8,9 @@
 const EBOOK = {
   pdf: 'assets/ebooks/dalgo-understanding-the-data-lifecycle.pdf',
   cover: 'assets/ebooks/ebook-cover.webp',
+  // Real interior spreads, fanned behind the cover so the artifact shows what's inside.
+  pages: ['assets/ebooks/ebook-page-lifecycle.webp', 'assets/ebooks/ebook-page-checklist.webp'],
+  proof: ['37 pages', 'Practical checklists', 'Real nonprofit examples'],
   action: null,
   // Distinct fail-loud placeholders — replace EVERY one when wiring the Google Form.
   fields: { name: 'entry.REPLACE_NAME', email: 'entry.REPLACE_EMAIL', org: 'entry.REPLACE_ORG', consent: 'entry.REPLACE_CONSENT' },
@@ -81,21 +84,32 @@ const EbookDownload = () => {
         <div className="ebk-band">
           <div className="ebk-copy">
             <p className="ebk-badge">Free e-book</p>
-            <h2 className="ebk-h">Understanding the <span className="hl-underline">data lifecycle</span></h2>
-            <p className="ebk-sub">A practical guide for NGOs on turning the data you already collect into decisions — written for the M&amp;E lead who dreads report season.</p>
-            <p className="ebk-flow" aria-label="The six stages the guide covers">
-              {EBOOK_STAGES.map((s, i) => (
-                <React.Fragment key={s}>
-                  {i > 0 && <span className="ebk-flow-arrow" aria-hidden="true">→</span>}
-                  <span className="ebk-flow-stage">{s}</span>
-                </React.Fragment>
-              ))}
-            </p>
-            <p className="ebk-meta">37 pages · A checklist for every stage · A Dalgo publication</p>
+            <h2 className="ebk-h">Understand the <span className="hl-underline">nonprofit data lifecycle</span></h2>
+            <p className="ebk-sub">A practical guide to collecting, managing, and using data so every report, dashboard, and AI workflow starts with information you can trust.</p>
 
             {stage === 'intro' && (
-              <button type="button" className="cmh-btn cmh-btn-primary" onClick={openForm}>
-                Get the free e-book
+              <div className="ebk-inside">
+                <p className="ebk-inside-label">Inside the guide</p>
+                <ul className="ebk-pills">
+                  {EBOOK_STAGES.map((s, i) => (
+                    <li className="ebk-pill" key={s}><span className="ebk-pill-n" aria-hidden="true">{i + 1}</span>{s}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <ul className="ebk-proof">
+              {EBOOK.proof.map((p) => (
+                <li key={p}>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
+                  {p}
+                </li>
+              ))}
+            </ul>
+
+            {stage === 'intro' && (
+              <button type="button" className="cmh-btn cmh-btn-primary ebk-cta" onClick={openForm}>
+                Get the free guide
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
               </button>
             )}
@@ -146,8 +160,12 @@ const EbookDownload = () => {
             )}
           </div>
           <div className="ebk-cover-side">
-            <span className="ebk-cover-stack">
-              <img className="ebk-cover" src={EBOOK.cover} alt="Cover of the e-book: Understanding the data lifecycle — a practical guide for NGOs" width="1131" height="1600" loading="lazy" decoding="async" />
+            <span className="ebk-stack">
+              <span className="ebk-leaf ebk-leaf-1" aria-hidden="true"></span>
+              <span className="ebk-leaf ebk-leaf-2" aria-hidden="true"></span>
+              <img className="ebk-cover" src={EBOOK.cover} alt="Cover of the guide: Understanding the data lifecycle — a practical guide for NGOs" width="1131" height="1600" loading="lazy" decoding="async" />
+              {/* A real interior spread, legible rather than a cropped sliver */}
+              <img className="ebk-peek" src={EBOOK.pages[0]} alt="A page from the guide: the six lifecycle stages, from Planning through Acting" width="1494" height="344" loading="lazy" decoding="async" />
             </span>
           </div>
         </div>

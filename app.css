@@ -1294,15 +1294,39 @@ html, body { max-width: 100%; overflow-x: clip; }
    stacked-paper artifact. Card-scale type throughout — this is an offer, a peak
    in the scroll cadence. Copy column: intro CTA → form → download. */
 .ebk-section { padding: var(--section-pad) 0; background: var(--surface-0); }
-.ebk-band { display: grid; grid-template-columns: 1.3fr 0.7fr; background: var(--surface-1); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card); }
-.ebk-copy { padding: 32px 40px; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
-.ebk-badge { display: inline-flex; margin: 0 0 14px; padding: 5px 12px; background: var(--surface-0); border-radius: var(--r-pill); box-shadow: var(--shadow-sm); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
-.ebk-h { margin: 0 0 10px; font-size: clamp(22px, 2vw, 26px); line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
-.ebk-sub { margin: 0 0 14px; font-size: 15px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; text-wrap: pretty; }
-/* the lifecycle as one quiet flow line — stages tight, arrows in teal */
-.ebk-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--ink); }
-.ebk-flow-arrow { color: var(--teal-ink); font-weight: 400; }
-.ebk-meta { margin: 0 0 20px; font-size: 12.5px; color: var(--ink-2); }
+/* Depth, not a flat fill: a soft radial bloom behind the artifact plus a barely-there
+   data-network grid (dots at the lattice intersections). Both live on ::before/::after
+   so no extra markup and no new tokens. */
+.ebk-band { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 0.82fr); align-items: center; gap: 24px; background: var(--surface-1); border-radius: var(--r-2xl); overflow: hidden; box-shadow: var(--shadow-card); }
+.ebk-band::before { content: ""; position: absolute; inset: 0; z-index: -2; background:
+  radial-gradient(70% 90% at 82% 30%, color-mix(in srgb, var(--teal) 15%, transparent), transparent 70%),
+  radial-gradient(60% 80% at 6% 100%, color-mix(in srgb, var(--teal) 8%, transparent), transparent 72%); }
+.ebk-band::after { content: ""; position: absolute; inset: 0; z-index: -1; opacity: .5; background-image:
+  radial-gradient(circle at center, color-mix(in srgb, var(--teal-ink) 24%, transparent) 1px, transparent 1.5px),
+  linear-gradient(to right, color-mix(in srgb, var(--teal-ink) 6%, transparent) 1px, transparent 1px),
+  linear-gradient(to bottom, color-mix(in srgb, var(--teal-ink) 6%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px, 56px 56px, 56px 56px;
+  mask-image: radial-gradient(90% 80% at 70% 40%, #000 20%, transparent 78%); }
+.ebk-copy { padding: 40px 8px 40px 44px; display: flex; flex-direction: column; align-items: flex-start; min-width: 0; max-width: 46ch; }
+.ebk-badge { display: inline-flex; margin: 0 0 16px; padding: 5px 12px; background: var(--surface-0); border-radius: var(--r-pill); box-shadow: var(--shadow-sm); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
+.ebk-h { margin: 0 0 12px; font-size: clamp(26px, 2.4vw, 32px); line-height: 1.18; font-weight: 700; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
+.ebk-sub { margin: 0 0 24px; font-size: 15.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+/* "Inside the guide" — labelled group, six stages as pills */
+.ebk-inside { margin: 0 0 24px; }
+.ebk-inside-label { margin: 0 0 10px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.ebk-pills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
+.ebk-pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px 6px 6px; background: var(--surface-0); border-radius: var(--r-pill); box-shadow: var(--shadow-sm); font-size: 13px; font-weight: 600; color: var(--ink); }
+.ebk-pill-n { display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: color-mix(in srgb, var(--teal) 18%, #fff); color: var(--teal-ink); font-size: 11px; font-weight: 700; }
+/* Benefit-led proof points */
+.ebk-proof { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 0 0 24px; padding: 0; }
+.ebk-proof li { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.ebk-proof svg { width: 15px; height: 15px; flex-shrink: 0; fill: none; stroke: var(--teal-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+/* CTA as the focal point after the headline */
+.ebk-cta { padding: 14px 26px; font-size: 15.5px; transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur-fast) var(--ease); }
+.ebk-cta:hover { transform: translateY(-2px); box-shadow: var(--shadow-pop); }
+.ebk-cta:hover svg { transform: translateX(3px); }
+.ebk-cta svg { transition: transform var(--dur-fast) var(--ease); }
+.ebk-cta:active { transform: translateY(0); }
 .ebk-form { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 400px; animation: ebkIn var(--dur-slow) var(--ease) backwards; }
 .ebk-form-h { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
 .ebk-band .cf-field input { background: var(--surface-0); }
@@ -1317,20 +1341,29 @@ html, body { max-width: 100%; overflow-x: clip; }
 .ebk-done-h { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); outline: none; }
 .ebk-done-p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
 .ebk-size { margin: 0; font-size: 12px; color: var(--ink-2); }
-/* Cover as artifact: two paper sheets fanned behind the real cover */
-.ebk-cover-side { display: grid; place-items: center; padding: 28px 32px; }
-.ebk-cover-stack { position: relative; display: block; width: min(190px, 100%); }
-.ebk-cover-stack::before, .ebk-cover-stack::after { content: ""; position: absolute; inset: 0; background: var(--surface-0); border-radius: var(--r-sm); box-shadow: var(--shadow-sm); }
-.ebk-cover-stack::before { transform: rotate(-3.5deg); }
-.ebk-cover-stack::after { transform: rotate(2deg); }
-.ebk-cover { position: relative; z-index: 1; display: block; width: 100%; height: auto; border-radius: var(--r-sm); box-shadow: var(--shadow-card); }
+/* The book IS the hero: cover in perspective with two REAL interior spreads fanned
+   behind it (a lifecycle diagram and a stage checklist), so the artifact shows what's
+   inside rather than only a cover. ~35% larger than the previous stack. */
+.ebk-cover-side { display: grid; place-items: center; padding: 40px 44px 40px 8px; perspective: 1400px; }
+.ebk-stack { position: relative; display: block; width: min(258px, 100%); aspect-ratio: 1131 / 1600; transform: rotateY(-13deg) rotateX(2deg) rotate(-1.5deg); transform-style: preserve-3d; }
+/* Page block fanned behind the cover (page edges are white — showing content in a 20px
+   sliver only reads as cut-off text, so the interior spread gets its own legible card). */
+.ebk-leaf { position: absolute; inset: 0; border-radius: var(--r-sm); background: var(--surface-0); transform-origin: 8% 50%; }
+.ebk-leaf-1 { transform: rotate(8deg) translate(5%, 1.5%); box-shadow: rgba(10,37,64,.10) 0 12px 24px -12px, var(--hairline) 0 0 0 1px; }
+.ebk-leaf-2 { transform: rotate(4deg) translate(2.5%, .5%); box-shadow: rgba(10,37,64,.09) 0 9px 18px -10px, var(--hairline) 0 0 0 1px; }
+.ebk-cover { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: var(--r-sm); background: var(--surface-0);
+  box-shadow: rgba(10,37,64,.18) 0 34px 48px -22px, rgba(10,37,64,.10) 0 14px 20px -12px, var(--hairline) 0 0 0 1px; }
+/* The interior spread: a real page detail, lifted forward and legible */
+.ebk-peek { position: absolute; z-index: 2; left: -30%; bottom: 4%; width: 100%; height: auto; border-radius: var(--r-sm); background: var(--surface-0); padding: 7px; transform: rotate(-4deg) translateZ(40px);
+  box-shadow: rgba(10,37,64,.16) 0 20px 32px -14px, rgba(10,37,64,.08) 0 6px 10px -6px, var(--hairline) 0 0 0 1px; }
 @keyframes ebkIn { from { opacity: 0; transform: translateY(6px); } }
-@media (prefers-reduced-motion: reduce) { .ebk-form, .ebk-done { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .ebk-form, .ebk-done { animation: none; } .ebk-cta { transition: none; } }
 @media (max-width: 900px) {
-  .ebk-band { grid-template-columns: 1fr; }
-  .ebk-copy { padding: 24px; }
-  .ebk-cover-side { order: 2; padding: 0 24px 28px; }
-  .ebk-cover-stack { width: min(170px, 60%); }
+  .ebk-band { grid-template-columns: 1fr; gap: 0; }
+  .ebk-copy { padding: 28px 24px 24px; max-width: none; }
+  .ebk-cover-side { order: 2; padding: 4px 24px 32px; perspective: none; }
+  .ebk-stack { width: min(210px, 62%); transform: rotate(-1.5deg); }
+  .ebk-band::after { mask-image: radial-gradient(120% 60% at 50% 78%, #000 10%, transparent 72%); }
 }
 
 /* Section 5 — pro bono band */
