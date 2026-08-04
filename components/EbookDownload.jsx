@@ -80,14 +80,17 @@ const EbookDownload = () => {
       <div className="container">
         <div className="ebk-band">
           <div className="ebk-copy">
-            <p className="pg-eyebrow">Free e-book</p>
-            <h2 className="section-title ebk-title">Understanding the <span className="hl-underline">data lifecycle</span></h2>
-            <p className="ebk-sub">The journey your data takes from the moment it's collected to the moment it changes a decision — a practical guide for NGOs, written for the M&amp;E lead who dreads report season and the director who wants numbers they can trust.</p>
-            <ul className="ebk-stages" aria-label="The six stages the guide covers">
+            <p className="ebk-badge">Free e-book</p>
+            <h2 className="ebk-h">Understanding the <span className="hl-underline">data lifecycle</span></h2>
+            <p className="ebk-sub">A practical guide for NGOs on turning the data you already collect into decisions — written for the M&amp;E lead who dreads report season.</p>
+            <p className="ebk-flow" aria-label="The six stages the guide covers">
               {EBOOK_STAGES.map((s, i) => (
-                <li className="ebk-stage" key={s}><span className="ebk-stage-n" aria-hidden="true">{i + 1}</span>{s}</li>
+                <React.Fragment key={s}>
+                  {i > 0 && <span className="ebk-flow-arrow" aria-hidden="true">→</span>}
+                  <span className="ebk-flow-stage">{s}</span>
+                </React.Fragment>
               ))}
-            </ul>
+            </p>
             <p className="ebk-meta">37 pages · A checklist for every stage · A Dalgo publication</p>
 
             {stage === 'intro' && (
@@ -133,7 +136,7 @@ const EbookDownload = () => {
             {stage === 'done' && (
               <div className="ebk-done" role="status">
                 <h3 className="ebk-done-h" id="ebk-done-h" tabIndex={-1}>Your copy is ready.</h3>
-                <p className="ebk-done-p">The download has started — if it didn't, the button below has you covered.</p>
+                <p className="ebk-done-p">The download has started. If it didn't, use the button below.</p>
                 <a className="cmh-btn cmh-btn-primary" href={EBOOK.pdf} download>
                   Download the e-book
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14" /></svg>
@@ -142,8 +145,10 @@ const EbookDownload = () => {
               </div>
             )}
           </div>
-          <div className="ebk-cover-panel">
-            <img className="ebk-cover" src={EBOOK.cover} alt="Cover of the e-book: Understanding the data lifecycle — a practical guide for NGOs" width="1131" height="1600" loading="lazy" decoding="async" />
+          <div className="ebk-cover-side">
+            <span className="ebk-cover-stack">
+              <img className="ebk-cover" src={EBOOK.cover} alt="Cover of the e-book: Understanding the data lifecycle — a practical guide for NGOs" width="1131" height="1600" loading="lazy" decoding="async" />
+            </span>
           </div>
         </div>
       </div>
