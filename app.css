@@ -577,16 +577,18 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .fx-initiative { margin: 18px 0 0; font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--ink-2) 88%, #fff); }
 .fx-initiative a { color: var(--teal-ink); font-weight: 600; }
 /* Newsletter capture */
-/* One unified control: a single pill shell (one border, one shadow) holding the input and
-   an integrated full-height button. align-items:stretch makes the button fill the shell's
-   inner height so it reads as part of the field, not a pill floating inside a pill. */
-.fx-sub-form { display: flex; align-items: stretch; gap: 6px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 6px; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+/* ONE joined control (not a pill-inside-a-pill). The shell owns the single border,
+   radius and shadow; overflow:hidden clips the button to the shell's rounded right edge
+   so the button fills the field top-to-bottom and right-to-edge with only a straight
+   seam against the input — integrated, never floating. No padding/gap on the shell. */
+.fx-sub-form { display: flex; align-items: stretch; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); overflow: hidden; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
 .fx-sub-form:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 16%, transparent); }
 /* Balanced left/right breathing room around the input text; native vertical centring. */
-.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 0 18px; font-size: 14px; line-height: 1.2; outline: none; font-family: inherit; }
+.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 15px 22px; font-size: 14px; line-height: 1.2; outline: none; font-family: inherit; }
 .fx-sub-form input::placeholder { color: color-mix(in srgb, var(--ink-2) 58%, #fff); }
-/* Button: full inner height, generous inset, text centred both axes, no separate elevation. */
-.fx-sub-form button { display: inline-flex; align-items: center; justify-content: center; background: var(--teal-ink); color: #fff; padding: 12px 26px; font-size: 13.5px; font-weight: 600; border-radius: var(--r-pill); white-space: nowrap; flex-shrink: 0; transition: background var(--dur-fast) var(--ease); }
+/* Button fills the full height (align-items:stretch), sits flush to the shell edges,
+   generous horizontal inset, text centred both axes, no border/radius/shadow of its own. */
+.fx-sub-form button { display: inline-flex; align-items: center; justify-content: center; background: var(--teal-ink); color: #fff; padding: 0 30px; font-size: 13.5px; font-weight: 600; border: 0; white-space: nowrap; flex-shrink: 0; transition: background var(--dur-fast) var(--ease); }
 .fx-sub-form button:hover { background: color-mix(in srgb, var(--teal-ink) 82%, #000); }
 /* Credentials cluster — in the flow, not floating */
 .fx-creds { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
