@@ -199,9 +199,16 @@ p strong, li strong { font-weight: 600; color: inherit; }
 
 /* ---------- 7. SiteHero (.cvh) ---------- */
 .cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: clamp(28px, 3.5vw, 48px) 0; }
-.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: center; min-height: 0; }
-.cvh-grid-solo { grid-template-columns: 1fr; min-height: auto; }
-.cvh-copy { min-width: 0; align-self: start; }
+/* Consistent hero height across ALL pages → no vertical jump when switching nav tabs.
+   The floor sits just above the tallest hero copy (Consulting, ~417px); shorter heroes
+   grow to match and centre their content. Mobile drops the floor (heroes stack). */
+.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: center; min-height: 440px; }
+/* Solo heroes (no right-hand visual — About/FAQ/Pricing/Case Studies): their own
+   consistent, shorter floor so they equalise with each other without inheriting the
+   tall visual-hero height (which would leave a big empty band under short copy).
+   Top-aligned so the heading sits naturally under the nav. */
+.cvh-grid-solo { grid-template-columns: 1fr; align-items: start; min-height: 300px; }
+.cvh-copy { min-width: 0; }
 .cvh-eyebrow { margin-bottom: 18px; }
 .cvh-h1 { margin: 0 0 20px; }
 .cvh-sub { max-width: var(--measure-hero-sub); margin: 0 0 32px; }
