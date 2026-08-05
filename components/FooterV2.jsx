@@ -1,3 +1,72 @@
+// Newsletter signup — posts straight into the Zoho Campaigns list (the "Dalgo - Form"
+// quick form). Every value below was read off Zoho's own hosted form at
+// zc1.maillist-manage.in/ua/Optin?od=1a1e3dbb3aab7… — the same identifiers Zoho puts in
+// its embed snippet, so they are stable and safe to hardcode.
+// mode:'no-cors' means the response is opaque: Zoho accepts the POST but we cannot read
+// its body, so success is optimistic (matching CONTACT_FORM in PageContact.jsx). Zoho's
+// own confirmation email is the subscriber's real receipt.
+const ZOHO_SIGNUP = {
+  action: 'https://thdv-zgfh.maillist-manage.in/weboptin.zc',
+  fixed: {
+    submitType: 'optinCustomView', formType: 'QuickForm', mode: 'OptinCreateView',
+    zx: '1dfa5ea80f', zcvers: '2.0', oldListIds: '', emailReportId: '',
+    zcld: '1334ba0250252b25', zctd: '1334ba025024aa49',
+    zc_trackCode: 'ZCFORMVIEW',
+    zc_formIx: '3z266af01fb444d35cd083e15976d443a9d638e328bcf20da052284f8e14e60b55',
+    di: '114897221022895816361785914298171', lf: '1785914298169', qs: '',
+  },
+};
+
+const FooterSubscribe = () => {
+  const [status, setStatus] = React.useState('idle'); // idle | submitting | done | error
+  const [err, setErr] = React.useState('');
+
+  const onSubmit = (ev) => {
+    ev.preventDefault();
+    if (status === 'submitting') return;
+    const email = (new FormData(ev.target).get('email') || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      // Focus the field first: it stays mounted, so this needs no post-commit callback.
+      const el = document.getElementById('fx-sub-email');
+      if (el) el.focus();
+      setErr('Enter a valid email address.');
+      return;
+    }
+    setErr('');
+    setStatus('submitting');
+    const body = new URLSearchParams({ ...ZOHO_SIGNUP.fixed, CONTACT_EMAIL: email });
+    fetch(ZOHO_SIGNUP.action, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
+    }).then(() => setStatus('done')).catch(() => setStatus('error'));
+  };
+
+  if (status === 'done') {
+    return (
+      <p className="fx-sub-done" role="status">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
+        Thanks — check your inbox to confirm your subscription.
+      </p>
+    );
+  }
+
+  return (
+    <form className="fx-sub" onSubmit={onSubmit} noValidate>
+      <div className="fx-sub-row">
+        <input id="fx-sub-email" name="email" type="email" autoComplete="email"
+          placeholder="you@example.com" aria-label="Email address"
+          aria-invalid={err ? 'true' : undefined} aria-describedby={err ? 'fx-sub-err' : undefined} />
+        <button type="submit" className="cmh-btn cmh-btn-primary" disabled={status === 'submitting'}>
+          {status === 'submitting' ? 'Joining…' : 'Subscribe'}
+        </button>
+      </div>
+      {err && <span className="fx-sub-err" id="fx-sub-err">{err}</span>}
+      {status === 'error' && <span className="fx-sub-err">Something went wrong. Email <a href="mailto:support@dalgo.org">support@dalgo.org</a> and we'll add you.</span>}
+    </form>
+  );
+};
+
 const FooterV2 = () =>
 <footer className="fx">
     <div className="fx-links">
@@ -7,14 +76,14 @@ const FooterV2 = () =>
             <img src={window.__resources && window.__resources.dalgoLogo || "assets/dalgo-logo.png"} alt="Dalgo" style={{ height: 36, width: 'auto', display: 'block' }} />
           </div>
           <p className="fx-brand-tag">Join our community to get updates on Data + AI webinars, nonprofit stories, and offline meetups.</p>
-          <form className="fx-sub-form" onSubmit={(e) => { e.preventDefault(); window.open('https://zcmp.in/byTZ', '_blank', 'noopener'); }}>
-            <input type="email" placeholder="Enter your email" aria-label="Email address" data-comment-anchor="2f58a44c40-input-18-13" />
-            <button type="submit">Subscribe</button>
-          </form>
-          <div className="fx-creds">
-            <a href="https://www.digitalpublicgoods.net/r/dalgo" target="_blank" rel="noopener" className="fx-trust-badge-link" aria-label="Recognised as a Digital Public Good"><img src={window.__resources && window.__resources.dpgBadge || "assets/dpg-badge.png"} alt="Recognised as a Digital Public Good" className="fx-trust-badge" /></a>
-          </div>
-          <p className="fx-initiative">Dalgo is an initiative of <a href="https://projecttech4dev.org" target="_blank" rel="noopener" style={{fontWeight:600}}>Project Tech4Dev<svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg></a> — building open-source, affordable technology for the social sector.</p>
+          <FooterSubscribe />
+          {/* Credential as real text, not a raster: assets/dpg-badge.png is a corrupt PNG
+              (valid header, broken pixel stream) so it has always rendered blank here. This
+              version can't rot, scales, and is readable by screen readers. */}
+          <a className="fx-cred" href="https://www.digitalpublicgoods.net/r/dalgo" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4-3 7.4-7 8.5-4-1.1-7-4.5-7-8.5V6l7-3z" /><path d="M9 12l2.2 2.2L15.5 10" /></svg>
+            Recognised as a Digital Public Good
+          </a>
         </div>
         <nav className="fx-col" aria-label="Explore">
           <h2 className="fx-h">Explore</h2>
@@ -42,11 +111,10 @@ const FooterV2 = () =>
         </div>
       </div>
       <div className="fx-bottom">
-        <div>© 2026 Project Tech4Dev</div>
+        {/* Attribution reads as one clean line here, where the row is full-width */}
+        <div>© 2026 Dalgo — an open-source initiative of <a href="https://projecttech4dev.org" target="_blank" rel="noopener" className="fx-bottom-parent">Project Tech4Dev<svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg></a></div>
         <div className="fx-bottom-right">
           <a href="privacy.html">Privacy Policy</a>
-          <a href="privacy.html">DPDP Compliance</a>
-          <a href="https://github.com/DalgoT4D" target="_blank" rel="noopener">GitHub<svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg></a>
         </div>
       </div>
     </div>

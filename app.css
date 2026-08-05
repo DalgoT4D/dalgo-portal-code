@@ -574,27 +574,32 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .fx-brand-col { max-width: 380px; }
 .fx-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
 .fx-brand-tag { color: var(--ink-2); line-height: 1.6; margin: 0 0 18px; font-size: 15px; max-width: 34ch; }
-.fx-initiative { margin: 18px 0 0; font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--ink-2) 88%, #fff); }
-.fx-initiative a { color: var(--teal-ink); font-weight: 600; }
-/* Newsletter capture */
-/* ONE joined control (not a pill-inside-a-pill). The shell owns the single border,
-   radius and shadow; overflow:hidden clips the button to the shell's rounded right edge
-   so the button fills the field top-to-bottom and right-to-edge with only a straight
-   seam against the input — integrated, never floating. No padding/gap on the shell. */
-.fx-sub-form { display: flex; align-items: stretch; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-pill); overflow: hidden; box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
-.fx-sub-form:focus-within { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 16%, transparent); }
-/* Balanced left/right breathing room around the input text; native vertical centring. */
-.fx-sub-form input { flex: 1; min-width: 0; background: transparent; border: 0; color: var(--ink); padding: 15px 22px; font-size: 14px; line-height: 1.2; outline: none; font-family: inherit; }
-.fx-sub-form input::placeholder { color: color-mix(in srgb, var(--ink-2) 58%, #fff); }
-/* Button fills the full height (align-items:stretch), sits flush to the shell edges,
-   generous horizontal inset, text centred both axes, no border/radius/shadow of its own. */
-.fx-sub-form button { display: inline-flex; align-items: center; justify-content: center; background: var(--teal-ink); color: #fff; padding: 0 30px; font-size: 13.5px; font-weight: 600; border: 0; white-space: nowrap; flex-shrink: 0; transition: background var(--dur-fast) var(--ease); }
-.fx-sub-form button:hover { background: color-mix(in srgb, var(--teal-ink) 82%, #000); }
-/* Credentials cluster — in the flow, not floating */
-.fx-creds { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
-.fx-trust-badge { height: 46px; display: block; }
-.fx-trust-badge-link { display: inline-flex; border-radius: var(--r-md); transition: transform var(--dur) var(--ease); }
-.fx-trust-badge-link:hover { transform: translateY(-2px); }
+.fx-bottom-parent { color: color-mix(in srgb, var(--ink-2) 88%, #fff); font-weight: 600; text-decoration: none; transition: color var(--dur-fast) var(--ease); }
+.fx-bottom-parent:hover { color: var(--teal-ink); }
+/* Newsletter capture — the site's OWN field grammar: same box, radius, border, focus ring
+   and 44px height as .cf-field on the contact form, beside a standard pill button. The
+   earlier white pill-capsule-with-an-embedded-button was a one-off primitive this system
+   does not own, and its deep inner curve pushed the placeholder out of line with the copy
+   above it; a square-cornered field at the system's 14px inset shares its left edge with
+   the paragraph and the logo. */
+.fx-sub { display: flex; flex-direction: column; gap: 7px; }
+.fx-sub-row { display: flex; align-items: stretch; gap: 10px; flex-wrap: wrap; }
+.fx-sub-row input { flex: 1 1 190px; min-width: 0; min-height: 44px; padding: 10px 14px; font-family: inherit; font-size: 15px; color: var(--ink); background: var(--surface-0); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: var(--r-sm); transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+.fx-sub-row input::placeholder { color: color-mix(in srgb, var(--ink-2) 62%, #fff); }
+.fx-sub-row input:hover { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+.fx-sub-row input:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); }
+.fx-sub-row input[aria-invalid="true"] { border-color: var(--error); }
+.fx-sub-row button { flex-shrink: 0; padding: 11px 22px; font-size: 14.5px; }
+.fx-sub-row button[disabled] { opacity: .65; cursor: default; }
+.fx-sub-err { font-size: 13px; color: var(--error); }
+.fx-sub-err a { color: var(--error); font-weight: 600; text-decoration: underline; }
+.fx-sub-done { display: flex; align-items: flex-start; gap: 8px; margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink); font-weight: 500; max-width: 34ch; }
+.fx-sub-done svg { width: 17px; height: 17px; flex-shrink: 0; margin-top: 2px; fill: none; stroke: var(--teal-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+/* DPG credential — a quiet inline trust line on the column's left edge. Deliberately not
+   a pill/button: it states a fact, it isn't a second CTA competing with Subscribe. */
+.fx-cred { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 13.5px; font-weight: 500; line-height: 1.4; color: var(--ink-2); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
+.fx-cred svg { width: 17px; height: 17px; flex-shrink: 0; fill: none; stroke: var(--teal-ink); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.fx-cred:hover { color: var(--teal-ink); }
 /* Link columns */
 .fx-col { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .fx-col .fx-h { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin: 0 0 18px; }
@@ -1626,9 +1631,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media (prefers-reduced-motion: reduce) {
   .logo-marquee-track { animation: none; }
   .pf-shot, .pf-desc { animation: none; }
-  .btn, .cmh-btn, .pg-btn, .nav-link, .logo-tile, .nurture-card, .si-card, .imx-tile-link, .fx-trust-badge-link,
+  .btn, .cmh-btn, .pg-btn, .nav-link, .logo-tile, .nurture-card, .si-card, .imx-tile-link,
   .hdh-card, .dsh-card, .res-card, .cmh-news-card, .ch-card, .co-card, .plan-card, .principle, .feat-tile, .hww-card { transition: none; }
-  .nurture-card:hover, .si-card:hover, .logo-tile:hover, .imx-tile-link:hover, .fx-trust-badge-link:hover,
+  .nurture-card:hover, .si-card:hover, .logo-tile:hover, .imx-tile-link:hover,
   .hdh-card:hover, .dsh-card:hover, .res-card:hover, .cmh-news-card:hover, .ch-card:hover, .co-card:hover, .imx-tile-link:hover,
   .btn-primary:hover, .btn:hover, .pg-btn:hover, .nurture-btn:hover, .hdh-cta:hover { transform: none; }
   .btn-primary:hover .arw, .nurture-btn:hover::after, .btn:hover::after { transform: none; }
