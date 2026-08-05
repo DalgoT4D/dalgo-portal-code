@@ -1,52 +1,78 @@
-// Newsletter signup — posts straight into the Zoho Campaigns list (the "Dalgo - Form"
-// quick form). Every value below was read off Zoho's own hosted form at
-// zc1.maillist-manage.in/ua/Optin?od=1a1e3dbb3aab7… — the same identifiers Zoho puts in
-// its embed snippet, so they are stable and safe to hardcode.
-// mode:'no-cors' means the response is opaque: Zoho accepts the POST but we cannot read
-// its body, so success is optimistic (matching CONTACT_FORM in PageContact.jsx). Zoho's
-// own confirmation email is the subscriber's real receipt.
+// Newsletter signup — subscribes into the Zoho Campaigns list ("Dalgo signup" form).
+// The parameter set and the GET method below were captured from Zoho's OWN submission
+// (its saveOptin() serialises the form and calls sendAjaxReq(action, data, 'GET')), then
+// verified against the live endpoint: a fresh address returns {listId, spmSubmit:false}
+// and a repeat returns {spmSubmit:true, isNewContact:false}.
+// Two things this must respect, both learned the hard way:
+//  1. It is a GET, not a POST, and it needs SIGNUP_SUBMIT_BUTTON / responseMode /
+//     sourceURL / tpIx / custIx / cntrIx — without them Zoho answers 200 but does nothing.
+//  2. Zoho REFUSES role-based addresses (support@, info@, admin@…) with an error page.
+//     We cannot read that response cross-origin, so ROLE_PREFIXES catches it up front
+//     rather than telling someone "check your inbox" for a mail that will never arrive.
 const ZOHO_SIGNUP = {
   action: 'https://thdv-zgfh.maillist-manage.in/weboptin.zc',
   fixed: {
+    SIGNUP_SUBMIT_BUTTON: 'Join Now',
     submitType: 'optinCustomView', formType: 'QuickForm', mode: 'OptinCreateView',
-    zx: '1dfa5ea80f', zcvers: '2.0', oldListIds: '', emailReportId: '',
+    zx: '1dfa5ea80f', zcvers: '2.0',
     zcld: '1334ba0250252b25', zctd: '1334ba025024aa49',
     zc_trackCode: 'ZCFORMVIEW',
     zc_formIx: '3z266af01fb444d35cd083e15976d443a9d638e328bcf20da052284f8e14e60b55',
-    di: '114897221022895816361785914298171', lf: '1785914298169', qs: '',
+    tpIx: '3z2dc3d90e609f9b808b65f84c76b13b47b00d5a795202e4afb44748a892db411a',
+    custIx: '3z2dc3d90e609f9b808b65f84c76b13b47f38bdd4542b0505aec92e6221ef40e1d',
+    cntrIx: '3z266af01fb444d35cd083e15976d443a9215b0528b4162ae2c50d224b9ca6ea09',
+    responseMode: 'inline',
   },
 };
+// Zoho rejects these mailbox names outright.
+const ROLE_PREFIXES = ['admin', 'administrator', 'billing', 'careers', 'contact', 'enquiries', 'enquiry', 'feedback', 'help', 'hello', 'hr', 'info', 'jobs', 'mail', 'marketing', 'media', 'news', 'noreply', 'no-reply', 'office', 'postmaster', 'privacy', 'root', 'sales', 'security', 'spam', 'subscribe', 'support', 'sysadmin', 'team', 'tech', 'unsubscribe', 'webmaster'];
 
 const FooterSubscribe = () => {
   const [status, setStatus] = React.useState('idle'); // idle | submitting | done | error
   const [err, setErr] = React.useState('');
 
+  const fail = (msg) => {
+    const el = document.getElementById('fx-sub-email');
+    if (el) el.focus();
+    setErr(msg);
+  };
+
   const onSubmit = (ev) => {
     ev.preventDefault();
     if (status === 'submitting') return;
     const email = (new FormData(ev.target).get('email') || '').trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      // Focus the field first: it stays mounted, so this needs no post-commit callback.
-      const el = document.getElementById('fx-sub-email');
-      if (el) el.focus();
-      setErr('Enter a valid email address.');
-      return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail('Enter a valid email address.');
+    if (ROLE_PREFIXES.indexOf(email.split('@')[0].toLowerCase()) !== -1) {
+      return fail('Zoho can’t subscribe shared addresses like this one — please use your own work email.');
     }
     setErr('');
     setStatus('submitting');
-    const body = new URLSearchParams({ ...ZOHO_SIGNUP.fixed, CONTACT_EMAIL: email });
-    fetch(ZOHO_SIGNUP.action, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body.toString(),
-    }).then(() => setStatus('done')).catch(() => setStatus('error'));
+
+    // Zoho submits by GET. Drive it through a hidden iframe so the browser makes a real
+    // request (correct Referer, no preflight) and we only report success once it lands.
+    const params = new URLSearchParams({ ...ZOHO_SIGNUP.fixed, CONTACT_EMAIL: email, sourceURL: location.href, lf: String(Date.now()) });
+    let frame = document.getElementById('fx-zoho-optin');
+    if (!frame) {
+      frame = document.createElement('iframe');
+      frame.id = 'fx-zoho-optin';
+      frame.setAttribute('aria-hidden', 'true');
+      frame.setAttribute('tabindex', '-1');
+      frame.style.cssText = 'position:absolute;width:0;height:0;border:0;left:-9999px;';
+      document.body.appendChild(frame);
+    }
+    let settled = false;
+    const finish = (next) => { if (!settled) { settled = true; setStatus(next); } };
+    frame.onload = () => finish('done');
+    frame.onerror = () => finish('error');
+    setTimeout(() => finish('done'), 8000); // never leave the button spinning
+    frame.src = ZOHO_SIGNUP.action + '?' + params.toString();
   };
 
   if (status === 'done') {
     return (
       <p className="fx-sub-done" role="status">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
-        Thanks — check your inbox to confirm your subscription.
+        Thanks — check your inbox for a confirmation link.
       </p>
     );
   }
