@@ -1,96 +1,59 @@
-// Newsletter signup — subscribes into the Zoho Campaigns list ("Dalgo signup" form).
-// The parameter set and the GET method below were captured from Zoho's OWN submission
-// (its saveOptin() serialises the form and calls sendAjaxReq(action, data, 'GET')), then
-// verified against the live endpoint: a fresh address returns {listId, spmSubmit:false}
-// and a repeat returns {spmSubmit:true, isNewContact:false}.
-// Two things this must respect, both learned the hard way:
-//  1. It is a GET, not a POST, and it needs SIGNUP_SUBMIT_BUTTON / responseMode /
-//     sourceURL / tpIx / custIx / cntrIx — without them Zoho answers 200 but does nothing.
-//  2. Zoho REFUSES role-based addresses (support@, info@, admin@…) with an error page.
-//     We cannot read that response cross-origin, so ROLE_PREFIXES catches it up front
-//     rather than telling someone "check your inbox" for a mail that will never arrive.
-const ZOHO_SIGNUP = {
-  action: 'https://thdv-zgfh.maillist-manage.in/weboptin.zc',
-  fixed: {
-    SIGNUP_SUBMIT_BUTTON: 'Join Now',
-    submitType: 'optinCustomView', formType: 'QuickForm', mode: 'OptinCreateView',
-    zx: '1dfa5ea80f', zcvers: '2.0',
-    zcld: '1334ba0250252b25', zctd: '1334ba025024aa49',
-    zc_trackCode: 'ZCFORMVIEW',
-    zc_formIx: '3z266af01fb444d35cd083e15976d443a9d638e328bcf20da052284f8e14e60b55',
-    tpIx: '3z2dc3d90e609f9b808b65f84c76b13b47b00d5a795202e4afb44748a892db411a',
-    custIx: '3z2dc3d90e609f9b808b65f84c76b13b47f38bdd4542b0505aec92e6221ef40e1d',
-    cntrIx: '3z266af01fb444d35cd083e15976d443a9215b0528b4162ae2c50d224b9ca6ea09',
-    responseMode: 'inline',
-  },
-};
-// Zoho rejects these mailbox names outright.
+// Newsletter signup — Zoho Campaigns "Dalgo signup" web-optin form.
+//
+// The form itself is NOT rendered here. It ships as static markup at the end of every
+// page (injected by build.js) followed by Zoho's optin.min.js, because setupSF() has to
+// bind the button and mint the per-view anti-spam tokens (lf/di/tpIx/custIx/cntrIx) at
+// page-parse time. Initialise it after React mounts and the button is never bound and
+// the tokens never appear — Zoho then answers 200 and silently drops the signup as spam
+// (spmSubmit:true). That is how an earlier hand-rolled version here failed while telling
+// people to check their inbox. So: let Zoho own the form, and only MOVE the finished node
+// into the footer (moving a node preserves its listeners). Styling is ours (.fx-sub*).
+const ZC_OPTIN_HOST = 'zc-optin-host';
 const ROLE_PREFIXES = ['admin', 'administrator', 'billing', 'careers', 'contact', 'enquiries', 'enquiry', 'feedback', 'help', 'hello', 'hr', 'info', 'jobs', 'mail', 'marketing', 'media', 'news', 'noreply', 'no-reply', 'office', 'postmaster', 'privacy', 'root', 'sales', 'security', 'spam', 'subscribe', 'support', 'sysadmin', 'team', 'tech', 'unsubscribe', 'webmaster'];
 
 const FooterSubscribe = () => {
-  const [status, setStatus] = React.useState('idle'); // idle | submitting | done | error
-  const [err, setErr] = React.useState('');
+  const slot = React.useRef(null);
 
-  const fail = (msg) => {
-    const el = document.getElementById('fx-sub-email');
-    if (el) el.focus();
-    setErr(msg);
-  };
+  React.useEffect(() => {
+    const target = slot.current;
+    if (!target) return;
+    let guardBtn = null;
+    let guard = null;
 
-  const onSubmit = (ev) => {
-    ev.preventDefault();
-    if (status === 'submitting') return;
-    const email = (new FormData(ev.target).get('email') || '').trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return fail('Enter a valid email address.');
-    if (ROLE_PREFIXES.indexOf(email.split('@')[0].toLowerCase()) !== -1) {
-      return fail('Zoho can’t subscribe shared addresses like this one — please use your own work email.');
+    const adopt = () => {
+      const src = document.getElementById(ZC_OPTIN_HOST);
+      if (!src || target.firstChild) return !!target.firstChild;
+      src.removeAttribute('hidden');
+      while (src.firstChild) target.appendChild(src.firstChild);
+      src.remove();
+
+      // Zoho only reports a role-based address inside its popup; say it inline instead.
+      const email = target.querySelector('#EMBED_FORM_EMAIL_LABEL');
+      const roleMsg = target.querySelector('#fx-sub-role');
+      guardBtn = target.querySelector('#zcWebOptin');
+      if (email && roleMsg && guardBtn) {
+        guard = (ev) => {
+          const v = (email.value || '').trim().toLowerCase();
+          const isRole = v.indexOf('@') > 0 && ROLE_PREFIXES.indexOf(v.split('@')[0]) !== -1;
+          roleMsg.hidden = !isRole;
+          if (isRole) { ev.preventDefault(); ev.stopImmediatePropagation(); email.focus(); }
+        };
+        guardBtn.addEventListener('click', guard, true);
+      }
+      return true;
+    };
+
+    // The static node is parsed before the deferred React bundle runs, so this normally
+    // succeeds first try; the observer only covers a slow/blocked optin.min.js.
+    if (!adopt()) {
+      const mo = new MutationObserver(() => { if (adopt()) mo.disconnect(); });
+      mo.observe(document.body, { childList: true, subtree: true });
+      return () => { mo.disconnect(); if (guardBtn && guard) guardBtn.removeEventListener('click', guard, true); };
     }
-    setErr('');
-    setStatus('submitting');
+    return () => { if (guardBtn && guard) guardBtn.removeEventListener('click', guard, true); };
+  }, []);
 
-    // Zoho submits by GET. Drive it through a hidden iframe so the browser makes a real
-    // request (correct Referer, no preflight) and we only report success once it lands.
-    const params = new URLSearchParams({ ...ZOHO_SIGNUP.fixed, CONTACT_EMAIL: email, sourceURL: location.href, lf: String(Date.now()) });
-    let frame = document.getElementById('fx-zoho-optin');
-    if (!frame) {
-      frame = document.createElement('iframe');
-      frame.id = 'fx-zoho-optin';
-      frame.setAttribute('aria-hidden', 'true');
-      frame.setAttribute('tabindex', '-1');
-      frame.style.cssText = 'position:absolute;width:0;height:0;border:0;left:-9999px;';
-      document.body.appendChild(frame);
-    }
-    let settled = false;
-    const finish = (next) => { if (!settled) { settled = true; setStatus(next); } };
-    frame.onload = () => finish('done');
-    frame.onerror = () => finish('error');
-    setTimeout(() => finish('done'), 8000); // never leave the button spinning
-    frame.src = ZOHO_SIGNUP.action + '?' + params.toString();
-  };
-
-  if (status === 'done') {
-    return (
-      <p className="fx-sub-done" role="status">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7" /></svg>
-        Thanks — check your inbox for a confirmation link.
-      </p>
-    );
-  }
-
-  return (
-    <form className="fx-sub" onSubmit={onSubmit} noValidate>
-      <div className="fx-sub-row">
-        <input id="fx-sub-email" name="email" type="email" autoComplete="email"
-          placeholder="you@example.com" aria-label="Email address"
-          aria-invalid={err ? 'true' : undefined} aria-describedby={err ? 'fx-sub-err' : undefined} />
-        <button type="submit" className="cmh-btn cmh-btn-primary" disabled={status === 'submitting'}>
-          {status === 'submitting' ? 'Joining…' : 'Subscribe'}
-        </button>
-      </div>
-      {err && <span className="fx-sub-err" id="fx-sub-err">{err}</span>}
-      {status === 'error' && <span className="fx-sub-err">Something went wrong. Email <a href="mailto:support@dalgo.org">support@dalgo.org</a> and we'll add you.</span>}
-    </form>
-  );
+  return <div className="fx-sub" ref={slot} />;
 };
 
 const FooterV2 = () =>

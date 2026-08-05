@@ -583,14 +583,26 @@ p strong, li strong { font-weight: 600; color: inherit; }
    above it; a square-cornered field at the system's 14px inset shares its left edge with
    the paragraph and the logo. */
 .fx-sub { display: flex; flex-direction: column; gap: 7px; }
+.fx-sub-inner { display: flex; flex-direction: column; gap: 7px; }
 .fx-sub-row { display: flex; align-items: stretch; gap: 10px; flex-wrap: wrap; }
-.fx-sub-row input { flex: 1 1 190px; min-width: 0; min-height: 44px; padding: 10px 14px; font-family: inherit; font-size: 15px; color: var(--ink); background: var(--surface-0); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: var(--r-sm); transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+/* Zoho's own input/button carry these — style by element so their markup inherits it */
+.fx-sub-row input[type="text"], .fx-sub-row input[type="email"] { flex: 1 1 190px; min-width: 0; min-height: 44px; padding: 10px 14px; font-family: inherit; font-size: 15px; color: var(--ink); background: var(--surface-0); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: var(--r-sm); transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
 .fx-sub-row input::placeholder { color: color-mix(in srgb, var(--ink-2) 62%, #fff); }
-.fx-sub-row input:hover { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
-.fx-sub-row input:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); }
-.fx-sub-row input[aria-invalid="true"] { border-color: var(--error); }
-.fx-sub-row button { flex-shrink: 0; padding: 11px 22px; font-size: 14.5px; }
-.fx-sub-row button[disabled] { opacity: .65; cursor: default; }
+.fx-sub-row input[type="text"]:hover, .fx-sub-row input[type="email"]:hover { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+.fx-sub-row input[type="text"]:focus, .fx-sub-row input[type="email"]:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); }
+/* Zoho flags an invalid field by adding .zcerrortxt */
+.fx-sub-row input.zcerrortxt { border-color: var(--error); }
+.fx-sub-row input[type="button"], .fx-sub-row button { flex-shrink: 0; padding: 11px 22px; font-size: 14.5px; cursor: pointer; }
+.fx-sub-row input[type="button"][disabled], .fx-sub-row button[disabled] { opacity: .65; cursor: default; }
+/* Zoho toggles #errorMsgDiv inline; keep it hidden until it does */
+.fx-sub #errorMsgDiv { display: none; }
+/* Zoho's success/overlay chrome, restyled to our surfaces */
+.fx-zc-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(10,37,64,.5); }
+.fx-zc-popup { position: fixed; z-index: 9999; left: 50%; top: 12%; transform: translateX(-50%); width: min(560px, 92vw); max-height: 70vh; overflow: auto; padding: 28px; background: var(--surface-0); border-radius: var(--r-lg); box-shadow: var(--shadow-pop); font-size: 15px; line-height: 1.55; color: var(--ink); }
+.fx-zc-close { position: absolute; top: 10px; right: 14px; width: 26px; height: 26px; cursor: pointer; border-radius: 50%; }
+.fx-zc-close::before, .fx-zc-close::after { content: ""; position: absolute; left: 6px; top: 12px; width: 14px; height: 1.6px; background: var(--ink-2); }
+.fx-zc-close::before { transform: rotate(45deg); }
+.fx-zc-close::after { transform: rotate(-45deg); }
 .fx-sub-err { font-size: 13px; color: var(--error); }
 .fx-sub-err a { color: var(--error); font-weight: 600; text-decoration: underline; }
 .fx-sub-done { display: flex; align-items: flex-start; gap: 8px; margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink); font-weight: 500; max-width: 34ch; }
