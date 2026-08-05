@@ -407,6 +407,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .si-thumb img[src*="image-1-1"] { object-fit: contain; background: #fff; padding: 6px; }
 .si-body { padding: 18px 18px 20px; gap: 8px; display: flex; flex-direction: column; flex: 1; }
 .si-kicker { color: var(--teal-ink); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.si-title { margin: 0; font-size: 17px; line-height: 1.35; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty; }
+.si-desc { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); text-wrap: pretty; }
 .si-readmore { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; color: var(--teal-ink); font-size: 13.5px; font-weight: 600; }
 .si-readmore svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform var(--dur) var(--ease); }
 .si-card:hover .si-readmore svg { transform: translateX(3px); }
@@ -928,13 +930,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cmh-news-tagline { color: var(--teal-ink); font-weight: 600; font-size: 14.5px; }
 .cmh-news-desc { color: var(--ink-2); font-size: 15px; line-height: 1.55; flex: 1; }
 .cmh-news-card .cmh-btn { align-self: flex-start; margin-top: 8px; }
-.cmh-wa { display: flex; align-items: center; gap: 40px; background: linear-gradient(135deg, #0F5C52 0%, var(--wa-dark) 100%); border-radius: var(--r-xl); padding: 52px 56px; color: #fff; }
-.cmh-wa-icon { flex-shrink: 0; width: 108px; height: 108px; border-radius: var(--r-xl); background: rgba(255,255,255,.12); display: grid; place-items: center; }
-.cmh-wa-icon svg { width: 56px; height: 56px; fill: none; stroke: #fff; stroke-width: 1.6; }
+/* align-items:flex-start, not center: centring floated the icon ~74px below the eyebrow
+   it belongs to, reading as a detached ornament. Top-aligned it anchors the heading. */
+.cmh-wa { display: flex; align-items: flex-start; gap: 32px; background: linear-gradient(135deg, #0F5C52 0%, var(--wa-dark) 100%); border-radius: var(--r-xl); padding: 48px 56px; color: #fff; }
+.cmh-wa-icon { flex-shrink: 0; width: 72px; height: 72px; border-radius: var(--r-lg); background: rgba(255,255,255,.12); display: grid; place-items: center; }
+.cmh-wa-icon svg { width: 36px; height: 36px; fill: none; stroke: #fff; stroke-width: 1.7; }
 .cmh-wa-copy .pg-eyebrow { color: color-mix(in srgb, var(--teal) 45%, #fff); margin-bottom: 12px; }
 .cmh-wa-h { color: #fff; margin-bottom: 14px; }
 .cmh-wa-h .hl-underline { color: color-mix(in srgb, var(--teal) 50%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--teal) 50%, #fff); }
-.cmh-wa .comm-lead { color: rgba(255,255,255,.9); max-width: 640px; }
+.cmh-wa .comm-lead { color: rgba(255,255,255,.9); max-width: 58ch; text-wrap: pretty; }
 .cmh-btn-wa { background: #fff; color: #0F5C52; margin-top: 26px; }
 .cmh-btn-wa svg { stroke: #0F5C52; }
 .cmh-btn-wa:hover { transform: translateY(-2px); background: var(--surface-1); }
@@ -1037,6 +1041,12 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .res-play { position: absolute; inset: 0; margin: auto; width: 56px; height: 56px; border-radius: 50%; background: rgba(10,37,64,.72); display: grid; place-items: center; pointer-events: none; }
 .res-play svg { width: 24px; height: 24px; fill: #fff; margin-left: 2px; }
 .res-card-video:hover .res-play { background: var(--teal-hover); }
+/* .res-card is an <a> on the community page, so its children need block flow */
+.res-card-video .res-thumb { display: block; }
+.res-card h3 { font-size: 17px; line-height: 1.35; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty; }
+.res-card .res-kind, .res-card .res-link { display: block; }
+/* Section-level "see everything" link under a card grid */
+.cmh-more { margin: 32px 0 0; text-align: center; }
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; max-width: var(--container); margin: 0 auto; align-items: center; }
 .contact-method { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
 .contact-method .label { color: var(--teal-ink); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }

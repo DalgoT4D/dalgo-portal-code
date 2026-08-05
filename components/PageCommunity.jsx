@@ -129,7 +129,110 @@ const CommunityNewsletters = () => {
   );
 };
 
-// 3 — Join Our Community (WhatsApp)
+// 3 — Blogs from the Dalgo team. Real posts, pulled from the Dalgo category on
+// projecttech4dev.org (WP category 202); featured images localised to assets/blogs/
+// so the page carries no third-party image requests. Reuses the .si-card story-card
+// pattern the design system already owns.
+const CommunityBlogs = () => {
+  const posts = [
+    {
+      kicker: 'Community',
+      title: 'What’s special about a data bootcamp for nonprofits?',
+      body: 'A look inside our latest bootcamp in Delhi — what we ran, what landed, and what teams took home.',
+      img: 'assets/blogs/bootcamp-delhi.webp',
+      href: 'https://projecttech4dev.org/whats-special-about-a-data-bootcamp-for-nonprofits/',
+    },
+    {
+      kicker: 'Data protection',
+      title: 'Dalgo is now DPDP-compliant. What does it mean for you?',
+      body: 'Dalgo is DPDP-compliant as a Data Processor, independently audited. Here is what that changes for your organisation.',
+      img: 'assets/blogs/dpdp-compliant.webp',
+      href: 'https://projecttech4dev.org/dalgo-is-now-dpdp-compliant-what-does-it-mean-for-you/',
+    },
+    {
+      kicker: 'Data + AI',
+      title: 'From prompts to impact — putting AI to work for social good',
+      body: 'How we think about AI across Dalgo, Kaapi and Glific, and where it genuinely helps nonprofit teams.',
+      img: 'assets/blogs/ai-for-social-good.webp',
+      href: 'https://projecttech4dev.org/from-prompts-to-impact-putting-ai-to-work-for-social-good/',
+    },
+  ];
+  return (
+    <section className="pg-section cmh-section" id="blogs">
+      <div className="container">
+        <div className="cmh-head section-head-center">
+          <div className="pg-eyebrow">From the blog</div>
+          <h2 className="section-title">Written by the <span className="hl-underline">Dalgo team</span></h2>
+          <p className="section-sub">Field notes on nonprofit data — what we are learning with partners, and what we are building next.</p>
+        </div>
+        <div className="si-grid">
+          {posts.map((p) => (
+            <a key={p.href} className="si-card" href={p.href} target="_blank" rel="noopener">
+              <div className="si-thumb"><img src={p.img} alt="" loading="lazy" decoding="async" width="1200" height="825" /></div>
+              <div className="si-body">
+                <span className="si-kicker">{p.kicker}</span>
+                <h3 className="si-title">{p.title}</h3>
+                <p className="si-desc">{p.body}</p>
+                <span className="si-readmore">Read the post
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <p className="cmh-more">
+          <a className="cmh-btn cmh-btn-ghost" href="https://projecttech4dev.org/blogs/?category=dalgo" target="_blank" rel="noopener">
+            Read all blogs
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+};
+
+// 4 — Past webinar recordings. Reuses the .res-card-video pattern (thumb + play badge)
+// that already exists in the design system. Thumbnails localised to assets/videos/.
+const CommunityVideos = () => {
+  const videos = [
+    { id: 'I04SqPYQHIs', title: 'Making decisions, driving impact: building effective data systems with Dalgo', img: 'assets/videos/making-decisions.webp' },
+    { id: 'gY1Gif7Jh5w', title: 'Understanding the data lifecycle — a practical guide for NGOs', img: 'assets/videos/data-lifecycle.webp' },
+    { id: 'xc1WwUU94wg', title: 'Enabling data ownership: SHOFCO’s journey with Dalgo', img: 'assets/videos/shofco-ownership.webp' },
+  ];
+  const PLAYLIST = 'https://www.youtube.com/playlist?list=PLiBzunQ0ociM0qDfAYJ4Slx1boV03fovU';
+  return (
+    <section className="pg-section alt cmh-section" id="past-videos">
+      <div className="container">
+        <div className="cmh-head section-head-center">
+          <div className="pg-eyebrow">Recordings</div>
+          <h2 className="section-title">Check out <span className="hl-underline">past videos</span></h2>
+          <p className="section-sub">Missed a session? Every webinar is recorded — 24 and counting, free to watch any time.</p>
+        </div>
+        <div className="res-grid">
+          {videos.map((v) => (
+            <a key={v.id} className="res-card res-card-video" href={`https://www.youtube.com/watch?v=${v.id}&list=PLiBzunQ0ociM0qDfAYJ4Slx1boV03fovU`} target="_blank" rel="noopener">
+              <span className="res-thumb">
+                <img src={v.img} alt="" loading="lazy" decoding="async" width="1280" height="720" />
+                <span className="res-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>
+              </span>
+              <span className="res-kind">Webinar</span>
+              <h3>{v.title}</h3>
+              <span className="res-link">Watch on YouTube →</span>
+            </a>
+          ))}
+        </div>
+        <p className="cmh-more">
+          <a className="cmh-btn cmh-btn-ghost" href={PLAYLIST} target="_blank" rel="noopener">
+            Browse all recordings
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+          </a>
+        </p>
+      </div>
+    </section>
+  );
+};
+
+// 5 — Join Our Community (WhatsApp)
 const CommunityWhatsApp = () => (
   <section className="pg-section cmh-section" id="whatsapp">
     <div className="container">
@@ -159,5 +262,7 @@ const CommunityCTA = () => null;
 window.CommunityHero = CommunityHero;
 window.CommunityWebinar = CommunityWebinar;
 window.CommunityNewsletters = CommunityNewsletters;
+window.CommunityBlogs = CommunityBlogs;
+window.CommunityVideos = CommunityVideos;
 window.CommunityWhatsApp = CommunityWhatsApp;
 window.CommunityCTA = CommunityCTA;
