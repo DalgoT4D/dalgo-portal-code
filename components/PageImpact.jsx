@@ -25,11 +25,10 @@ const ImpactTestimonial = () => (
             <span className="imx-band-role">Core Team Member, The Agency Fund</span>
           </div>
         </div>
-        <div className="imx-band-photo is-placeholder" role="img" aria-label="Speaker photo (to be added)">
-          {/* TODO(Stuti): replace this placeholder with the real speaker photo:
-              <img src="assets/opt/NAME.webp" alt="NAME of ORG" width="1400" height="900" loading="lazy" /> */}
-          <svg className="imx-band-ph-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5.5 20c0-3.6 3-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/></svg>
-          <span className="imx-band-ph-label">Photo to add</span>
+        {/* Photo placeholder replaced by the endorsing org's mark — Jacob is Agency Fund,
+            so the logo carries the attribution without waiting on a headshot. */}
+        <div className="imx-band-logo">
+          <img src="assets/logos/AgencyFund.webp" alt="The Agency Fund" width="355" height="162" loading="lazy" decoding="async" />
         </div>
       </div>
     </div>
