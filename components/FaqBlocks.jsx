@@ -7,12 +7,14 @@
 //   - Every question carrying a reviewer comment anchor in the doc is OUT OF SCOPE and
 //     is not published here: "Can we try Dalgo or run a pilot before committing?"
 //     (also removed by explicit instruction), "Who owns the data?", "Where is our data
-//     hosted?", "How is Dalgo priced?", and "How is Dalgo different from Power BI,
-//     Tableau, or Looker Studio?".
+//     hosted?", and "How is Dalgo different from Power BI, Tableau, or Looker Studio?".
+//   - "How is Dalgo priced?" IS published, but its answer is written from the pricing
+//     page (the 1 Aug 2026 sheet), not the doc — the doc's figures were superseded and
+//     its body still held an unfinished editorial note. Guarded by faq-schema.mjs.
 //   - Two answers deviate from the doc to satisfy non-negotiable ground truth:
 //     (a) "unlimited users" is a banned claim → "no per-user fees";
 //     (b) the DPDP answer must name the Pacta audit.
-//   Both are marked GROUND-TRUTH inline below.
+//   All three are marked inline below.
 //
 // The FAQPage JSON-LD in faq.html is GENERATED from this file by scripts/faq-schema.mjs —
 // run it after any edit here, or the structured data silently drifts from the page.
@@ -38,6 +40,7 @@ const FAQ_DATA = [
     'How does Dalgo protect sensitive data?',
   ]},
   { g: 'Pricing and support', qs: [
+    'How is Dalgo priced?',
     'What is included in the SaaS price?',
     'What is not included in the SaaS price?',
     'What support is included?',
@@ -77,6 +80,12 @@ window.FAQ_ANSWERS = {
 
   'How does Dalgo protect sensitive data?': `<p>Access can be managed by role, sensitive datasets can be restricted, reports can be shared deliberately, and dashboards can use appropriate levels of aggregation. Security, data-residency, audit, and contractual requirements should be raised early so they can be assessed before data is connected.</p>`,
 
+  // FIGURES COME FROM THE PRICING PAGE, NOT THE FAQ DOC. components/PagePricing.jsx holds the
+  // 1 Aug 2026 pricing sheet, which supersedes the doc's US$3,600/US$300 and US$25/hr. The doc's
+  // unfinished "Add Dalgo Consulting price as well. <Link Pricing Page Here>" note is resolved here.
+  // scripts/faq-schema.mjs asserts every figure below still matches window.PRICING_REGIONS.
+  'How is Dalgo priced?': `<p>Dalgo SaaS costs <strong>&#8377;2.04 lakh per organisation per year</strong>, or <strong>&#8377;17,000 per month</strong>, in India. For nonprofits based outside India it is <strong>US$3,000 per year</strong> or <strong>US$250 per month</strong>. This is a flat organisation-level price, not a per-user or per-pipeline charge.</p><p>Consulting and implementation are priced separately, from <strong>&#8377;2,500 per hour</strong> in India or <strong>US$35 per hour</strong> internationally. Your warehouse is your own cloud infrastructure and is billed by your cloud provider. See the <a href="pricing.html">pricing page</a> for what to plan for.</p>`,
+
   // GROUND-TRUTH: "unlimited users" is a banned claim — say flat pricing with no per-user fees.
   'What is included in the SaaS price?': `<p>Dalgo has a flat pricing structure: your subscription covers all features and unlimited usage, with no per-user fees. See the <a href="pricing.html">pricing page</a> for current rates.</p>`,
 
@@ -98,7 +107,7 @@ const FAQ_MINI = {
   product:    [[1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5]],
   consulting: [[2, 0], [2, 1]],
   impact:     [[0, 1], [5, 2]],
-  pricing:    [[4, 0], [4, 1], [4, 2], [4, 3]],
+  pricing:    [[4, 0], [4, 1], [4, 2], [4, 3], [4, 4]],
 };
 const PENDING_HTML = '<!-- ANSWER-PENDING-REVIEW: paste approved answer here --><p class="faq-a-pending">Answer coming soon.</p>';
 const FaqItem = ({ q, id }) => {

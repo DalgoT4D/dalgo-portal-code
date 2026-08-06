@@ -39,6 +39,37 @@ const toText = (html) => html
   .replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
   .replace(/\s+/g, ' ').trim();
 
+// --- Pricing drift guard -----------------------------------------------------
+// The FAQ once carried pricing copied from a doc that the pricing sheet had already
+// superseded (US$3,600/US$300 vs the real US$3,000/US$250). The pricing page is the
+// source of truth, so assert every figure in the FAQ answer still appears there.
+const PRICING = window.PRICING_REGIONS;
+const priceAnswer = ANSWERS['How is Dalgo priced?'];
+if (priceAnswer) {
+  if (!PRICING) {
+    console.error('window.PRICING_REGIONS missing — cannot verify the FAQ pricing answer. Aborting.');
+    process.exit(1);
+  }
+  const plain = priceAnswer.replace(/<[^>]+>/g, ' ').replace(/&#8377;/g, '₹').replace(/\s+/g, ' ');
+  // Normalise "₹2.04L" -> "2.04 lakh", "or $250/month" -> "$250 per month", etc.
+  const expected = [
+    PRICING.india.saas.price.replace('₹', '').replace('L', ''),      // 2.04
+    PRICING.india.saas.alt.replace(/^or ₹/, '').replace('/month', ''), // 17,000
+    PRICING.intl.saas.price.replace('$', ''),                        // 3,000
+    PRICING.intl.saas.alt.replace(/^or \$/, '').replace('/month', ''), // 250
+    PRICING.india.consulting.price.replace('₹', ''),                 // 2,500
+    PRICING.intl.consulting.price.replace('$', ''),                  // 35
+  ];
+  const drift = expected.filter((v) => !plain.includes(v));
+  if (drift.length) {
+    console.error('FAQ pricing answer has drifted from components/PagePricing.jsx.');
+    console.error('  missing figure(s) from the FAQ answer:', drift.join(', '));
+    console.error('  FAQ answer reads:', plain.trim());
+    process.exit(1);
+  }
+  console.log(`Pricing drift guard: OK — all ${expected.length} figures match PRICING_REGIONS.`);
+}
+
 const missing = [];
 const mainEntity = [];
 for (const grp of DATA) {

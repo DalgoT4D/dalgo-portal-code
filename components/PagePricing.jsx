@@ -186,6 +186,8 @@ const PricingProof = () => (
   </section>
 );
 
+// Exposed so scripts/faq-schema.mjs can assert the FAQ pricing answer never drifts from these figures.
+window.PRICING_REGIONS = PRICING_REGIONS;
 window.PricingHero = PricingHero;
 window.PricingPlans = PricingPlans;
 window.CostsToPlanFor = CostsToPlanFor;
