@@ -11,9 +11,15 @@
    "src": "/favicon-512.png",
    "sizes": "512x512",
    "type": "image/png"
+  },
+  {
+   "src": "/favicon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
   }
  ],
- "theme_color": "#00BFA6",
+ "theme_color": "#0A2540",
  "background_color": "#ffffff",
  "display": "browser"
 }

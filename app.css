@@ -200,7 +200,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .nav-mobile, .nav-scrim { display: none; }
 
 /* ---------- 7. SiteHero (.cvh) ---------- */
-.cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: clamp(28px, 3.5vw, 48px) 0; }
+.cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: var(--section-pad-sm) 0; }
 /* Consistent hero height across ALL pages → no vertical jump when switching nav tabs.
    The floor sits just above the tallest hero copy (Consulting, ~417px); shorter heroes
    grow to match and centre their content. Mobile drops the floor (heroes stack). */
@@ -250,7 +250,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvh-avs-stack { display: inline-flex; }
 .cvh-avs-stack .cvh-wa-av { border: 2px solid #fff; }
 .cvh-avs-stack .cvh-wa-av + .cvh-wa-av { margin-left: -8px; }
-
 
 /* ---------- 8. Collage / product visual / triad / portrait ---------- */
 .hc-avs-stack { display: inline-flex; }
@@ -415,84 +414,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .si-readmore svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform var(--dur) var(--ease); }
 .si-card:hover .si-readmore svg { transform: translateX(3px); }
 
-
-/* ---------- "The people you'll work with" — editorial profile cards ----------
-   ONE system: every repeated metric is a --sb-* property declared once here, so labels,
-   icons, dividers, chips, padding and gaps match by construction. All on the 4/8 grid.
-   Subgrid holds the five bands on a shared baseline across both cards — the parent's row
-   count and the card's `span` MUST stay equal or children collide. */
-.sb-section {
-  --sb-pad: 32px; --sb-band-gap: 24px; --sb-label-gap: 12px; --sb-inline: 8px;
-  --sb-label-size: 11px; --sb-label-track: .09em; --sb-icon: 16px;
-  --sb-chip-pad-x: 12px; --sb-chip-h: 28px;
-  --sb-rule: color-mix(in srgb, var(--ink) 11%, transparent);
-  padding: var(--section-pad) 0; background: var(--surface-0);
-}
-.sb-head { max-width: 800px; margin: 0 auto 48px; text-align: center; }
-.sb-h2 + .sb-sub { margin-top: 0; }
-.sb-head .sb-h2 { max-width: 640px; margin-left: auto; margin-right: auto; }
-.sb-eyebrow { margin: 0 0 16px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
-.sb-h2 { margin: 0 0 16px; font-size: clamp(28px, 3vw, 40px); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); text-wrap: balance; }
-/* Sits on one line at desktop (the string measures ~770px at 16px Inter, so the 640px
-   head cap would break it in two); still wraps naturally below that width. */
-.sb-sub { margin: 0 auto; max-width: 800px; width: 100%; font-size: 16px; line-height: 1.6; color: var(--ink-2); text-wrap: nowrap; }
-@media (max-width: 840px) { .sb-sub { max-width: 100%; text-wrap: pretty; } }
-
-.sb-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); gap: var(--sb-band-gap); }
-.sb-card { grid-row: span 5; display: grid; grid-template-rows: subgrid; gap: var(--sb-band-gap); padding: var(--sb-pad); background: var(--surface-0); border: 1px solid var(--sb-rule); border-radius: var(--r-xl); box-shadow: rgba(10,37,64,.04) 0 8px 20px -12px; }
-@supports not (grid-template-rows: subgrid) {
-  .sb-grid { grid-template-rows: none; }
-  .sb-card { grid-row: auto; display: flex; flex-direction: column; }
-}
-
-.sb-masthead { display: flex; align-items: center; gap: 20px; }
-.sb-photo { flex-shrink: 0; position: relative; margin: 0; padding: 6px; width: 88px; background: var(--surface-0); border: 1px solid var(--sb-rule); box-shadow: rgba(10,37,64,.05) 0 4px 10px -6px; }
-.sb-photo img { display: block; width: 100%; height: 76px; object-fit: cover; }
-.sb-photo.is-tape { transform: rotate(-2deg); }
-.sb-photo.is-clip { transform: rotate(1.5deg); }
-.sb-photo.is-tape::before { content: ""; position: absolute; top: -8px; left: -12px; width: 48px; height: 18px; transform: rotate(-28deg); background: color-mix(in srgb, var(--teal) 22%, transparent); }
-.sb-photo.is-clip::before { content: ""; position: absolute; top: -10px; right: 12px; width: 10px; height: 26px; border: 2px solid color-mix(in srgb, var(--ink-2) 45%, transparent); border-radius: 6px 6px 5px 5px; border-bottom-color: transparent; }
-.sb-identity { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.sb-name { margin: 0; font-size: 19px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
-.sb-role { display: inline-flex; align-items: center; height: 24px; padding: 0 12px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--teal) 13%, #fff); color: var(--teal-ink); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-.sb-place { display: inline-flex; align-items: center; gap: var(--sb-inline); margin: 0; font-size: 13px; font-weight: 500; color: var(--ink-2); }
-.sb-bio { margin: 0; font-size: 15px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
-
-.sb-band { display: flex; flex-direction: column; gap: var(--sb-label-gap); padding-top: var(--sb-band-gap); border-top: 1px solid var(--sb-rule); }
-.sb-label { display: flex; align-items: center; gap: var(--sb-inline); margin: 0; font-size: var(--sb-label-size); font-weight: 600; letter-spacing: var(--sb-label-track); text-transform: uppercase; color: var(--ink-2); }
-.sb-ico { display: inline-grid; place-items: center; width: var(--sb-icon); height: var(--sb-icon); flex-shrink: 0; }
-.sb-ico svg { width: 100%; height: 100%; fill: none; stroke: var(--teal-ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-
-.sb-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; }
-.sb-chip { display: inline-flex; align-items: center; height: var(--sb-chip-h); padding: 0 var(--sb-chip-pad-x); border-radius: var(--r-pill); background: var(--surface-1); color: var(--ink); font-size: 12.5px; font-weight: 500; white-space: nowrap; }
-
-.sb-logos { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px 8px; margin: 0; padding: 0; }
-.sb-logo-cell { display: grid; place-items: center; height: 28px; }
-.sb-logo { max-height: 22px; max-width: 84px; width: auto; object-fit: contain; filter: brightness(0); opacity: .5; }
-.sb-logo.is-wide { max-height: 15px; }
-.sb-logo.is-solid { filter: grayscale(1) contrast(1.02); opacity: .66; }
-
-.sb-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-.sb-song { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--r-md); background: var(--surface-1); }
-.sb-song-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.sb-song-title { font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--ink); }
-.sb-song-artist { font-size: 12px; line-height: 1.3; color: var(--ink-2); }
-.sb-player { flex-shrink: 0; width: 28px; height: 28px; position: relative; border-radius: 50%; }
-.sb-player.is-vinyl { background: radial-gradient(circle at 50% 50%, var(--surface-1) 0 4px, color-mix(in srgb, var(--navy) 60%, #fff) 4px 5px, var(--navy) 5px 100%); }
-.sb-player.is-vinyl::after { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1px solid color-mix(in srgb, #fff 20%, transparent); }
-.sb-player.is-cassette { border-radius: var(--r-sm); background: var(--surface-2); box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 26%, transparent); }
-.sb-player.is-cassette::before { content: ""; position: absolute; inset: 8px 5px; border-radius: 2px; background: var(--surface-0); box-shadow: inset 0 0 0 1.2px color-mix(in srgb, var(--ink) 22%, transparent); }
-.sb-player.is-cassette::after { content: ""; position: absolute; top: 12px; left: 9px; width: 10px; height: 4px; background: radial-gradient(circle at 2px 2px, color-mix(in srgb, var(--ink) 50%, transparent) 0 1.5px, transparent 1.6px), radial-gradient(circle at 8px 2px, color-mix(in srgb, var(--ink) 50%, transparent) 0 1.5px, transparent 1.6px); }
-.sb-offline { margin: 0; font-size: 13px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
-
-@media (max-width: 860px) {
-  .sb-section { --sb-pad: 24px; --sb-band-gap: 20px; }
-  .sb-grid { grid-template-columns: 1fr; grid-template-rows: none; }
-  .sb-card { grid-row: auto; display: flex; flex-direction: column; }
-  .sb-columns { grid-template-columns: 1fr; gap: 0; }
-}
-@media (prefers-reduced-motion: reduce) { .sb-photo { transform: none; } }
-
 /* ---------- 13. Lifecycle loop ---------- */
 .ll-section { background: var(--surface-0); padding: clamp(64px, 8vw, 104px) 0; }
 .ll-head { max-width: 900px; margin: 0 auto clamp(44px, 5vw, 66px); text-align: center; padding: 0 24px; }
@@ -536,75 +457,62 @@ p strong, li strong { font-weight: 600; color: inherit; }
 }
 
 /* ---------- 14. Trust band ---------- */
-.trust-section { padding: var(--section-pad) 0; background: var(--surface-0); }
-.trust-section .container { max-width: var(--container); }
-.trust-head { margin-bottom: 52px; }
-.trust-link { display: inline-flex; align-items: center; gap: 8px; color: var(--teal-ink); font-weight: 600; font-size: 15px; text-decoration: none; }
-.trust-link:hover { color: color-mix(in srgb, var(--teal-ink) 78%, #000); }
-.trust-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: color-mix(in srgb, var(--teal) 8%, #fff); border-radius: var(--r-lg); overflow: hidden; }
-.trust-cell { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; gap: 14px; padding: 40px 18px; border-right: 1px solid var(--hairline); text-decoration: none; }
-.trust-cell:last-child { border-right: 0; }
-.trust-cell-link:hover .trust-label { color: var(--teal-ink); }
-.trust-ic { width: 52px; height: 52px; display: grid; place-items: center; }
-.trust-ic svg { width: 40px; height: 40px; stroke: var(--ink); fill: none; stroke-width: 1.6; }
-.trust-ic img { max-height: 52px; max-width: 52px; object-fit: contain; }
-.trust-label { font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
-.trust-soon { position: absolute; top: 12px; right: 12px; background: color-mix(in srgb, var(--teal) 12%, #fff); color: var(--teal-ink); font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid color-mix(in srgb, var(--teal) 35%, #fff); }
-.trust-dpdp { width: fit-content; max-width: 100%; margin: 32px auto 0; text-align: center; font-weight: 600; color: var(--ink); background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 18px 36px; }
 
 /* ---------- 15. Nurture / community cards ---------- */
-.nurture-section { padding: var(--section-pad-lg) 0; background: var(--surface-1); }
-.nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-.nurture-grid-4 { grid-template-columns: repeat(4, 1fr); }
-.nurture-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: var(--surface-0); box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
-.nurture-card:hover { border-color: color-mix(in srgb, var(--ink) 12%, #fff); box-shadow: var(--shadow-pop); transform: translateY(-3px); }
-.nurture-thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--navy-2); }
-.nurture-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
-.nurture-card:hover .nurture-thumb img { transform: scale(1.04); }
-.nurture-thumb-panel { display: grid; place-items: center; background: linear-gradient(150deg, var(--wa-mid), var(--wa-dark)); }
-.nurture-thumb-ic svg { width: 54px; height: 54px; stroke: #fff; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.nurture-body { display: flex; flex-direction: column; gap: 8px; padding: 20px 20px 22px; flex: 1; }
-.nurture-label { margin: 0; }
-.nurture-h { margin: 0; }
-.nurture-p { flex: 1; }
-.nurture-btn { align-self: flex-start; margin-top: 8px; }
 
 /* ---------- 16. Final CTA ---------- */
-.final-cta { padding: var(--section-pad) 0; position: relative; overflow: hidden; isolation: isolate; text-align: center; background: var(--navy); }
-.final-cta-photo .final-cta-bg { position: absolute; inset: 0; z-index: 0; }
-.final-cta-photo .final-cta-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; filter: blur(7px) saturate(.9); transform: scale(1.12); }
-.final-cta-photo::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 90% at 82% 12%, color-mix(in srgb, var(--teal) 30%, transparent), transparent 60%), linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.92) 100%); }
-.final-cta .container { position: relative; z-index: 2; }
-.final-cta-eyebrow { font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--teal) 55%, #fff); margin: 0 0 18px; }
-.final-cta-h { color: #fff; margin: 0 auto 28px; max-width: var(--measure-heading); }
-.final-cta-h .hl-underline { color: color-mix(in srgb, var(--teal) 55%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--teal) 55%, #fff); }
-.final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.final-cta-sub { max-width: 900px; margin: -8px auto 30px; color: var(--on-dark); font-size: 17px; line-height: 1.6; }
 
 /* From the Consultant's Desk — Embla carousel (touch/mouse drag, momentum, snap) */
 /* Viewport + track */
-.cvc-embla { overflow: hidden; margin-top: 44px; cursor: grab; }
-.cvc-embla:active { cursor: grabbing; }
-.cvc-embla-container { display: flex; gap: 28px; align-items: stretch; padding: 6px 2px 4px; }
-.cvc-slide { flex: 0 0 auto; width: clamp(320px, 33.333%, 384px); min-width: 0; display: flex; }
 
 /* Card — a strict two-zone grid so the carousel reads as a clean structured row:
    [body: grows] + [attribution: FIXED height]. Because the attribution zone is a fixed height
    anchored to the bottom, its divider sits on the SAME baseline on every card regardless of
    quote length. Uniform full-width text cards — one consistent structure for every testimonial. */
-.cvc-card {
-  --cvc-attr-h: 100px;   /* fixed attribution-zone height → shared divider baseline */
-  position: relative;
-  width: 100%; display: flex; flex-direction: column;
-  background: var(--surface-0);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.cvc-card:hover { box-shadow: var(--shadow-pop); transform: translateY(-2px); }
+
 /* Occasional accent card — subtle surface tint only, for rhythm. */
-.cvc-card.is-accent { background: var(--surface-1); }
+
+/* Testimonial carousel internals (restored) */
+/* Top region — head, tag, quote. Grows to fill; the quote holds the slack so short and long
+   testimonials both leave the divider on the same baseline. */
+
+/* Head — reduced logo + subtle quote mark, top row. */
+
+/* Attribution — fixed-height zone at the bottom; round avatar (where a portrait exists) beside
+   name / role / org on three lines. Fixed height keeps the divider aligned across ALL cards. */
+
+/* Dots */
+
+@media (max-width: 900px) { .cvc-slide { width: clamp(300px, 64%, 372px); } }
+@media (max-width: 600px) {
+  .cvc-slide { width: 88%; }
+  .cvc-card { --cvc-attr-h: 104px; }
+  .cvc-body { padding: 24px 22px 0; }
+  .cvc-attr { margin: 0 22px; }
+}
+
+/* ---------- 13. Lifecycle loop ---------- */
+/* Grid-area placement lives on classes (not inline) so the ≤980 single-column stack wins by cascade */
+@media (min-width: 981px) {
+  .ll-aP { grid-area: aP; } .ll-aC { grid-area: aC; } .ll-aS { grid-area: aS; } .ll-aCl { grid-area: aCl; } .ll-aV { grid-area: aV; } .ll-aA { grid-area: aA; }
+  .ll-aT1 { grid-area: aT1; } .ll-aT2 { grid-area: aT2; } .ll-aR { grid-area: aR; } .ll-aB2 { grid-area: aB2; } .ll-aB1 { grid-area: aB1; } .ll-aL { grid-area: aL; }
+}
+
+/* ---------- 14. Trust band ---------- */
+
+/* ---------- 15. Nurture / community cards ---------- */
+
+/* ---------- 16. Final CTA ---------- */
+
+/* From the Consultant's Desk — Embla carousel (touch/mouse drag, momentum, snap) */
+/* Viewport + track */
+
+/* Card — a strict two-zone grid so the carousel reads as a clean structured row:
+   [body: grows] + [attribution: FIXED height]. Because the attribution zone is a fixed height
+   anchored to the bottom, its divider sits on the SAME baseline on every card regardless of
+   quote length. Uniform full-width text cards — one consistent structure for every testimonial. */
+
+/* Occasional accent card — subtle surface tint only, for rhythm. */
 
 /* Testimonial carousel internals (restored) */
 /* Top region — head, tag, quote. Grows to fill; the quote holds the slack so short and long
@@ -627,11 +535,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvc-desig { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
 .cvc-orgname { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
 /* Dots */
-.cvc-dots { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
-.cvc-dot { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: color-mix(in srgb, var(--ink) 18%, #fff); cursor: pointer; transition: background var(--dur) var(--ease), width var(--dur) var(--ease), border-radius var(--dur) var(--ease); }
-.cvc-dot:hover { background: color-mix(in srgb, var(--ink) 34%, #fff); }
-.cvc-dot.on { width: 26px; border-radius: var(--r-pill); background: var(--teal-ink); }
-.cvc-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cvc-dots { display: flex; justify-content: center; gap: 0; margin-top: 32px; }
+/* Button is a 24x24 hit area (WCAG 2.2 AA 2.5.8); the visible dot is the ::before,
+   so the 8px dot / 26px active pill look is unchanged. gap:0 keeps 24px centre-to-centre. */
+.cvc-dot { width: 24px; height: 24px; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; transition: width var(--dur) var(--ease); }
+.cvc-dot::before { content: ""; display: block; width: 8px; height: 8px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 18%, #fff); transition: width var(--dur) var(--ease), background var(--dur) var(--ease), border-radius var(--dur) var(--ease); }
+.cvc-dot:hover::before { background: color-mix(in srgb, var(--ink) 34%, #fff); }
+.cvc-dot.on { width: 42px; }
+.cvc-dot.on::before { width: 26px; border-radius: var(--r-pill); background: var(--teal-ink); }
+.cvc-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--r-pill); }
 @media (max-width: 900px) { .cvc-slide { width: clamp(300px, 64%, 372px); } }
 @media (max-width: 600px) {
   .cvc-slide { width: 88%; }
@@ -641,41 +553,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
 }
 
 /* ---------- 13. Lifecycle loop ---------- */
-.ll-section { background: var(--surface-0); padding: clamp(64px, 8vw, 104px) 0; }
-.ll-head { max-width: 900px; margin: 0 auto clamp(44px, 5vw, 66px); text-align: center; padding: 0 24px; }
-.ll-h { margin: 0 0 16px; font-size: clamp(28px, 3vw, 40px); }
-.ll-sub { margin: 0 auto; max-width: 620px; }
-.ll-wrap { max-width: var(--container); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
-.ll-grid { display: grid; grid-template-columns: 1fr 56px 1fr 56px 1fr; grid-template-rows: auto 54px auto; grid-template-areas: "aP aT1 aC aT2 aS" "aL . . . aR" "aA aB1 aV aB2 aCl"; gap: 16px 6px; align-items: stretch; }
-.ll-card { position: relative; min-width: 0; background: var(--surface-0); border-radius: var(--r-md); padding: 22px 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
-.ll-dot { position: absolute; top: 13px; right: 13px; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 14%, transparent); }
-.ll-ico { width: 44px; height: 44px; border-radius: var(--r-md); background: color-mix(in srgb, var(--teal) 10%, #fff); display: grid; place-items: center; flex-shrink: 0; }
-.ll-ico svg { width: 24px; height: 24px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.ll-name { font-weight: 700; font-size: 17px; color: var(--ink); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
-.ll-cap { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0; }
-.ll-chip { display: inline-flex; align-items: center; font-weight: 700; font-size: 10.5px; letter-spacing: .03em; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 12%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 35%, #fff); border-radius: var(--r-pill); padding: 3px 9px; }
-.ll-card--handoff { background: var(--surface-2); border: 1.5px dashed color-mix(in srgb, var(--ink) 18%, #fff); box-shadow: none; }
-.ll-ico--handoff { background: var(--surface-2); border: 1px dashed color-mix(in srgb, var(--ink) 18%, #fff); }
-.ll-ico--handoff svg { stroke: color-mix(in srgb, var(--ink-2) 70%, #fff); }
-.ll-tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
-.ll-tool { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-sm); padding: 4px 9px 4px 7px; font-size: 12px; font-weight: 600; color: var(--ink); }
-.ll-tool img { width: 15px; height: 15px; object-fit: contain; }
-.ll-ar { display: flex; align-items: center; justify-content: center; }
-.ll-ar svg { width: 44px; height: 24px; overflow: visible; fill: none; }
-.ll-ar line, .ll-ar path { stroke-width: 2.2; }
-.ll-ar path { fill: none; }
-.ll-ar--flow svg { stroke: var(--teal); }
-.ll-ar--handoff svg { stroke: color-mix(in srgb, var(--ink) 30%, #fff); }
-.ll-ar--handoff line { stroke-dasharray: 4 4; }
-.ll-ar--loop svg { stroke: color-mix(in srgb, var(--teal) 55%, #fff); }
-.ll-ar--loop line { stroke-dasharray: 4 4; }
-.ll-ar--left svg { transform: rotate(180deg); } .ll-ar--down svg { transform: rotate(90deg); } .ll-ar--up svg { transform: rotate(-90deg); }
-.ll-loopnote { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 26px; font-weight: 600; font-size: 13px; color: var(--teal-ink); }
-.ll-loopnote svg { width: 17px; height: 17px; fill: none; stroke: var(--teal); stroke-width: 2; }
-.ll-legend { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px; margin-top: 30px; }
-.ll-legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
-.ll-legend-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 14%, transparent); }
-.ll-legend-box { width: 14px; height: 14px; border-radius: 4px; background: var(--surface-2); border: 1.5px dashed color-mix(in srgb, var(--ink) 18%, #fff); }
 /* Grid-area placement lives on classes (not inline) so the ≤980 single-column stack wins by cascade */
 @media (min-width: 981px) {
   .ll-aP { grid-area: aP; } .ll-aC { grid-area: aC; } .ll-aS { grid-area: aS; } .ll-aCl { grid-area: aCl; } .ll-aV { grid-area: aV; } .ll-aA { grid-area: aA; }
@@ -683,259 +560,22 @@ p strong, li strong { font-weight: 600; color: inherit; }
 }
 
 /* ---------- 14. Trust band ---------- */
-.trust-section { padding: var(--section-pad) 0; background: var(--surface-0); }
-.trust-section .container { max-width: var(--container); }
-.trust-head { margin-bottom: 52px; }
-.trust-link { display: inline-flex; align-items: center; gap: 8px; color: var(--teal-ink); font-weight: 600; font-size: 15px; text-decoration: none; }
-.trust-link:hover { color: color-mix(in srgb, var(--teal-ink) 78%, #000); }
-.trust-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: color-mix(in srgb, var(--teal) 8%, #fff); border-radius: var(--r-lg); overflow: hidden; }
-.trust-cell { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; gap: 14px; padding: 40px 18px; border-right: 1px solid var(--hairline); text-decoration: none; }
-.trust-cell:last-child { border-right: 0; }
-.trust-cell-link:hover .trust-label { color: var(--teal-ink); }
-.trust-ic { width: 52px; height: 52px; display: grid; place-items: center; }
-.trust-ic svg { width: 40px; height: 40px; stroke: var(--ink); fill: none; stroke-width: 1.6; }
-.trust-ic img { max-height: 52px; max-width: 52px; object-fit: contain; }
-.trust-label { font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
-.trust-soon { position: absolute; top: 12px; right: 12px; background: color-mix(in srgb, var(--teal) 12%, #fff); color: var(--teal-ink); font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid color-mix(in srgb, var(--teal) 35%, #fff); }
-.trust-dpdp { width: fit-content; max-width: 100%; margin: 32px auto 0; text-align: center; font-weight: 600; color: var(--ink); background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 18px 36px; }
 
 /* ---------- 15. Nurture / community cards ---------- */
-.nurture-section { padding: var(--section-pad-lg) 0; background: var(--surface-1); }
-.nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-.nurture-grid-4 { grid-template-columns: repeat(4, 1fr); }
-.nurture-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: var(--surface-0); box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
-.nurture-card:hover { border-color: color-mix(in srgb, var(--ink) 12%, #fff); box-shadow: var(--shadow-pop); transform: translateY(-3px); }
-.nurture-thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--navy-2); }
-.nurture-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
-.nurture-card:hover .nurture-thumb img { transform: scale(1.04); }
-.nurture-thumb-panel { display: grid; place-items: center; background: linear-gradient(150deg, var(--wa-mid), var(--wa-dark)); }
-.nurture-thumb-ic svg { width: 54px; height: 54px; stroke: #fff; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.nurture-body { display: flex; flex-direction: column; gap: 8px; padding: 20px 20px 22px; flex: 1; }
-.nurture-label { margin: 0; }
-.nurture-h { margin: 0; }
-.nurture-p { flex: 1; }
-.nurture-btn { align-self: flex-start; margin-top: 8px; }
 
 /* ---------- 16. Final CTA ---------- */
-.final-cta { padding: var(--section-pad) 0; position: relative; overflow: hidden; isolation: isolate; text-align: center; background: var(--navy); }
-.final-cta-photo .final-cta-bg { position: absolute; inset: 0; z-index: 0; }
-.final-cta-photo .final-cta-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; filter: blur(7px) saturate(.9); transform: scale(1.12); }
-.final-cta-photo::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 90% at 82% 12%, color-mix(in srgb, var(--teal) 30%, transparent), transparent 60%), linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.92) 100%); }
-.final-cta .container { position: relative; z-index: 2; }
-.final-cta-eyebrow { font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--teal) 55%, #fff); margin: 0 0 18px; }
-.final-cta-h { color: #fff; margin: 0 auto 28px; max-width: var(--measure-heading); }
-.final-cta-h .hl-underline { color: color-mix(in srgb, var(--teal) 55%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--teal) 55%, #fff); }
-.final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.final-cta-sub { max-width: 900px; margin: -8px auto 30px; color: var(--on-dark); font-size: 17px; line-height: 1.6; }
 
 /* From the Consultant's Desk — Embla carousel (touch/mouse drag, momentum, snap) */
 /* Viewport + track */
-.cvc-embla { overflow: hidden; margin-top: 44px; cursor: grab; }
-.cvc-embla:active { cursor: grabbing; }
-.cvc-embla-container { display: flex; gap: 28px; align-items: stretch; padding: 6px 2px 4px; }
-.cvc-slide { flex: 0 0 auto; width: clamp(320px, 33.333%, 384px); min-width: 0; display: flex; }
 
 /* Card — a strict two-zone grid so the carousel reads as a clean structured row:
    [body: grows] + [attribution: FIXED height]. Because the attribution zone is a fixed height
    anchored to the bottom, its divider sits on the SAME baseline on every card regardless of
    quote length. Uniform full-width text cards — one consistent structure for every testimonial. */
-.cvc-card {
-  --cvc-attr-h: 100px;   /* fixed attribution-zone height → shared divider baseline */
-  position: relative;
-  width: 100%; display: flex; flex-direction: column;
-  background: var(--surface-0);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.cvc-card:hover { box-shadow: var(--shadow-pop); transform: translateY(-2px); }
-/* Occasional accent card — subtle surface tint only, for rhythm. */
-.cvc-card.is-accent { background: var(--surface-1); }
 
-/* Testimonial carousel internals (restored) */
-/* Top region — head, tag, quote. Grows to fill; the quote holds the slack so short and long
-   testimonials both leave the divider on the same baseline. */
-.cvc-body { flex: 1 1 auto; display: flex; flex-direction: column; padding: 28px 28px 0; min-width: 0; }
-/* Head — reduced logo + subtle quote mark, top row. */
-.cvc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; min-height: 30px; margin-bottom: 16px; }
-.cvc-logo { height: 30px; width: auto; max-width: 116px; object-fit: contain; object-position: left center; }
-.cvc-org-top { font-weight: 700; font-size: 16px; color: var(--ink); letter-spacing: -0.01em; }
-.cvc-mark { font-weight: 700; font-size: 34px; line-height: .6; color: color-mix(in srgb, var(--teal) 42%, #fff); }
-.cvc-tag { margin: 0 0 12px; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
-.cvc-quote { margin: 0; font-size: 16.5px; line-height: 1.62; color: var(--ink); flex: 1 1 auto; text-wrap: pretty; }
-.cvc-quote strong { font-weight: 600; color: var(--ink); }
-/* Attribution — fixed-height zone at the bottom; round avatar (where a portrait exists) beside
-   name / role / org on three lines. Fixed height keeps the divider aligned across ALL cards. */
-.cvc-attr { flex: 0 0 auto; box-sizing: border-box; height: var(--cvc-attr-h); margin: 0 28px; padding-top: 20px; border-top: 1px solid var(--hairline); display: flex; flex-direction: row; align-items: center; gap: 13px; }
-.cvc-avatar { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: var(--surface-2); box-shadow: 0 0 0 1px var(--hairline); }
-.cvc-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.cvc-name { font-weight: 600; font-size: 15px; color: var(--ink); }
-.cvc-desig { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
-.cvc-orgname { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
-/* Dots */
-.cvc-dots { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
-.cvc-dot { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: color-mix(in srgb, var(--ink) 18%, #fff); cursor: pointer; transition: background var(--dur) var(--ease), width var(--dur) var(--ease), border-radius var(--dur) var(--ease); }
-.cvc-dot:hover { background: color-mix(in srgb, var(--ink) 34%, #fff); }
-.cvc-dot.on { width: 26px; border-radius: var(--r-pill); background: var(--teal-ink); }
-.cvc-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-@media (max-width: 900px) { .cvc-slide { width: clamp(300px, 64%, 372px); } }
-@media (max-width: 600px) {
-  .cvc-slide { width: 88%; }
-  .cvc-card { --cvc-attr-h: 104px; }
-  .cvc-body { padding: 24px 22px 0; }
-  .cvc-attr { margin: 0 22px; }
-}
+/* Occasional accent card — subtle surface tint only, for rhythm. */
 
 /* ---------- 13. Lifecycle loop ---------- */
-.ll-section { background: var(--surface-0); padding: clamp(64px, 8vw, 104px) 0; }
-.ll-head { max-width: 900px; margin: 0 auto clamp(44px, 5vw, 66px); text-align: center; padding: 0 24px; }
-.ll-h { margin: 0 0 16px; font-size: clamp(28px, 3vw, 40px); }
-.ll-sub { margin: 0 auto; max-width: 620px; }
-.ll-wrap { max-width: var(--container); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
-.ll-grid { display: grid; grid-template-columns: 1fr 56px 1fr 56px 1fr; grid-template-rows: auto 54px auto; grid-template-areas: "aP aT1 aC aT2 aS" "aL . . . aR" "aA aB1 aV aB2 aCl"; gap: 16px 6px; align-items: stretch; }
-.ll-card { position: relative; min-width: 0; background: var(--surface-0); border-radius: var(--r-md); padding: 22px 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
-.ll-dot { position: absolute; top: 13px; right: 13px; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 14%, transparent); }
-.ll-ico { width: 44px; height: 44px; border-radius: var(--r-md); background: color-mix(in srgb, var(--teal) 10%, #fff); display: grid; place-items: center; flex-shrink: 0; }
-.ll-ico svg { width: 24px; height: 24px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.ll-name { font-weight: 700; font-size: 17px; color: var(--ink); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
-.ll-cap { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0; }
-.ll-chip { display: inline-flex; align-items: center; font-weight: 700; font-size: 10.5px; letter-spacing: .03em; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 12%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 35%, #fff); border-radius: var(--r-pill); padding: 3px 9px; }
-.ll-card--handoff { background: var(--surface-2); border: 1.5px dashed color-mix(in srgb, var(--ink) 18%, #fff); box-shadow: none; }
-.ll-ico--handoff { background: var(--surface-2); border: 1px dashed color-mix(in srgb, var(--ink) 18%, #fff); }
-.ll-ico--handoff svg { stroke: color-mix(in srgb, var(--ink-2) 70%, #fff); }
-.ll-tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
-.ll-tool { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-sm); padding: 4px 9px 4px 7px; font-size: 12px; font-weight: 600; color: var(--ink); }
-.ll-tool img { width: 15px; height: 15px; object-fit: contain; }
-.ll-ar { display: flex; align-items: center; justify-content: center; }
-.ll-ar svg { width: 44px; height: 24px; overflow: visible; fill: none; }
-.ll-ar line, .ll-ar path { stroke-width: 2.2; }
-.ll-ar path { fill: none; }
-.ll-ar--flow svg { stroke: var(--teal); }
-.ll-ar--handoff svg { stroke: color-mix(in srgb, var(--ink) 30%, #fff); }
-.ll-ar--handoff line { stroke-dasharray: 4 4; }
-.ll-ar--loop svg { stroke: color-mix(in srgb, var(--teal) 55%, #fff); }
-.ll-ar--loop line { stroke-dasharray: 4 4; }
-.ll-ar--left svg { transform: rotate(180deg); } .ll-ar--down svg { transform: rotate(90deg); } .ll-ar--up svg { transform: rotate(-90deg); }
-.ll-loopnote { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 26px; font-weight: 600; font-size: 13px; color: var(--teal-ink); }
-.ll-loopnote svg { width: 17px; height: 17px; fill: none; stroke: var(--teal); stroke-width: 2; }
-.ll-legend { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px; margin-top: 30px; }
-.ll-legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
-.ll-legend-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 14%, transparent); }
-.ll-legend-box { width: 14px; height: 14px; border-radius: 4px; background: var(--surface-2); border: 1.5px dashed color-mix(in srgb, var(--ink) 18%, #fff); }
-/* Grid-area placement lives on classes (not inline) so the ≤980 single-column stack wins by cascade */
-@media (min-width: 981px) {
-  .ll-aP { grid-area: aP; } .ll-aC { grid-area: aC; } .ll-aS { grid-area: aS; } .ll-aCl { grid-area: aCl; } .ll-aV { grid-area: aV; } .ll-aA { grid-area: aA; }
-  .ll-aT1 { grid-area: aT1; } .ll-aT2 { grid-area: aT2; } .ll-aR { grid-area: aR; } .ll-aB2 { grid-area: aB2; } .ll-aB1 { grid-area: aB1; } .ll-aL { grid-area: aL; }
-}
-
-/* ---------- 14. Trust band ---------- */
-.trust-section { padding: var(--section-pad) 0; background: var(--surface-0); }
-.trust-section .container { max-width: var(--container); }
-.trust-head { margin-bottom: 52px; }
-.trust-link { display: inline-flex; align-items: center; gap: 8px; color: var(--teal-ink); font-weight: 600; font-size: 15px; text-decoration: none; }
-.trust-link:hover { color: color-mix(in srgb, var(--teal-ink) 78%, #000); }
-.trust-grid { display: grid; grid-template-columns: repeat(5, 1fr); background: color-mix(in srgb, var(--teal) 8%, #fff); border-radius: var(--r-lg); overflow: hidden; }
-.trust-cell { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; gap: 14px; padding: 40px 18px; border-right: 1px solid var(--hairline); text-decoration: none; }
-.trust-cell:last-child { border-right: 0; }
-.trust-cell-link:hover .trust-label { color: var(--teal-ink); }
-.trust-ic { width: 52px; height: 52px; display: grid; place-items: center; }
-.trust-ic svg { width: 40px; height: 40px; stroke: var(--ink); fill: none; stroke-width: 1.6; }
-.trust-ic img { max-height: 52px; max-width: 52px; object-fit: contain; }
-.trust-label { font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
-.trust-soon { position: absolute; top: 12px; right: 12px; background: color-mix(in srgb, var(--teal) 12%, #fff); color: var(--teal-ink); font-size: 10.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid color-mix(in srgb, var(--teal) 35%, #fff); }
-.trust-dpdp { width: fit-content; max-width: 100%; margin: 32px auto 0; text-align: center; font-weight: 600; color: var(--ink); background: var(--surface-1); border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 18px 36px; }
-
-/* ---------- 15. Nurture / community cards ---------- */
-.nurture-section { padding: var(--section-pad-lg) 0; background: var(--surface-1); }
-.nurture-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-.nurture-grid-4 { grid-template-columns: repeat(4, 1fr); }
-.nurture-card { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r-lg); background: var(--surface-0); box-shadow: var(--shadow-sm); transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
-.nurture-card:hover { border-color: color-mix(in srgb, var(--ink) 12%, #fff); box-shadow: var(--shadow-pop); transform: translateY(-3px); }
-.nurture-thumb { aspect-ratio: 16/9; overflow: hidden; background: var(--navy-2); }
-.nurture-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
-.nurture-card:hover .nurture-thumb img { transform: scale(1.04); }
-.nurture-thumb-panel { display: grid; place-items: center; background: linear-gradient(150deg, var(--wa-mid), var(--wa-dark)); }
-.nurture-thumb-ic svg { width: 54px; height: 54px; stroke: #fff; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-.nurture-body { display: flex; flex-direction: column; gap: 8px; padding: 20px 20px 22px; flex: 1; }
-.nurture-label { margin: 0; }
-.nurture-h { margin: 0; }
-.nurture-p { flex: 1; }
-.nurture-btn { align-self: flex-start; margin-top: 8px; }
-
-/* ---------- 16. Final CTA ---------- */
-.final-cta { padding: var(--section-pad) 0; position: relative; overflow: hidden; isolation: isolate; text-align: center; background: var(--navy); }
-.final-cta-photo .final-cta-bg { position: absolute; inset: 0; z-index: 0; }
-.final-cta-photo .final-cta-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 38%; filter: blur(7px) saturate(.9); transform: scale(1.12); }
-.final-cta-photo::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(120% 90% at 82% 12%, color-mix(in srgb, var(--teal) 30%, transparent), transparent 60%), linear-gradient(180deg, rgba(10,37,64,.86) 0%, rgba(10,37,64,.92) 100%); }
-.final-cta .container { position: relative; z-index: 2; }
-.final-cta-eyebrow { font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--teal) 55%, #fff); margin: 0 0 18px; }
-.final-cta-h { color: #fff; margin: 0 auto 28px; max-width: var(--measure-heading); }
-.final-cta-h .hl-underline { color: color-mix(in srgb, var(--teal) 55%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--teal) 55%, #fff); }
-.final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.final-cta-sub { max-width: 900px; margin: -8px auto 30px; color: var(--on-dark); font-size: 17px; line-height: 1.6; }
-
-/* From the Consultant's Desk — Embla carousel (touch/mouse drag, momentum, snap) */
-/* Viewport + track */
-.cvc-embla { overflow: hidden; margin-top: 44px; cursor: grab; }
-.cvc-embla:active { cursor: grabbing; }
-.cvc-embla-container { display: flex; gap: 28px; align-items: stretch; padding: 6px 2px 4px; }
-.cvc-slide { flex: 0 0 auto; width: clamp(320px, 33.333%, 384px); min-width: 0; display: flex; }
-
-/* Card — a strict two-zone grid so the carousel reads as a clean structured row:
-   [body: grows] + [attribution: FIXED height]. Because the attribution zone is a fixed height
-   anchored to the bottom, its divider sits on the SAME baseline on every card regardless of
-   quote length. Uniform full-width text cards — one consistent structure for every testimonial. */
-.cvc-card {
-  --cvc-attr-h: 100px;   /* fixed attribution-zone height → shared divider baseline */
-  position: relative;
-  width: 100%; display: flex; flex-direction: column;
-  background: var(--surface-0);
-  border-radius: var(--r-xl);
-  box-shadow: var(--shadow-card);
-  overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
-}
-.cvc-card:hover { box-shadow: var(--shadow-pop); transform: translateY(-2px); }
-/* Occasional accent card — subtle surface tint only, for rhythm. */
-.cvc-card.is-accent { background: var(--surface-1); }
-
-/* ---------- 13. Lifecycle loop ---------- */
-.ll-section { background: var(--surface-0); padding: clamp(64px, 8vw, 104px) 0; }
-.ll-head { max-width: 900px; margin: 0 auto clamp(44px, 5vw, 66px); text-align: center; padding: 0 24px; }
-.ll-h { margin: 0 0 16px; font-size: clamp(28px, 3vw, 40px); }
-.ll-sub { margin: 0 auto; max-width: 620px; }
-.ll-wrap { max-width: var(--container); margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); }
-.ll-grid { display: grid; grid-template-columns: 1fr 56px 1fr 56px 1fr; grid-template-rows: auto 54px auto; grid-template-areas: "aP aT1 aC aT2 aS" "aL . . . aR" "aA aB1 aV aB2 aCl"; gap: 16px 6px; align-items: stretch; }
-.ll-card { position: relative; min-width: 0; background: var(--surface-0); border-radius: var(--r-md); padding: 22px 20px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 10px; }
-.ll-dot { position: absolute; top: 13px; right: 13px; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 14%, transparent); }
-.ll-ico { width: 44px; height: 44px; border-radius: var(--r-md); background: color-mix(in srgb, var(--teal) 10%, #fff); display: grid; place-items: center; flex-shrink: 0; }
-.ll-ico svg { width: 24px; height: 24px; fill: none; stroke: var(--teal); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.ll-name { font-weight: 700; font-size: 17px; color: var(--ink); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
-.ll-cap { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 0; }
-.ll-chip { display: inline-flex; align-items: center; font-weight: 700; font-size: 10.5px; letter-spacing: .03em; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 12%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 35%, #fff); border-radius: var(--r-pill); padding: 3px 9px; }
-.ll-card--handoff { background: var(--surface-2); border: 1.5px dashed color-mix(in srgb, var(--ink) 18%, #fff); box-shadow: none; }
-.ll-ico--handoff { background: var(--surface-2); border: 1px dashed color-mix(in srgb, var(--ink) 18%, #fff); }
-.ll-ico--handoff svg { stroke: color-mix(in srgb, var(--ink-2) 70%, #fff); }
-.ll-tools { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
-.ll-tool { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-0); border: 1px solid var(--hairline); border-radius: var(--r-sm); padding: 4px 9px 4px 7px; font-size: 12px; font-weight: 600; color: var(--ink); }
-.ll-tool img { width: 15px; height: 15px; object-fit: contain; }
-.ll-ar { display: flex; align-items: center; justify-content: center; }
-.ll-ar svg { width: 44px; height: 24px; overflow: visible; fill: none; }
-.ll-ar line, .ll-ar path { stroke-width: 2.2; }
-.ll-ar path { fill: none; }
-.ll-ar--flow svg { stroke: var(--teal); }
-.ll-ar--handoff svg { stroke: color-mix(in srgb, var(--ink) 30%, #fff); }
-.ll-ar--handoff line { stroke-dasharray: 4 4; }
-.ll-ar--loop svg { stroke: color-mix(in srgb, var(--teal) 55%, #fff); }
-.ll-ar--loop line { stroke-dasharray: 4 4; }
-.ll-ar--left svg { transform: rotate(180deg); } .ll-ar--down svg { transform: rotate(90deg); } .ll-ar--up svg { transform: rotate(-90deg); }
-.ll-loopnote { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 26px; font-weight: 600; font-size: 13px; color: var(--teal-ink); }
-.ll-loopnote svg { width: 17px; height: 17px; fill: none; stroke: var(--teal); stroke-width: 2; }
-.ll-legend { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px; margin-top: 30px; }
-.ll-legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
-.ll-legend-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 14%, transparent); }
-.ll-legend-box { width: 14px; height: 14px; border-radius: 4px; background: var(--surface-2); border: 1.5px dashed color-mix(in srgb, var(--ink) 18%, #fff); }
 /* Grid-area placement lives on classes (not inline) so the ≤980 single-column stack wins by cascade */
 @media (min-width: 981px) {
   .ll-aP { grid-area: aP; } .ll-aC { grid-area: aC; } .ll-aS { grid-area: aS; } .ll-aCl { grid-area: aCl; } .ll-aV { grid-area: aV; } .ll-aA { grid-area: aA; }
@@ -1025,7 +665,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .fx-bottom-parent:hover { color: var(--teal-ink); }
 /* DPG credential — a quiet inline trust line on the column's left edge. Deliberately not
    a pill/button: it states a fact, it isn't a second CTA competing with Subscribe. */
-.fx-cred { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 13.5px; font-weight: 500; line-height: 1.4; color: var(--ink-2); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
+.fx-cred { display: inline-flex; align-items: center; min-height: 24px; gap: 8px; margin-top: 20px; font-size: 13.5px; font-weight: 500; line-height: 1.4; color: var(--ink-2); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
 .fx-cred svg { width: 17px; height: 17px; flex-shrink: 0; fill: none; stroke: var(--teal-ink); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .fx-cred:hover { color: var(--teal-ink); }
 /* Link columns */
@@ -1044,7 +684,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* Bottom bar */
 .fx-bottom { max-width: var(--container); margin: 0 auto; padding: 28px 32px 0; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; font-size: 12.5px; color: color-mix(in srgb, var(--ink-2) 72%, #fff); }
 .fx-bottom-right { display: flex; gap: 24px; flex-wrap: wrap; }
-.fx-bottom-right a { color: color-mix(in srgb, var(--ink-2) 80%, #fff); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
+.fx-bottom-right a { display: inline-flex; align-items: center; min-height: 24px; color: color-mix(in srgb, var(--ink-2) 80%, #fff); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
 .fx-bottom-right a:hover { color: var(--teal-ink); }
 @media (max-width: 900px) { .fx-links-inner { grid-template-columns: 1fr 1fr; } .fx-brand-col { grid-column: 1 / -1; max-width: 460px; } }
 @media (max-width: 560px) { .fx-links-inner { grid-template-columns: 1fr; } .fx-bottom { flex-direction: column; gap: 12px; } }
@@ -1122,7 +762,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .dsh-name { margin: 0 0 6px; font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
 .dsh-use { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); margin: 0 0 18px; text-wrap: pretty; flex: 1; }
 .dsh-links { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
-.dsh-link { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; text-decoration: none; color: var(--teal-ink); }
+.dsh-link { display: inline-flex; align-items: center; min-height: 24px; gap: 6px; font-size: 14px; font-weight: 600; text-decoration: none; color: var(--teal-ink); }
 .dsh-link:hover { color: var(--ink); }
 .dsh-link svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; transition: transform var(--dur) var(--ease); }
 .dsh-link:hover svg { transform: translate(2px, -2px); }
