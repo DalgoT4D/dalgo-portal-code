@@ -170,6 +170,117 @@ const ConsultantsDesk = () => {
   );
 };
 
+// "The people you'll work with" — a slam-book styled profile card, done as a structured
+// Q&A rather than a scrapbook: small uppercase prompts with real answers underneath.
+// Source of truth is Stuti's team sheet; headshots come from the Tech4Dev team page.
+// Logos reuse the marquee's two-treatment rule — pale wordmarks (MAD, Antarang, TAP)
+// need the brightness(0) silhouette or they vanish; solid emblems get grayscale.
+const SOLID_LOGOS = ['SHOFCO', 'Ummeed', 'Baala', 'Dasra'];
+const TEAM = [
+  {
+    name: 'Ritabrata Roy',
+    role: 'Data Consultant',
+    photo: 'assets/team/ritabrata-roy.webp',
+    intro: 'Kolkata-born. Went from consulting analyst, to teaching STEM in a government primary school, to helping NGOs turn data into impact.',
+    sectors: ['Education', 'Mental Health', 'Youth Development', 'Child Protection', 'Philanthropy'],
+    sectorsMore: 3,
+    orgs: [
+      { n: 'Dasra', f: 'assets/logos/Dasra.png' },
+      { n: 'Bhumi', f: 'assets/logos/Bhumi.png' },
+      { n: 'Baala', f: 'assets/logos/Baala.png' },
+      { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' },
+      { n: 'MAD', f: 'assets/logos/MAD.png' },
+      { n: 'Antarang', f: 'assets/logos/Antarang.webp' },
+    ],
+    orgsMore: 'CMHLP',
+    song: 'Time', artist: 'Pink Floyd',
+    offline: 'Volunteering in classrooms, building child-safety systems with schools, and career counselling for teenagers.',
+  },
+  {
+    name: 'Pratiksha Rao',
+    role: 'Data Consultant',
+    photo: 'assets/team/pratiksha-rao.webp',
+    intro: 'Raised in Dubai, computer science grad, former AI engineer. Left the for-profit world for the social sector — “best choice I’ve made.”',
+    sectors: ['Education', 'Water', 'Health', 'Gender', 'Sanitation'],
+    sectorsMore: 5,
+    orgs: [
+      { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' },
+      { n: 'Ummeed', f: 'assets/logos/Ummeed.png' },
+      { n: 'STiR Education', f: 'assets/logos/STiREducation.png' },
+      { n: 'SHRI', f: 'assets/logos/SHRI.png' },
+      { n: 'AKRSP', f: 'assets/logos/AKRSP.png' },
+      { n: 'SEARCH', f: 'assets/logos/SEARCH.png' },
+    ],
+    orgsMore: 'Goonj, ATECF, TAP, Scouts Australia',
+    song: 'Achilles Come Down', artist: 'Gang of Youths',
+    offline: 'Books, video games and board games, learning the piano — and picking up new languages.',
+  },
+];
+
+const TmRow = ({ label, children }) => (
+  <div className="tm-row">
+    <span className="tm-label">{label}</span>
+    {children}
+  </div>
+);
+
+const ConsultingTeam = () => (
+  <section className="pg-section tm-section" id="team">
+    <div className="container">
+      <div className="section-head section-head-center">
+        <p className="pg-eyebrow">Your consultants</p>
+        <h2 className="section-title">The people you’ll <span className="hl-underline">work with</span></h2>
+        <p className="section-sub">Not a resourcing pool — the same consultants stay with you from first audit to live dashboards.</p>
+      </div>
+      <div className="tm-grid">
+        {TEAM.map((p) => (
+          <article className="tm-card" key={p.name}>
+            <header className="tm-head">
+              <img className="tm-photo" src={p.photo} alt={p.name} width="640" height="640" loading="lazy" decoding="async" />
+              <span className="tm-who">
+                <span className="tm-name">{p.name}</span>
+                <span className="tm-role">{p.role}</span>
+              </span>
+            </header>
+            <p className="tm-intro">{p.intro}</p>
+
+            <TmRow label="Sectors">
+              <span className="tm-chips">
+                {p.sectors.map((s) => <span className="tm-chip" key={s}>{s}</span>)}
+                {p.sectorsMore ? <span className="tm-chip tm-chip-more">+{p.sectorsMore} more</span> : null}
+              </span>
+            </TmRow>
+
+            <TmRow label="Worked with">
+              <span className="tm-logos">
+                {p.orgs.map((o) => (
+                  <span className="tm-logo-tile" key={o.n}>
+                    <img className={'tm-logo' + (SOLID_LOGOS.indexOf(o.n) !== -1 ? ' is-solid' : '')}
+                      src={o.f} alt={o.n} title={o.n} loading="lazy" decoding="async" />
+                  </span>
+                ))}
+              </span>
+              {p.orgsMore && <span className="tm-orgs-more">+ {p.orgsMore}</span>}
+            </TmRow>
+
+            <div className="tm-split">
+              <TmRow label="On repeat">
+                <span className="tm-song">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" /></svg>
+                  <span><strong>{p.song}</strong><em>{p.artist}</em></span>
+                </span>
+              </TmRow>
+              <TmRow label="Offline mode">
+                <p className="tm-offline">{p.offline}</p>
+              </TmRow>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 const ConsultingFinalCTA = () => (
   <section className="final-cta final-cta-photo" id="final-cta">
     <div className="final-cta-bg" aria-hidden="true">
@@ -191,4 +302,5 @@ const ConsultingFinalCTA = () => (
 window.ConsultingHero = ConsultingHero;
 window.StrategicExpertise = StrategicExpertise;
 window.ConsultantsDesk = ConsultantsDesk;
+window.ConsultingTeam = ConsultingTeam;
 window.ConsultingFinalCTA = ConsultingFinalCTA;

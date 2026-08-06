@@ -526,6 +526,47 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* Occasional accent card — subtle surface tint only, for rhythm. */
 .cvc-card.is-accent { background: var(--surface-1); }
 
+/* ---------- "The people you'll work with" — slam-book profile cards ----------
+   The slam-book device is the LABELLED PROMPT (small caps question → real answer),
+   not scrapbook decoration: no tape, tilt, handwriting or paper texture. Warmth
+   comes from the content and the round headshot; the container stays a system card. */
+.tm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 880px; margin: 0 auto; }
+.tm-card { display: flex; flex-direction: column; gap: 12px; background: var(--surface-0); border-radius: var(--r-xl); box-shadow: var(--shadow-card); padding: 26px 26px 24px; transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.tm-card:hover { box-shadow: var(--shadow-pop); transform: translateY(-2px); }
+.tm-head { display: flex; align-items: center; gap: 14px; }
+.tm-photo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0; box-shadow: 0 0 0 3px var(--surface-0), 0 0 0 4px color-mix(in srgb, var(--teal) 32%, transparent); }
+.tm-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tm-name { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+.tm-role { display: inline-flex; align-self: flex-start; padding: 3px 10px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--teal) 13%, #fff); color: var(--teal-ink); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; }
+.tm-intro { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); text-wrap: pretty; }
+/* The prompt/answer unit */
+.tm-row { display: flex; flex-direction: column; gap: 6px; padding-top: 11px; border-top: 1px solid var(--hairline); }
+.tm-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: color-mix(in srgb, var(--ink-2) 78%, #fff); }
+.tm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.tm-chip { padding: 4px 10px; border-radius: var(--r-pill); background: var(--surface-2); font-size: 12px; font-weight: 500; color: var(--ink); }
+.tm-chip-more { background: transparent; color: var(--ink-2); padding-left: 2px; }
+/* Logo row — same two-treatment rule as the marquee (pale wordmarks would vanish) */
+/* Fixed tiles, same lesson as the marquee: left to size themselves these logos render
+   anywhere from 19px to 70px wide and the row reads as clutter. One cell each = one rhythm. */
+.tm-logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 10px; align-items: center; justify-items: center; }
+.tm-logo-tile { display: grid; place-items: center; width: 100%; height: 26px; }
+.tm-logo { max-height: 22px; max-width: 100%; width: auto; object-fit: contain; filter: brightness(0); opacity: .5; }
+.tm-logo.is-solid { filter: grayscale(1) contrast(1.02); opacity: .68; }
+.tm-orgs-more { font-size: 12px; color: var(--ink-2); }
+/* Two short prompts sit side by side rather than stacked — saves ~60px of card height */
+.tm-split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; align-items: start; }
+.tm-song { display: flex; align-items: center; gap: 9px; }
+.tm-song svg { width: 17px; height: 17px; flex-shrink: 0; fill: none; stroke: var(--teal-ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tm-song span { display: flex; flex-direction: column; min-width: 0; }
+.tm-song strong { font-size: 14px; font-weight: 600; color: var(--ink); }
+.tm-song em { font-style: normal; font-size: 12.5px; color: var(--ink-2); }
+.tm-offline { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+@media (max-width: 760px) {
+  .tm-grid { grid-template-columns: 1fr; }
+  .tm-split { grid-template-columns: 1fr; gap: 0; }
+  .tm-card { padding: 22px 20px; }
+}
+
 /* Top region — head, tag, quote. Grows to fill; the quote holds the slack so short and long
    testimonials both leave the divider on the same baseline. */
 .cvc-body { flex: 1 1 auto; display: flex; flex-direction: column; padding: 28px 28px 0; min-width: 0; }
