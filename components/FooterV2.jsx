@@ -6,7 +6,6 @@ const FooterV2 = () =>
           <div className="fx-logo">
             <img src={window.__resources && window.__resources.dalgoLogo || "assets/dalgo-logo.png"} alt="Dalgo" style={{ height: 36, width: 'auto', display: 'block' }} />
           </div>
-          <p className="fx-brand-tag">Data + AI webinars, nonprofit stories, and offline meetups — join the Dalgo community.</p>
           {/* Credential as real text, not a raster: assets/dpg-badge.png is a corrupt PNG
               (valid header, broken pixel stream) so it has always rendered blank here. This
               version can't rot, scales, and is readable by screen readers. */}

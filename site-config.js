@@ -3,26 +3,23 @@ window.SITE_CONFIG = {
   TRIAL_READY: true, // reverted per request: Start Free Trial ships as primary CTA sitewide
   TRIAL_URL: 'https://dashboard.dalgo.org',
   GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
-  // Featured resource in the nav Resources panel. Time-bound content self-expires (psychology
-  // principles #11) — past `expires`, the card hides itself sitewide with no rebuild needed.
-  // A monthly scheduled task refreshes this from https://luma.com/dalgo (next webinar, else latest recording).
-  FEATURED_WEBINAR: {
-    tag: 'Live webinar',
-    title: 'Understanding Data + AI Lifecycle: A Practical Guide for NGOs (Part 2)',
-    dateLabel: 'Wed 6 Aug · 2:00 PM IST',
-    href: 'https://luma.com/88btx8qo',
-    img: 'assets/webinars/featured-webinar.webp', // event cover (downloaded from the Luma page by the monthly task)
-    cta: 'Register',
-    expires: '2026-08-06T10:00:00Z' // hides once the session wraps
+  // Featured resource in the nav Resources panel. Evergreen (no expiry): the Data Decoded
+  // newsletter, replacing the time-bound webinar card that had to be refreshed monthly.
+  FEATURED_RESOURCE: {
+    kicker: 'Newsletter',
+    title: 'Data Decoded with Dalgo',
+    blurb: 'One nonprofit data concept per edition, in plain language.',
+    img: 'assets/community-cards/data-decoded.webp',
+    href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
+    cta: 'Subscribe'
   }
 };
-// Returns the featured webinar, or null when unset/expired (nav hides the Featured column).
-window.featuredWebinar = function () {
-  var w = window.SITE_CONFIG.FEATURED_WEBINAR;
-  if (!w || (w.expires && Date.now() > Date.parse(w.expires))) return null;
-  // Luma UTM tagging: source attribution is appended here automatically, so config hrefs stay clean.
-  var href = w.href + (w.href.indexOf('?') > -1 ? '&' : '?') + 'utm_source=website&utm_medium=nav_featured';
-  return Object.assign({}, w, { href: href });
+// Returns the featured resource for the nav panel (null hides the Featured column).
+window.featuredResource = function () {
+  var r = window.SITE_CONFIG.FEATURED_RESOURCE;
+  if (!r) return null;
+  var href = r.href + (r.href.indexOf('?') > -1 ? '&' : '?') + 'utm_source=website&utm_medium=nav_featured';
+  return Object.assign({}, r, { href: href });
 };
 // Every primary trial CTA ("Try the Platform") resolves through this: flag off => Contact Us → /contact (BM-307: label always matches destination).
 window.trialCta = function () {

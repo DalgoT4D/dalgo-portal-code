@@ -192,6 +192,8 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .nav-dd-feattag { font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-ink); }
 .nav-dd-feattitle { font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--ink); }
 .nav-dd-featdate { font-size: 12.5px; color: var(--ink-2); }
+.nav-dd-featkicker { display: block; margin-top: 10px; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-ink); }
+.nav-dd-featblurb { display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.45; color: var(--ink-2); }
 .nav-dd-featcta { font-size: 13px; font-weight: 600; color: var(--teal-ink); margin-top: 3px; }
 /* Mobile chrome hidden on desktop */
 .nav-burger { display: none; }
@@ -1459,7 +1461,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .res-card .res-kind, .res-card .res-link { display: block; }
 /* Section-level "see everything" link under a card grid */
 .cmh-more { margin: 32px 0 0; text-align: center; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; max-width: var(--container); margin: 0 auto; align-items: center; }
+/* ---------- Contact — one centred Fillout embed ----------
+   Single focal point. An earlier two-column version put a 53px email aside beside the
+   702px form, leaving ~650px of dead space; the email now lives in the hero instead. */
+.ct-section { padding: var(--section-pad) 0 var(--section-pad-lg); }
+.ct-form { width: 100%; max-width: 780px; margin: 0 auto; min-width: 0; }
+.ct-fillout { width: 100%; height: 702px; }
+.ct-noscript { margin: 0; font-size: 14.5px; color: var(--ink-2); }
+.ct-noscript a { color: var(--teal-ink); font-weight: 600; }
+@media (max-width: 860px) { .ct-fillout { height: 760px; } }
 .contact-method { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
 .contact-method .label { color: var(--teal-ink); font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .contact-method a { font-weight: 600; color: var(--ink); text-decoration: none; }

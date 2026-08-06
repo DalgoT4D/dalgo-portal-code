@@ -45,7 +45,7 @@ const Nav = () => {
     { href: 'faq.html', label: 'FAQs', desc: 'Answers on pricing, setup, and security' },
   ];
   // Featured slot (psychology #4 Von Restorff, #11 self-expiring): next webinar from site-config.
-  const featured = window.featuredWebinar ? window.featuredWebinar() : null;
+  const featured = window.featuredResource ? window.featuredResource() : null;
   const NavLink = ({ href, active, extra, children }) => (
     <a href={href} className={'nav-link' + (active ? ' is-active' : '') + (extra ? ' ' + extra : '')} aria-current={active ? 'page' : undefined}>{children}</a>
   );
@@ -89,12 +89,11 @@ const Nav = () => {
                   <div className="nav-dd-col">
                     <div className="nav-dd-col-label" aria-hidden="true">Featured</div>
                     <a className="nav-dd-featcard" href={featured.href} target="_blank" rel="noopener" role="menuitem">
-                      {featured.img
-                        ? <span className="nav-dd-featimg"><img src={featured.img} alt="" width="800" height="420" loading="lazy" /></span>
-                        : <span className="nav-dd-feattag">{featured.tag}</span>}
+                      <span className="nav-dd-featimg"><img src={featured.img} alt="" width="800" height="450" loading="lazy" /></span>
+                      <span className="nav-dd-featkicker">{featured.kicker}</span>
                       <span className="nav-dd-feattitle">{featured.title}</span>
-                      <span className="nav-dd-featdate">{featured.dateLabel}</span>
-                      <span className="nav-dd-featcta">{featured.cta || 'Register'} <span aria-hidden="true">→</span></span>
+                      <span className="nav-dd-featblurb">{featured.blurb}</span>
+                      <span className="nav-dd-featcta">{featured.cta} <span aria-hidden="true">→</span></span>
                     </a>
                   </div>
                 )}
