@@ -426,10 +426,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
   --sb-rule: color-mix(in srgb, var(--ink) 11%, transparent);
   padding: var(--section-pad) 0; background: var(--surface-0);
 }
-.sb-head { max-width: 640px; margin: 0 auto 48px; text-align: center; }
+.sb-head { max-width: 800px; margin: 0 auto 48px; text-align: center; }
+.sb-h2 + .sb-sub { margin-top: 0; }
+.sb-head .sb-h2 { max-width: 640px; margin-left: auto; margin-right: auto; }
 .sb-eyebrow { margin: 0 0 16px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
 .sb-h2 { margin: 0 0 16px; font-size: clamp(28px, 3vw, 40px); line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); text-wrap: balance; }
-.sb-sub { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+/* Sits on one line at desktop (the string measures ~770px at 16px Inter, so the 640px
+   head cap would break it in two); still wraps naturally below that width. */
+.sb-sub { margin: 0 auto; max-width: 800px; width: 100%; font-size: 16px; line-height: 1.6; color: var(--ink-2); text-wrap: nowrap; }
+@media (max-width: 840px) { .sb-sub { max-width: 100%; text-wrap: pretty; } }
 
 .sb-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); gap: var(--sb-band-gap); }
 .sb-card { grid-row: span 5; display: grid; grid-template-rows: subgrid; gap: var(--sb-band-gap); padding: var(--sb-pad); background: var(--surface-0); border: 1px solid var(--sb-rule); border-radius: var(--r-xl); box-shadow: rgba(10,37,64,.04) 0 8px 20px -12px; }
