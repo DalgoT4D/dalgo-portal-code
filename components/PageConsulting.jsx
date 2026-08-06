@@ -171,10 +171,9 @@ const ConsultantsDesk = () => {
 };
 
 // "The people you'll work with" — a heartfelt slam-book page, per Stuti's reference.
-// Deliberately a different register from the rest of the site: warm paper ground, a serif
-// display line, handwritten names, taped/clipped polaroids and hand-drawn marks. The two
-// faces (Playfair Display, Caveat) and the cream ground are a CONSCIOUS departure from the
-// Inter-only / three-surface rules — see the note in CLAUDE.md.
+// Warm and human but STRICTLY inside the design system: Inter only, tokenised colour only,
+// white section ground. The slam-book feel comes from structure and drawn marks (polaroid,
+// tape, paperclip, prompts, record/cassette) — never from off-brand fonts or a cream page.
 const SOLID_LOGOS = ['SHOFCO', 'Ummeed', 'Baala', 'Dasra'];
 const DOODLE = {
   heart: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8.4a3.9 3.9 0 0 1 7 2.3C19 15.6 12 20 12 20z"/></svg>,
@@ -198,7 +197,7 @@ const TEAM = [
     offline: 'You’ll find him volunteering in classrooms, building child-safety systems with schools, or talking careers with teenagers.',
   },
   {
-    name: 'Pratiksha Rao', role: 'Data Consultant', place: 'Dubai',
+    name: 'Pratiksha Rao', role: 'Data Consultant', place: 'Bangalore',
     photo: 'assets/team/pratiksha-rao.webp', pin: 'clip',
     intro: 'Raised in Dubai, computer science grad, former AI engineer. She left the corporate world to work with nonprofits — and calls it the best choice she’s ever made.',
     sectors: ['Education', 'Water', 'Health', 'Gender', 'Sanitation'],
@@ -224,7 +223,7 @@ const ConsultingTeam = () => (
     <div className="container">
       <div className="sb-head">
         <p className="sb-eyebrow">Meet our consultants</p>
-        <h2 className="sb-h2">Real people. Deep expertise. Lasting impact.
+        <h2 className="sb-h2">The people you’ll <span className="hl-underline">work with</span>
           <span className="sb-heart" aria-hidden="true">{DOODLE.heart}</span>
         </h2>
         <p className="sb-sub">We’re data nerds, change makers, and curious humans. Here to make your data work harder for good.</p>
