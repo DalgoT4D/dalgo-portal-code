@@ -526,6 +526,40 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* Occasional accent card — subtle surface tint only, for rhythm. */
 .cvc-card.is-accent { background: var(--surface-1); }
 
+/* Testimonial carousel internals (restored) */
+/* Top region — head, tag, quote. Grows to fill; the quote holds the slack so short and long
+   testimonials both leave the divider on the same baseline. */
+.cvc-body { flex: 1 1 auto; display: flex; flex-direction: column; padding: 28px 28px 0; min-width: 0; }
+/* Head — reduced logo + subtle quote mark, top row. */
+.cvc-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; min-height: 30px; margin-bottom: 16px; }
+.cvc-logo { height: 30px; width: auto; max-width: 116px; object-fit: contain; object-position: left center; }
+.cvc-org-top { font-weight: 700; font-size: 16px; color: var(--ink); letter-spacing: -0.01em; }
+.cvc-mark { font-weight: 700; font-size: 34px; line-height: .6; color: color-mix(in srgb, var(--teal) 42%, #fff); }
+.cvc-tag { margin: 0 0 12px; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
+.cvc-quote { margin: 0; font-size: 16.5px; line-height: 1.62; color: var(--ink); flex: 1 1 auto; text-wrap: pretty; }
+.cvc-quote strong { font-weight: 600; color: var(--ink); }
+/* Attribution — fixed-height zone at the bottom; round avatar (where a portrait exists) beside
+   name / role / org on three lines. Fixed height keeps the divider aligned across ALL cards. */
+.cvc-attr { flex: 0 0 auto; box-sizing: border-box; height: var(--cvc-attr-h); margin: 0 28px; padding-top: 20px; border-top: 1px solid var(--hairline); display: flex; flex-direction: row; align-items: center; gap: 13px; }
+.cvc-avatar { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 50%; object-fit: cover; background: var(--surface-2); box-shadow: 0 0 0 1px var(--hairline); }
+.cvc-who { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cvc-name { font-weight: 600; font-size: 15px; color: var(--ink); }
+.cvc-desig { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
+.cvc-orgname { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
+/* Dots */
+.cvc-dots { display: flex; justify-content: center; gap: 8px; margin-top: 36px; }
+.cvc-dot { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: color-mix(in srgb, var(--ink) 18%, #fff); cursor: pointer; transition: background var(--dur) var(--ease), width var(--dur) var(--ease), border-radius var(--dur) var(--ease); }
+.cvc-dot:hover { background: color-mix(in srgb, var(--ink) 34%, #fff); }
+.cvc-dot.on { width: 26px; border-radius: var(--r-pill); background: var(--teal-ink); }
+.cvc-dot:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (max-width: 900px) { .cvc-slide { width: clamp(300px, 64%, 372px); } }
+@media (max-width: 600px) {
+  .cvc-slide { width: 88%; }
+  .cvc-card { --cvc-attr-h: 104px; }
+  .cvc-body { padding: 24px 22px 0; }
+  .cvc-attr { margin: 0 22px; }
+}
+
 /* ---------- "The people you'll work with" — slam book, inside the system ----------
    Warm and human WITHOUT leaving the brand: Inter only, tokenised colour only, white
    section ground (it sits above the mint StrategicExpertise band, so it cannot be tinted).
