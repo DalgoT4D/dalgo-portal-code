@@ -170,109 +170,107 @@ const ConsultantsDesk = () => {
   );
 };
 
-// "The people you'll work with" — a slam-book styled profile card, done as a structured
-// Q&A rather than a scrapbook: small uppercase prompts with real answers underneath.
-// Source of truth is Stuti's team sheet; headshots come from the Tech4Dev team page.
-// Logos reuse the marquee's two-treatment rule — pale wordmarks (MAD, Antarang, TAP)
-// need the brightness(0) silhouette or they vanish; solid emblems get grayscale.
+// "The people you'll work with" — a heartfelt slam-book page, per Stuti's reference.
+// Deliberately a different register from the rest of the site: warm paper ground, a serif
+// display line, handwritten names, taped/clipped polaroids and hand-drawn marks. The two
+// faces (Playfair Display, Caveat) and the cream ground are a CONSCIOUS departure from the
+// Inter-only / three-surface rules — see the note in CLAUDE.md.
 const SOLID_LOGOS = ['SHOFCO', 'Ummeed', 'Baala', 'Dasra'];
+const DOODLE = {
+  heart: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8.4a3.9 3.9 0 0 1 7 2.3C19 15.6 12 20 12 20z"/></svg>,
+  people: <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="2.6"/><circle cx="16" cy="9" r="2.6"/><path d="M3.5 18c0-2.4 2-4 4.5-4s4.5 1.6 4.5 4M12 18c0-2.4 2-4 4.5-4s4 1.6 4 4"/></svg>,
+  note: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>,
+  book: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5V20.5"/></svg>,
+  pin: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>,
+};
 const TEAM = [
   {
-    name: 'Ritabrata Roy',
-    role: 'Data Consultant',
-    photo: 'assets/team/ritabrata-roy.webp',
-    intro: 'Kolkata-born. Went from consulting analyst, to teaching STEM in a government primary school, to helping NGOs turn data into impact.',
+    name: 'Ritabrata Roy', role: 'Data Consultant', place: 'Kolkata',
+    photo: 'assets/team/ritabrata-roy.webp', pin: 'tape',
+    intro: 'Grew up in Kolkata. Started as a consulting analyst, then took a leap to teach STEM in a government primary school. That journey shaped how he sees data — as a tool for equity and real change.',
     sectors: ['Education', 'Mental Health', 'Youth Development', 'Child Protection', 'Philanthropy'],
-    sectorsMore: 3,
     orgs: [
-      { n: 'Dasra', f: 'assets/logos/Dasra.png' },
-      { n: 'Bhumi', f: 'assets/logos/Bhumi.png' },
-      { n: 'Baala', f: 'assets/logos/Baala.png' },
-      { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' },
-      { n: 'MAD', f: 'assets/logos/MAD.png' },
-      { n: 'Antarang', f: 'assets/logos/Antarang.webp' },
+      { n: 'Dasra', f: 'assets/logos/Dasra.png' }, { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' },
+      { n: 'MAD', f: 'assets/logos/MAD.png' }, { n: 'Baala', f: 'assets/logos/Baala.png' },
+      { n: 'Antarang', f: 'assets/logos/Antarang.webp' }, { n: 'Bhumi', f: 'assets/logos/Bhumi.png' },
     ],
-    orgsMore: 'CMHLP',
-    song: 'Time', artist: 'Pink Floyd',
-    offline: 'Volunteering in classrooms, building child-safety systems with schools, and career counselling for teenagers.',
+    song: 'Time', artist: 'Pink Floyd', player: 'vinyl',
+    offline: 'You’ll find him volunteering in classrooms, building child-safety systems with schools, or talking careers with teenagers.',
   },
   {
-    name: 'Pratiksha Rao',
-    role: 'Data Consultant',
-    photo: 'assets/team/pratiksha-rao.webp',
-    intro: 'Raised in Dubai, computer science grad, former AI engineer. Left the for-profit world for the social sector — “best choice I’ve made.”',
+    name: 'Pratiksha Rao', role: 'Data Consultant', place: 'Dubai',
+    photo: 'assets/team/pratiksha-rao.webp', pin: 'clip',
+    intro: 'Raised in Dubai, computer science grad, former AI engineer. She left the corporate world to work with nonprofits — and calls it the best choice she’s ever made.',
     sectors: ['Education', 'Water', 'Health', 'Gender', 'Sanitation'],
-    sectorsMore: 5,
     orgs: [
-      { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' },
-      { n: 'Ummeed', f: 'assets/logos/Ummeed.png' },
-      { n: 'STiR Education', f: 'assets/logos/STiREducation.png' },
-      { n: 'SHRI', f: 'assets/logos/SHRI.png' },
-      { n: 'AKRSP', f: 'assets/logos/AKRSP.png' },
-      { n: 'SEARCH', f: 'assets/logos/SEARCH.png' },
+      { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' }, { n: 'STiR Education', f: 'assets/logos/STiREducation.png' },
+      { n: 'SHRI', f: 'assets/logos/SHRI.png' }, { n: 'Ummeed', f: 'assets/logos/Ummeed.png' },
+      { n: 'AKRSP', f: 'assets/logos/AKRSP.png' }, { n: 'SEARCH', f: 'assets/logos/SEARCH.png' },
     ],
-    orgsMore: 'Goonj, ATECF, TAP, Scouts Australia',
-    song: 'Achilles Come Down', artist: 'Gang of Youths',
+    song: 'Achilles Come Down', artist: 'Gang of Youths', player: 'cassette',
     offline: 'Books, video games and board games, learning the piano — and picking up new languages.',
   },
 ];
 
-const TmRow = ({ label, children }) => (
-  <div className="tm-row">
-    <span className="tm-label">{label}</span>
+const SlamRow = ({ icon, label, children }) => (
+  <div className="sb-row">
+    <span className="sb-rowhead"><span className="sb-ico">{icon}</span>{label}</span>
     {children}
   </div>
 );
 
 const ConsultingTeam = () => (
-  <section className="pg-section tm-section" id="team">
+  <section className="sb-section" id="team">
     <div className="container">
-      <div className="section-head section-head-center">
-        <p className="pg-eyebrow">Your consultants</p>
-        <h2 className="section-title">The people you’ll <span className="hl-underline">work with</span></h2>
-        <p className="section-sub">Not a resourcing pool — the same consultants stay with you from first audit to live dashboards.</p>
+      <div className="sb-head">
+        <p className="sb-eyebrow">Meet our consultants</p>
+        <h2 className="sb-h2">Real people. Deep expertise. Lasting impact.
+          <span className="sb-heart" aria-hidden="true">{DOODLE.heart}</span>
+        </h2>
+        <p className="sb-sub">We’re data nerds, change makers, and curious humans. Here to make your data work harder for good.</p>
       </div>
-      <div className="tm-grid">
+      <div className="sb-grid">
         {TEAM.map((p) => (
-          <article className="tm-card" key={p.name}>
-            <header className="tm-head">
-              <img className="tm-photo" src={p.photo} alt={p.name} width="640" height="640" loading="lazy" decoding="async" />
-              <span className="tm-who">
-                <span className="tm-name">{p.name}</span>
-                <span className="tm-role">{p.role}</span>
-              </span>
-            </header>
-            <p className="tm-intro">{p.intro}</p>
+          <article className="sb-card" key={p.name}>
+            <div className="sb-top">
+              <figure className={'sb-polaroid is-' + p.pin}>
+                <img src={p.photo} alt={p.name} width="640" height="640" loading="lazy" decoding="async" />
+              </figure>
+              <div className="sb-intro">
+                <h3 className="sb-name">{p.name}</h3>
+                <span className="sb-role">{p.role}</span>
+                <p className="sb-bio">{p.intro}</p>
+                <span className="sb-place"><span className="sb-ico">{DOODLE.pin}</span>{p.place}</span>
+              </div>
+            </div>
 
-            <TmRow label="Sectors">
-              <span className="tm-chips">
-                {p.sectors.map((s) => <span className="tm-chip" key={s}>{s}</span>)}
-                {p.sectorsMore ? <span className="tm-chip tm-chip-more">+{p.sectorsMore} more</span> : null}
+            <SlamRow icon={DOODLE.heart} label="Cares deeply about">
+              <span className="sb-chips">
+                {p.sectors.map((x) => <span className="sb-chip" key={x}>{x}</span>)}
               </span>
-            </TmRow>
+            </SlamRow>
 
-            <TmRow label="Worked with">
-              <span className="tm-logos">
+            <SlamRow icon={DOODLE.people} label={`Communities ${p.name === 'Ritabrata Roy' ? 'he' : 'she'}’s partnered with`}>
+              <span className="sb-logos">
                 {p.orgs.map((o) => (
-                  <span className="tm-logo-tile" key={o.n}>
-                    <img className={'tm-logo' + (SOLID_LOGOS.indexOf(o.n) !== -1 ? ' is-solid' : '')}
+                  <span className="sb-logo-tile" key={o.n}>
+                    <img className={'sb-logo' + (SOLID_LOGOS.indexOf(o.n) !== -1 ? ' is-solid' : '')}
                       src={o.f} alt={o.n} title={o.n} loading="lazy" decoding="async" />
                   </span>
                 ))}
               </span>
-              {p.orgsMore && <span className="tm-orgs-more">+ {p.orgsMore}</span>}
-            </TmRow>
+            </SlamRow>
 
-            <div className="tm-split">
-              <TmRow label="On repeat">
-                <span className="tm-song">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" /></svg>
-                  <span><strong>{p.song}</strong><em>{p.artist}</em></span>
+            <div className="sb-split">
+              <SlamRow icon={DOODLE.note} label="Currently on repeat">
+                <span className="sb-song">
+                  <span className={'sb-player is-' + p.player} aria-hidden="true"></span>
+                  <span className="sb-song-t"><strong>{p.song}</strong><em>{p.artist}</em></span>
                 </span>
-              </TmRow>
-              <TmRow label="Offline mode">
-                <p className="tm-offline">{p.offline}</p>
-              </TmRow>
+              </SlamRow>
+              <SlamRow icon={DOODLE.book} label="When the laptop closes">
+                <p className="sb-offline">{p.offline}</p>
+              </SlamRow>
             </div>
           </article>
         ))}
