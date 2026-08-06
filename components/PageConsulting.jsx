@@ -108,16 +108,13 @@ const ConsultantsDesk = () => {
   const [snaps, setSnaps] = React.useState([0]);
   React.useEffect(() => {
     const Embla = window.EmblaCarousel;
-    const AutoScroll = window.EmblaCarouselAutoScroll;
     const vp = viewportRef.current;
     if (!Embla || !vp) return;
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // Official AutoScroll plugin: slow, constant, continuous motion (marquee-like). Pauses on
-    // hover / keyboard focus and resumes on leave; a manual drag takes over smoothly. Off under reduced-motion.
-    const plugins = (!reduce && AutoScroll)
-      ? [AutoScroll({ speed: 0.8, startDelay: 0, stopOnInteraction: false, stopOnMouseEnter: true, stopOnFocusIn: true })]
-      : [];
-    const embla = Embla(vp, { loop: true, align: 'start', containScroll: 'trimSnaps', dragFree: true, duration: 26 }, plugins);
+    // No continuous AutoScroll: constantly drifting text never lets the eye settle, which is
+    // what made the green tags read as "jumping". Logos can marquee; quotes cannot. The track
+    // now snaps slide-by-slide via the dots/arrows, with the optional discrete autoplay below.
+    const embla = Embla(vp, { loop: true, align: 'start', containScroll: 'trimSnaps', dragFree: false, duration: 26 });
     emblaRef.current = embla;
     const sync = () => { setSnaps(embla.scrollSnapList()); setActive(embla.selectedScrollSnap()); };
     sync();
@@ -170,23 +167,32 @@ const ConsultantsDesk = () => {
   );
 };
 
-// "The people you'll work with" — a heartfelt slam-book page, per Stuti's reference.
-// Warm and human but STRICTLY inside the design system: Inter only, tokenised colour only,
-// white section ground. The slam-book feel comes from structure and drawn marks (polaroid,
-// tape, paperclip, prompts, record/cassette) — never from off-brand fonts or a cream page.
+// "The people you'll work with" — editorial profile cards.
+// Every repeated value (padding, band gap, label size, icon size, divider, chip height)
+// comes from one set of --sb-* custom properties declared on the section, so instances
+// match by construction rather than by coincidence. One icon family, one stroke weight,
+// one left edge: the polaroid + identity form the masthead, and EVERY block beneath it
+// (bio, dividers, labels, chips, logos, both columns) starts on the card's padding edge.
 const SOLID_LOGOS = ['SHOFCO', 'Ummeed', 'Baala', 'Dasra'];
-const DOODLE = {
-  heart: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8.4a3.9 3.9 0 0 1 7 2.3C19 15.6 12 20 12 20z"/></svg>,
-  people: <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="2.6"/><circle cx="16" cy="9" r="2.6"/><path d="M3.5 18c0-2.4 2-4 4.5-4s4.5 1.6 4.5 4M12 18c0-2.4 2-4 4.5-4s4 1.6 4 4"/></svg>,
-  note: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>,
-  book: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 5.5V20.5"/></svg>,
-  pin: <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>,
+// Wide wordmarks read far heavier than square emblems at equal height, so they are
+// optically normalised down rather than dimensionally matched.
+const WIDE_LOGOS = ['SHOFCO', 'Baala', 'MAD', 'Antarang', 'SHRI', 'SEARCH', 'STiR Education'];
+const ICON = {
+  heart: <path d="M12 20s-7-4.4-7-9.3A3.9 3.9 0 0 1 12 8.4a3.9 3.9 0 0 1 7 2.3C19 15.6 12 20 12 20z" />,
+  people: <><circle cx="9" cy="9.5" r="2.4" /><circle cx="16" cy="9.5" r="2.4" /><path d="M4.5 18c0-2.3 2-3.8 4.5-3.8s4.5 1.5 4.5 3.8M13.5 18c0-2.3 1.8-3.8 4-3.8" /></>,
+  note: <><path d="M9 17.5V6l9-1.8v11" /><circle cx="6.6" cy="17.6" r="2.4" /><circle cx="15.6" cy="15.6" r="2.4" /></>,
+  book: <><path d="M4.5 5.5A2 2 0 0 1 6.5 3.5H19v14H6.5a2 2 0 0 0-2 2z" /><path d="M4.5 5.5v14" /></>,
+  pin: <><path d="M12 20.5s5.5-5 5.5-9.5a5.5 5.5 0 1 0-11 0c0 4.5 5.5 9.5 5.5 9.5z" /><circle cx="12" cy="11" r="2" /></>,
 };
+const Ico = ({ name }) => (
+  <span className="sb-ico"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON[name]}</svg></span>
+);
+
 const TEAM = [
   {
     name: 'Ritabrata Roy', role: 'Data Consultant', place: 'Kolkata',
     photo: 'assets/team/ritabrata-roy.webp', pin: 'tape',
-    intro: 'Grew up in Kolkata. Started as a consulting analyst, then took a leap to teach STEM in a government primary school. That journey shaped how he sees data — as a tool for equity and real change.',
+    bio: 'Grew up in Kolkata. Went from consulting analyst to teaching STEM in a government primary school — a journey that shaped how he sees data: as a tool for equity.',
     sectors: ['Education', 'Mental Health', 'Youth Development', 'Child Protection', 'Philanthropy'],
     orgs: [
       { n: 'Dasra', f: 'assets/logos/Dasra.png' }, { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' },
@@ -194,12 +200,12 @@ const TEAM = [
       { n: 'Antarang', f: 'assets/logos/Antarang.webp' }, { n: 'Bhumi', f: 'assets/logos/Bhumi.png' },
     ],
     song: 'Time', artist: 'Pink Floyd', player: 'vinyl',
-    offline: 'You’ll find him volunteering in classrooms, building child-safety systems with schools, or talking careers with teenagers.',
+    offline: 'Volunteering in classrooms, building child-safety systems with schools, and talking careers with teenagers.',
   },
   {
     name: 'Pratiksha Rao', role: 'Data Consultant', place: 'Bangalore',
     photo: 'assets/team/pratiksha-rao.webp', pin: 'clip',
-    intro: 'Raised in Dubai, computer science grad, former AI engineer. She left the corporate world to work with nonprofits — and calls it the best choice she’s ever made.',
+    bio: 'Raised in Dubai, computer science grad, former AI engineer. She left the corporate world to work with nonprofits — and calls it the best choice she has made.',
     sectors: ['Education', 'Water', 'Health', 'Gender', 'Sanitation'],
     orgs: [
       { n: 'SHOFCO', f: 'assets/logos/SHOFCO.png' }, { n: 'STiR Education', f: 'assets/logos/STiREducation.png' },
@@ -211,9 +217,10 @@ const TEAM = [
   },
 ];
 
-const SlamRow = ({ icon, label, children }) => (
-  <div className="sb-row">
-    <span className="sb-rowhead"><span className="sb-ico">{icon}</span>{label}</span>
+// One reusable band: label (icon + text) over content. Identical metrics everywhere.
+const Band = ({ icon, label, children }) => (
+  <div className="sb-band">
+    <p className="sb-label"><Ico name={icon} />{label}</p>
     {children}
   </div>
 );
@@ -223,53 +230,57 @@ const ConsultingTeam = () => (
     <div className="container">
       <div className="sb-head">
         <p className="sb-eyebrow">Meet our consultants</p>
-        <h2 className="sb-h2">The people you’ll <span className="hl-underline">work with</span>
-          <span className="sb-heart" aria-hidden="true">{DOODLE.heart}</span>
-        </h2>
+        <h2 className="sb-h2">The people you’ll <span className="hl-underline">work with</span></h2>
         <p className="sb-sub">We’re data nerds, change makers, and curious humans. Here to make your data work harder for good.</p>
       </div>
+
       <div className="sb-grid">
         {TEAM.map((p) => (
           <article className="sb-card" key={p.name}>
-            <div className="sb-top">
-              <figure className={'sb-polaroid is-' + p.pin}>
+            <header className="sb-masthead">
+              <figure className={'sb-photo is-' + p.pin}>
                 <img src={p.photo} alt={p.name} width="640" height="640" loading="lazy" decoding="async" />
               </figure>
-              <div className="sb-intro">
+              <div className="sb-identity">
                 <h3 className="sb-name">{p.name}</h3>
                 <span className="sb-role">{p.role}</span>
-                <p className="sb-bio">{p.intro}</p>
-                <span className="sb-place"><span className="sb-ico">{DOODLE.pin}</span>{p.place}</span>
+                <p className="sb-place"><Ico name="pin" />{p.place}</p>
               </div>
-            </div>
+            </header>
 
-            <SlamRow icon={DOODLE.heart} label="Cares deeply about">
-              <span className="sb-chips">
-                {p.sectors.map((x) => <span className="sb-chip" key={x}>{x}</span>)}
-              </span>
-            </SlamRow>
+            <p className="sb-bio">{p.bio}</p>
 
-            <SlamRow icon={DOODLE.people} label={`Communities ${p.name === 'Ritabrata Roy' ? 'he' : 'she'}’s partnered with`}>
-              <span className="sb-logos">
+            <Band icon="heart" label="Cares deeply about">
+              <ul className="sb-chips">
+                {p.sectors.map((x) => <li className="sb-chip" key={x}>{x}</li>)}
+              </ul>
+            </Band>
+
+            <Band icon="people" label="Communities partnered with">
+              <ul className="sb-logos">
                 {p.orgs.map((o) => (
-                  <span className="sb-logo-tile" key={o.n}>
-                    <img className={'sb-logo' + (SOLID_LOGOS.indexOf(o.n) !== -1 ? ' is-solid' : '')}
+                  <li className="sb-logo-cell" key={o.n}>
+                    <img
+                      className={'sb-logo' + (SOLID_LOGOS.indexOf(o.n) !== -1 ? ' is-solid' : '') + (WIDE_LOGOS.indexOf(o.n) !== -1 ? ' is-wide' : '')}
                       src={o.f} alt={o.n} title={o.n} loading="lazy" decoding="async" />
-                  </span>
+                  </li>
                 ))}
-              </span>
-            </SlamRow>
+              </ul>
+            </Band>
 
-            <div className="sb-split">
-              <SlamRow icon={DOODLE.note} label="Currently on repeat">
-                <span className="sb-song">
+            <div className="sb-columns">
+              <Band icon="note" label="Currently on repeat">
+                <div className="sb-song">
                   <span className={'sb-player is-' + p.player} aria-hidden="true"></span>
-                  <span className="sb-song-t"><strong>{p.song}</strong><em>{p.artist}</em></span>
-                </span>
-              </SlamRow>
-              <SlamRow icon={DOODLE.book} label="When the laptop closes">
+                  <span className="sb-song-meta">
+                    <span className="sb-song-title">{p.song}</span>
+                    <span className="sb-song-artist">{p.artist}</span>
+                  </span>
+                </div>
+              </Band>
+              <Band icon="book" label="When the laptop closes">
                 <p className="sb-offline">{p.offline}</p>
-              </SlamRow>
+              </Band>
             </div>
           </article>
         ))}
