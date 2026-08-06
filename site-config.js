@@ -2,7 +2,7 @@
 window.SITE_CONFIG = {
   TRIAL_READY: true, // reverted per request: Start Free Trial ships as primary CTA sitewide
   TRIAL_URL: 'https://dashboard.dalgo.org',
-  GA4_ID: '', // TODO: paste the GA4 clean-slate property id (G-XXXXXXX) before launch
+  GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
   // Featured resource in the nav Resources panel. Time-bound content self-expires (psychology
   // principles #11) — past `expires`, the card hides itself sitewide with no rebuild needed.
   // A monthly scheduled task refreshes this from https://luma.com/dalgo (next webinar, else latest recording).

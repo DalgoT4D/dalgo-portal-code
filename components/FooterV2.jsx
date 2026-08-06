@@ -1,61 +1,3 @@
-// Newsletter signup — Zoho Campaigns "Dalgo signup" web-optin form.
-//
-// The form itself is NOT rendered here. It ships as static markup at the end of every
-// page (injected by build.js) followed by Zoho's optin.min.js, because setupSF() has to
-// bind the button and mint the per-view anti-spam tokens (lf/di/tpIx/custIx/cntrIx) at
-// page-parse time. Initialise it after React mounts and the button is never bound and
-// the tokens never appear — Zoho then answers 200 and silently drops the signup as spam
-// (spmSubmit:true). That is how an earlier hand-rolled version here failed while telling
-// people to check their inbox. So: let Zoho own the form, and only MOVE the finished node
-// into the footer (moving a node preserves its listeners). Styling is ours (.fx-sub*).
-const ZC_OPTIN_HOST = 'zc-optin-host';
-const ROLE_PREFIXES = ['admin', 'administrator', 'billing', 'careers', 'contact', 'enquiries', 'enquiry', 'feedback', 'help', 'hello', 'hr', 'info', 'jobs', 'mail', 'marketing', 'media', 'news', 'noreply', 'no-reply', 'office', 'postmaster', 'privacy', 'root', 'sales', 'security', 'spam', 'subscribe', 'support', 'sysadmin', 'team', 'tech', 'unsubscribe', 'webmaster'];
-
-const FooterSubscribe = () => {
-  const slot = React.useRef(null);
-
-  React.useEffect(() => {
-    const target = slot.current;
-    if (!target) return;
-    let guardBtn = null;
-    let guard = null;
-
-    const adopt = () => {
-      const src = document.getElementById(ZC_OPTIN_HOST);
-      if (!src || target.firstChild) return !!target.firstChild;
-      src.removeAttribute('hidden');
-      while (src.firstChild) target.appendChild(src.firstChild);
-      src.remove();
-
-      // Zoho only reports a role-based address inside its popup; say it inline instead.
-      const email = target.querySelector('#EMBED_FORM_EMAIL_LABEL');
-      const roleMsg = target.querySelector('#fx-sub-role');
-      guardBtn = target.querySelector('#zcWebOptin');
-      if (email && roleMsg && guardBtn) {
-        guard = (ev) => {
-          const v = (email.value || '').trim().toLowerCase();
-          const isRole = v.indexOf('@') > 0 && ROLE_PREFIXES.indexOf(v.split('@')[0]) !== -1;
-          roleMsg.hidden = !isRole;
-          if (isRole) { ev.preventDefault(); ev.stopImmediatePropagation(); email.focus(); }
-        };
-        guardBtn.addEventListener('click', guard, true);
-      }
-      return true;
-    };
-
-    // The static node is parsed before the deferred React bundle runs, so this normally
-    // succeeds first try; the observer only covers a slow/blocked optin.min.js.
-    if (!adopt()) {
-      const mo = new MutationObserver(() => { if (adopt()) mo.disconnect(); });
-      mo.observe(document.body, { childList: true, subtree: true });
-      return () => { mo.disconnect(); if (guardBtn && guard) guardBtn.removeEventListener('click', guard, true); };
-    }
-    return () => { if (guardBtn && guard) guardBtn.removeEventListener('click', guard, true); };
-  }, []);
-
-  return <div className="fx-sub" ref={slot} />;
-};
-
 const FooterV2 = () =>
 <footer className="fx">
     <div className="fx-links">
@@ -64,8 +6,7 @@ const FooterV2 = () =>
           <div className="fx-logo">
             <img src={window.__resources && window.__resources.dalgoLogo || "assets/dalgo-logo.png"} alt="Dalgo" style={{ height: 36, width: 'auto', display: 'block' }} />
           </div>
-          <p className="fx-brand-tag">Join our community to get updates on Data + AI webinars, nonprofit stories, and offline meetups.</p>
-          <FooterSubscribe />
+          <p className="fx-brand-tag">Data + AI webinars, nonprofit stories, and offline meetups — join the Dalgo community.</p>
           {/* Credential as real text, not a raster: assets/dpg-badge.png is a corrupt PNG
               (valid header, broken pixel stream) so it has always rendered blank here. This
               version can't rot, scales, and is readable by screen readers. */}
