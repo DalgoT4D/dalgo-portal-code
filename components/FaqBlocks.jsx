@@ -19,7 +19,7 @@
 // The FAQPage JSON-LD in faq.html is GENERATED from this file by scripts/faq-schema.mjs —
 // run it after any edit here, or the structured data silently drifts from the page.
 const FAQ_DATA = [
-  { g: 'Dalgo', qs: [
+  { g: 'About Dalgo', qs: [
     'What is Dalgo?',
     'Is Dalgo right for my organisation?',
   ]},
