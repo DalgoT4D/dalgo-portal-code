@@ -6,13 +6,14 @@ const FooterV2 = () =>
           <div className="fx-logo">
             <img src={window.__resources && window.__resources.dalgoLogo || "assets/dalgo-logo.png"} alt="Dalgo" style={{ height: 36, width: 'auto', display: 'block' }} />
           </div>
-          {/* Credentials as icon chips. The DPG mark is set as a type monogram, not a raster:
-              assets/dpg-badge.png is a corrupt PNG, and we hold no licensed DPGA logo asset,
-              so a fabricated logo would be worse than typography. Both chips reuse the
-              .fx-social geometry (40px, 24px+ target) so the footer has one icon system. */}
+          {/* Credentials row: the official DPG badge (supplied 7 Aug — assets/dpg-badge.png is
+              now the correctly-encoded file; the previous copy was byte-corrupt and decoded
+              fully transparent) beside a GitHub chip. The badge keeps its own lockup rather
+              than being forced into our circular chip — it is a third-party mark, so it is
+              not re-framed. Both sit at 40px tall so the row reads as one system. */}
           <div className="fx-creds">
-            <a className="fx-cred-chip" href="https://www.digitalpublicgoods.net/r/dalgo" target="_blank" rel="noopener" title="Recognised Digital Public Good" aria-label="Recognised Digital Public Good — view the registry entry">
-              <span className="fx-cred-mono" aria-hidden="true">DPG</span>
+            <a className="fx-cred-badge" href="https://www.digitalpublicgoods.net/r/dalgo" target="_blank" rel="noopener" aria-label="Recognised Digital Public Good — view the registry entry">
+              <img src="assets/dpg-badge.png" alt="Recognised as a Digital Public Good" width="175" height="84" loading="lazy" decoding="async" />
             </a>
             <a className="fx-cred-chip" href="https://github.com/DalgoT4D" target="_blank" rel="noopener" title="Dalgo on GitHub" aria-label="Dalgo on GitHub — open source repositories">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z" /></svg>
