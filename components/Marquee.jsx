@@ -15,21 +15,21 @@ const Marquee = () => {
   // Dani Sports Foundation, 1000 Days Fund, Peepul, Scouts Australia, Protsahan) are
   // added to assets/logos/ as they arrive, then appended here.
   const logos = [
-  { name: 'SNEHA', src: 'assets/logos/SNEHA.png' },
-  { name: 'INREM', src: 'assets/logos/INREM.webp' },
+  { name: 'SNEHA', src: 'assets/logos/SNEHA.png', solid: true },
+  { name: 'INREM', src: 'assets/logos/INREM.webp', solid: true },
   { name: 'The Apprentice Project', src: 'assets/logos/TAP.png' },
   { name: 'Antarang', src: 'assets/logos/Antarang.webp' },
-  { name: 'SHRI', src: 'assets/logos/SHRI.png' },
-  { name: 'Noora Health', src: 'assets/logos/NooraHealth.png' },
+  { name: 'SHRI', src: 'assets/logos/SHRI.png', solid: true },
+  { name: 'Noora Health', src: 'assets/logos/NooraHealth.png', solid: true },
   { name: 'SHOFCO', src: 'assets/logos/SHOFCO.png', solid: true },
   { name: 'Ummeed', src: 'assets/logos/Ummeed.png', solid: true },
   { name: 'Janaagraha', src: 'assets/logos/Janaagraha.svg' },
   { name: 'MAD', src: 'assets/logos/MAD.png' },
-  { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png' },
+  { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png', solid: true },
   { name: 'Baala', src: 'assets/logos/Baala.png', solid: true },
-  { name: 'Bhumi', src: 'assets/logos/Bhumi.png' },
+  { name: 'Bhumi', src: 'assets/logos/Bhumi.png', solid: true },
   { name: 'Dasra', src: 'assets/logos/Dasra.png', solid: true },
-  { name: 'SEARCH', src: 'assets/logos/SEARCH.png' }];
+  { name: 'SEARCH', src: 'assets/logos/SEARCH.png', solid: true }];
 
   const track = [...logos, ...logos];
   return (

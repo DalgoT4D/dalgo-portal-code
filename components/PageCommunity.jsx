@@ -106,7 +106,7 @@ const CommunityBlogs = () => {
         <div className="cmh-head section-head-center">
           <div className="pg-eyebrow">From the blog</div>
           <h2 className="section-title">Written by the <span className="hl-underline">Dalgo team</span></h2>
-          <p className="section-sub">Honest reflections on what we&rsquo;re building, lessons from nonprofit partners, and the ideas shaping Dalgo&rsquo;s work.</p>
+          <p className="section-sub">Honest reflections on what we&rsquo;re building, lessons from working with nonprofit partners, customer stories, and the ideas shaping Dalgo&rsquo;s product and consulting journey.</p>
         </div>
         <div className="si-grid">
           {posts.map((p) => (
@@ -181,25 +181,12 @@ const CommunityWhatsApp = () => (
   <section className="pg-section alt cmh-section" id="whatsapp">
     <div className="container">
       <div className="cmh-wa">
-        {/* Split panel per the supplied mock: dark brand panel + a live chat thumbnail.
-            Built as markup, not a raster — it stays sharp at any density, carries no extra
-            image request, and its colours come from tokens so it can never drift off-brand. */}
-        <div className="cmh-wa-panel" aria-hidden="true">
-          <div className="cmh-wa-panel-head">
-            <img className="cmh-wa-panel-logo" src="assets/dalgo-logo.png" alt="" width="130" height="40" loading="lazy" />
-            <span className="cmh-wa-panel-pill">For Nonprofit Data Practitioners</span>
-          </div>
-          <div className="cmh-wa-thread">
-            <span className="cmh-wa-b">How do you handle messy SurveyCTO exports?</span>
-            <span className="cmh-wa-b cmh-wa-b-me">We automated it. Sharing our setup.</span>
-            <span className="cmh-wa-typing"><i></i><i></i><i></i></span>
-          </div>
-        </div>
         <div className="cmh-wa-copy">
           <div className="pg-eyebrow">Join Our Community</div>
           <h2 className="section-title cmh-wa-h">Dalgo Data Community on <span className="hl-underline">WhatsApp</span></h2>
           <p className="comm-lead">
-            Connect with other nonprofit data practitioners, ask questions, and share what you're learning.
+            Connect with other nonprofit data practitioners, ask questions, share what you're learning,
+            and stay updated on community activities — all in one place.
           </p>
           <a href="https://chat.whatsapp.com/GWXbfC0fXKf2RVfKiCaOEy?s=cl&p=i&ilr=4" target="_blank" rel="noopener" className="cmh-btn cmh-btn-wa">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.9 13.3L3 21l4.8-1.1A9 9 0 1 0 12 3z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>

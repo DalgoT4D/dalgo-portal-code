@@ -4,7 +4,7 @@ const PrivacyHero = () => (
     id="privacy"
     eyebrow="Legal"
     headline={<>Privacy <span className="cvh-hl">Policy</span></>}
-    body="How your personal information is collected, used, and processed — in line with India's DPDP Act, 2023 and the IT Act, 2000."
+    body="Dalgo takes your privacy seriously. This policy explains how your personal information is collected, used, and processed — in full compliance with the Digital Personal Data Protection Act, 2023 and the Information Technology Act, 2000."
     help={<>Last updated: June 22, 2026</>}
   />
 );

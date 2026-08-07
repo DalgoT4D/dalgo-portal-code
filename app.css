@@ -146,9 +146,13 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* ---------- 5. Section utilities ---------- */
 .section { padding: var(--section-pad) 0; position: relative; }
 .section-head { margin: 0 auto 32px; max-width: 760px; }
-.section-head-center { text-align: center; max-width: 780px; margin: 0 auto 32px; }
-.section-head-center .section-sub { margin: 16px auto 0; max-width: var(--measure); }
-.section-head-center .se-sub { max-width: 860px; }
+/* Widened so section descriptions set in two lines without touching the copy (Stuti,
+   7 Aug: fix by widening the container, never by editing copy). The heading keeps its own
+   narrower measure so only the description gets the extra width. */
+.section-head-center { text-align: center; max-width: 1120px; margin: 0 auto 32px; }
+.section-head-center .section-title { max-width: var(--measure-heading-wide); margin-left: auto; margin-right: auto; }
+.section-head-center .section-sub { margin: 16px auto 0; max-width: 1080px; }
+.section-head-center .se-sub { max-width: 1080px; }
 .cvc-section .section-head-center { max-width: none; }
 
 /* ---------- 6. Nav ---------- */

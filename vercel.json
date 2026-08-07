@@ -32,7 +32,7 @@
     },
     {
       "source": "/why-we-exist",
-      "destination": "/about",
+      "destination": "/meet-the-team",
       "permanent": true
     },
     {
@@ -43,6 +43,11 @@
     {
       "source": "/resources",
       "destination": "/community",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/meet-the-team",
       "permanent": true
     }
   ],

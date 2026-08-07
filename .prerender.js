@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-const ALL = ['index','product','consulting','case-studies','about','community','pricing','faq','contact','privacy'];
+const ALL = ['index','product','consulting','case-studies','meet-the-team','community','pricing','faq','contact','privacy'];
 const pages = process.argv.slice(2).length ? process.argv.slice(2) : ALL;
 
 function stripV(p){ return p.replace(/\?v=[0-9a-f]+/,''); }

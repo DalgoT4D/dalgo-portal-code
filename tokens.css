@@ -91,6 +91,7 @@
   /* Heading measures — display headings wrap to ~2 lines. Expressed in ch so the
      cap scales WITH the font size rather than as a fixed magic number. */
   --measure-heading: 30ch;   /* centered section titles & CTA headings (40px tier) */
+  --measure-heading-wide: 34ch; /* section titles inside the widened .section-head-center */
   --measure-hero-sub: 58ch;  /* hero subhead / lede */
 
   /* Fluid page-hero H1 — scales with the viewport so long headlines fit ~2 lines

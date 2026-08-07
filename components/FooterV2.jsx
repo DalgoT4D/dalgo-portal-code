@@ -30,7 +30,7 @@ const FooterV2 = () =>
         </nav>
         <nav className="fx-col" aria-label="Resources">
           <h2 className="fx-h">Resources</h2>
-          <a href="about.html">About</a>
+          <a href="meet-the-team.html">Meet the Team</a>
           <a href="community.html">Community</a>
           <a href="faq.html">Frequently Asked Questions</a>
         </nav>

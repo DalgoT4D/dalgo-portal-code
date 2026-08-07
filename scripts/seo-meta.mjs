@@ -40,9 +40,9 @@ const PAGES = {
     // generic time claim in metadata cannot be attributed to the partner it belongs to.
     desc: 'Real outcomes across 25+ nonprofits — automated pipelines, dashboards teams trust, and decisions backed by data. Case studies and customer stories.',
   },
-  about: {
-    title: 'About — Dalgo | Data Platform for Nonprofits',
-    desc: 'Why Dalgo exists, the people who make it possible, and how we deliver — an initiative of Project Tech4Dev.',
+  'meet-the-team': {
+    title: 'Meet the Team — Dalgo | Data Platform for Nonprofits',
+    desc: 'The people building and running Dalgo — product, consulting, data engineering, and community, alongside the nonprofits we serve.',
   },
   community: {
     title: 'Community — Dalgo | Data Platform for Nonprofits',

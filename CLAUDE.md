@@ -9,12 +9,21 @@
 - **A section description must never exceed 2 rendered lines.** Applies to `.section-sub`,
   `.se-sub`, `.pg-section-sub`, `.cvh-sub` (hero body), `.comm-lead`, `.pricing-help-line` —
   any supporting line under a heading. A third line is a **failure**, not a nitpick.
-- **Shorten the copy; never widen the container** to make it fit.
+- **Fix it by widening the container, not by editing the copy.** Copy is Stuti's — no copy
+  change ships without her explicit go-ahead, even to satisfy this rule. If a description
+  cannot fit two lines at a reasonable width, raise it with her rather than trimming.
 - Enforced by `scripts/check-copy-length.mjs`, which runs inside `npm run build` and exits 1
   on any violation. It measures with Inter's real glyph advances against each class's real
   container width. **Do not merge with this failing.**
 - The gate reads the baked HTML, so it must run *after* `.prerender.js` — `npm run build`
   chains compile → faq-schema → seo-meta → prerender → check for exactly this reason.
+- When you widen a container, update the matching width in `scripts/check-copy-length.mjs`
+  or the gate measures against the old value.
+
+## Copy ownership
+- **Never rewrite, shorten, or reword site copy without Stuti's explicit go-ahead** — including
+  to satisfy a design rule. Propose the change and wait. (7 Aug 2026, after I trimmed eight
+  section descriptions, two of them lines she had supplied verbatim that same day.)
 
 ## Composition rules (full doc: `~/Downloads/Dalgo/Dalgo website/Website Design Sytem /02-composition-principles.md`)
 - **Section backgrounds: 3 only** — `--surface-0` (default), `--surface-1` (the ONE tint), `--navy`/`--navy-2` (max 1–2 dark bands/page). `--surface-2` is component-only (inputs/chips/thumbs), never a section bg. Never two tinted sections adjacent.

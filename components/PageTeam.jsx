@@ -1,9 +1,9 @@
 // ===== Team page =====
 const TeamHero = () => (
   <SiteHero
-    eyebrow="Why We Exist"
-    headline={<>The idea behind <span className="cvh-hl">Dalgo</span></>}
-    body="Why we exist, who makes it possible, and how we deliver — the purpose, the people, and the platform behind the work."
+    eyebrow="Our team"
+    headline={<>The people powering <span className="cvh-hl">Dalgo</span></>}
+    body="Dalgo is built and run by a small, dedicated team alongside the nonprofits we serve — spanning product, consulting, data engineering, and community. We also work with local partners to design and deliver our programs. Meet the people powering the work."
   />
 );
 
