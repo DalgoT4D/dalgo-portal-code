@@ -43,7 +43,10 @@ const PlatformFor = () => {
     },
     {
       label: 'Trust & Access',
-      img: null, creds: true, // BM-328: no real Trust & Access screenshot — render a credentials/badges panel instead of a placeholder
+      // Trust & Access illustration (7 Aug): roles + per-module view/edit, which is what this
+      // card actually describes. Replaces the credentials panel, whose four lines duplicated the
+      // checklist beside it; the mandated DPDP/Pacta wording lives in the description below.
+      img: R('pfTrust','assets/illus/trust-access.webp'),
       cap: 'Notification and access controls, per teammate',
       desc: 'Data on real people needs real care. Dalgo is DPDP-compliant as a Data Processor, independently audited by Pacta. Your organisation remains the Data Fiduciary — your data stays in your own warehouse, each teammate gets exactly the access they should have, and the platform is built as an open, publicly recognised good.',
       checks: [
