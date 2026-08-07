@@ -10,7 +10,7 @@ const PricingHero = () => (
     body="Flat pricing. No per-user, per-source, or per-row fees — add your whole team and every data source for one predictable cost. Tell us about your organisation and we'll tailor the right plan for you."
     ctas={<>
       <p className="pricing-anchor"></p>
-      <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />
+      <HeroCTAs secondaryLabel="Book a Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />
     </>}
   >
     {/* One product illustration, not the old collage. The earlier copy-only hero left this page

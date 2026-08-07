@@ -13,7 +13,8 @@ const PlatformFor = () => {
         { t: 'Data lands in your own warehouse — it stays yours. Dalgo processes it only to run the service you signed up for.' },
         { t: 'Automated cleaning and transformation, running on a schedule with no manual crunching' },
       ],
-      cta: window.trialCta ? window.trialCta() : { label: 'Contact Us', href: 'contact.html' },
+      // CTA removed 7 Aug 2026 (Stuti) — the card explains the capability; the page CTA carries the action.
+      cta: null,
     },
     {
       label: 'Dashboards & Charts',
@@ -130,7 +131,7 @@ const PlatformFor = () => {
           </div>
 
           <div className="pf-card-foot" key={`f${i}`}>
-            {c.cta.href ? (
+            {!c.cta ? null : c.cta.href ? (
               <a className="pf-cta" href={c.cta.href} target={c.cta.ext ? '_blank' : undefined} rel={c.cta.ext ? 'noopener' : undefined}>
                 {c.cta.label}
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>

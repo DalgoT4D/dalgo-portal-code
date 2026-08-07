@@ -1630,7 +1630,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 .faq-viewall-row { margin: 28px 0 0; text-align: center; }
 .faq-still { text-align: center; }
 .faq-still-inner { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.faq-still-inner p { max-width: 520px; margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
+.faq-still-inner p { max-width: 840px; margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
 @media (max-width: 768px) { .faqg-btn { font-size: 17px; padding: 18px 20px; } .faqg-body { padding: 0 12px 12px; } }
 
 /* ---------- 34. Native contact form (BM-344) + responsive pass (§3) ---------- */

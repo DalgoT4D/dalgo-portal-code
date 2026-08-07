@@ -19,10 +19,11 @@ const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
   </section>
 );
 
-// Standard pill CTA pair. Primary = green fill + arrow, secondary = white outline.
+// Standard pill CTA pair. The consultation CTA is the green primary and leads; the
+// platform/contact CTA is the white ghost beside it (Stuti, 7 Aug).
 const HeroCTAs = ({
   primaryLabel = 'Try the Platform',
-  primaryHref = 'https://insights.dalgo.org/trial',
+  primaryHref = 'contact.html',   // overridden by trialCta(); never point a default at the trial URL
   secondaryLabel = 'Book a Free Consultation',
   secondaryHref = window.SITE_CONFIG.CONSULT_FORM,   // pro-bono consulting form (site-config)
 }) => {
@@ -32,25 +33,25 @@ const HeroCTAs = ({
   if (secondaryLabel === primaryLabel) secondaryLabel = null;
   return (
     <React.Fragment>
-      <a
-        className="cmh-btn cmh-btn-primary"
-        href={primaryHref}
-        target={ext(primaryHref) ? '_blank' : undefined}
-        rel={ext(primaryHref) ? 'noopener' : undefined}
-      >
-        {primaryLabel}
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-      </a>
       {secondaryLabel && (
         <a
-          className="cmh-btn cmh-btn-ghost"
+          className="cmh-btn cmh-btn-primary"
           href={secondaryHref}
           target={ext(secondaryHref) ? '_blank' : undefined}
           rel={ext(secondaryHref) ? 'noopener' : undefined}
         >
           {secondaryLabel}
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
         </a>
       )}
+      <a
+        className="cmh-btn cmh-btn-ghost"
+        href={primaryHref}
+        target={ext(primaryHref) ? '_blank' : undefined}
+        rel={ext(primaryHref) ? 'noopener' : undefined}
+      >
+        {primaryLabel}
+      </a>
     </React.Fragment>
   );
 };

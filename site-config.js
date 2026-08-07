@@ -1,6 +1,9 @@
 // Site-wide config + GA4 event layer. TRIAL_READY default false until Himanshu/Abhishek confirm the trial form.
 window.SITE_CONFIG = {
-  TRIAL_READY: true, // reverted per request: Start Free Trial ships as primary CTA sitewide
+  // false since 7 Aug 2026: dashboard.dalgo.org 301s to insights.dalgo.org/welcome?redirect=/,
+  // which is not a place to send a cold visitor. With the flag off every trial CTA resolves to
+  // Contact Us -> contact.html, so the label matches the destination (BM-307).
+  TRIAL_READY: false,
   TRIAL_URL: 'https://dashboard.dalgo.org',
   GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
   // Single destination for every "Book a Free Consultation" CTA — the pro-bono data
