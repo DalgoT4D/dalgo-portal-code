@@ -3,7 +3,7 @@ const Nurture = () => {
   const cards = [
   { img: 'assets/community-cards/decoding-data.webp',
     label: 'LinkedIn newsletter',
-    title: 'Decoding Data',
+    title: 'Data Decoded',
     body: 'Practical, plain-language takes on nonprofit data — delivered to your LinkedIn feed every two weeks.',
     cta: 'Subscribe',
     href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992' },
