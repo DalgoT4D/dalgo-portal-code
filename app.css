@@ -65,9 +65,6 @@ p { margin: 0; }
 { font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); }
 
 /* Lead / intro paragraphs (18) */
-.cvh-sub, .section-sub, .pricing-help-line, .cmh-news-desc, .pg-sub, .pg-section-sub, .comm-lead, .team-intro, .comm-cta-p,
-.nurture-intro, .st-intro-sub, .pex-sub, .pf-sub, .trust-intro
-{ font-size: 18px; font-weight: 400; line-height: 1.6; color: var(--ink-2); text-wrap: balance; }
 
 /* Body copy (18/1.6) */
 .vp-card-p, .md-card-body, .nurture-p, .about-p, .zz-p, .faq-a, .res-card p, .proof-card p,
@@ -209,6 +206,11 @@ p strong, li strong { font-weight: 600; color: inherit; }
    tall visual-hero height (which would leave a big empty band under short copy).
    Top-aligned so the heading sits naturally under the nav. */
 .cvh-grid-solo { grid-template-columns: 1fr; align-items: start; min-height: 300px; }
+/* Cap the text measure on solo heroes. Without this the copy column ran the full 1136px
+   while visual heroes sit at 597px, so the headline measure nearly doubled when switching
+   tabs — the width jump. 720px keeps the longest solo H1 (case-studies, 484px) comfortable
+   while landing close to the visual tier. */
+.cvh-grid-solo .cvh-copy { max-width: 720px; }
 .cvh-copy { min-width: 0; }
 .cvh-eyebrow { margin-bottom: 18px; }
 .cvh-h1 { margin: 0 0 20px; }
@@ -1695,3 +1697,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .tp-eyebrow { font-weight: 700; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-ink); margin-bottom: 22px; }
 .tp-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--navy); border-radius: var(--r-lg); padding: 30px 52px; box-shadow: var(--shadow-lg); }
 .tp-badge img { height: 38px; width: auto; display: block; }
+
+
+/* Keyboard focus was invisible on both accordion controls (WCAG 2.4.7). */
+.faq-q:focus-visible, .faqg-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: var(--r-md); }
+
+/* ============================================================
+   WRAP HANDLING — last block in the file on purpose.
+   Placing these earlier let component rules override them on source order, which is
+   exactly how orphaned last lines kept coming back. Set by element, not by class list,
+   so new copy inherits the behaviour without anyone remembering to opt in.
+     headings + short display lines -> balance (even line lengths)
+     prose                          -> pretty  (never strand a lone word)
+   Browsers cap balance at short blocks, so long prose falls back safely.
+   ============================================================ */
+main :is(h1, h2, h3, h4), footer :is(h2, h3) { text-wrap: balance; }
+main p, footer p, main li, main figcaption, main blockquote { text-wrap: pretty; }
+main :is(.section-sub, .se-sub, .comm-lead, .cvh-sub, .pricing-help-line, .cmh-news-desc,
+         .si-desc, .si-title, .plan-tagline, .plan-note, .dsh-use, .hdh-text, .nurture-p,
+         .st-body, .pf-desc, .co-card p, .faq-still p, .cmh-head p, .section-head p) { text-wrap: balance; }
+/* FAQ answers and legal prose stay prose: a short final line is correct there. */
+main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }

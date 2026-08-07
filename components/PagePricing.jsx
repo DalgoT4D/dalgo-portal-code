@@ -12,10 +12,16 @@ const PricingHero = () => (
       <p className="pricing-anchor"></p>
       <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />
     </>}
-  />
-  // Hero is copy-only (psychology #2 cognitive load): the collage of floating screenshots +
-  // DPG badge was decoration without information — trust signals live in context (footer creds,
-  // the proof quote's avatar cluster), not as hero clutter.
+  >
+    {/* One product illustration, not the old collage. The earlier copy-only hero left this page
+        in the short solo tier while Home/Product/Consulting/Community sat in the tall visual
+        tier — switching tabs jumped the fold. A single .cvh-figure-illus fixes both. */}
+    <div className="cvh-visual">
+      <figure className="cvh-figure cvh-figure-illus">
+        <img loading="lazy" src="assets/illus/dashboard-charts.webp" alt="A Dalgo dashboard — everything included in the flat platform price" width="1100" height="654" />
+      </figure>
+    </div>
+  </SiteHero>
 );
 
 const Check = () => (

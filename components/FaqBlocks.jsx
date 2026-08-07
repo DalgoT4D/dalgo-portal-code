@@ -127,18 +127,29 @@ const FaqItem = ({ q, id }) => {
     </div>
   );
 };
+// State model (one rule for the whole page): anything you open stays open until you
+// close it — groups and questions alike. Previously groups were exclusive while questions
+// were multi-open, so the rule changed depending on which level you clicked. Closing a
+// group also resets the questions inside it, via a per-group remount key: without that,
+// reopening a group silently restored answers the user had already dismissed.
 const FaqMaster = () => {
-  const [openG, setOpenG] = React.useState(-1); // all groups closed by default (composition principles)
+  const [openGs, setOpenGs] = React.useState([]); // all closed by default (composition principles)
+  const [gen, setGen] = React.useState({});
+  const toggleG = (gi) => {
+    const isOpen = openGs.indexOf(gi) > -1;
+    if (isOpen) setGen((g) => Object.assign({}, g, { [gi]: (g[gi] || 0) + 1 }));
+    setOpenGs((prev) => (isOpen ? prev.filter((x) => x !== gi) : prev.concat(gi)));
+  };
   return (
     <section className="faq-section" data-screen-label="FAQ — all groups">
       <div className="faq-wrap">
         <div className="faq-list">
           {FAQ_DATA.map((grp, gi) => {
-            const open = openG === gi;
+            const open = openGs.indexOf(gi) > -1;
             return (
               <div key={grp.g} className={'faqg' + (open ? ' open' : '')}>
                 <h2 className="faqg-h">
-                  <button type="button" className="faqg-btn" aria-expanded={open} aria-controls={'faqg-' + gi} onClick={() => setOpenG(open ? -1 : gi)}>
+                  <button type="button" className="faqg-btn" aria-expanded={open} aria-controls={'faqg-' + gi} onClick={() => toggleG(gi)}>
                     <span>{grp.g}</span>
                     <span className="faqg-n">{grp.qs.length}</span>
                     <span className="faq-q-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"></path></svg></span>
@@ -146,7 +157,7 @@ const FaqMaster = () => {
                 </h2>
                 <div className="faqg-body" id={'faqg-' + gi} hidden={!open}>
                   <div className="faq-list">
-                    {grp.qs.map((q, qi) => <FaqItem key={q} q={q} id={'faq-' + gi + '-' + qi} />)}
+                    {grp.qs.map((q, qi) => <FaqItem key={q + '#' + (gen[gi] || 0)} q={q} id={'faq-' + gi + '-' + qi} />)}
                   </div>
                 </div>
               </div>
@@ -187,6 +198,12 @@ const FaqHero = () => (
     eyebrow="FAQ"
     headline={<>Frequently asked <span className="cvh-hl">questions</span></>}
     body={<>Everything you need to know about Dalgo — what it is, what it can do, implementation, trust, and pricing. Still stuck? <a href="contact.html">Contact us</a>.</>}
-  />
+  >
+    <div className="cvh-visual">
+      <figure className="cvh-figure cvh-figure-illus">
+        <img loading="lazy" src="assets/illus/reports-alert.webp" alt="Dalgo reports and alerts, the subject of many of these questions" width="1100" height="654" />
+      </figure>
+    </div>
+  </SiteHero>
 );
 Object.assign(window, { FAQ_DATA, FaqItem, FaqMaster, FaqMini, FaqStillBand, FaqHero });
