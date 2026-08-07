@@ -4,10 +4,13 @@
   "private": true,
   "description": "Dalgo marketing site \u2014 static HTML pages hydrated with a small precompiled React bundle.",
   "scripts": {
-    "build": "node build.js",
+    "build": "node build.js && node scripts/faq-schema.mjs && node scripts/seo-meta.mjs && node .prerender.js && node scripts/check-copy-length.mjs",
     "watch": "node build.js --watch",
     "dev": "npm run build && node serve.js",
-    "serve": "node scripts/serve.mjs"
+    "serve": "node scripts/serve.mjs",
+    "check:copy": "node scripts/check-copy-length.mjs",
+    "check": "node scripts/check-copy-length.mjs && node scripts/seo-meta.mjs --check",
+    "compile": "node build.js"
   },
   "repository": {
     "type": "git",

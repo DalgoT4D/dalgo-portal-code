@@ -7,7 +7,7 @@ const PricingHero = () => (
   <SiteHero
     eyebrow="Pricing"
     headline={<>Affordable by <span className="cvh-hl">design</span></>}
-    body="Flat pricing. No per-user, per-source, or per-row fees — add your whole team and every data source for one predictable cost. Tell us about your organisation and we'll tailor the right plan for you."
+    body="Flat pricing with no per-user, per-source, or per-row fees — your whole team and every data source for one predictable cost."
     ctas={<>
       <p className="pricing-anchor"></p>
       <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />

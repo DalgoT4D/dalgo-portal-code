@@ -31,7 +31,7 @@ const HowDalgoHelps = () => {
         <div className="section-head section-head-center">
           <p className="hdh-eyebrow">How Dalgo Helps</p>
           <h2 className="section-title">Helping Nonprofits make <span className="hl-underline">better decisions</span></h2>
-          <p className="section-sub hdh-sub">Whether you're building your first reporting system or scaling an organization-wide data practice, Dalgo combines expert consulting with purpose-built technology to help your team consolidate, organize, and use data with confidence.</p>
+          <p className="section-sub hdh-sub">Dalgo combines expert consulting with purpose-built technology, so your team can consolidate, organise, and use data with confidence.</p>
         </div>
         <div className="hdh-grid">
           {cards.map((c) => (
