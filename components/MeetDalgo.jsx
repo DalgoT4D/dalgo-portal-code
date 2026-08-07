@@ -18,16 +18,6 @@ const MeetDalgo = () => {
 };
 
 // Customer-success switcher — logo tabs + featured case study panel
-const useReducedMotionCases = () => {
-  const [r, setR] = React.useState(false);
-  React.useEffect(() => {
-    const m = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const on = () => setR(m.matches); on();
-    m.addEventListener ? m.addEventListener('change', on) : m.addListener(on);
-    return () => { m.removeEventListener ? m.removeEventListener('change', on) : m.removeListener(on); };
-  }, []);
-  return r;
-};
 const CaseFeature = () => {
   const cases = [
     {
@@ -58,32 +48,20 @@ const CaseFeature = () => {
     },
   ];
   const [active, setActive] = React.useState(0);
-  const [paused, setPaused] = React.useState(false);
-  const [playing, setPlaying] = React.useState(false);
-  const reduce = useReducedMotionCases();
   const n = cases.length;
   const go = React.useCallback((idx) => setActive(((idx % n) + n) % n), [n]);
-  React.useEffect(() => {
-    if (paused || !playing || reduce) return;
-    const iv = setInterval(() => setActive(i => (i + 1) % n), 6000);
-    return () => clearInterval(iv);
-  }, [paused, playing, reduce, n]);
   const c = cases[active];
+  // No autoplay: rotation was opt-in behind a play button that has been removed, so the
+  // interval, its paused state and the hover handlers went with it. Navigation is the logo
+  // tabs and the prev/next arrows.
   return (
-    <div className="csf" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <div className="csf">
       <div className="csf-tabs" role="group" aria-label="Featured case studies">
         {cases.map((x, i) => (
           <button key={x.org} type="button" aria-pressed={i === active} aria-label={x.org} className={`csf-tab ${i === active ? 'is-active' : ''}`} onClick={() => go(i)}>
             <img loading="lazy" src={x.logo} alt={x.org} />
           </button>
         ))}
-        {!reduce && (
-          <button type="button" className="csf-playpause" aria-pressed={!playing}
-            aria-label={playing ? 'Pause story rotation' : 'Play story rotation'}
-            onClick={() => setPlaying(p => !p)}>
-            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">{playing ? <path d="M7 5h4v14H7zM13 5h4v14h-4z"/> : <path d="M8 5v14l11-7z"/>}</svg>
-          </button>
-        )}
       </div>
       <div className="csf-stage">
         <button className="csf-nav csf-nav-prev" aria-label="Previous story" onClick={() => go(active - 1)}>

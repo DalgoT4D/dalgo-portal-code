@@ -23,45 +23,45 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 // Every claim below must be true of the live page and allowed by ground-truth.md.
 const PAGES = {
   index: {
-    title: 'Dalgo — Data Insights Platform for Nonprofits', // home reverses the pattern
+    title: 'Dalgo — Data Insights for Nonprofits', // home reverses the pattern
     desc: 'From technology to strategy, Dalgo helps nonprofits build the data capabilities to report with confidence and make better decisions. Open source.',
   },
   product: {
-    title: 'Product — Dalgo | Data Platform for Nonprofits',
+    title: 'Product — Dalgo | Data Insights for Nonprofits',
     desc: 'Ingest, transform, and visualise programme data in a warehouse your organisation owns. 600+ data sources including Kobo, MGrant, ODK, and SurveyCTO.',
   },
   consulting: {
-    title: 'Consulting — Dalgo | Data Platform for Nonprofits',
+    title: 'Consulting — Dalgo | Data Insights for Nonprofits',
     desc: 'Data strategy, M&E systems, implementation support, and pro bono consulting — expert help from a team fluent in the social sector.',
   },
   'case-studies': {
-    title: 'Case Studies — Dalgo | Data Platform for Nonprofits',
+    title: 'Case Studies — Dalgo | Data Insights for Nonprofits',
     // No time-saved figure here on purpose: the STiR "1 week -> 1 hour" line is banned, and a
     // generic time claim in metadata cannot be attributed to the partner it belongs to.
     desc: 'Real outcomes across 25+ nonprofits — automated pipelines, dashboards teams trust, and decisions backed by data. Case studies and customer stories.',
   },
   'meet-the-team': {
-    title: 'Meet the Team — Dalgo | Data Platform for Nonprofits',
+    title: 'Meet the Team — Dalgo | Data Insights for Nonprofits',
     desc: 'The people building and running Dalgo — product, consulting, data engineering, and community, alongside the nonprofits we serve.',
   },
   community: {
-    title: 'Community — Dalgo | Data Platform for Nonprofits',
+    title: 'Community — Dalgo | Data Insights for Nonprofits',
     desc: 'Blogs, past session videos, newsletters, and a WhatsApp community for nonprofit data practitioners — practical data education.',
   },
   pricing: {
-    title: 'Pricing — Dalgo | Data Platform for Nonprofits',
+    title: 'Pricing — Dalgo | Data Insights for Nonprofits',
     desc: 'Flat annual pricing with no per-user fees. Platform and consulting priced separately — India pricing shown, global on request.',
   },
   faq: {
-    title: 'FAQ — Dalgo | Data Platform for Nonprofits',
+    title: 'FAQ — Dalgo | Data Insights for Nonprofits',
     desc: 'What Dalgo is, what the platform does, pricing, support, security, and DPDP — clear answers for nonprofit teams.',
   },
   contact: {
-    title: 'Contact — Dalgo | Data Platform for Nonprofits',
+    title: 'Contact — Dalgo | Data Insights for Nonprofits',
     desc: "Tell us about your data challenges — email support@dalgo.org or send the form and we'll come back to you.",
   },
   privacy: {
-    title: 'Privacy — Dalgo | Data Platform for Nonprofits',
+    title: 'Privacy — Dalgo | Data Insights for Nonprofits',
     desc: 'How Dalgo handles data as a DPDP-compliant Data Processor — your data stays in your own warehouse.',
   },
 };
@@ -76,7 +76,14 @@ const BANNED = [
   [/\bleverage\b|best-in-class|world-class|seamless|robust|cutting-edge|game-chang|revolutionary/i, 'a banned marketing word'],
   [/^In today'?s landscape/i, 'the "In today\'s landscape" opener'],
   [/\bnot just\b|, not /i, 'a banned "X, not Y" construction'],
+  // Retired 7 Aug 2026 (Stuti): titles say "Data Insights for Nonprofits", never "…Platform…".
+  [/Data Insights Platform|Data Platform for Nonprofits/i, 'the retired "…Platform…" category phrase'],
 ];
+
+// One social card for every page. Filename is versioned rather than overwritten: LinkedIn,
+// WhatsApp and Slack cache OG images by URL, so replacing og-image.png in place would keep
+// serving the old card for days. Bump to -v3 next time rather than editing this file.
+const OG_IMAGE = 'https://dalgo.org/assets/og-card-v2.jpg';
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const check = process.argv.includes('--check');
@@ -110,11 +117,20 @@ for (const [page, { title, desc }] of Object.entries(PAGES)) {
     [/(<meta name="twitter:description" content=")(.*?)(")/s, `$1${d}$3`],
     [/(<meta property="og:title" content=")(.*?)(")/s, `$1${esc(title)}$3`],
     [/(<meta name="twitter:title" content=")(.*?)(")/s, `$1${esc(title)}$3`],
+    [/(<meta property="og:image" content=")(.*?)(")/s, `$1${OG_IMAGE}$3`],
+    [/(<meta name="twitter:image" content=")(.*?)(")/s, `$1${OG_IMAGE}$3`],
   ];
   for (const [re, rep] of subs) {
     if (!re.test(html)) { problems.push(`${page}: no tag matching ${re.source.slice(0, 44)}`); continue; }
     html = html.replace(re, rep);
   }
+
+  // The retired category phrase also sits in the hand-written JSON-LD (Organization and
+  // SoftwareApplication descriptions), which feeds search and AI answer engines. Normalise it
+  // everywhere in the document so the label is consistent wherever a machine reads it.
+  html = html
+    .replace(/Data Insights Platform for Nonprofits/g, 'Data Insights for Nonprofits')
+    .replace(/Data Platform for Nonprofits/g, 'Data Insights for Nonprofits');
   if (html !== before) {
     if (!check) fs.writeFileSync(file, html);
     written++;
