@@ -626,6 +626,16 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .final-cta-h { color: #fff; margin: 0 auto 28px; max-width: var(--measure-heading); }
 .final-cta-h .hl-underline { color: color-mix(in srgb, var(--teal) 55%, #fff); -webkit-text-fill-color: color-mix(in srgb, var(--teal) 55%, #fff); }
 .final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+/* On-dark CTA pair. These two were listed in the shared button base (§4) but in NEITHER
+   variant list, so they shipped with no fill and a transparent border — two bare text
+   links at 2.96:1 on the navy band, failing WCAG AA. On dark the hierarchy inverts:
+   the solid white pill leads, the hairline ghost follows. Both clear AA with margin
+   (white/navy = 15.5:1; the ghost's border against navy = 3.8:1). */
+.final-cta-btn { background: var(--surface-0); color: var(--ink); border-color: transparent; box-shadow: var(--shadow-md); }
+.final-cta-btn:hover { background: var(--surface-0); color: var(--teal-ink); transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+.final-cta-btn-ghost { background: transparent; color: var(--on-dark); border-color: var(--hairline-on-dark); }
+.final-cta-btn-ghost:hover { background: color-mix(in srgb, var(--on-dark) 12%, transparent); border-color: var(--on-dark); color: var(--on-dark); transform: translateY(-1px); }
+.final-cta-btn:focus-visible, .final-cta-btn-ghost:focus-visible { outline: 2px solid var(--on-dark); outline-offset: 3px; }
 .final-cta-sub { max-width: 900px; margin: -8px auto 30px; color: var(--on-dark); font-size: 17px; line-height: 1.6; }
 
 /* From the Consultant's Desk — Embla carousel (touch/mouse drag, momentum, snap) */
@@ -665,9 +675,13 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .fx-bottom-parent:hover { color: var(--teal-ink); }
 /* DPG credential — a quiet inline trust line on the column's left edge. Deliberately not
    a pill/button: it states a fact, it isn't a second CTA competing with Subscribe. */
-.fx-cred { display: inline-flex; align-items: center; min-height: 24px; gap: 8px; margin-top: 20px; font-size: 13.5px; font-weight: 500; line-height: 1.4; color: var(--ink-2); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
-.fx-cred svg { width: 17px; height: 17px; flex-shrink: 0; fill: none; stroke: var(--teal-ink); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-.fx-cred:hover { color: var(--teal-ink); }
+/* Credential chips (DPG + GitHub). Same 40px geometry, radius, border and hover as
+   .fx-social so the footer reads as one icon system rather than two. */
+.fx-creds { display: flex; gap: 10px; margin-top: 20px; }
+.fx-cred-chip { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-0); border: 1px solid var(--hairline); color: var(--ink-2); box-shadow: var(--shadow-sm); text-decoration: none; transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.fx-cred-chip:hover { color: var(--teal-ink); border-color: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.fx-cred-chip svg { width: 18px; height: 18px; fill: currentColor; }
+.fx-cred-mono { font-size: 11px; font-weight: 700; letter-spacing: .04em; line-height: 1; color: currentColor; }
 /* Link columns */
 .fx-col { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
 .fx-col .fx-h { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin: 0 0 18px; }

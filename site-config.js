@@ -3,6 +3,11 @@ window.SITE_CONFIG = {
   TRIAL_READY: true, // reverted per request: Start Free Trial ships as primary CTA sitewide
   TRIAL_URL: 'https://dashboard.dalgo.org',
   GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
+  // Single destination for every "Book a Free Consultation" CTA — the pro-bono data
+  // consulting form (Stuti, 7 Aug 2026). Three different forms.gle URLs were in use
+  // before this; route every consultation CTA through window.consultCta() so they
+  // cannot diverge again.
+  CONSULT_FORM: 'https://forms.gle/6vpR5LKpV29zvyxK9',
   // Featured resource in the nav Resources panel. Evergreen (no expiry): the Data Decoded
   // newsletter, replacing the time-bound webinar card that had to be refreshed monthly.
   FEATURED_RESOURCE: {
@@ -26,6 +31,10 @@ window.trialCta = function () {
   return window.SITE_CONFIG.TRIAL_READY
     ? { label: 'Try the Platform', href: window.SITE_CONFIG.TRIAL_URL, ext: true }
     : { label: 'Contact Us', href: 'contact.html', ext: false };
+};
+// Every "Book a Free Consultation" CTA resolves through this — one destination, always external.
+window.consultCta = function () {
+  return { label: 'Book a Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true };
 };
 // GA4 bootstrap (no-op until GA4_ID is set). Event layer (BM-356 model) TBD.
 (function () {

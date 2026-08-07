@@ -230,7 +230,7 @@ const WhyWeExist = () => {
           )}
         </div>
         <div className="we-cta">
-          <a href="https://forms.gle/envgKD2VeRq3Un5y6" target="_blank" rel="noopener" className="pg-btn">Apply for Pro Bono Consulting</a>
+          <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="pg-btn">Apply for Pro Bono Consulting</a>
         </div>
       </div>
     </section>);

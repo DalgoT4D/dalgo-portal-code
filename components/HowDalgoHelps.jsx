@@ -8,7 +8,7 @@ const HowDalgoHelps = () => {
       title: 'Data Consulting',
       img: 'assets/illus/dashboard-charts.webp',
       body: "Design reporting systems, measurement frameworks, and data strategies with guidance from Dalgo's data experts.",
-      cta: { label: 'Book a Free Consultation', href: 'contact.html' },
+      cta: { label: 'Book a Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true },
     },
     {
       cat: 'Platform',
@@ -41,7 +41,7 @@ const HowDalgoHelps = () => {
                 <p className="hdh-cat">{c.cat}</p>
                 <h3 className="hdh-title">{c.title}</h3>
                 <p className="hdh-text">{c.body}</p>
-                <a className="nurture-btn hdh-cta" href={c.cta.href}>{c.cta.label}</a>
+                <a className="nurture-btn hdh-cta" href={c.cta.href} target={c.cta.ext ? '_blank' : undefined} rel={c.cta.ext ? 'noopener' : undefined}>{c.cta.label}</a>
               </div>
             </article>
           ))}

@@ -10,7 +10,7 @@ const PricingHero = () => (
     body="Flat pricing. No per-user, per-source, or per-row fees — add your whole team and every data source for one predictable cost. Tell us about your organisation and we'll tailor the right plan for you."
     ctas={<>
       <p className="pricing-anchor"></p>
-      <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref="https://forms.gle/vfMNUNHTwDWB4qm66" />
+      <HeroCTAs primaryLabel="Try the Platform" primaryHref="https://dashboard.dalgo.org" secondaryLabel="Book a Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />
     </>}
   />
   // Hero is copy-only (psychology #2 cognitive load): the collage of floating screenshots +
@@ -98,7 +98,7 @@ const PricingPlans = () => {
               <div className="plan-price"><span className="plan-from">from</span><span className="plan-amt">{r.consulting.price}</span><span className="plan-period">{r.consulting.period}</span></div>
               <div className="plan-note">Scoped with you before any work begins</div>
             </div>
-            <a className="cmh-btn cmh-btn-primary plan-cta" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
+            <a className="cmh-btn cmh-btn-primary plan-cta" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">
               Book a Free Consultation
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
             </a>

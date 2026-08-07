@@ -13,6 +13,7 @@
   --ink: #0A2540;
   --ink-2: #48607A;
   --on-dark: #EAF2F0;
+  --hairline-on-dark: rgba(255,255,255,.45); /* ghost-button border on navy bands — 3.8:1 vs --navy */
 
   /* Teal */
   --teal: #00BFA6;

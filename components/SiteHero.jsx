@@ -24,7 +24,7 @@ const HeroCTAs = ({
   primaryLabel = 'Try the Platform',
   primaryHref = 'https://insights.dalgo.org/trial',
   secondaryLabel = 'Book a Free Consultation',
-  secondaryHref = 'contact.html',
+  secondaryHref = window.SITE_CONFIG.CONSULT_FORM,   // pro-bono consulting form (site-config)
 }) => {
   const ext = (h) => /^https?:/.test(h);
   // TRIAL_READY=false ⇒ primary renders Contact Us → /contact (BM-307); duplicate secondary collapses
