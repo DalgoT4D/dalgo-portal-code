@@ -89,11 +89,18 @@ const PlatformFor = () => {
             </div>
           </div>
 
+          {/* All four panels occupy the same grid cell, so the card is always as tall as the
+              tallest one and does not resize when you switch tabs. A min-height would have
+              needed a different magic number at every breakpoint — measured 9px drift at
+              1440 and 57px at 1024 when I tried that. Inactive panels are hidden from both
+              sight and assistive tech. */}
           <div className="pf-card-body">
+            {cats.map((cat, idx) => (
+              <div className={'pf-panel' + (idx === i ? ' is-active' : '')} key={cat.label} aria-hidden={idx !== i}>
             <div className="pf-card-left">
-              <p className="pf-desc" key={`d${i}`}>{c.desc}</p>
-              <ul className="pf-checks" key={`k${i}`}>
-                {c.checks.map((ck, idx) => (
+              <p className="pf-desc" >{cat.desc}</p>
+              <ul className="pf-checks" >
+                {cat.checks.map((ck, idx) => (
                   <li key={idx}>
                     <span className="pf-check-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" /></svg></span>
                     {ck.t}
@@ -103,10 +110,10 @@ const PlatformFor = () => {
             </div>
 
             <div className="pf-card-right">
-              <figure className="pf-shot" key={`c${i}`}>
+              <figure className="pf-shot" >
                 <div className="pf-shot-frame">
-                  {c.img
-                    ? <img loading="lazy" src={c.img} alt={c.cap} className={c.shotMod || ''} />
+                  {cat.img
+                    ? <img loading="lazy" src={cat.img} alt={cat.cap} className={cat.shotMod || ''} />
                     : c.creds
                       ? <div className="pf-creds">
                           {/* Badge restored 7 Aug once assets/dpg-badge.png was replaced with the
@@ -125,16 +132,17 @@ const PlatformFor = () => {
                         </div>
                       : <div className="pf-shot-empty" aria-hidden="true"><svg viewBox="0 0 40 40"><rect x="6" y="9" width="28" height="22" rx="3"></rect><path d="M13 17h8M13 22h14M13 27h11"></path></svg></div>}
                 </div>
-                <figcaption className="pf-shot-cap">
-                  <span className="pf-shot-dot" aria-hidden="true"></span>
-                  {c.cap}
-                </figcaption>
+                {/* Caption removed 7 Aug (Stuti). `cap` is kept as the img alt text. */}
               </figure>
             </div>
+              </div>
+            ))}
           </div>
 
+          {/* The foot always renders, even with no CTA — otherwise the card loses the footer's
+              height and the whole panel jumps when you switch to Data Integration. */}
           <div className="pf-card-foot" key={`f${i}`}>
-            {!c.cta ? null : c.cta.href ? (
+            {!c.cta ? <span className="pf-cta-spacer" aria-hidden="true"></span> : c.cta.href ? (
               <a className="pf-cta" href={c.cta.href} target={c.cta.ext ? '_blank' : undefined} rel={c.cta.ext ? 'noopener' : undefined}>
                 {c.cta.label}
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>

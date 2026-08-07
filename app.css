@@ -856,7 +856,11 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .pf-pill:hover { background: var(--surface-1); border-color: var(--teal); color: var(--teal-ink); box-shadow: var(--shadow-pop); }
 .pf-pill:active { transform: translateY(1px); }
 .pf-pill.is-active { background: var(--teal-ink); border-color: var(--teal-ink); color: #fff; box-shadow: var(--shadow-md); }
-.pf-card-body { display: grid; grid-template-columns: 1fr 0.82fr; gap: 40px; align-items: start; padding: 30px 26px 4px; }
+.pf-card-body { display: grid; padding: 30px 26px 4px; }
+/* Every panel sits in the same cell (1/1), so the body's height is the tallest panel's and
+   never changes between tabs. Inactive panels stay in flow but are hidden. */
+.pf-panel { grid-area: 1 / 1; display: grid; grid-template-columns: 1fr 0.82fr; gap: 40px; align-items: start; visibility: hidden; }
+.pf-panel.is-active { visibility: visible; }
 .pf-desc { margin: 0 0 22px; animation: pfFade var(--dur-slow) var(--ease); }
 .pf-checks { list-style: none; display: flex; flex-direction: column; gap: 14px; animation: pfFade var(--dur-slow) var(--ease); }
 .pf-checks li { display: flex; align-items: flex-start; gap: 12px; font-size: 15.5px; line-height: 1.5; color: var(--ink); text-wrap: pretty; }
@@ -1343,7 +1347,7 @@ html, body { max-width: 100%; overflow-x: clip; }
   .zz-row.zz-reverse .zz-media, .zz-row.zz-reverse .zz-copy { order: initial; }
   .pl-afford-grid, .dsh-grid, .trust-band, .why-grid { grid-template-columns: 1fr; gap: 28px; }
   .vp-grid, .nurture-grid, .nurture-grid-4 { grid-template-columns: repeat(2, 1fr); }
-  .pf-card-body { grid-template-columns: 1fr; gap: 24px; }
+  .pf-panel { grid-template-columns: 1fr; gap: 24px; }
   .ll-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-template-areas: none; gap: 0; max-width: 440px; margin: 0 auto; }
   .ll-card { grid-area: auto; }
   .ll-ar { display: none; }
@@ -1709,6 +1713,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Keyboard focus was invisible on both accordion controls (WCAG 2.4.7). */
 .faq-q:focus-visible, .faqg-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; border-radius: var(--r-md); }
+
+/* Keep the capability panel a fixed size across tabs. The left column's copy and checklist
+   differ per tab, so the card was resizing 507->557px as you switched. min-height holds the
+   tallest; the spacer reserves the CTA row on the one tab that has no CTA. Desktop only —
+   below 900px the panel stacks and should size to its content. */
+.pf-cta-spacer { display: block; height: 54px; }   /* matches the real .pf-cta height exactly */
 
 /* ============================================================
    WRAP HANDLING — last block in the file on purpose.
