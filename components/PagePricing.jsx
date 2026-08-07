@@ -48,7 +48,6 @@ const CONSULTING_AREAS = [
 const PricingPlans = () => {
   const [region, setRegion] = React.useState('india');
   const r = PRICING_REGIONS[region];
-  const tc = window.trialCta ? window.trialCta() : { label: 'Try the Platform', href: 'https://dashboard.dalgo.org', ext: true };
   return (
     <section className="pricing-section" id="plans">
       <div className="container">
@@ -71,10 +70,6 @@ const PricingPlans = () => {
               <div className="plan-price"><span className="plan-amt">{r.saas.price}</span><span className="plan-period">{r.saas.period}</span></div>
               <div className="plan-note">{r.saas.alt}</div>
             </div>
-            <a className="cmh-btn cmh-btn-primary plan-cta" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined}>
-              {tc.label}
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-            </a>
             <div className="plan-includes">
               <div className="plan-includes-h">Includes</div>
               <ul className="plan-features">
@@ -98,10 +93,6 @@ const PricingPlans = () => {
               <div className="plan-price"><span className="plan-from">from</span><span className="plan-amt">{r.consulting.price}</span><span className="plan-period">{r.consulting.period}</span></div>
               <div className="plan-note">Scoped with you before any work begins</div>
             </div>
-            <a className="cmh-btn cmh-btn-primary plan-cta" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">
-              Book a Free Consultation
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-            </a>
             <div className="plan-includes">
               <div className="plan-includes-h">Engagement areas</div>
               <ul className="plan-features plan-features-tags">
@@ -110,13 +101,13 @@ const PricingPlans = () => {
             </div>
           </article>
         </div>
-        <div className="pricing-help-cta">
-          <p className="pricing-help-text">Not sure what's right for you? Schedule a call and we'll help you figure out the right mix.</p>
-          <a className="cmh-btn cmh-btn-primary" href="https://forms.gle/vfMNUNHTwDWB4qm66" target="_blank" rel="noopener">
-            Schedule a Call
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-          </a>
-        </div>
+        {/* One line, not a card. The previous treatment was a --surface-1 box sitting directly
+            above the --surface-1 "Costs to plan for" band, so two tints collided at the seam. */}
+        <p className="pricing-help-line">
+          Not sure what's right for you?{' '}
+          <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Schedule a call<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></a>{' '}
+          and we'll help you figure out the right mix.
+        </p>
       </div>
     </section>
   );

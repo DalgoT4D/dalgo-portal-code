@@ -53,7 +53,6 @@ const CaseFeature = () => {
       headline: "One child's journey. Finally visible in one place",
       copy: "Dalgo unified multiple systems so every child's complete journey can be viewed across clinical care and professional training programmes.",
       m1: { before: 'Monthly', after: 'Weekly', cap: 'Data refresh cadence' },
-      m2: { after: '15,500 children', cap: 'Served through the platform' },
       ctx: ['Care teams see the full set of services received by each family', 'Days of manual MIS cleanup eliminated', '152,000+ clinical sessions · 11,200+ professionals trained', '~560,000 indirect beneficiaries'],
       read: 'https://projecttech4dev.org/maximising-impact-ummeed-dalgos-approach-to-data-driven-trans-disciplinary-clinical-care/',
     },
@@ -106,10 +105,12 @@ const CaseFeature = () => {
               </div>
               <div className="csf-metric-cap">{c.m1.cap}</div>
             </div>
-            <div className="csf-metric">
-              <div className="csf-metric-value"><span className="csf-metric-after">{c.m2.after}</span></div>
-              <div className="csf-metric-cap">{c.m2.cap}</div>
-            </div>
+            {c.m2 && (
+              <div className="csf-metric">
+                <div className="csf-metric-value"><span className="csf-metric-after">{c.m2.after}</span></div>
+                <div className="csf-metric-cap">{c.m2.cap}</div>
+              </div>
+            )}
           </div>
         </div>
         </div>
