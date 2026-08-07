@@ -105,12 +105,16 @@ const PlatformFor = () => {
                     ? <img loading="lazy" src={c.img} alt={c.cap} className={c.shotMod || ''} />
                     : c.creds
                       ? <div className="pf-creds">
-                          {/* No raster badge here: assets/dpg-badge.png is a corrupt PNG (decodes 100%
-                              transparent), so it rendered as nothing. The list already carries the
-                              credential — the registry link lives on that line instead. */}
+                          {/* Badge restored 7 Aug once assets/dpg-badge.png was replaced with the
+                              correctly-encoded file (the previous copy decoded fully transparent).
+                              The list line below drops back to plain text so the credential and its
+                              registry link are not stated twice. */}
+                          <a className="pf-cred-badge" href="https://www.digitalpublicgoods.net/r/dalgo" target="_blank" rel="noopener" aria-label="Recognised Digital Public Good — view the registry entry">
+                            <img loading="lazy" src="assets/dpg-badge.png" alt="Recognised as a Digital Public Good" width="175" height="84" decoding="async" />
+                          </a>
                           <ul className="pf-cred-list">
                             <li>DPDP-compliant Data Processor, independently audited by Pacta</li>
-                            <li><a href="https://www.digitalpublicgoods.net/r/dalgo" target="_blank" rel="noopener">Recognised Digital Public Good</a></li>
+                            <li>Recognised Digital Public Good</li>
                             <li>Open-source — your data stays in your own warehouse</li>
                             <li>Role-based access, controlled per teammate</li>
                           </ul>
