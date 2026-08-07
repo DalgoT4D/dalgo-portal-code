@@ -19,7 +19,6 @@ const TeamGrid = () => {
     { name: 'Himanshu Dube', role: 'Software Developer', li: 'https://www.linkedin.com/in/himanshu-dube-b2344918b/', img: 'assets/team/himanshu-dube.webp' },
     { name: 'Ishan Koradiya', role: 'Software Developer', li: 'https://www.linkedin.com/in/ishan-koradia/', img: 'assets/team/ishan-koradiya.svg' },
     { name: 'Naveen Kumar', role: 'Software Developer', li: 'https://www.linkedin.com/in/naveen-kumar-30b023254/', img: 'assets/team/naveen-kumar.webp' },
-    { name: 'Noopur Varma', role: 'Design Manager', li: 'https://www.linkedin.com/in/noopurvarma/', img: 'assets/team/noopur-varma.webp' },
     { name: 'Pradeep Kaushik', role: 'Associate Director', li: 'https://www.linkedin.com/in/pradnk/', img: 'assets/team/pradeep-kaushik.webp' },
     { name: 'Pratiksha Rao', role: 'Data Engineer', li: 'https://www.linkedin.com/in/patrao99/', img: 'assets/team/pratiksha-rao.webp' },
     { name: 'Priyesh Sikariwal', role: 'Business Development Lead', li: 'https://www.linkedin.com/in/priyesh-sikariwal-tiss-iiit/', img: 'assets/team/priyesh-sikariwal.webp' },

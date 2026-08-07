@@ -9,7 +9,7 @@ const ConsultingHero = () => (
     eyebrow="Consulting"
     headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
-    ctas={<HeroCTAs primaryLabel="Book a Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} secondaryLabel="Explore Our Work" secondaryHref="case-studies.html" />}
+    ctas={<HeroCTAs primaryLabel="Book a Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
   >
     <div className="cvh-visual cvh-visual-cover">
       <figure className="cvh-figure cvh-figure-cover">

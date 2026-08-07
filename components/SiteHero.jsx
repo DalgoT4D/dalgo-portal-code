@@ -31,27 +31,38 @@ const HeroCTAs = ({
   // TRIAL_READY=false ⇒ primary renders Contact Us → /contact (BM-307); duplicate secondary collapses
   if ((primaryLabel === 'Try the Platform' || primaryLabel === 'Start Free Trial') && window.trialCta) { const t = window.trialCta(); primaryLabel = t.label; primaryHref = t.href; }
   if (secondaryLabel === primaryLabel) secondaryLabel = null;
+  // Which button is green is decided by ROLE, not by prop order: the consultation CTA always
+  // leads. Deciding it positionally put "Explore Our Work" in green on Consulting, because
+  // that page passes the consultation CTA as the primary and the other as the secondary.
+  const items = [{ label: primaryLabel, href: primaryHref }];
+  if (secondaryLabel) items.push({ label: secondaryLabel, href: secondaryHref });
+  const CF = window.SITE_CONFIG && window.SITE_CONFIG.CONSULT_FORM;
+  let leadIdx = items.findIndex((i) => i.href === CF);
+  if (leadIdx < 0) leadIdx = 0;
+  const lead = items[leadIdx];
+  const rest = items.filter((_, i) => i !== leadIdx);
   return (
     <React.Fragment>
-      {secondaryLabel && (
-        <a
-          className="cmh-btn cmh-btn-primary"
-          href={secondaryHref}
-          target={ext(secondaryHref) ? '_blank' : undefined}
-          rel={ext(secondaryHref) ? 'noopener' : undefined}
-        >
-          {secondaryLabel}
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-        </a>
-      )}
       <a
-        className="cmh-btn cmh-btn-ghost"
-        href={primaryHref}
-        target={ext(primaryHref) ? '_blank' : undefined}
-        rel={ext(primaryHref) ? 'noopener' : undefined}
+        className="cmh-btn cmh-btn-primary"
+        href={lead.href}
+        target={ext(lead.href) ? '_blank' : undefined}
+        rel={ext(lead.href) ? 'noopener' : undefined}
       >
-        {primaryLabel}
+        {lead.label}
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
       </a>
+      {rest.map((b) => (
+        <a
+          key={b.label}
+          className="cmh-btn cmh-btn-ghost"
+          href={b.href}
+          target={ext(b.href) ? '_blank' : undefined}
+          rel={ext(b.href) ? 'noopener' : undefined}
+        >
+          {b.label}
+        </a>
+      ))}
     </React.Fragment>
   );
 };
