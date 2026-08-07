@@ -31,6 +31,8 @@ const hashOf = (rel) => {
 };
 
 let rewritten = 0, missing = [];
+
+// 1. The baked HTML.
 for (const page of PAGES) {
   const file = path.join(root, page + '.html');
   if (!fs.existsSync(file)) continue;
@@ -49,10 +51,31 @@ for (const page of PAGES) {
   if (html !== before) fs.writeFileSync(file, html);
 }
 
+// 2. The compiled JS — the part that actually matters at runtime.
+//    Hashing only the HTML is not enough: React re-renders on hydration and writes the
+//    component's own (unhashed) path back onto the img, so the browser reuses its cached
+//    copy and the page shows the old asset even though the HTML was correct. Every
+//    'assets/…' string literal in the bundle and page entries gets the same hash.
+const jsFiles = ['app.bundle.js', ...fs.readdirSync(path.join(root, 'pages')).filter((f) => f.endsWith('.entry.js')).map((f) => 'pages/' + f)];
+for (const rel of jsFiles) {
+  const file = path.join(root, rel);
+  if (!fs.existsSync(file)) continue;
+  let js = fs.readFileSync(file, 'utf8');
+  const before = js;
+  js = js.replace(/(["'`])(assets\/[^"'`?]+?)(?:\?v=[0-9a-f]+)?\1/g, (m, q, p2) => {
+    if (!EXT.test(p2)) return m;
+    const h = hashOf(p2);
+    if (!h) { missing.push(`${rel}: ${p2}`); return m; }
+    rewritten++;
+    return `${q}${p2}?v=${h}${q}`;
+  });
+  if (js !== before) fs.writeFileSync(file, js);
+}
+
 if (missing.length) {
   console.error(`\n✗ ASSET CACHE-BUST — ${missing.length} referenced image(s) do not exist on disk:`);
   [...new Set(missing)].forEach((m) => console.error('   - ' + m));
   console.error('');
   process.exit(1);
 }
-console.log(`Asset cache-busting: ${rewritten} image URL(s) hashed across ${PAGES.length} pages.`);
+console.log(`Asset cache-busting: ${rewritten} image URL(s) hashed across ${PAGES.length} pages + the compiled JS.`);
