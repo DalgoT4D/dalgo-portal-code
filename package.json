@@ -2,11 +2,12 @@
   "name": "dalgo-portal-code",
   "version": "1.0.0",
   "private": true,
-  "description": "Dalgo marketing site — static HTML pages hydrated with a small precompiled React bundle.",
+  "description": "Dalgo marketing site \u2014 static HTML pages hydrated with a small precompiled React bundle.",
   "scripts": {
     "build": "node build.js",
     "watch": "node build.js --watch",
-    "dev": "npm run build && node serve.js"
+    "dev": "npm run build && node serve.js",
+    "serve": "node scripts/serve.mjs"
   },
   "repository": {
     "type": "git",
