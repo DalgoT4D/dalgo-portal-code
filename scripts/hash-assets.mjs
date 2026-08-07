@@ -56,7 +56,9 @@ for (const page of PAGES) {
 //    component's own (unhashed) path back onto the img, so the browser reuses its cached
 //    copy and the page shows the old asset even though the HTML was correct. Every
 //    'assets/…' string literal in the bundle and page entries gets the same hash.
-const jsFiles = ['app.bundle.js', ...fs.readdirSync(path.join(root, 'pages')).filter((f) => f.endsWith('.entry.js')).map((f) => 'pages/' + f)];
+// site-config.js is included: FEATURED_RESOURCE.img is injected into the nav dropdown at
+// runtime, so it needs the same treatment as the bundle.
+const jsFiles = ['app.bundle.js', 'site-config.js', ...fs.readdirSync(path.join(root, 'pages')).filter((f) => f.endsWith('.entry.js')).map((f) => 'pages/' + f)];
 for (const rel of jsFiles) {
   const file = path.join(root, rel);
   if (!fs.existsSync(file)) continue;

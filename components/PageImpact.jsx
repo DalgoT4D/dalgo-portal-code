@@ -63,69 +63,6 @@ const ImpactGlance = () => {
   );
 };
 
-// 3. Partner Spotlight — STiR Education (bold, visual)
-const StirSpotlight = () => (
-  <section className="imx-section imx-spotlight">
-    <div className="container">
-      <div className="section-head section-head-center">
-        <img loading="lazy" width="276" height="146" src="assets/logos/STiREducation.png" alt="STiR Education" style={{height:38,width:'auto',display:'block',margin:'0 auto 16px'}} />
-        <h2 className="section-title">NGO Spotlight: <span className="hl-underline">STiR Education</span></h2>
-      </div>
-
-      <div className="imx-seq">
-        <article className="imx-seq-card">
-          <div className="imx-seq-step">01 — The Problem</div>
-          <p>Every monthly reflection took at least two days of work — repeated across six regions. Compiling data into a form program teams could use took a full week, using scattered tools like SurveyCTO, Zoho Analytics, and Data Studio.</p>
-          <div className="imx-seq-tags">
-            <span className="imx-seq-tag">2 days per reflection</span>
-            <span className="imx-seq-tag">6 regions</span>
-            <span className="imx-seq-tag">1 week to compile</span>
-          </div>
-        </article>
-        <article className="imx-seq-card">
-          <div className="imx-seq-step">02 — The Solution</div>
-          <p>Dalgo automated the cleaning, aggregation, and dashboard updates through integrated pipelines — replacing a patchwork of disconnected tools with one system feeding self-service dashboards for program teams, leadership, and donors.</p>
-          <div className="imx-seq-tags">
-            <span className="imx-seq-tag">One unified system</span>
-            <span className="imx-seq-tag">Automated pipelines</span>
-            <span className="imx-seq-tag">Self-service dashboards</span>
-          </div>
-        </article>
-        <article className="imx-seq-card">
-          <div className="imx-seq-step">03 — The Transformation</div>
-          <div className="imx-seq-stats">
-            <div className="imx-seq-stat">
-              <div className="imx-seq-stat-row"><span className="imx-seq-before">1 week</span><svg className="imx-seq-statarrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" /></svg><span className="imx-seq-after">1 hour</span></div>
-              <div className="imx-seq-cap">monthly review prep</div>
-            </div>
-            <div className="imx-seq-stat">
-              <div className="imx-seq-stat-row"><span className="imx-seq-after imx-seq-after-lg">5×</span></div>
-              <div className="imx-seq-cap">reduction in report preparation time</div>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <div className="imx-band">
-        <div className="imx-band-main">
-          <span className="imx-band-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote className="imx-band-quote">
-            Irrespective of the questions that come our way — whether from donors or the government — we're now able to focus much more on <mark className="imx-mark">building the story</mark>, rather than spending time working on the data to build that story.
-          </blockquote>
-          <div className="imx-band-attr">
-            <span className="imx-band-name">Arun Maruthi Selvan</span>
-            <span className="imx-band-role">Senior Manager, STiR Education</span>
-          </div>
-        </div>
-        <div className="imx-band-photo">
-          <img loading="lazy" width="1400" height="787" src="assets/opt/arun.webp" alt="Arun Maruthi Selvan of STiR Education at a Dalgo working session" />
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-// 4. Browse by sector
 const BrowseSector = () => {
   const sectors = [
     { label: 'Education', icon: <path d="M12 4L2 9l10 5 8-4v6M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5" /> },
@@ -227,7 +164,6 @@ const BrowseCaseStudies = () => {
 window.ImpactHero = ImpactHero;
 window.ImpactTestimonial = ImpactTestimonial;
 window.ImpactGlance = ImpactGlance;
-window.StirSpotlight = StirSpotlight;
 window.BrowseSector = BrowseSector;
 window.BrowseNGO = BrowseNGO;
 window.BrowseCaseStudies = BrowseCaseStudies;

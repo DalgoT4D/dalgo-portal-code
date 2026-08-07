@@ -17,7 +17,7 @@ window.SITE_CONFIG = {
     kicker: 'Newsletter',
     title: 'Data Decoded with Dalgo',
     blurb: 'One nonprofit data concept per edition, in plain language.',
-    img: 'assets/community-cards/data-decoded.webp',
+    img: 'assets/community-cards/data-decoded.webp?v=cffed030',
     href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
     cta: 'Subscribe'
   }

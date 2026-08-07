@@ -15,7 +15,6 @@ const Hero = () => (
     headline={<>Know Your Data,<br /><span className="cvh-hl">Share Your Story</span></>}
     body="From technology to strategy, Dalgo helps nonprofits build the data capabilities they need to report with confidence, make better decisions, and increase their impact."
     ctas={<HeroCTAs secondaryLabel="Book a Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
-    help={<>Need help planning your data systems? <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Apply for Pro Bono Consulting<svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a></>}
   >
     <div className="cvh-visual hero-visual">
       {/* BM-329: DPG + open-source badges moved off the hero — they live in TrustBand (home) and About */}
