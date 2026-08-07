@@ -117,7 +117,6 @@ const DemoTour = () => {
       <div className="container">
         <div className="section-head section-head-center">
           <h2 className="pg-h2">See Dalgo <span className="hl-underline">in action</span></h2>
-          <p className="pg-section-sub" style={{ margin: "12px auto 0" }}>Click through Dalgo's real product screens — connect, clean, and visualize — no signup needed.</p>
         </div>
         <div className="dtr-modes" role="tablist" aria-label="Choose demo scope">
           {DTR_MODES.map(([k, label, n]) => (

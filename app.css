@@ -204,7 +204,11 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* Consistent hero height across ALL pages → no vertical jump when switching nav tabs.
    The floor sits just above the tallest hero copy (Consulting, ~417px); shorter heroes
    grow to match and centre their content. Mobile drops the floor (heroes stack). */
-.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: start; min-height: 440px; }
+.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: start; min-height: 392px; }
+/* 392px = the tallest hero's natural height (Consulting). The floor exists so every visual
+   hero is the same height and switching tabs doesn't shift the fold; sizing it to the tallest
+   real content rather than a round 440 removes ~100px of dead space that top-aligning the
+   columns had pushed to the bottom of the shorter pages. */
 /* Copy is TOP-aligned in every hero so the eyebrow starts at the same y on every page.
    With align-items:center the start position depended on how tall that page's copy was,
    so the eyebrow sat anywhere from 32px to 125px down and the fold jumped between tabs.
@@ -226,8 +230,18 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvh-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .cvh-help { margin: 22px 0 0; font-size: 14px; color: var(--ink-2); }
 .cvh-help a { color: var(--teal-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-.cvh-visual { position: relative; min-width: 0; align-self: center; }
-.cvh-figure { position: relative; width: 100%; max-width: 512px; margin-left: auto; aspect-ratio: 4/3; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
+/* ---- Shared hero alignment rule -------------------------------------------------
+   The eyebrow is the top reference: the copy column and the right-hand visual both
+   start on the same line, so the H1 block reads as connected to the image or cards.
+   Two things were breaking it:
+     1. .cvh-visual was align-self:center, so the visual was centred in the 440px grid
+        while the copy top-aligned — the visual sat 43-73px lower depending on how tall
+        that page's figure was.
+     2. .cvh-figure is a <figure>, and the UA default `figure { margin: 1em 40px }`
+        leaked an 18px margin-top. The rule set margin-left:auto and never zeroed it.
+   Fixed for every hero at once — no page-specific offsets anywhere. -------------- */
+.cvh-visual { position: relative; min-width: 0; align-self: start; }
+.cvh-figure { position: relative; width: 100%; max-width: 512px; margin: 0 0 0 auto; aspect-ratio: 4/3; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
 .cvh-figure img { width: 100%; height: 100%; object-fit: cover; }
 /* Illustration hero (product): wider ratio so the mint-gradient artwork isn't cropped;
    softer elevation because it's a graphic, not a photo. */
@@ -316,7 +330,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 
 /* ---------- 9. Stories carousel (.fc) — clean auto-advancing showcase ---------- */
 .fc { position: relative; max-width: var(--container); margin: 0; }
-.hero-carousel { position: relative; margin-top: 18px; }
+.hero-carousel { position: relative; }   /* the 18px nudge is gone: the shared hero rule aligns this to the eyebrow */
 .hero-carousel .fc { max-width: 100%; }
 .fc-stage { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
 .fc-track { display: flex; height: 100%; will-change: transform; transition: transform .8s cubic-bezier(.4, 0, .2, 1); }
