@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center"> 
   <img src="assets/dalgo-logo.png" alt="Dalgo" height="56">
 </p>
 
