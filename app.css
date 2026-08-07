@@ -56,7 +56,6 @@ p { margin: 0; }
 .pricing-h2, .faq-h { font-size: 40px; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); text-wrap: balance; }
 
 /* Sub-section / feature H3 tier (28/700) */
-.csf-headline, .cmh-webinar-title { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
 
 /* Card headings H4 tier (20/600) */
 .nurture-h, .cmh-news-title, .team-name, .plan-name, .res-card h3, .we-title, .si-title,
@@ -250,6 +249,22 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvh-avs-stack { display: inline-flex; }
 .cvh-avs-stack .cvh-wa-av { border: 2px solid #fff; }
 .cvh-avs-stack .cvh-wa-av + .cvh-wa-av { margin-left: -8px; }
+
+/* WhatsApp community split panel (community page). Left: brand panel + audience pill.
+   Right: a chat thumbnail. All colours from tokens — no off-palette values. */
+.cmh-wa-panel { display: grid; grid-template-columns: 1.05fr 1fr; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); min-height: 260px; flex: 0 0 clamp(320px, 42%, 520px); }
+.cmh-wa-panel-l { background: var(--navy); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.cmh-wa-panel-h { margin: 0; font-size: 24px; font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; color: #fff; }
+.cmh-wa-panel-pill { align-self: flex-start; background: var(--teal); color: var(--navy); font-size: 12.5px; font-weight: 700; padding: 9px 14px; border-radius: var(--r-pill); }
+.cmh-wa-panel-r { background: var(--surface-1); padding: 20px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.cmh-wa-panel-brand { font-size: 13px; font-weight: 700; color: var(--teal-ink); margin-bottom: 2px; }
+.cmh-wa-b { max-width: 88%; background: var(--surface-0); color: var(--ink); font-size: 13px; line-height: 1.4; padding: 10px 13px; border-radius: 12px 12px 12px 3px; box-shadow: var(--shadow-sm); align-self: flex-start; }
+.cmh-wa-b-me { background: var(--teal-ink); color: #fff; border-radius: 12px 12px 3px 12px; align-self: flex-end; box-shadow: none; }
+.cmh-wa-typing { align-self: flex-start; display: inline-flex; gap: 4px; background: var(--surface-0); padding: 10px 12px; border-radius: var(--r-pill); box-shadow: var(--shadow-sm); }
+.cmh-wa-typing i { width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 34%, #fff); }
+@media (max-width: 720px) { .cmh-wa-panel { grid-template-columns: 1fr; } .cmh-wa-panel-h { font-size: 21px; } }
+
+
 
 /* ---------- 8. Collage / product visual / triad / portrait ---------- */
 .hc-avs-stack { display: inline-flex; }
@@ -987,17 +1002,14 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .imx-select-caret { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; fill: none; stroke: var(--ink-2); stroke-width: 2; pointer-events: none; }
 
 /* ---------- 22. Community page (cmh) ---------- */
+/* First section under the hero takes the slim pad (documented below-hero rule).
+   Two classes so it outranks the .pg-section padding shorthand defined later. */
+.pg-section.cmh-section-first { padding-top: var(--section-pad-sm); }
 .cmh-section { padding: var(--section-pad) 0; }
 .cmh-head { margin-bottom: 44px; }
 .cmh-head .pg-eyebrow { text-align: center; margin-bottom: 12px; }
-.cmh-webinar { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-.cmh-webinar-title { margin-bottom: 16px; }
-.cmh-webinar-meta { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-bottom: 20px; }
 .cmh-meta-item { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 14px; font-weight: 500; }
 .cmh-meta-item svg { width: 17px; height: 17px; fill: none; stroke: var(--teal-ink); stroke-width: 1.8; }
-.cmh-webinar-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
-.cmh-webinar-embed { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--surface-0); min-height: 600px; }
-.cmh-webinar-embed iframe { display: block; }
 .cmh-news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 980px; margin: 0 auto; }
 .cmh-news-card { display: flex; flex-direction: column; background: var(--surface-0); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease); }
 .cmh-news-card:hover { transform: translateY(-4px); border-color: var(--teal); box-shadow: var(--shadow-pop); }
@@ -1327,7 +1339,6 @@ html, body { max-width: 100%; overflow-x: clip; }
   .ll-card:not(:last-child) { margin-bottom: 46px; }
   .ll-loopnote { display: flex; }
   .trust-grid { grid-template-columns: repeat(3, 1fr); }
-  .imx-seq, .imx-si-grid, .cmh-webinar, .cmh-news-grid, .webinar-feature { grid-template-columns: 1fr; }
   .st-chapter, .st-chapter.st-reverse { grid-template-columns: 1fr; gap: 28px; padding: 52px 0; }
   .st-chapter .st-media, .st-chapter.st-reverse .st-media { order: 1; }
   .st-chapter .st-copy, .st-chapter.st-reverse .st-copy { order: 2; margin: 0; max-width: 600px; }
@@ -1343,7 +1354,6 @@ html, body { max-width: 100%; overflow-x: clip; }
   h1, .cvh-h1, .pg-h1, .cs-title, .st-intro-h { font-size: 36px; }
   h2, .section-title, .pg-h2, .vp-h, .final-cta-h, .trust-h, .comm-cta-h, .st-h, .zz-h, .we-bigh, .pf-title, .pex-h, .cmh-wa-h, .faq-h { font-size: 28px; }
   .imx-band-quote { font-size: 18px; }
-  h3, .csf-headline, .cmh-webinar-title { font-size: 22px; }
   h4 { font-size: 18px; }
   body { font-size: 16px; }
   .cvh-sub, .section-sub, .pg-sub, .pg-section-sub, .comm-lead, .team-intro, .comm-cta-p, .nurture-intro, .st-intro-sub, .pex-sub, .pf-sub, .trust-intro { font-size: 16px; }
@@ -1366,7 +1376,6 @@ html, body { max-width: 100%; overflow-x: clip; }
 @media (max-width: 480px) {
   .container { padding-left: 16px; padding-right: 16px; }
   .fx-links-inner { grid-template-columns: 1fr; }
-  .cvh-ctas, .cmh-webinar-actions, .final-cta-actions { flex-direction: column; align-items: stretch; }
   .cvh-ctas .cmh-btn, .final-cta-actions a { width: 100%; justify-content: center; }
 }
 

@@ -7,16 +7,15 @@ const CommunityHero = () => (
         <div className="cvh-eyebrow">Community</div>
         <h1 className="cvh-h1">Join Dalgo's <span className="cvh-hl">Data Community</span></h1>
         <p className="cvh-sub">
-          We bring together nonprofits, ecosystem partners, funders, researchers, and data practitioners
-          to explore how Data and AI can create greater social impact. Join webinars, discover practical
-          resources, and connect with people building better data systems.
+          A place for nonprofits, funders, researchers, and data practitioners to work out how data and AI
+          can do more for social impact.
         </p>
         <div className="cvh-ctas">
           <a className="cmh-btn cmh-btn-primary" href="https://chat.whatsapp.com/GWXbfC0fXKf2RVfKiCaOEy?s=cl&p=i&ilr=4" target="_blank" rel="noopener">
             Join WhatsApp Community
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a className="cmh-btn cmh-btn-ghost" href="#latest-webinar">Browse Upcoming Webinars</a>
+          <a className="cmh-btn cmh-btn-ghost" href="#past-videos">Browse Recordings</a>
         </div>
       </div>
       <div className="cvh-visual">
@@ -28,74 +27,19 @@ const CommunityHero = () => (
   </section>
 );
 
-// 1 — Upcoming Webinar (primary focus, Luma embed)
-const CommunityWebinar = () => (
-  <section className="pg-section cmh-section" id="latest-webinar">
-    <div className="container">
-      <div className="cmh-head section-head-center">
-        <div className="pg-eyebrow">Upcoming Webinar</div>
-        <h2 className="section-title">Join our next <span className="hl-underline">live session</span></h2>
-      </div>
-      <div className="cmh-webinar">
-        <div className="cmh-webinar-copy">
-          <h3 className="cmh-webinar-title">Dalgo's Data &amp; AI Webinar</h3>
-          <div className="cmh-webinar-meta">
-            <span className="cmh-meta-item">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-              Monthly · Live online
-            </span>
-            <span className="cmh-meta-item">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              60 minutes · Free to attend
-            </span>
-          </div>
-          <p className="comm-lead">
-            Practical, sector-specific sessions on nonprofit data and AI — featuring NGO spotlights,
-            live product walkthroughs, and honest conversation about building a stronger data culture.
-            Register for the next session, or explore everything on our calendar.
-          </p>
-          <div className="cmh-webinar-actions">
-            <a href="https://luma.com/88btx8qo" target="_blank" rel="noopener" className="cmh-btn cmh-btn-primary">
-              Register Now
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-            </a>
-            <a href="https://luma.com/calendar/manage/cal-VTXoLOLr5aY3hfM" target="_blank" rel="noopener" className="cmh-btn cmh-btn-ghost">Browse Past Webinars</a>
-          </div>
-        </div>
-        <div className="cmh-webinar-embed">
-          <iframe
-            src="https://luma.com/embed/event/evt-JDiLqiFoziCQFvm/simple"
-            width="100%"
-            height="600"
-            frameBorder="0"
-            style={{ border: 'none' }}
-            allow="fullscreen; payment"
-            aria-hidden="false"
-            tabIndex="0"
-            title="Upcoming Dalgo webinar">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-// 2 — Subscribe to Our Newsletters (two image cards)
 const CommunityNewsletters = () => {
   const cards = [
     {
       img: 'assets/community-cards/data-decoded.webp',
       title: 'Data Decoded With Dalgo',
-      tagline: 'Level up your nonprofit data game',
-      body: <>Think Mario, but for M&amp;E. Every edition tackles one nonprofit data concept through stories, pop culture, and simple visuals. No jargon. Just those “Oh, I finally get it!”&gt; moments.</>,
+      body: <>Every week, M&amp;E Mario takes on a new nonprofit data challenge that&rsquo;s standing between him and his prized possession: data that tells a powerful story. Follow his adventures through messy spreadsheets, reporting hurdles, AI experiments, and the occasional victory.</>,
       cta: 'Subscribe on LinkedIn',
       href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
     },
     {
       img: 'assets/community-cards/monthly-newsletter.webp',
       title: 'Dalgo’s Monthly Newsletter',
-      tagline: 'Everything happening in the Dalgo universe',
-      body: 'New features. Customer stories. AI experiments. Community events. Product launches. One monthly roundup so you never miss what’s new in nonprofit data.',
+      body: <>Everything happening in the Dalgo universe&mdash;from product updates and customer stories to webinars, experiments, and what we&rsquo;re learning alongside nonprofits every month.</>,
       cta: 'Subscribe',
       href: 'https://zc1.maillist-manage.in/ua/Optin?od=1a1e3dbb3aab7&zx=1dfa5ea80f&tD=1334ba025024aa49&sD=1334ba0250252f1d',
     },
@@ -106,7 +50,7 @@ const CommunityNewsletters = () => {
         <div className="cmh-head section-head-center">
           <div className="pg-eyebrow">Newsletters</div>
           <h2 className="section-title">Subscribe to our <span className="hl-underline">newsletters</span></h2>
-          <p className="section-sub">Two ways to stay sharp on nonprofit data — pick one, or get both.</p>
+          <p className="section-sub">Stay curious about nonprofit data. Subscribe to one newsletter or both&mdash;each designed to help you build stronger data practices.</p>
         </div>
         <div className="cmh-news-grid">
           {cards.map((c) => (
@@ -114,7 +58,6 @@ const CommunityNewsletters = () => {
               <div className="cmh-news-thumb"><img src={c.img} alt={c.title} loading="lazy" /></div>
               <div className="cmh-news-body">
                 <h3 className="cmh-news-title">{c.title}</h3>
-                <p className="cmh-news-tagline">{c.tagline}</p>
                 <p className="cmh-news-desc">{c.body}</p>
                 <a href={c.href} target="_blank" rel="noopener" className="cmh-btn cmh-btn-primary cmh-btn-sm">
                   {c.cta}
@@ -163,7 +106,7 @@ const CommunityBlogs = () => {
         <div className="cmh-head section-head-center">
           <div className="pg-eyebrow">From the blog</div>
           <h2 className="section-title">Written by the <span className="hl-underline">Dalgo team</span></h2>
-          <p className="section-sub">Field notes on nonprofit data — what we are learning with partners, and what we are building next.</p>
+          <p className="section-sub">Honest reflections on what we&rsquo;re building, lessons from working with nonprofit partners, customer stories, and the ideas shaping Dalgo&rsquo;s product and consulting journey.</p>
         </div>
         <div className="si-grid">
           {posts.map((p) => (
@@ -195,18 +138,19 @@ const CommunityBlogs = () => {
 // that already exists in the design system. Thumbnails localised to assets/videos/.
 const CommunityVideos = () => {
   const videos = [
-    { id: 'I04SqPYQHIs', title: 'Making decisions, driving impact: building effective data systems with Dalgo', img: 'assets/videos/making-decisions.webp' },
+    // Data Lifecycle leads — strongest educational asset, so it is the first thing after the hero.
     { id: 'gY1Gif7Jh5w', title: 'Understanding the data lifecycle — a practical guide for NGOs', img: 'assets/videos/data-lifecycle.webp' },
+    { id: 'I04SqPYQHIs', title: 'Making decisions, driving impact: building effective data systems with Dalgo', img: 'assets/videos/making-decisions.webp' },
     { id: 'xc1WwUU94wg', title: 'Enabling data ownership: SHOFCO’s journey with Dalgo', img: 'assets/videos/shofco-ownership.webp' },
   ];
   const PLAYLIST = 'https://www.youtube.com/playlist?list=PLiBzunQ0ociM0qDfAYJ4Slx1boV03fovU';
   return (
-    <section className="pg-section alt cmh-section" id="past-videos">
+    <section className="pg-section cmh-section cmh-section-first" id="past-videos">
       <div className="container">
         <div className="cmh-head section-head-center">
           <div className="pg-eyebrow">Recordings</div>
-          <h2 className="section-title">Check out <span className="hl-underline">past videos</span></h2>
-          <p className="section-sub">Missed a session? Every webinar is recorded — 24 and counting, free to watch any time.</p>
+          <h2 className="section-title">Browse the latest in <span className="hl-underline">nonprofit data &amp; AI</span></h2>
+          <p className="section-sub">Explore practical sessions on nonprofit data, AI, real implementation stories from organizations, and conversations on building stronger data systems.</p>
         </div>
         <div className="res-grid">
           {videos.map((v) => (
@@ -234,11 +178,23 @@ const CommunityVideos = () => {
 
 // 5 — Join Our Community (WhatsApp)
 const CommunityWhatsApp = () => (
-  <section className="pg-section cmh-section" id="whatsapp">
+  <section className="pg-section alt cmh-section" id="whatsapp">
     <div className="container">
       <div className="cmh-wa">
-        <div className="cmh-wa-icon">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.9 13.3L3 21l4.8-1.1A9 9 0 1 0 12 3z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>
+        {/* Split panel per the supplied mock: dark brand panel + a live chat thumbnail.
+            Built as markup, not a raster — it stays sharp at any density, carries no extra
+            image request, and its colours come from tokens so it can never drift off-brand. */}
+        <div className="cmh-wa-panel" aria-hidden="true">
+          <div className="cmh-wa-panel-l">
+            <p className="cmh-wa-panel-h">Dalgo&rsquo;s WhatsApp Community</p>
+            <span className="cmh-wa-panel-pill">For Nonprofit Data Practitioners</span>
+          </div>
+          <div className="cmh-wa-panel-r">
+            <span className="cmh-wa-panel-brand">Dalgo</span>
+            <span className="cmh-wa-b">How do you handle messy SurveyCTO exports?</span>
+            <span className="cmh-wa-b cmh-wa-b-me">We automated it. Sharing our setup.</span>
+            <span className="cmh-wa-typing"><i></i><i></i><i></i></span>
+          </div>
         </div>
         <div className="cmh-wa-copy">
           <div className="pg-eyebrow">Join Our Community</div>
@@ -260,7 +216,6 @@ const CommunityWhatsApp = () => (
 const CommunityCTA = () => null;
 
 window.CommunityHero = CommunityHero;
-window.CommunityWebinar = CommunityWebinar;
 window.CommunityNewsletters = CommunityNewsletters;
 window.CommunityBlogs = CommunityBlogs;
 window.CommunityVideos = CommunityVideos;
