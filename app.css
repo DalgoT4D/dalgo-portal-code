@@ -250,19 +250,20 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvh-avs-stack .cvh-wa-av { border: 2px solid #fff; }
 .cvh-avs-stack .cvh-wa-av + .cvh-wa-av { margin-left: -8px; }
 
-/* WhatsApp community split panel (community page). Left: brand panel + audience pill.
-   Right: a chat thumbnail. All colours from tokens — no off-palette values. */
-.cmh-wa-panel { display: grid; grid-template-columns: 1.05fr 1fr; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); min-height: 260px; flex: 0 0 clamp(320px, 42%, 520px); }
-.cmh-wa-panel-l { background: var(--navy); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
-.cmh-wa-panel-h { margin: 0; font-size: 24px; font-weight: 700; line-height: 1.18; letter-spacing: -0.01em; color: #fff; }
-.cmh-wa-panel-pill { align-self: flex-start; background: var(--teal); color: var(--navy); font-size: 12.5px; font-weight: 700; padding: 9px 14px; border-radius: var(--r-pill); }
-.cmh-wa-panel-r { background: var(--surface-1); padding: 20px; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-.cmh-wa-panel-brand { font-size: 13px; font-weight: 700; color: var(--teal-ink); margin-bottom: 2px; }
-.cmh-wa-b { max-width: 88%; background: var(--surface-0); color: var(--ink); font-size: 13px; line-height: 1.4; padding: 10px 13px; border-radius: 12px 12px 12px 3px; box-shadow: var(--shadow-sm); align-self: flex-start; }
+/* WhatsApp group thumbnail (community page). Single card, not a split panel: the
+   section heading beside it already says "Dalgo Data Community on WhatsApp", so a
+   titled left half repeated the same line. The Dalgo logo carries the brand instead,
+   and the card stretches to the copy column so the two sides finish level. */
+.cmh-wa-panel { flex: 0 0 clamp(300px, 40%, 460px); align-self: stretch; display: flex; flex-direction: column; background: var(--surface-1); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
+.cmh-wa-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 18px; background: var(--surface-0); border-bottom: 1px solid var(--hairline); }
+.cmh-wa-panel-logo { height: 26px; width: auto; display: block; }
+.cmh-wa-panel-pill { flex-shrink: 1; background: var(--teal); color: var(--navy); font-size: 10.5px; font-weight: 700; letter-spacing: .01em; line-height: 1.25; padding: 6px 10px; border-radius: var(--r-pill); text-align: center; }
+.cmh-wa-thread { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 20px 18px; }
+.cmh-wa-b { max-width: 86%; background: var(--surface-0); color: var(--ink); font-size: 13px; line-height: 1.4; padding: 10px 13px; border-radius: 12px 12px 12px 3px; box-shadow: var(--shadow-sm); align-self: flex-start; }
 .cmh-wa-b-me { background: var(--teal-ink); color: #fff; border-radius: 12px 12px 3px 12px; align-self: flex-end; box-shadow: none; }
 .cmh-wa-typing { align-self: flex-start; display: inline-flex; gap: 4px; background: var(--surface-0); padding: 10px 12px; border-radius: var(--r-pill); box-shadow: var(--shadow-sm); }
 .cmh-wa-typing i { width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 34%, #fff); }
-@media (max-width: 720px) { .cmh-wa-panel { grid-template-columns: 1fr; } .cmh-wa-panel-h { font-size: 21px; } }
+@media (max-width: 720px) { .cmh-wa-panel { flex-basis: auto; width: 100%; } }
 
 
 
@@ -1023,7 +1024,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cmh-news-card .cmh-btn { align-self: flex-start; margin-top: 8px; }
 /* align-items:flex-start, not center: centring floated the icon ~74px below the eyebrow
    it belongs to, reading as a detached ornament. Top-aligned it anchors the heading. */
-.cmh-wa { display: flex; align-items: flex-start; gap: 32px; background: linear-gradient(135deg, #0F5C52 0%, var(--wa-dark) 100%); border-radius: var(--r-xl); padding: 48px 56px; color: #fff; }
+.cmh-wa { display: flex; align-items: stretch; gap: 32px; background: linear-gradient(135deg, #0F5C52 0%, var(--wa-dark) 100%); border-radius: var(--r-xl); padding: 48px 56px; color: #fff; }
 .cmh-wa-icon { flex-shrink: 0; width: 72px; height: 72px; border-radius: var(--r-lg); background: rgba(255,255,255,.12); display: grid; place-items: center; }
 .cmh-wa-icon svg { width: 36px; height: 36px; fill: none; stroke: #fff; stroke-width: 1.7; }
 .cmh-wa-copy .pg-eyebrow { color: color-mix(in srgb, var(--teal) 45%, #fff); margin-bottom: 12px; }

@@ -185,12 +185,11 @@ const CommunityWhatsApp = () => (
             Built as markup, not a raster — it stays sharp at any density, carries no extra
             image request, and its colours come from tokens so it can never drift off-brand. */}
         <div className="cmh-wa-panel" aria-hidden="true">
-          <div className="cmh-wa-panel-l">
-            <p className="cmh-wa-panel-h">Dalgo&rsquo;s WhatsApp Community</p>
+          <div className="cmh-wa-panel-head">
+            <img className="cmh-wa-panel-logo" src="assets/dalgo-logo.png" alt="" width="130" height="40" loading="lazy" />
             <span className="cmh-wa-panel-pill">For Nonprofit Data Practitioners</span>
           </div>
-          <div className="cmh-wa-panel-r">
-            <span className="cmh-wa-panel-brand">Dalgo</span>
+          <div className="cmh-wa-thread">
             <span className="cmh-wa-b">How do you handle messy SurveyCTO exports?</span>
             <span className="cmh-wa-b cmh-wa-b-me">We automated it. Sharing our setup.</span>
             <span className="cmh-wa-typing"><i></i><i></i><i></i></span>
