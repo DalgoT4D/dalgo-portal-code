@@ -24,7 +24,7 @@ const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
 const HeroCTAs = ({
   primaryLabel = 'Try the Platform',
   primaryHref = '/contact',   // overridden by trialCta(); never point a default at the trial URL
-  secondaryLabel = 'Book a Free Consultation',
+  secondaryLabel = 'Book Free Consultation',
   secondaryHref = window.SITE_CONFIG.CONSULT_FORM,   // pro-bono consulting form (site-config)
 }) => {
   const ext = (h) => /^https?:/.test(h);

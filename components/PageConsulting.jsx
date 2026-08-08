@@ -9,7 +9,7 @@ const ConsultingHero = () => (
     eyebrow="Consulting"
     headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
-    ctas={<HeroCTAs primaryLabel="Book a Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
+    ctas={<HeroCTAs primaryLabel="Book Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
   >
     <div className="cvh-visual cvh-visual-cover">
       <figure className="cvh-figure cvh-figure-cover">
@@ -59,7 +59,7 @@ const StrategicExpertise = () => {
             <span className="co-ico" aria-hidden="true">{CO_ICON.probono}</span>
             <h3>Pro bono consulting</h3>
             <p>For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and the right next steps.</p>
-            <a className="btn btn-primary co-probono-btn" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Consultation</a>
+            <a className="btn btn-primary co-probono-btn" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book Free Consultation</a>
           </article>
         </div>
       </div>
@@ -177,7 +177,7 @@ const ConsultingFinalCTA = () => (
       <h2 className="final-cta-h">Ready to strengthen your organization's <span className="hl-underline">data capabilities?</span></h2>
       <p className="final-cta-sub">Whether you're improving reporting, designing a new MEL framework, integrating systems, or preparing for AI, we'll help you build a data foundation that supports better decisions and greater impact.</p>
       <div className="final-cta-actions">
-        <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="final-cta-btn">Book a Free Consultation
+        <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="final-cta-btn">Book Free Consultation
           <svg className="i" viewBox="0 0 24 24" style={{ width: 18, height: 18, stroke: 'currentColor', fill: 'none', strokeWidth: 2 }}><path d="M5 12h14M13 5l7 7-7 7" /></svg>
         </a>
       </div>

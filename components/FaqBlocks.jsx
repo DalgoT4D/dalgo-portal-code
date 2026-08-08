@@ -189,7 +189,7 @@ const FaqStillBand = () => (
     <div className="faq-wrap faq-still-inner">
       <h2 className="faq-h">Still have a <span className="hl-underline">question</span>?</h2>
       <p>Every organisation's data landscape is different — tell us about yours and we'll answer directly.</p>
-      <a className="btn btn-ghost" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Consultation</a>
+      <a className="btn btn-ghost" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book Free Consultation</a>
     </div>
   </section>
 );

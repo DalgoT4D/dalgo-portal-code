@@ -110,7 +110,14 @@ for (const [page, { title, desc }] of Object.entries(PAGES)) {
   const before = html;
   const d = esc(desc);
 
+  // Canonical is GENERATED here, not hand-typed. It used to live only in the .html files,
+  // which is how meet-the-team.html ended up declaring https://dalgo.org/about after the
+  // About -> Meet the Team rename: every generated tag updated itself and the one
+  // hand-written tag silently did not, telling Google not to index the page at all.
+  const canonical = page === 'index' ? 'https://dalgo.org/' : `https://dalgo.org/${page}`;
+
   const subs = [
+    [/(<link rel="canonical" href=")(.*?)(")/s, `$1${canonical}$3`],
     [/(<title>)(.*?)(<\/title>)/s, `$1${esc(title)}$3`],
     [/(<meta name="description" content=")(.*?)(")/s, `$1${d}$3`],
     [/(<meta property="og:description" content=")(.*?)(")/s, `$1${d}$3`],

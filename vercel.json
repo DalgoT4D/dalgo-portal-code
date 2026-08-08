@@ -64,6 +64,21 @@
       "source": "/privacy-policy",
       "destination": "/privacy",
       "permanent": true
+    },
+    {
+      "source": "/events",
+      "destination": "/community",
+      "permanent": true
+    },
+    {
+      "source": "/chapter-one",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/chapter-two",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [

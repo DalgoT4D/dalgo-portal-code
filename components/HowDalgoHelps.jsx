@@ -8,7 +8,7 @@ const HowDalgoHelps = () => {
       title: 'Data Consulting',
       img: 'assets/illus/dashboard-charts.webp',
       body: "Design reporting systems, measurement frameworks, and data strategies with guidance from Dalgo's data experts.",
-      cta: { label: 'Book a Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true },
+      cta: { label: 'Book Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true },
     },
     {
       cat: 'Platform',

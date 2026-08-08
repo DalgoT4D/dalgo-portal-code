@@ -3,7 +3,7 @@ const TeamHero = () => (
   <SiteHero
     eyebrow="Our team"
     headline={<>The people powering <span className="cvh-hl">Dalgo</span></>}
-    body="Dalgo is built and run by a small, dedicated team alongside the nonprofits we serve — spanning product, consulting, data engineering, and community. We also work with local partners to design and deliver our programs. Meet the people powering the work."
+    body="We are a small team with a big belief: nonprofits deserve better ways to work with their data. Our team brings together expertise across product, data engineering, consulting, and community, working closely with the organizations we serve. Meet the people powering Dalgo."
   />
 );
 
@@ -33,11 +33,8 @@ const TeamGrid = () => {
         <div className="section-head section-head-center">
           <h2 className="pg-h2">Meet the <span className="hl-underline">team</span></h2>
         </div>
-        <p className="team-intro">
-          Dalgo is built and run by a small, dedicated team alongside the nonprofits we serve — spanning
-          product, consulting, data engineering, and community. We also work with local partners to design
-          and deliver our programs. Meet the people powering the work.
-        </p>
+        {/* The intro paragraph that sat here repeated the hero almost verbatim. Removed 8 Aug 2026
+            (Stuti) — the hero now carries this copy and saying it twice on one screen is moot. */}
         <div className="team-grid">
           {members.map((m, i) => (
             <a key={i} href={m.li} target="_blank" rel="noopener" className="team-card">

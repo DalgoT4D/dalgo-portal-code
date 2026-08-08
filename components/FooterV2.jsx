@@ -26,7 +26,7 @@ const FooterV2 = () =>
           <a href="/case-studies">Case Studies</a>
           <a href="/consulting">Consulting</a>
           <a href="/pricing">Pricing</a>
-          <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Consultation</a>
+          <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book Free Consultation</a>
         </nav>
         <nav className="fx-col" aria-label="Resources">
           <h2 className="fx-h">Resources</h2>

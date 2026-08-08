@@ -6,7 +6,7 @@ window.SITE_CONFIG = {
   TRIAL_READY: false,
   TRIAL_URL: 'https://dashboard.dalgo.org',
   GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
-  // Single destination for every "Book a Free Consultation" CTA — the pro-bono data
+  // Single destination for every "Book Free Consultation" CTA — the pro-bono data
   // consulting form (Stuti, 7 Aug 2026). Three different forms.gle URLs were in use
   // before this; route every consultation CTA through window.consultCta() so they
   // cannot diverge again.
@@ -35,9 +35,9 @@ window.trialCta = function () {
     ? { label: 'Try the Platform', href: window.SITE_CONFIG.TRIAL_URL, ext: true }
     : { label: 'Contact Us', href: '/contact', ext: false };
 };
-// Every "Book a Free Consultation" CTA resolves through this — one destination, always external.
+// Every "Book Free Consultation" CTA resolves through this — one destination, always external.
 window.consultCta = function () {
-  return { label: 'Book a Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true };
+  return { label: 'Book Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true };
 };
 // GA4 bootstrap (no-op until GA4_ID is set). Event layer (BM-356 model) TBD.
 (function () {
