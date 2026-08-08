@@ -191,7 +191,7 @@ const AffordableBand = () =>
         </div>
       </div>
       <div style={{ textAlign: 'center', marginTop: 44 }}>
-        <a href="pricing.html" className="pg-btn pg-btn-ondark">Explore Pricing</a>
+        <a href="/pricing" className="pg-btn pg-btn-ondark">Explore Pricing</a>
       </div>
     </div>
   </section>;

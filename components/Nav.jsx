@@ -41,8 +41,8 @@ const Nav = () => {
   const tc = window.trialCta ? window.trialCta() : { label: 'Start Free Trial', href: 'https://insights.dalgo.org/trial', ext: true };
   const trialReady = !!(window.SITE_CONFIG && window.SITE_CONFIG.TRIAL_READY);
   const resourceLinks = [
-    { href: 'community.html', label: 'Community', desc: 'Webinars, meetups, and the Dalgo network' },
-    { href: 'faq.html', label: 'FAQs', desc: 'Answers on pricing, setup, and security' },
+    { href: '/community', label: 'Community', desc: 'Webinars, meetups, and the Dalgo network' },
+    { href: '/faq', label: 'FAQs', desc: 'Answers on pricing, setup, and security' },
   ];
   // Featured slot (psychology #4 Von Restorff, #11 self-expiring): next webinar from site-config.
   const featured = window.featuredResource ? window.featuredResource() : null;
@@ -53,15 +53,15 @@ const Nav = () => {
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-inner">
         <div className="nav-left">
-          <a href="index.html" className="nav-logo">
+          <a href="/" className="nav-logo">
             <img src={window.__resources && window.__resources.dalgoLogo || "assets/dalgo-logo.png"} alt="Dalgo — A Project Tech4Dev Initiative" width="130" height="40" style={{ height: 40, width: 'auto', display: 'block' }} />
           </a>
           <div className="nav-links">
-            <NavLink href="index.html" active={isHome}>Home</NavLink>
-            <NavLink href="product.html" active={is('product')}>Product</NavLink>
-            <NavLink href="consulting.html" active={is('consulting')}>Consulting</NavLink>
-            <NavLink href="case-studies.html" active={is('case-studies')}>Case Studies</NavLink>
-            <NavLink href="pricing.html" active={is('pricing')}>Pricing</NavLink>
+            <NavLink href="/" active={isHome}>Home</NavLink>
+            <NavLink href="/product" active={is('product')}>Product</NavLink>
+            <NavLink href="/consulting" active={is('consulting')}>Consulting</NavLink>
+            <NavLink href="/case-studies" active={is('case-studies')}>Case Studies</NavLink>
+            <NavLink href="/pricing" active={is('pricing')}>Pricing</NavLink>
             <div className="nav-dd" ref={ddRef}>
               <button type="button" className={'nav-link nav-dd-trigger' + (resourcesActive ? ' is-active' : '') + (ddOpen ? ' is-open' : '')} aria-haspopup="true" aria-expanded={ddOpen} aria-controls="nav-dd-resources"
                 onClick={() => setDdOpen((o) => !o)}
@@ -102,7 +102,7 @@ const Nav = () => {
           </div>
         </div>
         <div className="nav-right">
-          <a href="contact.html" className="btn btn-ghost">Contact Us</a>
+          <a href="/contact" className="btn btn-ghost">Contact Us</a>
           <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="btn btn-primary">Book Free Consultation</a>
         </div>
         <button type="button" className={`nav-burger ${menuOpen ? 'is-open' : ''}`} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="nav-mobile-drawer" onClick={() => setMenuOpen((o) => !o)}>
@@ -111,11 +111,11 @@ const Nav = () => {
       </div>
       <div className={`nav-mobile ${menuOpen ? 'is-open' : ''}`} id="nav-mobile-drawer" hidden={!menuOpen}>
         <div className="nav-mobile-scroll">
-          <a href="index.html" className={'nav-m-link' + (isHome ? ' is-active' : '')} onClick={closeMenu}>Home</a>
-          <a href="product.html" className={'nav-m-link' + (is('product') ? ' is-active' : '')} onClick={closeMenu}>Product</a>
-          <a href="consulting.html" className={'nav-m-link' + (is('consulting') ? ' is-active' : '')} onClick={closeMenu}>Consulting</a>
-          <a href="case-studies.html" className={'nav-m-link' + (is('case-studies') ? ' is-active' : '')} onClick={closeMenu}>Case Studies</a>
-          <a href="pricing.html" className={'nav-m-link' + (is('pricing') ? ' is-active' : '')} onClick={closeMenu}>Pricing</a>
+          <a href="/" className={'nav-m-link' + (isHome ? ' is-active' : '')} onClick={closeMenu}>Home</a>
+          <a href="/product" className={'nav-m-link' + (is('product') ? ' is-active' : '')} onClick={closeMenu}>Product</a>
+          <a href="/consulting" className={'nav-m-link' + (is('consulting') ? ' is-active' : '')} onClick={closeMenu}>Consulting</a>
+          <a href="/case-studies" className={'nav-m-link' + (is('case-studies') ? ' is-active' : '')} onClick={closeMenu}>Case Studies</a>
+          <a href="/pricing" className={'nav-m-link' + (is('pricing') ? ' is-active' : '')} onClick={closeMenu}>Pricing</a>
           <button type="button" className={`nav-m-link nav-m-acc ${resOpen ? 'is-open' : ''}`} aria-expanded={resOpen} aria-controls="nav-m-resources" onClick={() => setResOpen((o) => !o)}>
             Resources
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
@@ -124,7 +124,7 @@ const Nav = () => {
             {resourceLinks.map((l) => <a key={l.href} href={l.href} onClick={closeMenu}>{l.label}</a>)}
           </div>
           <div className="nav-m-ctas">
-            <a href="contact.html" className="btn btn-ghost" onClick={closeMenu}>Contact Us</a>
+            <a href="/contact" className="btn btn-ghost" onClick={closeMenu}>Contact Us</a>
             <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="btn btn-primary" onClick={closeMenu}>Book Free Consultation</a>
           </div>
         </div>

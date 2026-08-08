@@ -25,7 +25,7 @@ const ProofCollage = () => (
           </figure>
         ))}
       </div>
-      <div className="vp-cta-row"><a href="case-studies.html" className="vp-section-cta">Browse Case Studies →</a></div>
+      <div className="vp-cta-row"><a href="/case-studies" className="vp-section-cta">Browse Case Studies →</a></div>
     </div>
   </section>
 );

@@ -23,7 +23,7 @@ const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
 // platform/contact CTA is the white ghost beside it (Stuti, 7 Aug).
 const HeroCTAs = ({
   primaryLabel = 'Try the Platform',
-  primaryHref = 'contact.html',   // overridden by trialCta(); never point a default at the trial URL
+  primaryHref = '/contact',   // overridden by trialCta(); never point a default at the trial URL
   secondaryLabel = 'Book a Free Consultation',
   secondaryHref = window.SITE_CONFIG.CONSULT_FORM,   // pro-bono consulting form (site-config)
 }) => {

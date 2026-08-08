@@ -22,17 +22,17 @@ const FooterV2 = () =>
         </div>
         <nav className="fx-col" aria-label="Explore">
           <h2 className="fx-h">Explore</h2>
-          <a href="product.html">Product</a>
-          <a href="case-studies.html">Case Studies</a>
-          <a href="consulting.html">Consulting</a>
-          <a href="pricing.html">Pricing</a>
+          <a href="/product">Product</a>
+          <a href="/case-studies">Case Studies</a>
+          <a href="/consulting">Consulting</a>
+          <a href="/pricing">Pricing</a>
           <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Consultation</a>
         </nav>
         <nav className="fx-col" aria-label="Resources">
           <h2 className="fx-h">Resources</h2>
-          <a href="meet-the-team.html">Meet the Team</a>
-          <a href="community.html">Community</a>
-          <a href="faq.html">Frequently Asked Questions</a>
+          <a href="/meet-the-team">Meet the Team</a>
+          <a href="/community">Community</a>
+          <a href="/faq">Frequently Asked Questions</a>
         </nav>
         <div className="fx-col">
           <h2 className="fx-h">Connect</h2>
@@ -49,7 +49,7 @@ const FooterV2 = () =>
         {/* Attribution reads as one clean line here, where the row is full-width */}
         <div>© 2026 Dalgo — an open-source initiative of <a href="https://projecttech4dev.org" target="_blank" rel="noopener" className="fx-bottom-parent">Project Tech4Dev<svg viewBox="0 0 24 24" className="x-ext" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg></a></div>
         <div className="fx-bottom-right">
-          <a href="privacy.html">Privacy Policy</a>
+          <a href="/privacy">Privacy Policy</a>
         </div>
       </div>
     </div>

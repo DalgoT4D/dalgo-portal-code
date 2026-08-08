@@ -9,8 +9,8 @@ const MeetDalgo = () => {
           </p>
         </div>
         <div className="md-cta-row">
-          <a href="product.html" className="btn btn-teal btn-arrow md-cta">Explore Dalgo</a>
-          <a href="faq.html" className="hero-cta-secondary">Read our FAQs</a>
+          <a href="/product" className="btn btn-teal btn-arrow md-cta">Explore Dalgo</a>
+          <a href="/faq" className="hero-cta-secondary">Read our FAQs</a>
         </div>
       </div>
     </section>);
@@ -118,7 +118,7 @@ const CaseStudy = () => {
         </div>
         <CaseFeature />
         <div className="si-cta-row">
-          <a className="si-readall" href="case-studies.html" data-comment-anchor="626caeaa39-a-62-11">Read Case Studies →</a>
+          <a className="si-readall" href="/case-studies" data-comment-anchor="626caeaa39-a-62-11">Read Case Studies →</a>
         </div>
       </div>
     </section>);

@@ -15,14 +15,14 @@ const HowDalgoHelps = () => {
       title: 'Data Integration Platform',
       img: 'assets/illus/data-pipeline.webp',
       body: 'Bring spreadsheets, CRMs, surveys, and programme data into one trusted source of truth without replacing your existing tools.',
-      cta: { label: 'Explore the Platform', href: 'product.html' },
+      cta: { label: 'Explore the Platform', href: '/product' },
     },
     {
       cat: 'Reporting',
       title: 'Reporting & Decision Support',
       img: 'assets/illus/reports-alert.webp',
       body: 'Create dashboards, automate donor reporting, and monitor programme performance using reliable, up-to-date data.',
-      cta: { label: 'See Reporting', href: 'product.html' },
+      cta: { label: 'See Reporting', href: '/product' },
     },
   ];
   return (

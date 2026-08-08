@@ -33,7 +33,7 @@ window.featuredResource = function () {
 window.trialCta = function () {
   return window.SITE_CONFIG.TRIAL_READY
     ? { label: 'Try the Platform', href: window.SITE_CONFIG.TRIAL_URL, ext: true }
-    : { label: 'Contact Us', href: 'contact.html', ext: false };
+    : { label: 'Contact Us', href: '/contact', ext: false };
 };
 // Every "Book a Free Consultation" CTA resolves through this — one destination, always external.
 window.consultCta = function () {

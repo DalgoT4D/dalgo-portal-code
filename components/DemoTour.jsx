@@ -170,7 +170,7 @@ const DemoTour = () => {
                   <h3 id="dtr-end-t">{end.title}</h3>
                   <p>{end.desc}</p>
                   <div className="dtr-card-actions">
-                    {end.next ? <button type="button" className="btn btn-primary" onClick={() => startScope(end.next)}>{end.nextLabel}</button> : (() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: 'contact.html' }; return <a className="btn btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noreferrer' : undefined}>{tc.label} →</a>; })()}
+                    {end.next ? <button type="button" className="btn btn-primary" onClick={() => startScope(end.next)}>{end.nextLabel}</button> : (() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: '/contact' }; return <a className="btn btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noreferrer' : undefined}>{tc.label} →</a>; })()}
                     <button type="button" className="btn btn-ghost" onClick={start}>{end.replay}</button>
                   </div>
                 </div>
