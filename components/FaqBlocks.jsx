@@ -198,12 +198,7 @@ const FaqHero = () => (
     eyebrow="FAQ"
     headline={<>Frequently asked <span className="cvh-hl">questions</span></>}
     body={<>Everything you need to know about Dalgo — what it is, what it can do, implementation, trust, and pricing. Still stuck? <a href="/contact">Contact us</a>.</>}
-  >
-    <div className="cvh-visual">
-      <figure className="cvh-figure cvh-figure-illus">
-        <img loading="lazy" src="assets/illus/reports-alert.webp" alt="Dalgo reports and alerts, the subject of many of these questions" width="1100" height="654" />
-      </figure>
-    </div>
-  </SiteHero>
+    image={{ src: 'assets/hero/faq.webp', alt: 'Two nonprofit colleagues working through their data setup together', kind: 'photo' }}
+  />
 );
 Object.assign(window, { FAQ_DATA, FaqItem, FaqMaster, FaqMini, FaqStillBand, FaqHero });

@@ -7,6 +7,7 @@ const ImpactHero = () => (
     eyebrow="Impact"
     headline={<>Real outcomes,<br /><span className="cvh-hl">across 25+ nonprofits</span></>}
     body="From a week of reporting down to an hour — see what nonprofits do once their data is clean, connected, and finally theirs."
+    image={{ src: 'assets/hero/case-studies.webp', alt: 'A nonprofit team reviewing programme results together on a laptop', kind: 'photo' }}
   />
 );
 

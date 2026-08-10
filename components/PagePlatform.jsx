@@ -8,13 +8,8 @@ const AboutHero = () => (
     eyebrow="Product"
     headline={<>One platform for all your <span className="cvh-hl">nonprofit data needs</span></>}
     body="Surveys, spreadsheets, CRMs and case tools — brought together, cleaned, and connected in one place your whole team can trust."
-  >
-    <div className="cvh-visual">
-      <figure className="cvh-figure cvh-figure-illus">
-        <img loading="lazy" width="1100" height="654" src="assets/illus/dashboard-charts.webp" alt="A Dalgo dashboard illustration — programme metrics and monthly totals at a glance" />
-      </figure>
-    </div>
-  </SiteHero>
+    image={{ src: 'assets/illus/dashboard-charts.webp', alt: 'A Dalgo dashboard illustration — programme metrics and monthly totals at a glance', kind: 'illustration' }}
+  />
 );
 
 // Purpose / People / Platform — the three paragraphs, moved below the hero as a left-aligned band

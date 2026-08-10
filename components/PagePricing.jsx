@@ -3,6 +3,8 @@
 // tokens.css + app.css, zero !important). The alternate font foundations named in the
 // v2 brief belong to a different template and conflict with CLAUDE.md — do not import them.
 
+// NOTE: the hero illustration is still dashboard-charts, shared with /product. Awaiting
+// Stuti's call on whether pricing gets its own artwork (BM-395) — status quo, not a decision.
 const PricingHero = () => (
   <SiteHero
     eyebrow="Pricing"
@@ -12,16 +14,8 @@ const PricingHero = () => (
       <p className="pricing-anchor"></p>
       <HeroCTAs secondaryLabel="Book Free Consultation" secondaryHref={window.SITE_CONFIG.CONSULT_FORM} />
     </>}
-  >
-    {/* One product illustration, not the old collage. The earlier copy-only hero left this page
-        in the short solo tier while Home/Product/Consulting/Community sat in the tall visual
-        tier — switching tabs jumped the fold. A single .cvh-figure-illus fixes both. */}
-    <div className="cvh-visual">
-      <figure className="cvh-figure cvh-figure-illus">
-        <img loading="lazy" src="assets/illus/dashboard-charts.webp" alt="A Dalgo dashboard — everything included in the flat platform price" width="1100" height="654" />
-      </figure>
-    </div>
-  </SiteHero>
+    image={{ src: 'assets/illus/dashboard-charts.webp', alt: 'A Dalgo dashboard — everything included in the flat platform price', kind: 'illustration' }}
+  />
 );
 
 const Check = () => (

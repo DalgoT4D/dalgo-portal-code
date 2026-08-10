@@ -96,6 +96,14 @@ p { margin: 0; }
   -webkit-text-fill-color: var(--teal-ink);
   font-style: normal; font-weight: inherit;
 }
+/* nowrap keeps a one- or two-word accent from splitting mid-phrase, which is right on a wide
+   column. But several accents are longer than that — "across 25+ nonprofits" is 373px at the
+   mobile H1 size — and nowrap made them overflow a 327px column by 46px, clipping the headline
+   off the right edge with no way to scroll to it. Released once the layout stacks: below this
+   width the accent must be allowed to break like any other text. */
+@media (max-width: 1024px) {
+  .hl-underline, .cvh-hl, .pf-title-hl, .cmh-wa-h .hl-underline { white-space: normal; }
+}
 
 /* Body links (the only place body text turns teal) */
 p a, li a, .section-sub a, .cvh-sub a, .nurture-p a, .zz-p a, .faq-a a, .legal-block p a {
@@ -200,58 +208,60 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .nav-mobile, .nav-scrim { display: none; }
 
 /* ---------- 7. SiteHero (.cvh) ---------- */
+/* ═══════════════════════════════════════════════════════════════════════════════
+   HERO SYSTEM — one structure, one height, one frame ratio, every page.
+   Ratified 10 Aug 2026 (Stuti): "Unified 3:2 panel".
+
+   Replaces four competing treatments that had grown up page by page:
+     .cvh-figure          4:3   (community)
+     .cvh-figure-illus   16:10  (product / pricing / faq)  + its own tinted container
+     .cvh-figure-cover   fluid  (consulting, stretched to the copy height)
+     .fc-stage            4:3   (home — an entirely separate frame, 16px radius)
+   ...plus a two-tier height system (392 with an image / 300 without) and a copy
+   column that changed width with it (596 / 720). Measured cost: a 92px height jump
+   and a 124px measure jump between pages, with up to 169px of dead column.
+
+   The invariants, in one place:
+     - hero height is --hero-h. NOT the copy, NOT the CTA count, NOT the image.
+     - the frame is 3:2 and fills its column. One ratio, both asset categories.
+     - the eyebrow and the frame's top edge share one line (delta 0).
+     - the copy column is one width on every page.
+   Category treatment differs only by fill + elevation, never by geometry. ═══════ */
 .cvh { background: var(--surface-0); border-bottom: 1px solid var(--hairline); padding: var(--section-pad-sm) 0; }
-/* Consistent hero height across ALL pages → no vertical jump when switching nav tabs.
-   The floor sits just above the tallest hero copy (Consulting, ~417px); shorter heroes
-   grow to match and centre their content. Mobile drops the floor (heroes stack). */
-.cvh-grid { max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px); display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px); align-items: start; min-height: 392px; }
-/* 392px = the tallest hero's natural height (Consulting). The floor exists so every visual
-   hero is the same height and switching tabs doesn't shift the fold; sizing it to the tallest
-   real content rather than a round 440 removes ~100px of dead space that top-aligning the
-   columns had pushed to the bottom of the shorter pages. */
-/* Copy is TOP-aligned in every hero so the eyebrow starts at the same y on every page.
-   With align-items:center the start position depended on how tall that page's copy was,
-   so the eyebrow sat anywhere from 32px to 125px down and the fold jumped between tabs.
-   The figure keeps its own align-self:center, so the image is unaffected. */
-/* Solo heroes (no right-hand visual — About/FAQ/Pricing/Case Studies): their own
-   consistent, shorter floor so they equalise with each other without inheriting the
-   tall visual-hero height (which would leave a big empty band under short copy).
-   Top-aligned so the heading sits naturally under the nav. */
-.cvh-grid-solo { grid-template-columns: 1fr; align-items: start; min-height: 300px; }
-/* Cap the text measure on solo heroes. Without this the copy column ran the full 1136px
-   while visual heroes sit at 597px, so the headline measure nearly doubled when switching
-   tabs — the width jump. 720px keeps the longest solo H1 (case-studies, 484px) comfortable
-   while landing close to the visual tier. */
-.cvh-grid-solo .cvh-copy { max-width: 720px; }
-.cvh-copy { min-width: 0; }
+.cvh-grid {
+  max-width: var(--container); margin: 0 auto; padding: 0 clamp(24px, 5vw, 32px);
+  display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(40px, 5vw, 72px);
+  align-items: start; min-height: var(--hero-h);
+}
+/* --hero-h (336px) is the tallest real copy stack, measured at the 596px column with a
+   reserved CTA row on every page. Sizing the floor to that means no page is ever clipped
+   and no page carries a hole: the 3:2 frame is 312px, so the remainder is a uniform 24px
+   on all ten pages. Do not set a per-page hero height. */
+.cvh-grid-solo { /* awaiting artwork — same grid and height so nothing jumps meanwhile */ }
+.cvh-copy { min-width: 0; max-width: var(--measure-hero-copy); }
 .cvh-eyebrow { margin-bottom: 18px; }
 .cvh-h1 { margin: 0 0 20px; }
 .cvh-sub { max-width: var(--measure-hero-sub); margin: 0 0 32px; }
-.cvh-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.cvh-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; min-height: 44px; }
+/* Pages with no CTA reserve the row rather than letting the copy stack end early, so the
+   internal rhythm is the same everywhere. Height matches a pill button. */
+.cvh-ctas-reserved { min-height: 44px; }
 .cvh-help { margin: 22px 0 0; font-size: 14px; color: var(--ink-2); }
 .cvh-help a { color: var(--teal-ink); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-/* ---- Shared hero alignment rule -------------------------------------------------
-   The eyebrow is the top reference: the copy column and the right-hand visual both
-   start on the same line, so the H1 block reads as connected to the image or cards.
-   Two things were breaking it:
-     1. .cvh-visual was align-self:center, so the visual was centred in the 440px grid
-        while the copy top-aligned — the visual sat 43-73px lower depending on how tall
-        that page's figure was.
-     2. .cvh-figure is a <figure>, and the UA default `figure { margin: 1em 40px }`
-        leaked an 18px margin-top. The rule set margin-left:auto and never zeroed it.
-   Fixed for every hero at once — no page-specific offsets anywhere. -------------- */
+/* The frame. align-self:start puts its top edge on the eyebrow's line; margin is zeroed
+   because <figure> carries a UA default of `margin: 1em 40px` which otherwise leaks an
+   18px offset and breaks that alignment. */
 .cvh-visual { position: relative; min-width: 0; align-self: start; }
-.cvh-figure { position: relative; width: 100%; max-width: 512px; margin: 0 0 0 auto; aspect-ratio: 4/3; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); }
-.cvh-figure img { width: 100%; height: 100%; object-fit: cover; }
-/* Illustration hero (product): wider ratio so the mint-gradient artwork isn't cropped;
-   softer elevation because it's a graphic, not a photo. */
-.cvh-figure-illus { aspect-ratio: 16 / 10; box-shadow: var(--shadow-card); background: var(--surface-1); }
-.cvh-figure-illus img { object-fit: cover; }
-/* End-to-end frame (consulting): the photo panel stretches to the full height of the
-   copy column and fills its column width edge-to-edge — a bolder, framed portrait. */
-.cvh-grid:has(.cvh-visual-cover) { align-items: stretch; }
-.cvh-visual-cover { align-self: stretch; display: flex; }
-.cvh-figure-cover { max-width: none; aspect-ratio: auto; height: 100%; min-height: 380px; }
+.cvh-figure {
+  position: relative; width: 100%; margin: 0; aspect-ratio: 3 / 2;
+  border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg);
+}
+.cvh-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Illustration: the mint gradient is baked into the asset, full-bleed to all four edges,
+   so the frame adds no background and no padding — a container here produced a visible
+   box-in-a-box against the artwork's own deeper gradient. Softer elevation because it is
+   a graphic, not a window. Assets are authored at 1440x960 (3:2) so nothing crops. */
+.cvh-figure-illus { box-shadow: var(--shadow-card); }
 /* Community-hero collage */
 .cvh-collage { position: relative; height: 540px; }
 .cvh-card { position: absolute; border-radius: var(--r-md); overflow: hidden; background: var(--surface-0); box-shadow: var(--shadow-lg); }
@@ -329,17 +339,9 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .hero-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 18px 14px; font-size: 13.5px; font-weight: 600; color: #fff; background: linear-gradient(transparent, rgba(10,37,64,.74)); }
 
 /* ---------- 9. Stories carousel (.fc) — clean auto-advancing showcase ---------- */
-.fc { position: relative; max-width: var(--container); margin: 0; }
-.hero-carousel { position: relative; }   /* the 18px nudge is gone: the shared hero rule aligns this to the eyebrow */
-.hero-carousel .fc { max-width: 100%; }
-.fc-stage { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
-.fc-track { display: flex; height: 100%; will-change: transform; transition: transform .8s cubic-bezier(.4, 0, .2, 1); }
-.fc-track.no-anim { transition: none; }
-.fc-slide { flex: 0 0 100%; height: 100%; }
-.fc-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.fc-playpause { position: absolute; right: 14px; bottom: 14px; z-index: 2; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--hairline); background: var(--surface-0); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
-.fc-playpause svg { fill: currentColor; }
-@media (prefers-reduced-motion: reduce) { .fc-track { transition: none; } }
+/* .fc-* removed 10 Aug 2026: the homepage was the one hero with its own parallel frame
+   (4:3, 16px radius) around what turned out to be a single static image. It now uses the
+   shared .cvh-figure like every other page. */
 
 /* ---------- 10. Marquee ---------- */
 .marquee-wrap { padding: var(--section-pad-sm) 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
@@ -1231,7 +1233,7 @@ p strong, li strong { font-weight: 600; color: inherit; }
    ============================================================ */
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
 textarea:focus-visible, [tabindex]:focus-visible, [role="tab"]:focus-visible,
-.fc-dot:focus-visible, .ch-chip:focus-visible {
+.ch-chip:focus-visible {
   outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px;
 }
 html, body { max-width: 100%; overflow-x: clip; }
@@ -1347,10 +1349,19 @@ html, body { max-width: 100%; overflow-x: clip; }
   .nav-m-sub a:hover { color: var(--teal-ink); }
   .nav-m-ctas { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
   .nav-m-ctas .btn { width: 100%; justify-content: center; min-height: 48px; font-size: 16px; }
+  /* Stacked hero. The height floor is released through --hero-h (tokens.css keys the same
+     1024px breakpoint — keep them in step). The frame keeps its 3:2 ratio but needs a
+     ceiling, or it spans the whole container once the 0.88fr column stops bounding it. */
   .cvh-grid, .imx-hero-grid { grid-template-columns: 1fr; gap: 44px; min-height: 0; align-items: start; }
   .cvh-collage { height: 440px; max-width: 560px; margin: 0 auto; width: 100%; }
   .cvh-copy, .cvh-sub { max-width: none; }
-  .cvh-figure, .impact-portrait { margin: 0 auto; }
+  .cvh-figure { max-width: 560px; margin: 0 auto; }
+  .impact-portrait { margin: 0 auto; }
+  /* The reserved CTA row exists to keep the two columns in the same rhythm. Stacked, there is
+     no second column to hold rhythm with, and on a page with no CTA it left 120px of blank
+     between the supporting copy and the image. Collapse it — the empty row earns nothing here.
+     Pages that DO have CTAs are untouched; .cvh-ctas keeps its own min-height. */
+  .cvh-ctas-reserved { display: none; }
   .fx-badges-tr { position: static; margin: 0 0 32px auto; }
 }
 
@@ -1409,7 +1420,7 @@ html, body { max-width: 100%; overflow-x: clip; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-marquee-track, .fc-slide, .st-rail-fill { animation: none; transition: none; }
+  .logo-marquee-track, .st-rail-fill { animation: none; transition: none; }
 }
 
 /* ============ Pricing v2 ============ */

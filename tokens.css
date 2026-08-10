@@ -93,6 +93,17 @@
   --measure-heading: 30ch;   /* centered section titles & CTA headings (40px tier) */
   --measure-heading-wide: 34ch; /* section titles inside the widened .section-head-center */
   --measure-hero-sub: 58ch;  /* hero subhead / lede */
+  --measure-hero-copy: 596px; /* hero copy column — ONE width on every page (was 596 with an
+                                 image / 720 without, which changed the headline measure
+                                 between tabs). Matches the 1.12fr column at 1440. */
+
+  /* Hero content height — this token on every page, never the copy, the CTA count, or the
+     image's intrinsic size. Set to the tallest real copy stack measured in place at
+     --measure-hero-copy with the reserved CTA row: /privacy at 343px, rounded up to the next
+     8pt step. Anything lower and privacy alone grows past the floor, which is exactly the
+     content-driven height this system exists to prevent. The 3:2 frame renders ~315px, so the
+     remainder below it is a uniform ~29px sitewide. */
+  --hero-h: 344px;
 
   /* Fluid page-hero H1 — scales with the viewport so long headlines fit ~2 lines
      on laptops while keeping full 56px impact where the column is wide enough. */
@@ -116,3 +127,16 @@
   --container: 1200px;
 }
 @media (max-width: 768px) { :root { --section-pad: 40px; --section-pad-lg: 56px; --section-pad-sm: 24px; } }
+/* The floor has to clear the tallest copy AT THAT WIDTH, and copy grows as the column narrows.
+   Measured tallest copy across all ten pages: 343px at 1440/1280, 341 at 1200, 349 at 1100,
+   365 at 1040, 389 at 1025 (the narrowest two-column width). One floor for the whole range
+   would therefore have to be 392 everywhere, padding the desktop hero by 48px of dead space.
+   So the two-column band gets its own floor. This is a breakpoint, not a page exception —
+   every page still shares one height at any given viewport, which is the invariant that
+   matters. If hero copy changes, re-measure both bands. */
+@media (min-width: 1025px) and (max-width: 1200px) { :root { --hero-h: 392px; } }
+
+/* Heroes stack at 1024px (see the .cvh-grid rule in app.css — this breakpoint must match it),
+   so the two-column height floor no longer applies: the copy and the frame each take their
+   natural height and a floor would only add dead space under a stacked hero. */
+@media (max-width: 1024px) { :root { --hero-h: 0px; --measure-hero-copy: none; } }

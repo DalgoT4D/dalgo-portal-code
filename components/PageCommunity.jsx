@@ -1,30 +1,23 @@
 // ===== Community page — central hub (Webinar · Newsletters · WhatsApp) =====
 
+// Was a hand-rolled copy of the whole .cvh structure rather than a SiteHero call, which is
+// how it drifted to its own frame ratio. Now goes through the shared template like every
+// other page (10 Aug 2026).
 const CommunityHero = () => (
-  <section className="cvh" id="events">
-    <div className="cvh-grid">
-      <div className="cvh-copy">
-        <div className="cvh-eyebrow">Community</div>
-        <h1 className="cvh-h1">Join Dalgo's <span className="cvh-hl">Data Community</span></h1>
-        <p className="cvh-sub">
-          A place for nonprofits, funders, researchers, and data practitioners to work out how data and AI
-          can do more for social impact.
-        </p>
-        <div className="cvh-ctas">
-          <a className="cmh-btn cmh-btn-primary" href="https://chat.whatsapp.com/GWXbfC0fXKf2RVfKiCaOEy?s=cl&p=i&ilr=4" target="_blank" rel="noopener">
-            Join WhatsApp Community
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </a>
-          <a className="cmh-btn cmh-btn-ghost" href="#past-videos">Browse Recordings</a>
-        </div>
-      </div>
-      <div className="cvh-visual">
-        <figure className="cvh-figure">
-          <img loading="lazy" width="1600" height="1067" src="assets/community/bootcamp-2.webp" alt="Nonprofit data practitioners at a Dalgo community workshop" />
-        </figure>
-      </div>
-    </div>
-  </section>
+  <SiteHero
+    id="events"
+    eyebrow="Community"
+    headline={<>Join Dalgo's <span className="cvh-hl">Data Community</span></>}
+    body="A place for nonprofits, funders, researchers, and data practitioners to work out how data and AI can do more for social impact."
+    image={{ src: 'assets/community/bootcamp-2.webp', alt: 'Nonprofit data practitioners at a Dalgo community workshop', kind: 'photo' }}
+    ctas={<>
+      <a className="cmh-btn cmh-btn-primary" href="https://chat.whatsapp.com/GWXbfC0fXKf2RVfKiCaOEy?s=cl&p=i&ilr=4" target="_blank" rel="noopener">
+        Join WhatsApp Community
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+      <a className="cmh-btn cmh-btn-ghost" href="#past-videos">Browse Recordings</a>
+    </>}
+  />
 );
 
 const CommunityNewsletters = () => {
