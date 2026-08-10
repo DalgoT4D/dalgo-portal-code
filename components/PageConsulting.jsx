@@ -10,7 +10,7 @@ const ConsultingHero = () => (
     headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
     ctas={<HeroCTAs primaryLabel="Book Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
-    image={{ src: 'assets/hero/consulting.webp', alt: 'Two nonprofit data practitioners working through their data systems together at a Dalgo consulting workshop', kind: 'photo' }}
+    image={{ src: 'assets/hero/consulting.webp', alt: 'A nonprofit data practitioner building charts in a Dalgo dashboard during a consulting session', kind: 'photo' }}
   />
 );
 const CO_ICON = {
@@ -96,186 +96,52 @@ const CONSULT_DESK = [
     quote: <>Pratiksha and Siddhant were very helpful during the initial setup. They were <strong>very patient with team members and explained processes properly</strong> and sometime multiple times as well.</>,
     name: 'Shivangi Desai', desig: 'Tech Lead' },
 ];
+// Continuous marquee, matching the logo carousel (Stuti, 10 Aug). Replaces the Embla carousel
+// that was here: no JS, no timer, no visibility guards, and no rotation control — a play/pause
+// button is not something this UI uses. The animation is pure CSS, pauses on hover, and the
+// site's prefers-reduced-motion block already disables it.
+//
+// Seamless loop, same trick as .logo-marquee-track: the cards are rendered EXACTLY twice and
+// each slot is a FIXED width including its own right margin, so translate3d(-50%) lands
+// precisely on the start of the second set. A percentage width or a container `gap` breaks
+// that — a gap leaves half a gap of drift at the wrap point, which reads as a stutter.
+// The duplicate set is aria-hidden so screen readers and search engines see each quote once.
 const ConsultantsDesk = () => {
-  const viewportRef = React.useRef(null);
-  const emblaRef = React.useRef(null);
-  const [active, setActive] = React.useState(0);
-  const [snaps, setSnaps] = React.useState([0]);
-  // User intent for rotation, owned by React so the APG-required control can render its state.
-  // Starts true; prefers-reduced-motion is honoured inside the autoplay effect rather than
-  // here, so a reduced-motion visitor still gets a working control if they choose to use it.
-  const [playing, setPlaying] = React.useState(true);
-  const restartRef = React.useRef(() => {});
-  React.useEffect(() => {
-    const Embla = window.EmblaCarousel;
-    const vp = viewportRef.current;
-    if (!Embla || !vp) return;
-    // No continuous AutoScroll: constantly drifting text never lets the eye settle, which is
-    // what made the green tags read as "jumping". Logos can marquee; quotes cannot. So the
-    // track snaps slide-by-slide, and autoplay below advances it one snap at a time.
-    const embla = Embla(vp, { loop: true, align: 'start', containScroll: 'trimSnaps', dragFree: false, duration: 26 });
-    emblaRef.current = embla;
-    const sync = () => { setSnaps(embla.scrollSnapList()); setActive(embla.selectedScrollSnap()); };
-    sync();
-    embla.on('select', () => setActive(embla.selectedScrollSnap()));
-    embla.on('reInit', sync);
-
-    return () => { embla.destroy(); };
-  }, []);
-
-  // ---- Autoplay, per the W3C APG carousel pattern ------------------------------------
-  // https://www.w3.org/WAI/ARIA/apg/patterns/carousel/
-  //
-  // Autoplay had never been implemented: the old effect's comment promised "the optional
-  // discrete autoplay below", nothing followed it, and it computed a prefers-reduced-motion
-  // flag it never used. The carousel only moved when you clicked a dot.
-  //
-  // Deliberately in its OWN effect, keyed on `playing`, so toggling the rotation control
-  // never tears down and re-initialises Embla (which would reset the carousel to slide 1).
-  //
-  // APG rules this follows:
-  //   - a visible control that stops and restarts rotation is REQUIRED, not optional
-  //   - rotation stops on hover
-  //   - rotation stops when any element inside receives keyboard focus, and does NOT
-  //     resume on blur — only the user reactivating the control resumes it
-  // Plus two of our own, which are about not wasting work rather than accessibility:
-  // off-screen and hidden-tab both pause.
-  React.useEffect(() => {
-    const embla = emblaRef.current;
-    const vp = viewportRef.current;
-    if (!embla || !vp) return;
-    const DELAY = 5500;                 // long enough to read a quote before it moves on
-    const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let timer = null, hovered = false, visible = false;
-    const stop = (reason) => {
-      if (timer) { clearInterval(timer); timer = null; }
-      if (reason) vp.dataset.autoplay = reason;
-    };
-    // data-autoplay names the current state on the element. "It isn't moving" has six
-    // legitimate causes and no way to tell them apart from outside; this makes the reason
-    // inspectable instead of guesswork. stop() takes the reason so the attribute can never
-    // claim "running" while the timer is actually cleared.
-    const start = () => {
-      stop();
-      if (!playing)         { vp.dataset.autoplay = 'paused-by-user';      return; }
-      if (reduceMQ.matches) { vp.dataset.autoplay = 'off-reduced-motion';  return; }
-      if (!visible)         { vp.dataset.autoplay = 'paused-offscreen';    return; }
-      if (hovered)          { vp.dataset.autoplay = 'paused-hover';        return; }
-      if (document.hidden)  { vp.dataset.autoplay = 'paused-tab-hidden';   return; }
-      timer = setInterval(() => embla.scrollNext(), DELAY);
-      vp.dataset.autoplay = 'running';
-    };
-    restartRef.current = () => { stop(); start(); };   // a dot click resets the clock, so a
-                                                       // slide you just chose does not slide
-                                                       // away a moment later
-
-    const onEnter = () => { hovered = true; stop('paused-hover'); };
-    const onLeave = () => { hovered = false; start(); };
-    // APG: keyboard focus stops rotation permanently until the control is used again. Landing
-    // on a quote with Tab and having it slide away mid-sentence is the exact failure this
-    // prevents, so this sets user intent to paused rather than pausing temporarily.
-    const onFocusIn = () => setPlaying(false);
-    const onVis = () => (document.hidden ? stop('paused-tab-hidden') : start());
-    vp.addEventListener('pointerenter', onEnter);
-    vp.addEventListener('pointerleave', onLeave);
-    vp.addEventListener('focusin', onFocusIn);
-    document.addEventListener('visibilitychange', onVis);
-    const onDown = () => stop('paused-drag');
-    const onUp = () => { stop(); start(); };
-    // wrapped, not passed by reference: Embla invokes callbacks with (emblaApi, eventName),
-    // so `embla.on('pointerDown', stop)` would hand the API object to stop() as the reason
-    embla.on('pointerDown', onDown);
-    embla.on('pointerUp', onUp);
-
-    // Seed `visible` synchronously rather than waiting for the observer's first callback: a
-    // hidden document does no intersection work, so a page opened in a background tab and
-    // later brought forward would never get a callback and `visible` would stay false forever.
-    const onScreen = () => { const b = vp.getBoundingClientRect(); return b.top < window.innerHeight && b.bottom > 0; };
-    visible = onScreen();
-    // threshold 0, not a fraction: the carousel is ~450px tall, so on a short viewport a
-    // "35% visible" rule is unreachable and autoplay would silently never start.
-    const io = new IntersectionObserver((es) => { visible = es[0].isIntersecting; start(); }, { threshold: 0 });
-    io.observe(vp);
-    start();
-
-    const onMQ = () => { stop(); start(); };
-    if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', onMQ);
-    else reduceMQ.addListener(onMQ);
-
-    return () => {
-      stop();
-      io.disconnect();
-      vp.removeEventListener('pointerenter', onEnter);
-      vp.removeEventListener('pointerleave', onLeave);
-      vp.removeEventListener('focusin', onFocusIn);
-      document.removeEventListener('visibilitychange', onVis);
-      if (reduceMQ.removeEventListener) reduceMQ.removeEventListener('change', onMQ);
-      else reduceMQ.removeListener(onMQ);
-      embla.off('pointerDown', onDown);
-      embla.off('pointerUp', onUp);
-    };
-  }, [playing]);
+  const track = [...CONSULT_DESK, ...CONSULT_DESK];
   return (
-    <section className="pg-section cvc-section" id="customer-voices"
-             aria-roledescription="carousel" aria-label="Why nonprofits choose to partner with Dalgo">
+    <section className="pg-section cvc-section" id="customer-voices" aria-label="Why nonprofits choose to partner with Dalgo">
       <div className="container">
         <div className="section-head section-head-center">
           <p className="pg-eyebrow">Customer voices</p>
           <h2 className="section-title">Why nonprofits choose to partner with <span className="hl-underline">Dalgo</span></h2>
         </div>
-        {/* aria-live="off" is what the APG specifies while a carousel auto-rotates — announcing
-            every automatic slide change would talk over whatever the visitor is actually doing */}
-        <div className="cvc-embla" ref={viewportRef} aria-live="off" aria-atomic="false">
-          <div className="cvc-embla-container">
-            {CONSULT_DESK.map((c, i) => (
-              <div className="cvc-slide" key={i} role="group" aria-roledescription="slide"
-                   aria-label={`${i + 1} of ${CONSULT_DESK.length}: ${c.org}`}>
-                <article className={`cvc-card${c.accent ? ' is-accent' : ''}`}>
-                  <div className="cvc-body">
-                    <div className="cvc-head">
-                      {c.logo
-                        ? <img className="cvc-logo" src={c.logo} alt={c.org} loading="lazy" />
-                        : <span className="cvc-org-top">{c.org}</span>}
-                      <span className="cvc-mark" aria-hidden="true">“</span>
-                    </div>
-                    <h3 className="cvc-tag">{c.tag}</h3>
-                    <blockquote className="cvc-quote">{c.quote}</blockquote>
+      </div>
+      <div className="cvc-marquee">
+        <div className="cvc-marquee-track">
+          {track.map((c, i) => (
+            <div className="cvc-slide" key={i} aria-hidden={i >= CONSULT_DESK.length ? 'true' : undefined}>
+              <article className={`cvc-card${c.accent ? ' is-accent' : ''}`}>
+                <div className="cvc-body">
+                  <div className="cvc-head">
+                    {c.logo
+                      ? <img className="cvc-logo" src={c.logo} alt={c.org} loading="lazy" />
+                      : <span className="cvc-org-top">{c.org}</span>}
+                    <span className="cvc-mark" aria-hidden="true">“</span>
                   </div>
-                  <footer className="cvc-attr">
-                    {c.avatar && <img className="cvc-avatar" src={c.avatar} alt={c.name} width="48" height="48" loading="lazy" />}
-                    <span className="cvc-who">
-                      <span className="cvc-name">{c.name}</span>
-                      <span className="cvc-desig">{c.desig}</span>
-                      <span className="cvc-orgname">{c.org}</span>
-                    </span>
-                  </footer>
-                </article>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="cvc-controls">
-          {/* APG: a carousel that auto-rotates MUST have a button to stop and restart rotation,
-              and its label changes to describe the action it will perform. This is also the
-              WCAG 2.2.2 mechanism, and it makes the rotation state legible — without it there
-              is no way to tell "paused because you're hovering" from "broken". */}
-          <button
-            type="button"
-            className={'cvc-rotate' + (playing ? ' is-playing' : '')}
-            aria-label={playing ? 'Stop slide rotation' : 'Start slide rotation'}
-            onClick={() => setPlaying((p) => !p)}
-          >
-            {playing ? (
-              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="6" width="3.4" height="12" rx="1" /><rect x="13.6" y="6" width="3.4" height="12" rx="1" /></svg>
-            ) : (
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5l8 5.5-8 5.5z" /></svg>
-            )}
-          </button>
-          <div className="cvc-dots">
-            {snaps.map((_, i) => (
-              <button type="button" key={i} className={'cvc-dot' + (i === active ? ' on' : '')} aria-label={`Go to slide ${i + 1}`} onClick={() => { if (emblaRef.current) emblaRef.current.scrollTo(i); restartRef.current(); }} />
-            ))}
-          </div>
+                  <h3 className="cvc-tag">{c.tag}</h3>
+                  <blockquote className="cvc-quote">{c.quote}</blockquote>
+                </div>
+                <footer className="cvc-attr">
+                  {c.avatar && <img className="cvc-avatar" src={c.avatar} alt={c.name} width="48" height="48" loading="lazy" />}
+                  <span className="cvc-who">
+                    <span className="cvc-name">{c.name}</span>
+                    <span className="cvc-desig">{c.desig}</span>
+                    <span className="cvc-orgname">{c.org}</span>
+                  </span>
+                </footer>
+              </article>
+            </div>
+          ))}
         </div>
       </div>
     </section>
