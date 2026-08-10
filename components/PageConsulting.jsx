@@ -10,7 +10,7 @@ const ConsultingHero = () => (
     headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
     ctas={<HeroCTAs primaryLabel="Book Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
-    image={{ src: 'assets/hero/consulting.webp', alt: 'A nonprofit data practitioner building charts in a Dalgo dashboard during a consulting session', kind: 'photo' }}
+    image={{ src: 'assets/hero/consulting.webp', alt: 'A Dalgo team member helping two nonprofit colleagues work through their data on a laptop', kind: 'photo' }}
   />
 );
 const CO_ICON = {
