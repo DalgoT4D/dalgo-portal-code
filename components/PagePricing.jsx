@@ -30,7 +30,12 @@ const Check = () => (
 const PRICING_REGIONS = {
   india: {
     label: 'Based in India',
-    saas: { price: '₹2.04L', period: '/year', alt: 'or ₹17,000/month' },
+    // `price` stays the EXACT figure and remains the source of truth: scripts/faq-schema.mjs
+    // derives "2.04" from it and fails the build if the FAQ answer drifts. `display` is the
+    // rounded number shown on the card (Stuti, 10 Aug) with an asterisk pointing at the exact
+    // amount — rounding ₹2.04L down to ₹2L understates by ₹4,000, so the precise figure has to
+    // stay one glance away rather than being replaced.
+    saas: { price: '₹2.04L', display: '₹2L', period: '/year', alt: 'or ₹17,000/month', exact: '₹2,04,000' },
     consulting: { price: '₹2,500', period: '/hour' },
   },
   intl: {
@@ -67,8 +72,15 @@ const PricingPlans = () => {
               <p className="plan-tagline">The platform, hosted and maintained for you.</p>
             </div>
             <div className="plan-priceblock">
-              <div className="plan-price"><span className="plan-amt">{r.saas.price}</span><span className="plan-period">{r.saas.period}</span></div>
-              <div className="plan-note">{r.saas.alt}</div>
+              <div className="plan-price">
+                <span className="plan-amt">{r.saas.display || r.saas.price}</span>
+                <span className="plan-period">{r.saas.period}</span>
+                {r.saas.exact && <span className="plan-star" aria-hidden="true">*</span>}
+              </div>
+              <div className="plan-note">
+                {r.saas.alt}
+                {r.saas.exact && <span className="plan-rounded"> · *rounded — exact price {r.saas.exact}/year</span>}
+              </div>
             </div>
             <div className="plan-includes">
               <div className="plan-includes-h">Includes</div>

@@ -577,7 +577,24 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvc-desig { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
 .cvc-orgname { font-size: 13.5px; line-height: 1.4; color: var(--ink-2); }
 /* Dots */
-.cvc-dots { display: flex; justify-content: center; gap: 0; margin-top: 32px; }
+/* Rotation control + dots share one centred row. The control is required by the APG for any
+   carousel that auto-rotates, and it is what makes the rotation state legible: without it
+   "paused because your cursor is on it" is indistinguishable from "broken". */
+/* Rounded-price asterisk on the pricing card. The star is decorative (aria-hidden) — the
+   exact figure is spelled out in the note beneath, so assistive tech reads the real number
+   rather than an orphaned symbol. */
+.plan-star { font-size: .6em; vertical-align: super; color: var(--ink-2); margin-left: 2px; }
+.plan-rounded { color: var(--ink-2); }
+.cvc-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 32px; }
+.cvc-rotate {
+  width: 28px; height: 28px; padding: 0; display: grid; place-items: center; cursor: pointer;
+  border: 1px solid var(--hairline); border-radius: 50%; background: var(--surface-0);
+  color: var(--ink-2); transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.cvc-rotate svg { width: 13px; height: 13px; fill: currentColor; }
+.cvc-rotate:hover { color: var(--teal-ink); border-color: color-mix(in srgb, var(--teal-ink) 40%, #fff); }
+.cvc-rotate:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cvc-dots { display: flex; justify-content: center; gap: 0; }
 /* Button is a 24x24 hit area (WCAG 2.2 AA 2.5.8); the visible dot is the ::before,
    so the 8px dot / 26px active pill look is unchanged. gap:0 keeps 24px centre-to-centre. */
 .cvc-dot { width: 24px; height: 24px; border: 0; padding: 0; background: none; cursor: pointer; display: grid; place-items: center; transition: width var(--dur) var(--ease); }
