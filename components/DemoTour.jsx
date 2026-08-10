@@ -40,8 +40,8 @@ const DTR_INTRO = {
 };
 const DTR_END = {
   all: { title: "That's the full Dalgo journey", desc: "You just watched data flow from a raw spreadsheet all the way to a public, filterable dashboard — no code, start to finish.", next: null, replay: "Replay Demo" },
-  ingest: { title: "Connect: complete", desc: "Your data is flowing into the warehouse. Next, see how Dalgo cleans and models it into something dashboard-ready.", next: "transform", nextLabel: "Continue to Clean →", replay: "Replay Connect" },
-  transform: { title: "Clean: complete", desc: "Your table is clean, typed, and modeled. Next, turn it into a chart and a shareable dashboard.", next: "visualise", nextLabel: "Continue to Visualize →", replay: "Replay Clean" },
+  ingest: { title: "Connect: complete", desc: "Your data is flowing into the warehouse. Next, see how Dalgo cleans and models it into something dashboard-ready.", next: "transform", nextLabel: "Continue to Clean", replay: "Replay Connect" },
+  transform: { title: "Clean: complete", desc: "Your table is clean, typed, and modeled. Next, turn it into a chart and a shareable dashboard.", next: "visualise", nextLabel: "Continue to Visualize", replay: "Replay Clean" },
   visualise: { title: "That's the full picture", desc: "You've built a chart, assembled a dashboard, and published it publicly. That's the complete Dalgo workflow.", next: null, replay: "Replay Visualize" }
 };
 const DTR_MODES = [["all", "Full Journey", 27], ["ingest", "Connect", 5], ["transform", "Clean", 8], ["visualise", "Visualize", 14]];
@@ -170,7 +170,7 @@ const DemoTour = () => {
                   <h3 id="dtr-end-t">{end.title}</h3>
                   <p>{end.desc}</p>
                   <div className="dtr-card-actions">
-                    {end.next ? <button type="button" className="btn btn-primary" onClick={() => startScope(end.next)}>{end.nextLabel}</button> : (() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: '/contact' }; return <a className="btn btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noreferrer' : undefined}>{tc.label} →</a>; })()}
+                    {end.next ? <button type="button" className="btn btn-primary" onClick={() => startScope(end.next)}>{end.nextLabel}</button> : (() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: '/contact' }; return <a className="btn btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noreferrer' : undefined}>{tc.label}</a>; })()}
                     <button type="button" className="btn btn-ghost" onClick={start}>{end.replay}</button>
                   </div>
                 </div>

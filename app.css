@@ -580,11 +580,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
 /* Rotation control + dots share one centred row. The control is required by the APG for any
    carousel that auto-rotates, and it is what makes the rotation state legible: without it
    "paused because your cursor is on it" is indistinguishable from "broken". */
-/* Rounded-price asterisk on the pricing card. The star is decorative (aria-hidden) — the
-   exact figure is spelled out in the note beneath, so assistive tech reads the real number
-   rather than an orphaned symbol. */
-.plan-star { font-size: .6em; vertical-align: super; color: var(--ink-2); margin-left: 2px; }
-.plan-rounded { color: var(--ink-2); }
 /* Rotation control and dots removed 10 Aug: this section is a continuous CSS marquee, so
    there is nothing to step through — and a play/pause control is not used in this UI. */
 @media (max-width: 900px) { .cvc-slide { width: 340px; } }
