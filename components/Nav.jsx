@@ -40,9 +40,12 @@ const Nav = () => {
   // BM-335/346 (resolved 30 Jul): About moved out of Resources into footer-only; Learn + FAQ stay under Resources
   const tc = window.trialCta ? window.trialCta() : { label: 'Start Free Trial', href: 'https://insights.dalgo.org/trial', ext: true };
   const trialReady = !!(window.SITE_CONFIG && window.SITE_CONFIG.TRIAL_READY);
+  // BM-392: product documentation belongs in Resources. External, so it opens in a new tab —
+  // docs live on their own subdomain and we don't want to drop people out of the site.
   const resourceLinks = [
     { href: '/community', label: 'Community', desc: 'Webinars, meetups, and the Dalgo network' },
     { href: '/faq', label: 'FAQs', desc: 'Answers on pricing, setup, and security' },
+    { href: 'https://docs.dalgo.org/intro', label: 'Documentation', desc: 'Setup guides and reference for using Dalgo', ext: true },
   ];
   // Featured slot (psychology #4 Von Restorff, #11 self-expiring): next webinar from site-config.
   const featured = window.featuredResource ? window.featuredResource() : null;
@@ -79,7 +82,8 @@ const Nav = () => {
                 <div className="nav-dd-col">
                   <div className="nav-dd-col-label" aria-hidden="true">Resources</div>
                   {resourceLinks.map((l) => (
-                    <a key={l.href} href={l.href} role="menuitem" className="nav-dd-item">
+                    <a key={l.href} href={l.href} role="menuitem" className="nav-dd-item"
+                       target={l.ext ? '_blank' : undefined} rel={l.ext ? 'noopener' : undefined}>
                       <span className="nav-dd-item-t">{l.label}</span>
                       <span className="nav-dd-item-d">{l.desc}</span>
                     </a>
@@ -121,7 +125,10 @@ const Nav = () => {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
           </button>
           <div className="nav-m-sub" id="nav-m-resources" hidden={!resOpen}>
-            {resourceLinks.map((l) => <a key={l.href} href={l.href} onClick={closeMenu}>{l.label}</a>)}
+            {resourceLinks.map((l) => (
+              <a key={l.href} href={l.href} onClick={closeMenu}
+                 target={l.ext ? '_blank' : undefined} rel={l.ext ? 'noopener' : undefined}>{l.label}</a>
+            ))}
           </div>
           <div className="nav-m-ctas">
             <a href="/contact" className="btn btn-ghost" onClick={closeMenu}>Contact Us</a>

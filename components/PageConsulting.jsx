@@ -101,24 +101,107 @@ const ConsultantsDesk = () => {
   const emblaRef = React.useRef(null);
   const [active, setActive] = React.useState(0);
   const [snaps, setSnaps] = React.useState([0]);
+  const restartRef = React.useRef(() => {});
   React.useEffect(() => {
     const Embla = window.EmblaCarousel;
     const vp = viewportRef.current;
     if (!Embla || !vp) return;
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // No continuous AutoScroll: constantly drifting text never lets the eye settle, which is
-    // what made the green tags read as "jumping". Logos can marquee; quotes cannot. The track
-    // now snaps slide-by-slide via the dots/arrows, with the optional discrete autoplay below.
+    // what made the green tags read as "jumping". Logos can marquee; quotes cannot. So the
+    // track snaps slide-by-slide, and autoplay below advances it one snap at a time.
     const embla = Embla(vp, { loop: true, align: 'start', containScroll: 'trimSnaps', dragFree: false, duration: 26 });
     emblaRef.current = embla;
     const sync = () => { setSnaps(embla.scrollSnapList()); setActive(embla.selectedScrollSnap()); };
     sync();
     embla.on('select', () => setActive(embla.selectedScrollSnap()));
     embla.on('reInit', sync);
-    return () => { embla.destroy(); };
+
+    // ---- Discrete autoplay -----------------------------------------------------------
+    // This was documented in the comment above but never actually written — the effect
+    // computed a prefers-reduced-motion flag and then did nothing with it, so the carousel
+    // only ever moved when you clicked a dot.
+    //
+    // It pauses whenever advancing would work against the reader, which for a wall of
+    // quotes is most of the time:
+    //   - prefers-reduced-motion: never starts at all
+    //   - pointer over the track, or keyboard focus inside it: someone is reading it
+    //   - section scrolled out of view, or the tab is hidden: nothing to advance for
+    // Hover and focus pausing is also what satisfies WCAG 2.2.2 here (moving content
+    // needs a pause mechanism) without putting a play/pause button back on screen.
+    const DELAY = 5500;   // long enough to read a quote before it moves on
+    const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let timer = null, hovered = false, focused = false, visible = false;
+    // stop() takes the reason so data-autoplay can never claim "running" while the timer is
+    // actually cleared — which is exactly how a stale diagnostic misleads the next person.
+    const stop = (reason) => {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (reason) vp.dataset.autoplay = reason;
+    };
+    // data-autoplay names the current state on the element. It exists because "the carousel
+    // isn't moving" has five legitimate causes and no way to tell them apart from outside;
+    // this makes the reason inspectable instead of guesswork.
+    const start = () => {
+      stop();
+      if (reduceMQ.matches)  { vp.dataset.autoplay = 'off-reduced-motion'; return; }
+      if (!visible)          { vp.dataset.autoplay = 'paused-offscreen';   return; }
+      if (hovered)           { vp.dataset.autoplay = 'paused-hover';       return; }
+      if (focused)           { vp.dataset.autoplay = 'paused-focus';       return; }
+      if (document.hidden)   { vp.dataset.autoplay = 'paused-tab-hidden';  return; }
+      timer = setInterval(() => embla.scrollNext(), DELAY);
+      vp.dataset.autoplay = 'running';
+    };
+    const restart = () => { stop(); start(); };
+    restartRef.current = restart;   // dot clicks reset the clock, so a slide never jumps away
+                                    // a moment after you deliberately picked it
+
+    const onEnter = () => { hovered = true; stop('paused-hover'); };
+    const onLeave = () => { hovered = false; start(); };
+    const onFocusIn = () => { focused = true; stop('paused-focus'); };
+    const onFocusOut = () => { focused = false; start(); };
+    const onVis = () => (document.hidden ? stop('paused-tab-hidden') : start());
+    vp.addEventListener('pointerenter', onEnter);
+    vp.addEventListener('pointerleave', onLeave);
+    vp.addEventListener('focusin', onFocusIn);
+    vp.addEventListener('focusout', onFocusOut);
+    document.addEventListener('visibilitychange', onVis);
+    // wrapped, not passed by reference: Embla invokes callbacks with (emblaApi, eventName), so
+    // `embla.on('pointerDown', stop)` would hand the API object to stop() as the reason string
+    embla.on('pointerDown', () => stop('paused-drag'));
+    embla.on('pointerUp', () => restart());
+
+    // Seed `visible` synchronously rather than waiting for the observer's first callback.
+    // IntersectionObserver does not report while the document is hidden (a background tab does
+    // no intersection work), so relying on it for the INITIAL value meant autoplay could never
+    // start on a page that was opened in a background tab and later brought forward — the
+    // observer had nothing new to report, so `visible` stayed false forever.
+    const onScreen = () => { const b = vp.getBoundingClientRect(); return b.top < window.innerHeight && b.bottom > 0; };
+    visible = onScreen();
+    // threshold 0, not a fraction: the carousel is ~450px tall, so on a short viewport a
+    // "35% visible" rule can never be satisfied and autoplay would silently never start.
+    // Any part of it on screen is enough reason to advance.
+    const io = new IntersectionObserver((es) => { visible = es[0].isIntersecting; start(); }, { threshold: 0 });
+    io.observe(vp);
+    start();
+
+    const onMQ = () => restart();
+    if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', onMQ);
+    else reduceMQ.addListener(onMQ);
+
+    return () => {
+      stop();
+      io.disconnect();
+      vp.removeEventListener('pointerenter', onEnter);
+      vp.removeEventListener('pointerleave', onLeave);
+      vp.removeEventListener('focusin', onFocusIn);
+      vp.removeEventListener('focusout', onFocusOut);
+      document.removeEventListener('visibilitychange', onVis);
+      if (reduceMQ.removeEventListener) reduceMQ.removeEventListener('change', onMQ);
+      else reduceMQ.removeListener(onMQ);
+      embla.destroy();
+    };
   }, []);
   return (
-    <section className="pg-section cvc-section" aria-label="Why nonprofits choose to partner with Dalgo">
+    <section className="pg-section cvc-section" id="customer-voices" aria-label="Why nonprofits choose to partner with Dalgo">
       <div className="container">
         <div className="section-head section-head-center">
           <p className="pg-eyebrow">Customer voices</p>
@@ -154,7 +237,7 @@ const ConsultantsDesk = () => {
         </div>
         <div className="cvc-dots">
           {snaps.map((_, i) => (
-            <button type="button" key={i} className={'cvc-dot' + (i === active ? ' on' : '')} aria-label={`Go to slide ${i + 1}`} onClick={() => emblaRef.current && emblaRef.current.scrollTo(i)} />
+            <button type="button" key={i} className={'cvc-dot' + (i === active ? ' on' : '')} aria-label={`Go to slide ${i + 1}`} onClick={() => { if (emblaRef.current) emblaRef.current.scrollTo(i); restartRef.current(); }} />
           ))}
         </div>
       </div>
