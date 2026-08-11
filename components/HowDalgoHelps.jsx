@@ -8,21 +8,21 @@ const HowDalgoHelps = () => {
       title: 'Data Consulting',
       img: 'assets/illus/dashboard-charts.webp',
       body: "Design reporting systems, measurement frameworks, and data strategies with guidance from Dalgo's data experts.",
-      cta: { label: 'Book a Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true },
+      cta: { label: 'Book Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true },
     },
     {
       cat: 'Platform',
       title: 'Data Integration Platform',
       img: 'assets/illus/data-pipeline.webp',
       body: 'Bring spreadsheets, CRMs, surveys, and programme data into one trusted source of truth without replacing your existing tools.',
-      cta: { label: 'Explore the Platform', href: 'product.html' },
+      cta: { label: 'Explore the Platform', href: '/product' },
     },
     {
       cat: 'Reporting',
       title: 'Reporting & Decision Support',
       img: 'assets/illus/reports-alert.webp',
       body: 'Create dashboards, automate donor reporting, and monitor programme performance using reliable, up-to-date data.',
-      cta: { label: 'See Reporting', href: 'product.html' },
+      cta: { label: 'See Reporting', href: '/product' },
     },
   ];
   return (

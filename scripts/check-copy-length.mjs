@@ -30,11 +30,16 @@ const CLASSES = {
   'pricing-help-line': { width: 720,  size: 16 },
 };
 
-// PENDING A DECISION — hero subheads are reported but do not fail the build.
+// EXEMPT BY DECISION (Stuti, 8 Aug 2026) — hero subheads may run 3–4 lines.
 // The hero copy column is hard-capped at ~596px by .cvh-grid (the figure owns the other
-// half), and these lines need 759–897px to set in two. So the only ways to satisfy the
-// 2-line rule here are to edit the copy (Stuti's call, not mine) or drop the hero image
-// (she just asked for those). Flagged loudly until she picks one; do not silently trim.
+// half), and these lines need 759–897px to set in two, so the 2-line rule was unsatisfiable
+// here without either editing copy or dropping the hero image. She chose to accept the
+// longer heroes. These are still measured and reported so the numbers stay visible, but
+// they never fail the build.
+//
+// The exemption is HERO SUBHEADS ONLY. Section descriptions — .section-sub, .se-sub,
+// .pg-section-sub, .comm-lead, .pricing-help-line — remain hard-gated at 2 lines in
+// CLASSES above and still exit 1. Do not move anything else into this object.
 const PENDING = {
   'cvh-sub':      { width: 597, size: 18 },   // visual-tier hero
   'cvh-sub-solo': { width: 720, size: 18 },   // solo-tier hero
@@ -101,8 +106,8 @@ for (const page of PAGES) {
 }
 
 if (pending.length) {
-  console.warn(`\n⚠ ${pending.length} hero subhead(s) exceed ${MAX_LINES} lines — awaiting Stuti's decision (copy edit vs drop the hero image).`);
-  console.warn('  The hero copy column is capped at ~596px by the grid, so widening cannot fix these.');
+  console.warn(`\n· ${pending.length} hero subhead(s) run over ${MAX_LINES} lines — exempt by decision (Stuti, 8 Aug 2026), not a failure.`);
+  console.warn('  Hero copy column is capped at ~596px by the grid; section descriptions are still hard-gated.');
   for (const v of pending) console.warn(`    ${v.page} .${v.cls} — ${v.lines} lines (${v.chars} chars)`);
   console.warn('');
 }

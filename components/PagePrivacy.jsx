@@ -106,7 +106,7 @@ const PrivacyBody = () => {
           <p>For any questions or concerns regarding this Privacy Policy, please reach us at:</p>
           <ul className="legal-list">
             <li>Email: <a href="mailto:support@dalgo.org">support@dalgo.org</a></li>
-            <li>Contact form: <a href="contact.html">dalgo.org/contact</a></li>
+            <li>Contact form: <a href="/contact">dalgo.org/contact</a></li>
           </ul>
         </>
       ),

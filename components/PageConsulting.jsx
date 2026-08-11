@@ -9,14 +9,9 @@ const ConsultingHero = () => (
     eyebrow="Consulting"
     headline={<>Data consulting built around your organization's <span className="cvh-hl">mission</span></>}
     body="Every nonprofit has different data challenges. Our consultants combine deep nonprofit expertise with Dalgo's technology to design solutions that fit your workflows, your teams, and your goals."
-    ctas={<HeroCTAs primaryLabel="Book a Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
-  >
-    <div className="cvh-visual cvh-visual-cover">
-      <figure className="cvh-figure cvh-figure-cover">
-        <img loading="lazy" src="assets/opt/consulting-hero.webp" alt="Two nonprofit data practitioners working through their data systems together at a Dalgo consulting workshop" width="1600" height="1067" />
-      </figure>
-    </div>
-  </SiteHero>
+    ctas={<HeroCTAs primaryLabel="Book Free Consultation" primaryHref={window.SITE_CONFIG.CONSULT_FORM} />}
+    image={{ src: 'assets/hero/consulting.webp', alt: 'A Dalgo team member helping two nonprofit colleagues work through their data on a laptop', kind: 'photo' }}
+  />
 );
 const CO_ICON = {
   discover: <svg viewBox="0 0 40 40"><circle cx="18" cy="18" r="9"></circle><path d="M25 25l8 8"></path></svg>,
@@ -59,7 +54,7 @@ const StrategicExpertise = () => {
             <span className="co-ico" aria-hidden="true">{CO_ICON.probono}</span>
             <h3>Pro bono consulting</h3>
             <p>For eligible nonprofits — a complimentary one-hour discovery session to map your data challenges and the right next steps.</p>
-            <a className="btn btn-primary co-probono-btn" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Consultation</a>
+            <a className="btn btn-primary co-probono-btn" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book Free Consultation</a>
           </article>
         </div>
       </div>
@@ -101,65 +96,51 @@ const CONSULT_DESK = [
     quote: <>Pratiksha and Siddhant were very helpful during the initial setup. They were <strong>very patient with team members and explained processes properly</strong> and sometime multiple times as well.</>,
     name: 'Shivangi Desai', desig: 'Tech Lead' },
 ];
+// Continuous marquee, matching the logo carousel (Stuti, 10 Aug). Replaces the Embla carousel
+// that was here: no JS, no timer, no visibility guards, and no rotation control — a play/pause
+// button is not something this UI uses. The animation is pure CSS, pauses on hover, and the
+// site's prefers-reduced-motion block already disables it.
+//
+// Seamless loop, same trick as .logo-marquee-track: the cards are rendered EXACTLY twice and
+// each slot is a FIXED width including its own right margin, so translate3d(-50%) lands
+// precisely on the start of the second set. A percentage width or a container `gap` breaks
+// that — a gap leaves half a gap of drift at the wrap point, which reads as a stutter.
+// The duplicate set is aria-hidden so screen readers and search engines see each quote once.
 const ConsultantsDesk = () => {
-  const viewportRef = React.useRef(null);
-  const emblaRef = React.useRef(null);
-  const [active, setActive] = React.useState(0);
-  const [snaps, setSnaps] = React.useState([0]);
-  React.useEffect(() => {
-    const Embla = window.EmblaCarousel;
-    const vp = viewportRef.current;
-    if (!Embla || !vp) return;
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // No continuous AutoScroll: constantly drifting text never lets the eye settle, which is
-    // what made the green tags read as "jumping". Logos can marquee; quotes cannot. The track
-    // now snaps slide-by-slide via the dots/arrows, with the optional discrete autoplay below.
-    const embla = Embla(vp, { loop: true, align: 'start', containScroll: 'trimSnaps', dragFree: false, duration: 26 });
-    emblaRef.current = embla;
-    const sync = () => { setSnaps(embla.scrollSnapList()); setActive(embla.selectedScrollSnap()); };
-    sync();
-    embla.on('select', () => setActive(embla.selectedScrollSnap()));
-    embla.on('reInit', sync);
-    return () => { embla.destroy(); };
-  }, []);
+  const track = [...CONSULT_DESK, ...CONSULT_DESK];
   return (
-    <section className="pg-section cvc-section" aria-label="Why nonprofits choose to partner with Dalgo">
+    <section className="pg-section cvc-section" id="customer-voices" aria-label="Why nonprofits choose to partner with Dalgo">
       <div className="container">
         <div className="section-head section-head-center">
           <p className="pg-eyebrow">Customer voices</p>
           <h2 className="section-title">Why nonprofits choose to partner with <span className="hl-underline">Dalgo</span></h2>
         </div>
-        <div className="cvc-embla" ref={viewportRef}>
-          <div className="cvc-embla-container">
-            {CONSULT_DESK.map((c, i) => (
-              <div className="cvc-slide" key={i}>
-                <article className={`cvc-card${c.accent ? ' is-accent' : ''}`}>
-                  <div className="cvc-body">
-                    <div className="cvc-head">
-                      {c.logo
-                        ? <img className="cvc-logo" src={c.logo} alt={c.org} loading="lazy" />
-                        : <span className="cvc-org-top">{c.org}</span>}
-                      <span className="cvc-mark" aria-hidden="true">“</span>
-                    </div>
-                    <h3 className="cvc-tag">{c.tag}</h3>
-                    <blockquote className="cvc-quote">{c.quote}</blockquote>
+      </div>
+      <div className="cvc-marquee">
+        <div className="cvc-marquee-track">
+          {track.map((c, i) => (
+            <div className="cvc-slide" key={i} aria-hidden={i >= CONSULT_DESK.length ? 'true' : undefined}>
+              <article className={`cvc-card${c.accent ? ' is-accent' : ''}`}>
+                <div className="cvc-body">
+                  <div className="cvc-head">
+                    {c.logo
+                      ? <img className="cvc-logo" src={c.logo} alt={c.org} loading="lazy" />
+                      : <span className="cvc-org-top">{c.org}</span>}
+                    <span className="cvc-mark" aria-hidden="true">“</span>
                   </div>
-                  <footer className="cvc-attr">
-                    {c.avatar && <img className="cvc-avatar" src={c.avatar} alt={c.name} width="48" height="48" loading="lazy" />}
-                    <span className="cvc-who">
-                      <span className="cvc-name">{c.name}</span>
-                      <span className="cvc-desig">{c.desig}</span>
-                      <span className="cvc-orgname">{c.org}</span>
-                    </span>
-                  </footer>
-                </article>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="cvc-dots">
-          {snaps.map((_, i) => (
-            <button type="button" key={i} className={'cvc-dot' + (i === active ? ' on' : '')} aria-label={`Go to slide ${i + 1}`} onClick={() => emblaRef.current && emblaRef.current.scrollTo(i)} />
+                  <h3 className="cvc-tag">{c.tag}</h3>
+                  <blockquote className="cvc-quote">{c.quote}</blockquote>
+                </div>
+                <footer className="cvc-attr">
+                  {c.avatar && <img className="cvc-avatar" src={c.avatar} alt={c.name} width="48" height="48" loading="lazy" />}
+                  <span className="cvc-who">
+                    <span className="cvc-name">{c.name}</span>
+                    <span className="cvc-desig">{c.desig}</span>
+                    <span className="cvc-orgname">{c.org}</span>
+                  </span>
+                </footer>
+              </article>
+            </div>
           ))}
         </div>
       </div>
@@ -177,7 +158,7 @@ const ConsultingFinalCTA = () => (
       <h2 className="final-cta-h">Ready to strengthen your organization's <span className="hl-underline">data capabilities?</span></h2>
       <p className="final-cta-sub">Whether you're improving reporting, designing a new MEL framework, integrating systems, or preparing for AI, we'll help you build a data foundation that supports better decisions and greater impact.</p>
       <div className="final-cta-actions">
-        <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="final-cta-btn">Book a Free Consultation
+        <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="final-cta-btn">Book Free Consultation
           <svg className="i" viewBox="0 0 24 24" style={{ width: 18, height: 18, stroke: 'currentColor', fill: 'none', strokeWidth: 2 }}><path d="M5 12h14M13 5l7 7-7 7" /></svg>
         </a>
       </div>

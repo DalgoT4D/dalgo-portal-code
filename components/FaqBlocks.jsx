@@ -84,10 +84,10 @@ window.FAQ_ANSWERS = {
   // 1 Aug 2026 pricing sheet, which supersedes the doc's US$3,600/US$300 and US$25/hr. The doc's
   // unfinished "Add Dalgo Consulting price as well. <Link Pricing Page Here>" note is resolved here.
   // scripts/faq-schema.mjs asserts every figure below still matches window.PRICING_REGIONS.
-  'How is Dalgo priced?': `<p>Dalgo SaaS costs <strong>&#8377;2.04 lakh per organisation per year</strong>, or <strong>&#8377;17,000 per month</strong>, in India. For nonprofits based outside India it is <strong>US$3,000 per year</strong> or <strong>US$250 per month</strong>. This is a flat organisation-level price, not a per-user or per-pipeline charge.</p><p>Consulting and implementation are priced separately, from <strong>&#8377;2,500 per hour</strong> in India or <strong>US$35 per hour</strong> internationally. Your warehouse is your own cloud infrastructure and is billed by your cloud provider. See the <a href="pricing.html">pricing page</a> for what to plan for.</p>`,
+  'How is Dalgo priced?': `<p>Dalgo SaaS costs <strong>&#8377;2.04 lakh per organisation per year</strong>, or <strong>&#8377;17,000 per month</strong>, in India. For nonprofits based outside India it is <strong>US$3,000 per year</strong> or <strong>US$250 per month</strong>. This is a flat organisation-level price, not a per-user or per-pipeline charge.</p><p>Consulting and implementation are priced separately, from <strong>&#8377;2,500 per hour</strong> in India or <strong>US$35 per hour</strong> internationally. Your warehouse is your own cloud infrastructure and is billed by your cloud provider. See the <a href="/pricing">pricing page</a> for what to plan for.</p>`,
 
   // GROUND-TRUTH: "unlimited users" is a banned claim — say flat pricing with no per-user fees.
-  'What is included in the SaaS price?': `<p>Dalgo has a flat pricing structure: your subscription covers all features and unlimited usage, with no per-user fees. See the <a href="pricing.html">pricing page</a> for current rates.</p>`,
+  'What is included in the SaaS price?': `<p>Dalgo has a flat pricing structure: your subscription covers all features and unlimited usage, with no per-user fees. See the <a href="/pricing">pricing page</a> for current rates.</p>`,
 
   'What is not included in the SaaS price?': `<p>Hosted Superset (an alternative to Dalgo dashboards), consulting services for implementation, bespoke data work, training, and strategy. Your warehouse is your own cloud infrastructure and is billed by your cloud provider.</p>`,
 
@@ -179,7 +179,7 @@ const FaqMini = ({ page }) => {
         <div className="faq-list">
           {refs.map(([gi, qi]) => <FaqItem key={gi + '-' + qi} q={FAQ_DATA[gi].qs[qi]} id={'faqm-' + page + '-' + gi + '-' + qi} />)}
         </div>
-        <p className="faq-viewall-row"><a className="btn btn-ghost" href="faq.html">View All FAQs <span aria-hidden="true">→</span></a></p>
+        <p className="faq-viewall-row"><a className="btn btn-ghost" href="/faq">View All FAQs <span aria-hidden="true">→</span></a></p>
       </div>
     </section>
   );
@@ -189,7 +189,7 @@ const FaqStillBand = () => (
     <div className="faq-wrap faq-still-inner">
       <h2 className="faq-h">Still have a <span className="hl-underline">question</span>?</h2>
       <p>Every organisation's data landscape is different — tell us about yours and we'll answer directly.</p>
-      <a className="btn btn-ghost" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Consultation</a>
+      <a className="btn btn-ghost" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book Free Consultation</a>
     </div>
   </section>
 );
@@ -197,13 +197,8 @@ const FaqHero = () => (
   <SiteHero
     eyebrow="FAQ"
     headline={<>Frequently asked <span className="cvh-hl">questions</span></>}
-    body={<>Everything you need to know about Dalgo — what it is, what it can do, implementation, trust, and pricing. Still stuck? <a href="contact.html">Contact us</a>.</>}
-  >
-    <div className="cvh-visual">
-      <figure className="cvh-figure cvh-figure-illus">
-        <img loading="lazy" src="assets/illus/reports-alert.webp" alt="Dalgo reports and alerts, the subject of many of these questions" width="1100" height="654" />
-      </figure>
-    </div>
-  </SiteHero>
+    body={<>Everything you need to know about Dalgo — what it is, what it can do, implementation, trust, and pricing. Still stuck? <a href="/contact">Contact us</a>.</>}
+    image={{ src: 'assets/hero/faq.webp', alt: 'Two nonprofit colleagues working through their data setup together', kind: 'photo' }}
+  />
 );
 Object.assign(window, { FAQ_DATA, FaqItem, FaqMaster, FaqMini, FaqStillBand, FaqHero });

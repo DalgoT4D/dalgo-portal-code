@@ -1,20 +1,44 @@
 // ============================================================
 // SiteHero — the one hero template used across every page.
-// Left column is identical everywhere; the right-hand visual is
-// passed in as children and differs per page.
-// Reference: the Community page hero (.cvh-*).
+//
+// The FIGURE IS OWNED BY THE SYSTEM, not by the page. Pass `image={{src, alt, kind}}`
+// and this component emits the frame; no page writes its own <figure>. That is the whole
+// point: four different hero treatments grew up on this site precisely because each page
+// hand-rolled its own visual markup and CSS could not hold them together.
+//
+//   kind: 'photo'        — object-fit cover, deeper elevation (default)
+//         'illustration' — softer elevation; the mint gradient is baked into the asset,
+//                          so the frame adds no background and no padding
+//
+// Assets are authored at 1440x960 (3:2) to match the frame exactly — see BM-395.
+// `children` is still accepted for anything that is genuinely not a single image, but
+// nothing uses it today and a new page should not reach for it.
 // ============================================================
-const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
+const HeroFigure = ({ src, alt, kind }) => (
+  <div className="cvh-visual">
+    <figure className={'cvh-figure' + (kind === 'illustration' ? ' cvh-figure-illus' : '')}>
+      {/* eager + intrinsic size: this is the LCP element on most pages, and the
+          width/height pair reserves the box so the hero never shifts while it loads */}
+      <img src={src} alt={alt} width="1440" height="960" loading="eager" decoding="async" />
+    </figure>
+  </div>
+);
+
+const SiteHero = ({ eyebrow, headline, body, ctas, help, image, children, id }) => (
   <section className="cvh" id={id || undefined}>
-    <div className={'cvh-grid' + (children ? '' : ' cvh-grid-solo')}>
+    <div className={'cvh-grid' + (image || children ? '' : ' cvh-grid-solo')}>
       <div className="cvh-copy">
         {eyebrow && <div className="cvh-eyebrow">{eyebrow}</div>}
         <h1 className="cvh-h1">{headline}</h1>
         {body && <p className="cvh-sub">{body}</p>}
-        {ctas && <div className="cvh-ctas">{ctas}</div>}
+        {/* The CTA row is reserved even when a page has none, so the copy stack keeps the
+            same internal rhythm everywhere instead of ending early on some pages. */}
+        {ctas
+          ? <div className="cvh-ctas">{ctas}</div>
+          : <div className="cvh-ctas cvh-ctas-reserved" aria-hidden="true"></div>}
         {help && <p className="cvh-help">{help}</p>}
       </div>
-      {children}
+      {image ? <HeroFigure src={image.src} alt={image.alt} kind={image.kind} /> : children}
     </div>
   </section>
 );
@@ -23,8 +47,8 @@ const SiteHero = ({ eyebrow, headline, body, ctas, help, children, id }) => (
 // platform/contact CTA is the white ghost beside it (Stuti, 7 Aug).
 const HeroCTAs = ({
   primaryLabel = 'Try the Platform',
-  primaryHref = 'contact.html',   // overridden by trialCta(); never point a default at the trial URL
-  secondaryLabel = 'Book a Free Consultation',
+  primaryHref = '/contact',   // overridden by trialCta(); never point a default at the trial URL
+  secondaryLabel = 'Book Free Consultation',
   secondaryHref = window.SITE_CONFIG.CONSULT_FORM,   // pro-bono consulting form (site-config)
 }) => {
   const ext = (h) => /^https?:/.test(h);
