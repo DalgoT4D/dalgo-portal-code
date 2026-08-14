@@ -1237,6 +1237,20 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .faq-a-table th { background: var(--surface-1); font-weight: 700; color: var(--ink); white-space: nowrap; }
 .faq-a-table tr:last-child td { border-bottom: none; }
 
+/* Legal-page tables (privacy retention schedule) reuse the FAQ table pattern above rather than
+   introducing a second one. Two deltas are load-bearing, not cosmetic:
+     1. .legal-section is --surface-1, so a --surface-1 header row would be invisible against it.
+        The wrapper gets its own --surface-0 ground so the tinted header reads.
+     2. Row headers here carry long prose ("OAuth credentials, access tokens and…"), so the
+        header nowrap is released for th[scope=row] — keeping it would force the whole table
+        into a horizontal scroll on every viewport. */
+.legal-tablewrap { overflow-x: auto; margin: 6px 0 18px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-0); }
+.legal-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.legal-table th, .legal-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--hairline); vertical-align: top; line-height: 1.5; }
+.legal-table thead th { background: var(--surface-1); font-weight: 700; color: var(--ink); white-space: nowrap; }
+.legal-table th[scope="row"] { font-weight: 600; color: var(--ink); min-width: 190px; }
+.legal-table tbody tr:last-child th, .legal-table tbody tr:last-child td { border-bottom: none; }
+
 /* ============================================================
    26. RESPONSIVE — layout overrides live only in max-width
    queries; desktop stays as authored. No override hacks needed:
