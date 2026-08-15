@@ -39,7 +39,7 @@ window.trialCta = function () {
 window.consultCta = function () {
   return { label: 'Book Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true };
 };
-// GA4 bootstrap (no-op until GA4_ID is set). Event layer (BM-356 model) TBD.
+// GA4 bootstrap (no-op until GA4_ID is set).
 (function () {
   var id = window.SITE_CONFIG.GA4_ID;
   window.dataLayer = window.dataLayer || [];
@@ -48,4 +48,60 @@ window.consultCta = function () {
     var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + id; document.head.appendChild(s);
     gtag('js', new Date()); gtag('config', id);
   }
+})();
+
+// ===== cta_click — one event, names as parameters (BM-396) =====
+// Before this, the ONLY gtag calls on the site were js + config: page_view fired and nothing
+// else, so all 37 consultation buttons shared one forms.gle URL and were indistinguishable,
+// and the 23 internal "Contact Us" links were not captured at all. Key events = 0.
+//
+// Scope is ACTION CTAs — the green (primary) and white (ghost) buttons, plus the Product
+// dashboard/report links. Deliberately NOT tracked, because they are clicks rather than calls
+// to action: nav links, nav dropdown items, the mobile drawer, footer columns and socials, the
+// logo, support@dalgo.org, FAQ accordion toggles, story-carousel tabs and arrows, marquee dots,
+// the tour scope tabs, and the capability pills. The last two are in-page toggles and are
+// earmarked for a separate page_clicks event — not this one.
+//
+// The listener reads whatever text is on the button, so a copy change (e.g. the trial flow
+// renaming CTAs to "Try Dalgo for Free") needs no code change here. What DOES break on a
+// rename is any GA4 conversion keyed on a cta_name string — define those in the GA4 UI, where
+// they can be edited without a deploy, not in here.
+(function () {
+  var CTA = [
+    '.btn.btn-primary', '.btn.btn-ghost',
+    '.cmh-btn-primary', '.cmh-btn-ghost', '.cmh-btn-wa',
+    '.nurture-btn',
+    '.si-readall', '.vp-section-cta',
+    '.final-cta-btn', '.final-cta-btn-ghost',
+    '.pf-cta', '.co-probono-btn',
+    '.dsh-link', '.dsh-card a',
+    '.pricing-help-line a',
+    '.dtr-card-actions .btn'
+  ].join(',');
+
+  // Normalise to the label a human sees. Trailing glyphs are decorative and must go: several
+  // labels carry a literal arrow ("View All FAQs →") and .btn-primary::after appends another in
+  // CSS, so leaving them would split one CTA into two metrics that never reconcile.
+  function ctaName(el) {
+    var t = (el.textContent || '').replace(/\s+/g, ' ').trim().replace(/[\s→✓➜➡»>]+$/, '').trim();
+    if (!t) t = (el.getAttribute('aria-label') || '').trim();
+    if (!t) { var img = el.querySelector('img'); t = img ? (img.getAttribute('alt') || '').trim() : ''; }
+    return t.slice(0, 100); // GA4 caps parameter values at 100 chars
+  }
+
+  // Capture phase, so the event is recorded even if a handler downstream stops propagation or
+  // the browser starts unloading for an outbound link.
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || typeof t.closest !== 'function') return;
+    var el = t.closest(CTA);
+    if (!el) return;
+    var name = ctaName(el);
+    if (!name) return; // never send an empty cta_name — an unnamed row is unusable in reports
+    // TODO(BM-356): gate on Consent Mode v2 once it lands, defaulting to denied under DPDP.
+    window.gtag('event', 'cta_click', {
+      cta_name: name,
+      cta_destination: el.getAttribute('href') || '(button)'
+    });
+  }, true);
 })();
