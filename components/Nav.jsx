@@ -38,8 +38,12 @@ const Nav = () => {
   const resourcesActive = is('community') || is('faq');
   // BM-337 (resolved 30 Jul): nav label renamed "Case Studies", href stays case-studies.html
   // BM-335/346 (resolved 30 Jul): About moved out of Resources into footer-only; Learn + FAQ stay under Resources
-  const tc = window.trialCta ? window.trialCta() : { label: 'Start Free Trial', href: 'https://insights.dalgo.org/trial', ext: true };
-  const trialReady = !!(window.SITE_CONFIG && window.SITE_CONFIG.TRIAL_READY);
+  // Primary nav CTA: the free trial once there is a real trial URL, otherwise consultation.
+  // Driven entirely by SITE_CONFIG.TRIAL_READY + TRIAL_URL — see the switch in site-config.js.
+  // Never renders a "Try Dalgo for Free" label pointing at a login screen (BM-307).
+  const navCta = (window.trialReady && window.trialReady())
+    ? window.trialCta()
+    : { label: 'Book Free Consultation', href: window.SITE_CONFIG.CONSULT_FORM, ext: true };
   // BM-392: product documentation belongs in Resources. External, so it opens in a new tab —
   // docs live on their own subdomain and we don't want to drop people out of the site.
   const resourceLinks = [
@@ -106,8 +110,7 @@ const Nav = () => {
           </div>
         </div>
         <div className="nav-right">
-          <a href="/contact" className="btn btn-ghost">Contact Us</a>
-          <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="btn btn-primary">Book Free Consultation</a>
+          <a href={navCta.href} target={navCta.ext ? '_blank' : undefined} rel={window.ctaRel(navCta)} className="btn btn-primary">{navCta.label}</a>
         </div>
         <button type="button" className={`nav-burger ${menuOpen ? 'is-open' : ''}`} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="nav-mobile-drawer" onClick={() => setMenuOpen((o) => !o)}>
           <span></span><span></span><span></span>
@@ -131,8 +134,7 @@ const Nav = () => {
             ))}
           </div>
           <div className="nav-m-ctas">
-            <a href="/contact" className="btn btn-ghost" onClick={closeMenu}>Contact Us</a>
-            <a href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener" className="btn btn-primary" onClick={closeMenu}>Book Free Consultation</a>
+            <a href={navCta.href} target={navCta.ext ? '_blank' : undefined} rel={window.ctaRel(navCta)} className="btn btn-primary" onClick={closeMenu}>{navCta.label}</a>
           </div>
         </div>
       </div>

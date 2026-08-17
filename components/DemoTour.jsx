@@ -116,7 +116,7 @@ const DemoTour = () => {
     <section className="pg-section" style={{ background: "#fff" }} data-screen-label="See Dalgo in action">
       <div className="container">
         <div className="section-head section-head-center">
-          <h2 className="pg-h2">See Dalgo <span className="hl-underline">in action</span></h2>
+          <h2 className="pg-h2">See Dalgo <span className="hl-underline">in Action</span></h2>
         </div>
         <div className="dtr-modes" role="tablist" aria-label="Choose demo scope">
           {DTR_MODES.map(([k, label, n]) => (
@@ -170,7 +170,7 @@ const DemoTour = () => {
                   <h3 id="dtr-end-t">{end.title}</h3>
                   <p>{end.desc}</p>
                   <div className="dtr-card-actions">
-                    {end.next ? <button type="button" className="btn btn-primary" onClick={() => startScope(end.next)}>{end.nextLabel}</button> : (() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: '/contact' }; return <a className="btn btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noreferrer' : undefined}>{tc.label}</a>; })()}
+                    {end.next ? <button type="button" className="btn btn-primary" onClick={() => startScope(end.next)}>{end.nextLabel}</button> : (() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: '/contact' }; return <a className="btn btn-primary" href={tc.href} target={tc.ext ? '_blank' : undefined} rel={window.ctaRel(tc)}>{tc.label}</a>; })()}
                     <button type="button" className="btn btn-ghost" onClick={start}>{end.replay}</button>
                   </div>
                 </div>

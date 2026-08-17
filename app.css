@@ -257,6 +257,17 @@ p strong, li strong { font-weight: 600; color: inherit; }
   border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg);
 }
 .cvh-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Hero VIDEO variant. The frame keeps the system's 3/2 geometry, radius and elevation — nothing
+   here reshapes it. The product video is 16/9, so it sits centred at full width and the remaining
+   height is navy, so the frame reads as a product panel holding a screen rather than a grey
+   letterbox. These img/iframe rules must stay AFTER .cvh-figure img above: same specificity, so
+   source order is what stops the poster being stretched to 3/2 and cropped. */
+.cvh-figure-video { background: var(--navy); display: grid; place-items: center; }
+.cvh-video-inner { position: relative; width: 100%; aspect-ratio: 16 / 9; }
+.cvh-video-inner iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.cvh-video-play { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; display: block; }
+.cvh-video-play:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.cvh-video-play:hover .res-play { background: var(--teal-hover); }
 /* Illustration: the mint gradient is baked into the asset, full-bleed to all four edges,
    so the frame adds no background and no padding — a container here produced a visible
    box-in-a-box against the artwork's own deeper gradient. Softer elevation because it is
@@ -825,11 +836,15 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .srcviz-chip img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; }
 .srcviz-proc svg { width: 15px; height: 15px; fill: none; stroke: var(--teal); stroke-width: 1.8; flex-shrink: 0; }
 /* Dashboard showcase */
+/* padding-top 0 is deliberate, not an oversight: this section follows .pf-section, which already
+   supplies --section-pad below its card. Adding a top pad here doubled it to 112px. (It was
+   briefly raised to 56 while a CTA strip sat between the two and supplied only 32px; that strip
+   was removed 15 Aug, so the original adjacency — and this 0 — is correct again.) */
 .dsh-section { background: var(--surface-0); padding: 0 0 var(--section-pad); }
-.dsh-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.dsh-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 20px; }
 .dsh-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; background: var(--surface-0); border-radius: var(--r-lg); padding: 24px 24px 22px; box-shadow: var(--shadow-sm); }
 .dsh-native-badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 14%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 30%, transparent); padding: 4px 10px; border-radius: var(--r-pill); }
-.dsh-logo { height: 46px; display: flex; align-items: center; margin-bottom: 18px; }
+.dsh-logo { height: 46px; width: 100%; display: flex; align-items: center; margin-bottom: 16px; }
 .dsh-logo img { max-height: 46px; max-width: 170px; width: auto; object-fit: contain; }
 .dsh-name { margin: 0 0 6px; font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
 .dsh-use { font-size: 14.5px; line-height: 1.5; color: var(--ink-2); margin: 0 0 18px; text-wrap: pretty; flex: 1; }
@@ -872,9 +887,9 @@ p strong, li strong { font-weight: 600; color: inherit; }
 
 /* PlatformFor capability selector (§ "Dalgo for …") */
 .pf-section { padding: 0 0 var(--section-pad); }
-.pf-header { max-width: none; margin: 0 0 32px; }
-.pf-eyebrow { display: inline-block; margin-bottom: 14px; }
-.pf-title { margin: 0 0 14px; }
+.pf-header { max-width: none; margin: 0 0 28px; }
+.pf-eyebrow { display: inline-block; margin-bottom: 12px; }
+.pf-title { margin: 0 0 12px; }
 .pf-sub { margin: 0; }
 .pf-card { background: var(--surface-0); border-radius: var(--r-lg); box-shadow: var(--shadow-md); }
 .pf-card-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 16px; background: color-mix(in srgb, var(--teal) 10%, #fff); border-bottom: 1px solid var(--hairline); border-radius: var(--r-lg) var(--r-lg) 0 0; }
@@ -1237,6 +1252,20 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .faq-a-table th { background: var(--surface-1); font-weight: 700; color: var(--ink); white-space: nowrap; }
 .faq-a-table tr:last-child td { border-bottom: none; }
 
+/* Legal-page tables (privacy retention schedule) reuse the FAQ table pattern above rather than
+   introducing a second one. Two deltas are load-bearing, not cosmetic:
+     1. .legal-section is --surface-1, so a --surface-1 header row would be invisible against it.
+        The wrapper gets its own --surface-0 ground so the tinted header reads.
+     2. Row headers here carry long prose ("OAuth credentials, access tokens and…"), so the
+        header nowrap is released for th[scope=row] — keeping it would force the whole table
+        into a horizontal scroll on every viewport. */
+.legal-tablewrap { overflow-x: auto; margin: 6px 0 18px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-0); }
+.legal-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.legal-table th, .legal-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--hairline); vertical-align: top; line-height: 1.5; }
+.legal-table thead th { background: var(--surface-1); font-weight: 700; color: var(--ink); white-space: nowrap; }
+.legal-table th[scope="row"] { font-weight: 600; color: var(--ink); min-width: 190px; }
+.legal-table tbody tr:last-child th, .legal-table tbody tr:last-child td { border-bottom: none; }
+
 /* ============================================================
    26. RESPONSIVE — layout overrides live only in max-width
    queries; desktop stays as authored. No override hacks needed:
@@ -1472,6 +1501,10 @@ html, body { max-width: 100%; overflow-x: clip; }
 .probono-h { font-size: 26px; font-weight: 700; color: var(--ink); margin: 0 0 8px; letter-spacing: -0.02em; }
 .probono-sub { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 .probono-cta { flex-shrink: 0; }
+/* Trial band on /product reuses .probono-band as its shell but holds a single centred button.
+   .probono-inner above is a space-between row built for copy + CTA, which would left-align a
+   lone child — hence its own centred row rather than an override. */
+.trial-band-inner { display: flex; justify-content: center; }
 
 /* Section 6 — social proof card */
 .pproof-section { background: var(--surface-1); border-top: 1px solid var(--hairline); padding: var(--section-pad) 0; }
@@ -1714,11 +1747,17 @@ html, body { max-width: 100%; overflow-x: clip; }
 /* ---------- 35. Testimonial wall (replaces photo proof collage) ---------- */
 .pcx-eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-ink); margin: 0 0 14px; }
 .prf-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; max-width: var(--container); margin: 0 auto; }
-.prf-tcard { display: flex; flex-direction: column; margin: 0; background: var(--surface-1); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 28px; }
-.prf-tcard blockquote { margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: var(--ink); }
-.prf-tcard figcaption { margin-top: auto; min-height: 120px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--hairline) 70%, transparent); display: flex; flex-direction: column; justify-content: flex-start; gap: 3px; font-size: 14px; }
-.prf-tname { font-weight: 600; color: var(--ink); }
-.prf-trole { color: var(--ink-2); }
+/* Breathing room between the quote and the divider. .cvc-body ends at padding-bottom 0 on
+   Consulting because its cards carry a tag line and an avatar row that already separate the two;
+   here the longest quote (Ummeed) ran straight into the rule. Scoped to this section so the
+   Consulting marquee keeps its own rhythm. */
+.pcx-section .cvc-body { padding-bottom: 24px; }
+/* Two white sections meeting each pay --section-pad, so the seam doubles to 112px and reads as a
+   void — which is what made the space under "Browse Case Studies" look wrong. This page already
+   resolves the same collision by zeroing the follower's top pad (.pf-section, .dsh-section); the
+   testimonial wall supplies the space, so the section after it does not re-pay it. Result: 56px,
+   matching every other seam on the page. */
+.pcx-section + .pg-section { padding-top: 0; }
 @media (max-width: 768px) { .prf-wall { grid-template-columns: 1fr; max-width: 640px; } }
 
 /* ---------- 36. A11y pass: focus visibility + reduced motion ---------- */
