@@ -13,8 +13,10 @@ const PlatformFor = () => {
         { t: 'Data lands in your own warehouse — it stays yours. Dalgo processes it only to run the service you signed up for.' },
         { t: 'Automated cleaning and transformation, running on a schedule with no manual crunching' },
       ],
-      // CTA removed 7 Aug 2026 (Stuti) — the card explains the capability; the page CTA carries the action.
-      cta: null,
+      // Trial CTA lives here (Stuti, 15 Aug) instead of as a separate strip below the section.
+      // `trial: true` resolves the href through trialCta() at render, so it follows the one
+      // switch in site-config.js and picks up the staging nofollow like every other trial link.
+      cta: { label: 'Start Your Free Trial', trial: true },
     },
     {
       label: 'Dashboards & Charts',
@@ -142,8 +144,10 @@ const PlatformFor = () => {
           {/* The foot always renders, even with no CTA — otherwise the card loses the footer's
               height and the whole panel jumps when you switch to Data Integration. */}
           <div className="pf-card-foot" key={`f${i}`}>
-            {!c.cta ? <span className="pf-cta-spacer" aria-hidden="true"></span> : c.cta.href ? (
-              <a className="pf-cta" href={c.cta.href} target={c.cta.ext ? '_blank' : undefined} rel={c.cta.ext ? 'noopener' : undefined}>
+            {!c.cta ? <span className="pf-cta-spacer" aria-hidden="true"></span> : (c.cta.href || c.cta.trial) ? (
+              <a className="pf-cta" href={c.cta.trial ? window.trialCta().href : c.cta.href}
+                 target={(c.cta.trial ? window.trialCta().ext : c.cta.ext) ? '_blank' : undefined}
+                 rel={window.relForHref(c.cta.trial ? window.trialCta().href : c.cta.href)}>
                 {c.cta.label}
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
               </a>

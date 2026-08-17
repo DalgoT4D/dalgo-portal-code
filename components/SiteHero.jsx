@@ -41,8 +41,8 @@ const HeroVideo = ({ id, poster, title }) => {
   return (
     <div className="cvh-visual">
       <figure className="cvh-figure cvh-figure-video">
-        <div className="cvh-video-inner">
-          {playing ? (
+        {playing ? (
+          <div className="cvh-video-inner">
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
               title={title}
@@ -50,15 +50,15 @@ const HeroVideo = ({ id, poster, title }) => {
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
             />
-          ) : (
-            <button type="button" className="cvh-video-play" onClick={() => setPlaying(true)} aria-label={`Play video: ${title}`}>
+          </div>
+        ) : (
+          <button type="button" className="cvh-video-play" onClick={() => setPlaying(true)} aria-label={`Play video: ${title}`}>
               {/* Poster is localised into assets/video/, so the hero makes no third-party image
                   request — the same rule already applied to blog and community thumbnails. */}
-              <img src={poster} alt="" width="1280" height="720" loading="eager" decoding="async" />
-              <span className="res-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>
-            </button>
-          )}
-        </div>
+            <img src={poster} alt="" width="1440" height="960" loading="eager" decoding="async" />
+            <span className="res-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg></span>
+          </button>
+        )}
       </figure>
     </div>
   );

@@ -110,7 +110,6 @@ const Nav = () => {
           </div>
         </div>
         <div className="nav-right">
-          <a href="/contact" className="btn btn-ghost">Contact Us</a>
           <a href={navCta.href} target={navCta.ext ? '_blank' : undefined} rel={window.ctaRel(navCta)} className="btn btn-primary">{navCta.label}</a>
         </div>
         <button type="button" className={`nav-burger ${menuOpen ? 'is-open' : ''}`} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="nav-mobile-drawer" onClick={() => setMenuOpen((o) => !o)}>
@@ -135,7 +134,6 @@ const Nav = () => {
             ))}
           </div>
           <div className="nav-m-ctas">
-            <a href="/contact" className="btn btn-ghost" onClick={closeMenu}>Contact Us</a>
             <a href={navCta.href} target={navCta.ext ? '_blank' : undefined} rel={window.ctaRel(navCta)} className="btn btn-primary" onClick={closeMenu}>{navCta.label}</a>
           </div>
         </div>

@@ -18,13 +18,12 @@ const AboutHero = () => {
       eyebrow="Product"
       headline={<>One platform for all your <span className="cvh-hl">nonprofit data needs</span></>}
       body="Surveys, spreadsheets, CRMs and case tools — brought together, cleaned, and connected in one place your whole team can trust."
-      video={{ id: 'R-JJNgp8xYM', poster: 'assets/video/product-hero-poster.webp', title: 'Introducing Dalgo — Data Insights Platform for Social Impact' }}
+      video={{ id: 'R-JJNgp8xYM', poster: 'assets/illus/data-pipeline.webp', title: 'Introducing Dalgo — Data Insights Platform for Social Impact' }}
       ctas={<>
         <a className="cmh-btn cmh-btn-primary" href={t.href} target={t.ext ? '_blank' : undefined} rel={window.ctaRel(t)}>
           Start Your Free Trial
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
         </a>
-        <a className="cmh-btn cmh-btn-ghost" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Dalgo Experience</a>
       </>}
     />
   );
