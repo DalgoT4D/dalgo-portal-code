@@ -1486,6 +1486,10 @@ html, body { max-width: 100%; overflow-x: clip; }
 .probono-h { font-size: 26px; font-weight: 700; color: var(--ink); margin: 0 0 8px; letter-spacing: -0.02em; }
 .probono-sub { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 .probono-cta { flex-shrink: 0; }
+/* Trial band on /product reuses .probono-band as its shell but holds a single centred button.
+   .probono-inner above is a space-between row built for copy + CTA, which would left-align a
+   lone child — hence its own centred row rather than an override. */
+.trial-band-inner { display: flex; justify-content: center; }
 
 /* Section 6 — social proof card */
 .pproof-section { background: var(--surface-1); border-top: 1px solid var(--hairline); padding: var(--section-pad) 0; }

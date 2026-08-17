@@ -168,7 +168,7 @@ const PrivacyBody = () => {
       body: (
         <>
           <p>
-            This Privacy Policy is effective as of 22nd June 2026 and will remain in effect except with
+            This Privacy Policy is effective as of 14th August 2026 and will remain in effect except with
             respect to any changes in its provisions in the future, which will be in effect immediately
             after being posted on this page.
           </p>

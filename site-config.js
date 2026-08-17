@@ -1,10 +1,20 @@
 // Site-wide config + GA4 event layer. TRIAL_READY default false until Himanshu/Abhishek confirm the trial form.
 window.SITE_CONFIG = {
-  // false since 7 Aug 2026: dashboard.dalgo.org 301s to insights.dalgo.org/welcome?redirect=/,
-  // which is not a place to send a cold visitor. With the flag off every trial CTA resolves to
-  // Contact Us -> contact.html, so the label matches the destination (BM-307).
+  // ==== TRIAL CTA — ONE SWITCH ====
+  // Set TRIAL_URL to the real trial-signup URL and flip TRIAL_READY to true. That single change
+  // turns "Try Dalgo for Free" on in the nav (desktop + mobile drawer) and reveals the trial band
+  // on /product between the tour and the capability grid. Nothing else needs editing.
+  //
+  // Still false as of 15 Aug 2026 because there is no trial URL to point at. Verified today:
+  //   insights.dalgo.org/trial   -> 404
+  //   insights.dalgo.org/signup  -> 404
+  //   dashboard.dalgo.org        -> 301 to insights.dalgo.org/welcome?redirect=/ (a LOGIN screen)
+  // Sending a cold visitor to a login screen under a "Try Dalgo for Free" label breaks the rule
+  // that a CTA's label must match its destination (BM-307), so the flag stays off until the real
+  // link lands. With it off the nav keeps "Book Free Consultation" — no regression, nothing
+  // misleading shipped.
   TRIAL_READY: false,
-  TRIAL_URL: 'https://dashboard.dalgo.org',
+  TRIAL_URL: '', // <-- put the trial-signup URL here, then set TRIAL_READY: true
   GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
   // Single destination for every "Book Free Consultation" CTA — the pro-bono data
   // consulting form (Stuti, 7 Aug 2026). Three different forms.gle URLs were in use
@@ -29,11 +39,24 @@ window.featuredResource = function () {
   var href = r.href + (r.href.indexOf('?') > -1 ? '&' : '?') + 'utm_source=website&utm_medium=nav_featured';
   return Object.assign({}, r, { href: href });
 };
-// Every primary trial CTA ("Try the Platform") resolves through this: flag off => Contact Us → /contact (BM-307: label always matches destination).
+// The trial CTA label lives here and nowhere else, so a rename is a one-line change — and the
+// cta_click listener picks the new name up on its own, because it reads whatever text is on screen.
+//
+// ALWAYS returns an object, never null: Blueprint.jsx, DemoTour.jsx and SiteHero.jsx all
+// dereference the result directly, so a null here would throw in three places. When the trial
+// is not ready it falls back to Contact Us -> /contact, which keeps label and destination
+// honest (BM-307).
 window.trialCta = function () {
-  return window.SITE_CONFIG.TRIAL_READY
-    ? { label: 'Try the Platform', href: window.SITE_CONFIG.TRIAL_URL, ext: true }
+  var c = window.SITE_CONFIG;
+  return (c.TRIAL_READY && c.TRIAL_URL)
+    ? { label: 'Try Dalgo for Free', href: c.TRIAL_URL, ext: true }
     : { label: 'Contact Us', href: '/contact', ext: false };
+};
+// True only when there is a real trial destination to send someone to. Use this to decide
+// whether a trial-specific CTA should exist at all (the /product band, the nav primary).
+window.trialReady = function () {
+  var c = window.SITE_CONFIG;
+  return !!(c.TRIAL_READY && c.TRIAL_URL);
 };
 // Every "Book Free Consultation" CTA resolves through this — one destination, always external.
 window.consultCta = function () {

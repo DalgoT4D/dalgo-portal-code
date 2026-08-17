@@ -53,7 +53,11 @@ const HeroCTAs = ({
 }) => {
   const ext = (h) => /^https?:/.test(h);
   // TRIAL_READY=false ⇒ primary renders Contact Us → /contact (BM-307); duplicate secondary collapses
-  if ((primaryLabel === 'Try the Platform' || primaryLabel === 'Start Free Trial') && window.trialCta) { const t = window.trialCta(); primaryLabel = t.label; primaryHref = t.href; }
+  // These strings are SENTINELS meaning "this is the trial slot", not the rendered label — the
+  // rendered label always comes from trialCta(). "Try Dalgo for Free" is in the list so that
+  // passing the current label explicitly still resolves the href; without it the label would
+  // render but primaryHref would silently stay /contact.
+  if (['Try the Platform', 'Start Free Trial', 'Try Dalgo for Free'].indexOf(primaryLabel) > -1 && window.trialCta) { const t = window.trialCta(); primaryLabel = t.label; primaryHref = t.href; }
   if (secondaryLabel === primaryLabel) secondaryLabel = null;
   // Which button is green is decided by ROLE, not by prop order: the consultation CTA always
   // leads. Deciding it positionally put "Explore Our Work" in green on Consulting, because
