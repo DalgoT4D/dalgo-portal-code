@@ -5,16 +5,21 @@ window.SITE_CONFIG = {
   // turns "Try Dalgo for Free" on in the nav (desktop + mobile drawer) and reveals the trial band
   // on /product between the tour and the capability grid. Nothing else needs editing.
   //
-  // Still false as of 15 Aug 2026 because there is no trial URL to point at. Verified today:
-  //   insights.dalgo.org/trial   -> 404
-  //   insights.dalgo.org/signup  -> 404
-  //   dashboard.dalgo.org        -> 301 to insights.dalgo.org/welcome?redirect=/ (a LOGIN screen)
-  // Sending a cold visitor to a login screen under a "Try Dalgo for Free" label breaks the rule
-  // that a CTA's label must match its destination (BM-307), so the flag stays off until the real
-  // link lands. With it off the nav keeps "Book Free Consultation" — no regression, nothing
-  // misleading shipped.
-  TRIAL_READY: false,
-  TRIAL_URL: '', // <-- put the trial-signup URL here, then set TRIAL_READY: true
+  // ⚠️ TRIAL_URL IS A STAGING HOST — placeholder supplied by Stuti, 15 Aug 2026. Fine on a
+  // preview build; MUST be swapped for the production trial URL before this merges to main.
+  // Two reasons, both verified today:
+  //   1. staging-app.dalgo.org serves no robots Disallow and no x-robots-tag: noindex, so a link
+  //      from production dalgo.org would let Google discover and index staging. Mitigated for now
+  //      by rel="nofollow" (added automatically below while the host is non-production), but the
+  //      real fix is the production URL.
+  //   2. Staging gets reset and redeployed; a live nav CTA pointing there will break without
+  //      warning and nobody will notice.
+  // `npm run build` prints a loud reminder while this is non-production — see scripts/trial-guard.mjs.
+  TRIAL_READY: true,
+  TRIAL_URL: 'https://staging-app.dalgo.org/free-trial',
+  // Hosts considered production for the trial CTA. Anything else is treated as non-production:
+  // the link gets rel="nofollow" and the build warns.
+  TRIAL_PROD_HOSTS: ['app.dalgo.org', 'insights.dalgo.org'],
   GA4_ID: 'G-ZTDMFE4S5K', // live property (same ID as the current dalgo.org site), set 6 Aug 2026
   // Single destination for every "Book Free Consultation" CTA — the pro-bono data
   // consulting form (Stuti, 7 Aug 2026). Three different forms.gle URLs were in use
@@ -48,15 +53,45 @@ window.featuredResource = function () {
 // honest (BM-307).
 window.trialCta = function () {
   var c = window.SITE_CONFIG;
-  return (c.TRIAL_READY && c.TRIAL_URL)
-    ? { label: 'Try Dalgo for Free', href: c.TRIAL_URL, ext: true }
-    : { label: 'Contact Us', href: '/contact', ext: false };
+  if (!(c.TRIAL_READY && c.TRIAL_URL)) return { label: 'Contact Us', href: '/contact', ext: false };
+  return { label: 'Try Dalgo for Free', href: c.TRIAL_URL, ext: true, nofollow: !window.trialUrlIsProd() };
+};
+// True when TRIAL_URL points at a real production host. While it points anywhere else (staging,
+// a preview, localhost) the trial links carry rel="nofollow", so linking from production cannot
+// hand crawlers a path into an un-noindexed staging site. Self-correcting: swap in the production
+// URL and the nofollow disappears on its own.
+window.trialUrlIsProd = function () {
+  var c = window.SITE_CONFIG;
+  if (!c.TRIAL_URL) return false;
+  try {
+    var h = new URL(c.TRIAL_URL).hostname;
+    return (c.TRIAL_PROD_HOSTS || []).indexOf(h) > -1;
+  } catch (e) { return false; }
 };
 // True only when there is a real trial destination to send someone to. Use this to decide
 // whether a trial-specific CTA should exist at all (the /product band, the nav primary).
 window.trialReady = function () {
   var c = window.SITE_CONFIG;
   return !!(c.TRIAL_READY && c.TRIAL_URL);
+};
+// Builds the rel attribute for a CTA descriptor from trialCta()/consultCta(). Keeps the
+// noopener + conditional nofollow logic in one place instead of repeating it at every call site.
+window.ctaRel = function (c) {
+  var parts = [];
+  if (c.ext) parts.push('noopener');
+  if (c.nofollow) parts.push('nofollow');
+  return parts.length ? parts.join(' ') : undefined;
+};
+// rel for a bare href, for call sites that only have a URL rather than a CTA descriptor
+// (SiteHero builds its buttons from label + href). Without this the nofollow protection has
+// holes: any component that renders the trial URL without going through trialCta() would emit
+// a followable link into staging. Keep every trial-capable anchor on ctaRel or relForHref.
+window.relForHref = function (href) {
+  var parts = [];
+  if (/^https?:/.test(href)) parts.push('noopener');
+  var c = window.SITE_CONFIG;
+  if (c.TRIAL_URL && href === c.TRIAL_URL && !window.trialUrlIsProd()) parts.push('nofollow');
+  return parts.length ? parts.join(' ') : undefined;
 };
 // Every "Book Free Consultation" CTA resolves through this — one destination, always external.
 window.consultCta = function () {

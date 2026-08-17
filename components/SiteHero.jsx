@@ -75,7 +75,7 @@ const HeroCTAs = ({
         className="cmh-btn cmh-btn-primary"
         href={lead.href}
         target={ext(lead.href) ? '_blank' : undefined}
-        rel={ext(lead.href) ? 'noopener' : undefined}
+        rel={window.relForHref(lead.href)}
       >
         {lead.label}
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
@@ -86,7 +86,7 @@ const HeroCTAs = ({
           className="cmh-btn cmh-btn-ghost"
           href={b.href}
           target={ext(b.href) ? '_blank' : undefined}
-          rel={ext(b.href) ? 'noopener' : undefined}
+          rel={window.relForHref(b.href)}
         >
           {b.label}
         </a>

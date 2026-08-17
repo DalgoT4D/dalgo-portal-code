@@ -65,7 +65,7 @@ const FinalCTA = () =>
       <h2 className="final-cta-h" data-comment-anchor="ecea4efc01-h2-64-7">Know your data. Share your <span className="hl-underline">story.</span></h2>
       <div className="final-cta-actions">
         {(() => { const tc = window.trialCta ? window.trialCta() : { label: 'Contact Us', href: '/contact' }; return (
-        <a href={tc.href} target={tc.ext ? '_blank' : undefined} rel={tc.ext ? 'noopener' : undefined} className="final-cta-btn">
+        <a href={tc.href} target={tc.ext ? '_blank' : undefined} rel={window.ctaRel(tc)} className="final-cta-btn">
           {tc.label}
           <svg className="i" viewBox="0 0 24 24" style={{ width: 18, height: 18, stroke: 'currentColor', fill: 'none', strokeWidth: 2 }}>
             <path d="M5 12h14M13 5l7 7-7 7" />

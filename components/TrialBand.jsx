@@ -19,7 +19,7 @@ const TrialBand = () => {
       <div className="container">
         <div className="trial-band-inner">
           <a className="btn btn-primary" href={t.href}
-             target={t.ext ? '_blank' : undefined} rel={t.ext ? 'noopener' : undefined}>{t.label}</a>
+             target={t.ext ? '_blank' : undefined} rel={window.ctaRel(t)}>{t.label}</a>
         </div>
       </div>
     </section>
