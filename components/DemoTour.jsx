@@ -116,7 +116,7 @@ const DemoTour = () => {
     <section className="pg-section" style={{ background: "#fff" }} data-screen-label="See Dalgo in action">
       <div className="container">
         <div className="section-head section-head-center">
-          <h2 className="pg-h2">See Dalgo <span className="hl-underline">in action</span></h2>
+          <h2 className="pg-h2">See Dalgo <span className="hl-underline">in Action</span></h2>
         </div>
         <div className="dtr-modes" role="tablist" aria-label="Choose demo scope">
           {DTR_MODES.map(([k, label, n]) => (

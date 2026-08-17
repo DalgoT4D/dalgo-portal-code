@@ -3,14 +3,28 @@
 const R = (id, f) => (window.__resources && window.__resources[id]) || f;
 
 // About hero — one shared template (white, left-aligned, collage on the right)
-const AboutHero = () => (
-  <SiteHero
-    eyebrow="Product"
-    headline={<>One platform for all your <span className="cvh-hl">nonprofit data needs</span></>}
-    body="Surveys, spreadsheets, CRMs and case tools — brought together, cleaned, and connected in one place your whole team can trust."
-    image={{ src: 'assets/illus/dashboard-charts.webp', alt: 'A Dalgo dashboard illustration — programme metrics and monthly totals at a glance', kind: 'illustration' }}
-  />
-);
+// Product hero. The figure slot now carries the product video instead of the dashboard
+// illustration (Stuti, 15 Aug). CTAs are rendered directly rather than through HeroCTAs because
+// HeroCTAs decides which button is green by ROLE — the consultation CTA always leads — which
+// would have flipped these two; the brief is explicit that the trial leads here.
+const AboutHero = () => {
+  const t = window.trialCta();
+  return (
+    <SiteHero
+      eyebrow="Product"
+      headline={<>Your data. Your questions. <span className="cvh-hl">Your answers.</span></>}
+      body="Connect your nonprofit's data, bring it together in one place, and turn it into insights your team can actually use."
+      video={{ id: 'R-JJNgp8xYM', poster: 'assets/video/product-hero-poster.webp', title: 'Introducing Dalgo — Data Insights Platform for Social Impact' }}
+      ctas={<>
+        <a className="cmh-btn cmh-btn-primary" href={t.href} target={t.ext ? '_blank' : undefined} rel={window.ctaRel(t)}>
+          Start Your Free Trial
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+        </a>
+        <a className="cmh-btn cmh-btn-ghost" href={window.SITE_CONFIG.CONSULT_FORM} target="_blank" rel="noopener">Book a Free Dalgo Experience</a>
+      </>}
+    />
+  );
+};
 
 // Purpose / People / Platform — the three paragraphs, moved below the hero as a left-aligned band
 const AboutTriad = () => (
@@ -258,9 +272,9 @@ const DashboardShowcase = () => {
     <section className="dsh-section">
       <div className="container">
         <div className="pf-header">
-          <p className="pf-eyebrow">Live dashboards</p>
-          <h2 className="pf-title">Explore dashboards <span className="pf-title-hl">powered by Dalgo</span></h2>
-          <p className="pf-sub">Live dashboards and reports nonprofits run on Dalgo today — including native examples built directly in the platform.</p>
+          <p className="pf-eyebrow">See your data come together</p>
+          <h2 className="pf-title">Explore Dashboards <span className="pf-title-hl">Powered by Dalgo</span></h2>
+          <p className="pf-sub">Explore dashboards built with Dalgo and see how nonprofit teams turn their data into clearer insights, stronger reporting, and better decisions.</p>
         </div>
         <div className="dsh-grid">
           {orgs.map((o) => (

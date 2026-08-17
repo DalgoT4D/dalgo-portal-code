@@ -257,6 +257,17 @@ p strong, li strong { font-weight: 600; color: inherit; }
   border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg);
 }
 .cvh-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Hero VIDEO variant. The frame keeps the system's 3/2 geometry, radius and elevation — nothing
+   here reshapes it. The product video is 16/9, so it sits centred at full width and the remaining
+   height is navy, so the frame reads as a product panel holding a screen rather than a grey
+   letterbox. These img/iframe rules must stay AFTER .cvh-figure img above: same specificity, so
+   source order is what stops the poster being stretched to 3/2 and cropped. */
+.cvh-figure-video { background: var(--navy); display: grid; place-items: center; }
+.cvh-video-inner { position: relative; width: 100%; aspect-ratio: 16 / 9; }
+.cvh-video-inner img, .cvh-video-inner iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; object-fit: cover; }
+.cvh-video-play { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; display: block; }
+.cvh-video-play:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.cvh-video-play:hover .res-play { background: var(--teal-hover); }
 /* Illustration: the mint gradient is baked into the asset, full-bleed to all four edges,
    so the frame adds no background and no padding — a container here produced a visible
    box-in-a-box against the artwork's own deeper gradient. Softer elevation because it is
@@ -1735,6 +1746,9 @@ html, body { max-width: 100%; overflow-x: clip; }
 .prf-tcard { display: flex; flex-direction: column; margin: 0; background: var(--surface-1); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: 28px; }
 .prf-tcard blockquote { margin: 0 0 20px; font-size: 16px; line-height: 1.6; color: var(--ink); }
 .prf-tcard figcaption { margin-top: auto; min-height: 120px; padding-top: 20px; border-top: 1px solid color-mix(in srgb, var(--hairline) 70%, transparent); display: flex; flex-direction: column; justify-content: flex-start; gap: 3px; font-size: 14px; }
+/* Org logo on the testimonial wall. All the sizing/fit comes from .cvc-logo (the Consulting
+   treatment, reused verbatim); this only adds the gap to the attribution beneath it. */
+.prf-tlogo { margin-bottom: 10px; }
 .prf-tname { font-weight: 600; color: var(--ink); }
 .prf-trole { color: var(--ink-2); }
 @media (max-width: 768px) { .prf-wall { grid-template-columns: 1fr; max-width: 640px; } }

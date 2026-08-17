@@ -66,9 +66,9 @@ const PlatformFor = () => {
     <section className="pf-section">
       <div className="container">
         <div className="pf-header">
-          <p className="pf-eyebrow">Capabilities</p>
-          <h2 className="pf-title">Dalgo for every part of your <span className="pf-title-hl">data workflow</span></h2>
-          <p className="pf-sub">One platform for everything — from data integration to data that speaks to your impact.</p>
+          <p className="pf-eyebrow">From scattered data to decisions you can act on</p>
+          <h2 className="pf-title">Dalgo for Every Part of Your <span className="pf-title-hl">Data Workflow</span></h2>
+          <p className="pf-sub">Connect your tools, bring your data into one place, automate the work of cleaning and transforming it, and build dashboards that help your team understand what is happening.</p>
         </div>
 
         <div className="pf-card">
