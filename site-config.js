@@ -5,18 +5,14 @@ window.SITE_CONFIG = {
   // turns "Try Dalgo for Free" on in the nav (desktop + mobile drawer) and reveals the trial band
   // on /product between the tour and the capability grid. Nothing else needs editing.
   //
-  // ⚠️ TRIAL_URL IS A STAGING HOST — placeholder supplied by Stuti, 15 Aug 2026. Fine on a
-  // preview build; MUST be swapped for the production trial URL before this merges to main.
-  // Two reasons, both verified today:
-  //   1. staging-app.dalgo.org serves no robots Disallow and no x-robots-tag: noindex, so a link
-  //      from production dalgo.org would let Google discover and index staging. Mitigated for now
-  //      by rel="nofollow" (added automatically below while the host is non-production), but the
-  //      real fix is the production URL.
-  //   2. Staging gets reset and redeployed; a live nav CTA pointing there will break without
-  //      warning and nobody will notice.
-  // `npm run build` prints a loud reminder while this is non-production — see scripts/trial-guard.mjs.
+  // Production trial signup. Swapped off the staging placeholder 15 Aug 2026 once
+  // insights.dalgo.org/free-trial went live (verified 200, a real Next.js signup page — it 404'd
+  // earlier the same day, before it shipped).
+  // Because this host IS in TRIAL_PROD_HOSTS, two things happen automatically: the rel="nofollow"
+  // that guarded the staging link disappears, and scripts/trial-guard.mjs reports OK instead of
+  // warning. Nothing else needs editing.
   TRIAL_READY: true,
-  TRIAL_URL: 'https://staging-app.dalgo.org/free-trial',
+  TRIAL_URL: 'https://insights.dalgo.org/free-trial',
   // Hosts considered production for the trial CTA. Anything else is treated as non-production:
   // the link gets rel="nofollow" and the build warns.
   TRIAL_PROD_HOSTS: ['app.dalgo.org', 'insights.dalgo.org'],
