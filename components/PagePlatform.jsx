@@ -3,6 +3,10 @@
 const R = (id, f) => (window.__resources && window.__resources[id]) || f;
 
 // About hero — one shared template (white, left-aligned, collage on the right)
+// HERO COPY IS THE ORIGINAL, restored 15 Aug at Stuti's request. The 15 Aug brief supplied
+// replacement copy ("Your data. Your questions. Your answers.") under "Use this copy"; she has
+// since asked to keep the original headline and body. Only the figure and the CTAs change here.
+//
 // Product hero. The figure slot now carries the product video instead of the dashboard
 // illustration (Stuti, 15 Aug). CTAs are rendered directly rather than through HeroCTAs because
 // HeroCTAs decides which button is green by ROLE — the consultation CTA always leads — which
@@ -12,8 +16,8 @@ const AboutHero = () => {
   return (
     <SiteHero
       eyebrow="Product"
-      headline={<>Your data. Your questions. <span className="cvh-hl">Your answers.</span></>}
-      body="Connect your nonprofit's data, bring it together in one place, and turn it into insights your team can actually use."
+      headline={<>One platform for all your <span className="cvh-hl">nonprofit data needs</span></>}
+      body="Surveys, spreadsheets, CRMs and case tools — brought together, cleaned, and connected in one place your whole team can trust."
       video={{ id: 'R-JJNgp8xYM', poster: 'assets/video/product-hero-poster.webp', title: 'Introducing Dalgo — Data Insights Platform for Social Impact' }}
       ctas={<>
         <a className="cmh-btn cmh-btn-primary" href={t.href} target={t.ext ? '_blank' : undefined} rel={window.ctaRel(t)}>
