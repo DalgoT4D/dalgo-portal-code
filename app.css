@@ -164,6 +164,25 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvc-section .section-head-center { max-width: none; }
 
 /* ---------- 6. Nav ---------- */
+.evt-banner { background: color-mix(in srgb, var(--teal) 14%, #fff); border-bottom: 1px solid var(--hairline); }
+.evt-banner-inner { display: flex; align-items: center; justify-content: center; gap: 16px; max-width: var(--container); margin: 0 auto; padding: 10px 32px; flex-wrap: wrap; }
+.evt-banner-text { color: var(--ink); font-size: 14px; font-weight: 500; text-align: center; }
+.evt-banner-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.evt-banner-cta:hover { color: var(--teal-ink); }
+.evt-popup-overlay { display: none; }
+.evt-popup-overlay.is-open { display: flex; position: fixed; inset: 0; z-index: 2000; align-items: center; justify-content: center; padding: 24px; background: rgba(10,37,64,.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; animation: evtPopupBgIn var(--dur) var(--ease) forwards; }
+.evt-popup-card { position: relative; width: 100%; max-width: 440px; background: var(--surface-0); border-radius: var(--r-xl); box-shadow: var(--shadow-card); padding: 40px 32px 32px; text-align: center; transform: translateY(12px); opacity: 0; animation: evtPopupCardIn .28s var(--ease) .05s forwards; }
+.evt-popup-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-pill); color: var(--ink-2); transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.evt-popup-close:hover { background: var(--surface-2); color: var(--ink); }
+.evt-popup-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+.evt-popup-eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--teal-ink); margin-bottom: 10px; }
+.evt-popup-title { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 10px; }
+.evt-popup-body { font-size: 15px; line-height: 1.5; color: var(--ink-2); margin-bottom: 24px; }
+.evt-popup-body p { margin: 0 0 6px; }
+.evt-popup-body p:last-child { margin-bottom: 0; }
+.evt-popup-cta { display: inline-flex; }
+@keyframes evtPopupBgIn { to { opacity: 1; } }
+@keyframes evtPopupCardIn { to { transform: translateY(0); opacity: 1; } }
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.9); -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid transparent; transition: border-color var(--dur) var(--ease); }
 .nav.scrolled { border-bottom-color: var(--hairline); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: var(--container); margin: 0 auto; padding: 0 32px; }
