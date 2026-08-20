@@ -64,7 +64,7 @@ const Nav = () => {
       <div className="evt-banner">
         <div className="evt-banner-inner">
           <span className="evt-banner-text">{eventBanner.tickerText}</span>
-          <a className="evt-banner-cta" href={eventBanner.href} target="_blank" rel="noopener">{eventBanner.cta} <span aria-hidden="true">→</span></a>
+          <a className="evt-banner-cta" href={eventBanner.href} target="_blank" rel="noopener" data-cta-location="event_ticker">{eventBanner.cta} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     )}

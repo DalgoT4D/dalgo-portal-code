@@ -35,7 +35,7 @@ const EventPopup = () => {
         <div className="evt-popup-body">
           {banner.popupLines.map((line, i) => <p key={i}>{line}</p>)}
         </div>
-        <a className="evt-popup-cta btn btn-primary" href={banner.href} target="_blank" rel="noopener" onClick={close}>{banner.cta}</a>
+        <a className="evt-popup-cta btn btn-primary" href={banner.href} target="_blank" rel="noopener" data-cta-location="event_popup" onClick={close}>{banner.cta}</a>
       </div>
     </div>
   );

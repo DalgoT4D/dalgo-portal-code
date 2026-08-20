@@ -141,7 +141,7 @@ window.consultCta = function () {
     '.dsh-link', '.dsh-card a',
     '.pricing-help-line a',
     '.dtr-card-actions .btn',
-    '.evt-banner-cta'
+    '.evt-banner-cta', '.evt-popup-cta'
   ].join(',');
 
   // Normalise to the label a human sees. Trailing glyphs are decorative and must go: several
@@ -163,10 +163,15 @@ window.consultCta = function () {
     if (!el) return;
     var name = ctaName(el);
     if (!name) return; // never send an empty cta_name — an unnamed row is unusable in reports
-    // TODO(BM-356): gate on Consent Mode v2 once it lands, defaulting to denied under DPDP.
-    window.gtag('event', 'cta_click', {
+    var params = {
       cta_name: name,
       cta_destination: el.getAttribute('href') || '(button)'
-    });
+    };
+    // Optional: distinguishes CTAs that share a label/destination across placements, e.g. the
+    // event ticker vs. the home-page pop-up both say "Register now" and link to the same event.
+    var location = el.getAttribute('data-cta-location');
+    if (location) params.cta_location = location;
+    // TODO(BM-356): gate on Consent Mode v2 once it lands, defaulting to denied under DPDP.
+    window.gtag('event', 'cta_click', params);
   }, true);
 })();
