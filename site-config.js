@@ -31,6 +31,16 @@ window.SITE_CONFIG = {
     img: 'assets/community-cards/data-decoded.webp?v=cffed030',
     href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
     cta: 'Subscribe'
+  },
+  // Site-wide announcement bar above the nav, plus a one-time home-page pop-up (EventPopup.jsx).
+  // Set to null to hide both once the event has passed.
+  EVENT_BANNER: {
+    tickerText: 'Data Decoded · 6 October · Bengaluru · One day data strategy session for nonprofits · Limited seats',
+    href: 'https://luma.com/uiwzzd76?utm_source=website',
+    cta: 'Register now',
+    popupEyebrow: 'Upcoming',
+    popupTitle: 'Data Decoded with Dalgo',
+    popupLines: ['A one day data strategy session for nonprofits', '6 October · Bengaluru']
   }
 };
 // Returns the featured resource for the nav panel (null hides the Featured column).
@@ -130,7 +140,8 @@ window.consultCta = function () {
     '.pf-cta', '.co-probono-btn',
     '.dsh-link', '.dsh-card a',
     '.pricing-help-line a',
-    '.dtr-card-actions .btn'
+    '.dtr-card-actions .btn',
+    '.evt-banner-cta'
   ].join(',');
 
   // Normalise to the label a human sees. Trailing glyphs are decorative and must go: several

@@ -53,10 +53,21 @@ const Nav = () => {
   ];
   // Featured slot (psychology #4 Von Restorff, #11 self-expiring): next webinar from site-config.
   const featured = window.featuredResource ? window.featuredResource() : null;
+  // Site-wide event banner above the nav. window.SITE_CONFIG.EVENT_BANNER = null hides it.
+  const eventBanner = window.SITE_CONFIG && window.SITE_CONFIG.EVENT_BANNER;
   const NavLink = ({ href, active, extra, children }) => (
     <a href={href} className={'nav-link' + (active ? ' is-active' : '') + (extra ? ' ' + extra : '')} aria-current={active ? 'page' : undefined}>{children}</a>
   );
   return (
+    <React.Fragment>
+    {eventBanner && (
+      <div className="evt-banner">
+        <div className="evt-banner-inner">
+          <span className="evt-banner-text">{eventBanner.tickerText}</span>
+          <a className="evt-banner-cta" href={eventBanner.href} target="_blank" rel="noopener">{eventBanner.cta} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    )}
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-inner">
         <div className="nav-left">
@@ -139,6 +150,8 @@ const Nav = () => {
         </div>
       </div>
       <div className={`nav-scrim ${menuOpen ? 'is-open' : ''}`} onClick={closeMenu} hidden={!menuOpen}></div>
-    </nav>);
+    </nav>
+    </React.Fragment>
+  );
 };
 window.Nav = Nav;
