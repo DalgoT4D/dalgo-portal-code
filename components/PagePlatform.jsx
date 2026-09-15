@@ -268,6 +268,14 @@ const DashboardShowcase = () => {
     { name: 'SHRI', logo: 'assets/dash/shri.webp', use: 'Sanitation and health rights in India.', links: [{ l: 'View dashboards', h: 'https://www.data.sanrights.org/' }] },
     { name: 'Noora Health', logo: 'assets/logos/NooraHealth.png', use: 'Equipping families with the skills to care for patients at the bedside.', links: [{ l: 'Program dashboard', h: 'https://noora.dalgo.org/superset/dashboard/25/' }] },
     { name: 'SHOFCO', logo: 'assets/dash/shofco.webp', use: "Urban transformation across Kenya's informal settlements.", links: [{ l: 'Dashboard 1', h: 'https://shofco.dalgo.org/superset/dashboard/97/' }, { l: 'Dashboard 2', h: 'https://shofco.dalgo.org/superset/dashboard/98/' }] },
+    // 1000 Days Fund added 9 Sep 2026 (Stuti). Logo is TDF Logo.jpeg from the Dalgo master
+    // folder, converted to a transparent WebP — the source is a JPEG with a flat #F7F7F7
+    // ground baked in, which would have read as a faint grey box on these white cards while
+    // every other logo here is transparent.
+    // The supplied URL carried ?native_filters_key=R3t8BRd_NxI. Dropped: it is a per-session
+    // Superset filter-state key, the dashboard returns 200 without it (checked), and no other
+    // card here carries one — leaving it in risks applying someone else's saved filter state.
+    { name: '1000 Days Fund', logo: 'assets/logos/TDF.webp', use: 'Reducing childhood stunting across Indonesia.', links: [{ l: 'View dashboard', h: 'https://1000daysfund.dalgo.org/superset/dashboard/9/' }] },
     { name: 'Dalgo Native Dashboard', native: true, logo: 'assets/dalgo-logo.png', use: 'A live, interactive dashboard built directly in Dalgo — explore the native experience end to end.', links: [{ l: 'Open dashboard', h: 'https://insights.dalgo.org/share/dashboard/0u8iLdDWNbLo1p8Yj8oxMU7MjLkgxCRtftelFiL-Qf26SAYO4JQ6WcfuqFoeaogI' }] },
     { name: 'Dalgo Native Report', native: true, logo: 'assets/dalgo-logo.png', use: 'A shareable report generated in Dalgo, frozen to a reporting period and opened from a single link.', links: [{ l: 'Open report', h: 'https://insights.dalgo.org/share/report/2xIniNI--bv97Jj7OktKkjc4pMnhUq1UkYAgswOZcbqNZhAvaCUAS5DLzflLZezG' }] },
   ];
