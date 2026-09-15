@@ -2,7 +2,7 @@
 window.SITE_CONFIG = {
   // ==== TRIAL CTA — ONE SWITCH ====
   // Set TRIAL_URL to the real trial-signup URL and flip TRIAL_READY to true. That single change
-  // turns "Try Dalgo for Free" on in the nav (desktop + mobile drawer) and reveals the trial band
+  // turns "Try Platform for Free" on in the nav (desktop + mobile drawer) and reveals the trial band
   // on /product between the tour and the capability grid. Nothing else needs editing.
   //
   // Production trial signup. Swapped off the staging placeholder 15 Aug 2026 once
@@ -22,33 +22,92 @@ window.SITE_CONFIG = {
   // before this; route every consultation CTA through window.consultCta() so they
   // cannot diverge again.
   CONSULT_FORM: 'https://forms.gle/6vpR5LKpV29zvyxK9',
-  // Featured resource in the nav Resources panel. Evergreen (no expiry): the Data Decoded
-  // newsletter, replacing the time-bound webinar card that had to be refreshed monthly.
+  // Public Luma events calendar ("Dalgo Events"). Stored CLEAN — utm is appended per surface by
+  // window.withUtm(), so the same URL can carry a different utm_medium from the hero, the ticker
+  // and the pop-up instead of one baked-in medium lying about where the click came from.
+  EVENTS_CALENDAR: 'https://luma.com/dalgo',
+  // Featured resource in the nav Resources panel. Time-bound again as of 26 Aug 2026 (Stuti):
+  // the TDF webinar replaces the evergreen Data Decoded newsletter card.
+  // Title and blurb are the event's own facts, taken from the Luma page — not written copy.
+  // Thumbnail is localised from Luma's og:image into assets/events/ so the nav makes no
+  // third-party image request; it is 1600x840 (1.905), which matches .nav-dd-featimg's
+  // aspect-ratio: 800/420 exactly, so nothing crops.
+  // utm_source=website is appended by window.featuredResource() below — do not bake it in here
+  // or the link ends up with it twice.
+  // ⏳ EXPIRES 11 Sep 2026 — swap or revert to an evergreen card after the event.
   FEATURED_RESOURCE: {
-    kicker: 'Newsletter',
-    title: 'Data Decoded with Dalgo',
-    blurb: 'One nonprofit data concept per edition, in plain language.',
-    img: 'assets/community-cards/data-decoded.webp?v=cffed030',
-    href: 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7470812385688276992',
-    cta: 'Subscribe'
+    kicker: 'Webinar',
+    title: 'Driving Beneficiary Impact from Data',
+    blurb: 'Lessons from 1000 Days Fund · 11 September · Online',
+    img: 'assets/events/tdf-webinar.webp?v=d0732a01',
+    href: 'https://luma.com/lk7hunh6',
+    cta: 'Register'
   },
-  // Site-wide announcement bar above the nav, plus a one-time home-page pop-up (EventPopup.jsx).
-  // Set to null to hide both once the event has passed.
+  // ===== Site-wide announcement bar + one-time home pop-up (EventPopup.jsx) =====
+  // tickerLead is the fixed opening of the bar: the offer. Each entry in events[] then renders
+  // as its own LINK reading "<city>, <when>", each pointing at that city's own registration
+  // page, with a drawn arrow marking the turn from the offer to the two ways of taking it.
+  // Earlier passes styled those links as pill chips and appended "→ Register" to each, which
+  // put the word Register twice inside a 40px strip beside the lead sentence and set two
+  // button-looking objects in a band that is otherwise a line of text. Both are gone: the
+  // action is named once, by the lead, and carried per link by the aria-label.
+  // whenShort is currently UNUSED — it existed because the bar wanted "6 Oct" while the pop-up
+  // rows wanted "6 October", and as of 15 Sep (Stuti) the bar spells the month out too, so both
+  // surfaces read `when`. Kept because it costs nothing, but note that changing a date now
+  // means changing `when` or the bar will not move.
+  // The bar is static — see the note in
+  // app.css — so per-city links are safe here; they were not while the text was scrolling.
+  // events[] drives both the bar links and the pop-up rows. Set EVENT_BANNER to null to hide
+  // both once the events have passed.
+  //
+  // Event hrefs are CLEAN. window.withUtm() adds utm_source=website plus a per-surface
+  // utm_medium at render, so a Bangalore click from the pop-up is distinguishable from the same
+  // event clicked anywhere else. Never bake utm into these values or it lands twice.
   EVENT_BANNER: {
-    tickerText: 'Data Decoded · 6 October · Bengaluru · One day data strategy session for nonprofits · Limited seats',
-    href: 'https://luma.com/uiwzzd76?utm_source=website',
-    cta: 'Register now',
-    popupEyebrow: 'Upcoming',
-    popupTitle: 'Data Decoded with Dalgo',
-    popupLines: ['A one day data strategy session for nonprofits', '6 October · Bengaluru']
+    tickerLead: 'Register for Data Decoded, a one day data strategy session for nonprofits',
+    // The bell emoji came off the lead 15 Sep. An emoji renders in a different family at a
+    // different optical weight from Inter and sat above the text baseline, so the line started
+    // with a wobble; the bar now opens with a drawn calendar icon from Nav.jsx instead.
+    //
+    // Heading + supporting line are EXACT copy from Stuti (15 Sep) — do not reword. They set the
+    // conversion hierarchy for the dialog: offer, then scope, then the two dated cards below.
+    // popupHeading also names the dialog for screen readers (aria-labelledby).
+    popupHeading: 'Register for Data Decoded',
+    popupSub: 'A one day data strategy event for nonprofits in Bangalore and Delhi.',
+    cta: 'Register',                   // per-event row, and the single-event primary button
+    events: [
+      {
+        title: 'Data Decoded with Dalgo',
+        when: '6 October', whenShort: '6 Oct', where: 'Bangalore',
+        blurb: 'A one day data strategy session for nonprofits',
+        href: 'https://luma.com/uiwzzd76',
+        img: 'assets/events/data-decoded-oct.webp?v=f85cfb97',
+        alt: 'Data Decoded with Dalgo — a strategy day for nonprofits in Bangalore, 6 October 2026.'
+      },
+      {
+        title: 'Data Decoded with Dalgo',
+        when: '29 October', whenShort: '29 Oct', where: 'Delhi',
+        blurb: 'A one day data strategy session for nonprofits',
+        href: 'https://luma.com/5yqjry8c',
+        img: 'assets/events/data-decoded-delhi.webp?v=9a7a7808',
+        alt: 'Data Decoded with Dalgo — a strategy day for nonprofits in Delhi, 29 October 2026.'
+      }
+    ]
   }
+};
+// Appends campaign params to an outbound link. ONE place, so utm_source is never missing and
+// never doubled, and each surface passes its own utm_medium — the hero, the ticker, a pop-up row
+// and the pop-up's "see all" button are then separable in GA4 even when they share a URL.
+window.withUtm = function (href, medium) {
+  if (!href || !/^https?:/.test(href)) return href;
+  var sep = href.indexOf('?') > -1 ? '&' : '?';
+  return href + sep + 'utm_source=website' + (medium ? '&utm_medium=' + medium : '');
 };
 // Returns the featured resource for the nav panel (null hides the Featured column).
 window.featuredResource = function () {
   var r = window.SITE_CONFIG.FEATURED_RESOURCE;
   if (!r) return null;
-  var href = r.href + (r.href.indexOf('?') > -1 ? '&' : '?') + 'utm_source=website&utm_medium=nav_featured';
-  return Object.assign({}, r, { href: href });
+  return Object.assign({}, r, { href: window.withUtm(r.href, 'nav_featured') });
 };
 // The trial CTA label lives here and nowhere else, so a rename is a one-line change — and the
 // cta_click listener picks the new name up on its own, because it reads whatever text is on screen.
@@ -60,7 +119,7 @@ window.featuredResource = function () {
 window.trialCta = function () {
   var c = window.SITE_CONFIG;
   if (!(c.TRIAL_READY && c.TRIAL_URL)) return { label: 'Contact Us', href: '/contact', ext: false };
-  return { label: 'Try Dalgo for Free', href: c.TRIAL_URL, ext: true, nofollow: !window.trialUrlIsProd() };
+  return { label: 'Try Platform for Free', href: c.TRIAL_URL, ext: true, nofollow: !window.trialUrlIsProd() };
 };
 // True when TRIAL_URL points at a real production host. While it points anywhere else (staging,
 // a preview, localhost) the trial links carry rel="nofollow", so linking from production cannot
@@ -127,7 +186,7 @@ window.consultCta = function () {
 // earmarked for a separate page_clicks event — not this one.
 //
 // The listener reads whatever text is on the button, so a copy change (e.g. the trial flow
-// renaming CTAs to "Try Dalgo for Free") needs no code change here. What DOES break on a
+// renaming CTAs to "Try Platform for Free") needs no code change here. What DOES break on a
 // rename is any GA4 conversion keyed on a cta_name string — define those in the GA4 UI, where
 // they can be edited without a deploy, not in here.
 (function () {

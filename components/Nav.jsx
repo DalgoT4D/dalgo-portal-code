@@ -60,11 +60,53 @@ const Nav = () => {
   );
   return (
     <React.Fragment>
-    {eventBanner && (
+    {eventBanner && eventBanner.tickerLead && eventBanner.events && eventBanner.events.length > 0 && (
+      /* STATIC bar (Stuti, 15 Sep) — it used to scroll. Making it still is what allows each
+         city to be its own hyperlink: while the text moved, a link inside it was a target that
+         slid out from under the cursor, which is why the whole bar was one link to the calendar
+         instead. Nothing moves now, so there is also no WCAG 2.2.2 question and no need for the
+         duplicated track, the edge mask or the reduced-motion override. */
       <div className="evt-banner">
         <div className="evt-banner-inner">
-          <span className="evt-banner-text">{eventBanner.tickerText}</span>
-          <a className="evt-banner-cta" href={eventBanner.href} target="_blank" rel="noopener" data-cta-location="event_ticker">{eventBanner.cta} <span aria-hidden="true">→</span></a>
+          <p className="evt-banner-line">
+            <span className="evt-banner-lead">
+              {/* Drawn icon, not the bell emoji it replaced: an emoji renders in a different
+                  family at a different optical weight from Inter and sits off the text
+                  baseline, so the line opened with a visible wobble. 2px stroke matches the
+                  other inline icons in the sheet. */}
+              <svg className="evt-banner-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <rect x="3" y="5" width="18" height="16" rx="2.5"></rect>
+                <path d="M8 3v4M16 3v4M3 11h18"></path>
+              </svg>
+              {eventBanner.tickerLead}
+            </span>
+            <span className="evt-banner-dates">
+              {/* The arrow lives INSIDE this group, not between the two groups, so that when the
+                  sentence and the options fall onto separate rows the arrow travels with the
+                  options it points at. Sitting between them, it ended the first row pointing
+                  into empty space with its referent on the row below — which it did from about
+                  880px down, not at the 600px the stacking rule assumed. */}
+              <svg className="evt-banner-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h13M12 5l7 7-7 7"></path>
+              </svg>
+              {eventBanner.events.map((e, i) => (
+                /* Each city is its own LINK, so the two registration options read as separately
+                   clickable without a button sitting in a line of text. Visible text is only
+                   what differs between them — city and date. It appended "→ Register" per item
+                   until 15 Sep, which printed the word Register twice in a 40px strip beside the
+                   lead sentence; the action is carried by the aria-label instead. */
+                <React.Fragment key={i}>
+                {i > 0 && <span className="evt-banner-rule" aria-hidden="true" />}
+                <a className="evt-banner-cta"
+                   href={window.withUtm(e.href, 'event_ticker')}
+                   target="_blank" rel="noopener" data-cta-location="event_ticker"
+                   aria-label={'Register for Data Decoded in ' + e.where + ', ' + e.when}>
+                  {e.where}, {e.when}
+                </a>
+                </React.Fragment>
+              ))}
+            </span>
+          </p>
         </div>
       </div>
     )}
@@ -121,6 +163,10 @@ const Nav = () => {
           </div>
         </div>
         <div className="nav-right">
+          {/* mailto, not /contact (Stuti, 15 Sep): this is meant to open the visitor's own mail
+              client addressed to support@dalgo.org. No target=_blank — a new tab for a mailto
+              leaves an empty window behind once the mail client takes over. */}
+          <a href="mailto:support@dalgo.org" className="btn btn-ghost" data-cta-location="nav_contact">Contact Us</a>
           <a href={navCta.href} target={navCta.ext ? '_blank' : undefined} rel={window.ctaRel(navCta)} className="btn btn-primary">{navCta.label}</a>
         </div>
         <button type="button" className={`nav-burger ${menuOpen ? 'is-open' : ''}`} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} aria-controls="nav-mobile-drawer" onClick={() => setMenuOpen((o) => !o)}>
@@ -145,6 +191,7 @@ const Nav = () => {
             ))}
           </div>
           <div className="nav-m-ctas">
+            <a href="mailto:support@dalgo.org" className="btn btn-ghost" data-cta-location="nav_contact" onClick={closeMenu}>Contact Us</a>
             <a href={navCta.href} target={navCta.ext ? '_blank' : undefined} rel={window.ctaRel(navCta)} className="btn btn-primary" onClick={closeMenu}>{navCta.label}</a>
           </div>
         </div>

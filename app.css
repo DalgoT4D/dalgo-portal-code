@@ -164,23 +164,166 @@ p strong, li strong { font-weight: 600; color: inherit; }
 .cvc-section .section-head-center { max-width: none; }
 
 /* ---------- 6. Nav ---------- */
-.evt-banner { background: color-mix(in srgb, var(--teal) 14%, #fff); border-bottom: 1px solid var(--hairline); }
-.evt-banner-inner { display: flex; align-items: center; justify-content: center; gap: 16px; max-width: var(--container); margin: 0 auto; padding: 10px 32px; flex-wrap: wrap; }
-.evt-banner-text { color: var(--ink); font-size: 14px; font-weight: 500; text-align: center; }
-.evt-banner-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
-.evt-banner-cta:hover { color: var(--teal-ink); }
+/* ===== Event announcement bar — STATIC =====
+   Was a moving ticker; made still 15 Sep so each city can be its own hyperlink (a link inside
+   a scrolling track is a target that slides away from the cursor). Removing the motion also
+   retired the duplicated track, the edge mask, the hover/focus pause and the
+   prefers-reduced-motion override, plus the WCAG 2.2.2 question that came with moving text.
+   Background is --surface-1: the ONE tint the system allows for a differentiated band. A fourth
+   tint (teal 14%) was the original and is not permitted; --navy was tried and rejected, because
+   dark bands are capped at 1-2 per page and home already spends one on the final-CTA band. */
+.evt-banner { background: var(--surface-1); border-bottom: 1px solid var(--hairline); }
+.evt-banner-inner { max-width: var(--container); margin: 0 auto; padding: 8px clamp(16px, 5vw, 32px); }
+/* Two groups, not five loose items: the lead sentence is one unit, the two date chips another.
+   They were all direct flex children under a single 12px gap, so at the centre of the bar the
+   sentence's last word sat the same distance from chip one as chip one sat from chip two — the
+   eye cannot tell what belongs to what, and that is the "cramped" reading. A 28px gap between
+   groups against 8px inside the chip group does that work. */
+.evt-banner-line { margin: 0; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; column-gap: 12px; row-gap: 8px; font-size: 14px; font-weight: 500; line-height: 1.5; color: var(--ink); }
+/* The lead is long enough to wrap at narrow widths, so it is its own flex item with the icon
+   pinned to its first line — align-items: flex-start, not center, or a two-line sentence
+   floats the icon to the vertical middle of the block. */
+.evt-banner-lead { display: inline-flex; align-items: flex-start; gap: 9px; color: var(--ink); }
+/* Drawn calendar, replacing the bell emoji: an emoji renders in a different family at a
+   different optical weight from Inter and sits off the baseline, so the line opened on a
+   wobble. 2px stroke matches the sheet's other inline icons. */
+.evt-banner-icon { flex: 0 0 auto; width: 15px; height: 15px; margin-top: 3px; stroke: var(--teal-ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* The arrow marks the turn from the offer to the options, so it needs air on both sides but
+   less than the 22px the bare gap used to carry alone. Slight downward optical nudge: a
+   horizontal arrow centred on the flex line sits high against lowercase text. */
+.evt-banner-arrow { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 1px; stroke: color-mix(in srgb, var(--ink) 45%, transparent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* One unit: arrow, link, rule, link. flex-wrap stays at nowrap so the arrow can never be
+   separated from the links, and the whole group moves to its own row instead. */
+.evt-banner-dates { display: inline-flex; align-items: center; flex-wrap: nowrap; gap: 14px; }
+/* Text links, not chips. They carried .dsh-native-badge's pill treatment (tinted ground, teal
+   border, --r-pill) until 15 Sep, which read as two buttons flanking a sentence — a bar is a
+   line of text, and a button in it competes with the nav's real CTAs two rows below. So:
+   underlined links in the sentence's own type, marked by the sheet's link colour and an
+   underline rather than by a container.
+   The vertical padding gives a ~30px pointer target with nothing visible around it, which is
+   the whole advantage of a text link over a chip here.
+   underline-offset keeps the rule off the descenders in "Bangalore". */
+.evt-banner-cta { display: inline-flex; align-items: baseline; gap: 6px; padding: 5px 0; font-size: 14px; font-weight: 600; white-space: nowrap; color: var(--teal-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--teal-ink) 40%, transparent); transition: color var(--dur-fast) var(--ease), text-decoration-color var(--dur-fast) var(--ease); }
+.evt-banner-cta:hover { color: color-mix(in srgb, var(--teal-ink) 80%, #000); text-decoration: underline; text-decoration-color: currentColor; }
+.evt-banner-cta:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+/* Hairline between the two links. Without a container each one needs some mark of where it
+   ends, or at a glance the pair reads as one long link. */
+.evt-banner-rule { flex: 0 0 auto; width: 1px; align-self: stretch; margin: 3px 0; background: var(--hairline); }
+.evt-banner-sep { color: color-mix(in srgb, var(--teal-ink) 45%, transparent); font-weight: 400; text-decoration: none; }
+/* Under ~600px the lead and two chips cannot share a line without wrapping mid-phrase. Stack
+   the two groups so the bar is two tidy rows rather than a ragged three. */
+@media (max-width: 600px) {
+  .evt-banner-inner { padding-top: 7px; padding-bottom: 7px; }
+  .evt-banner-line { column-gap: 0; row-gap: 8px; font-size: 13px; }
+  .evt-banner-lead { gap: 8px; }
+  /* Touch: the padding grows, nothing visible does. */
+  .evt-banner-cta { padding: 8px 0; font-size: 13px; }
+  .evt-banner-dates { gap: 12px; }
+  .evt-banner-icon { margin-top: 2px; }
+  /* Narrow rows put the group flush left under the sentence; the arrow reads as "these are the
+     options" there rather than as a mid-sentence turn, so it loses a little of its air. */
+  .evt-banner-dates { gap: 12px; }
+  .evt-banner-arrow { width: 15px; height: 15px; }
+}
+
 .evt-popup-overlay { display: none; }
 .evt-popup-overlay.is-open { display: flex; position: fixed; inset: 0; z-index: 2000; align-items: center; justify-content: center; padding: 24px; background: rgba(10,37,64,.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; animation: evtPopupBgIn var(--dur) var(--ease) forwards; }
-.evt-popup-card { position: relative; width: 100%; max-width: 440px; background: var(--surface-0); border-radius: var(--r-xl); box-shadow: var(--shadow-card); padding: 40px 32px 32px; text-align: center; transform: translateY(12px); opacity: 0; animation: evtPopupCardIn .28s var(--ease) .05s forwards; }
-.evt-popup-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-pill); color: var(--ink-2); transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
-.evt-popup-close:hover { background: var(--surface-2); color: var(--ink); }
+.evt-popup-card { position: relative; width: 100%; max-width: 440px; background: var(--surface-0); border-radius: var(--r-xl); box-shadow: var(--shadow-card); padding: 26px 24px 30px; text-align: center; transform: translateY(12px); opacity: 0; animation: evtPopupCardIn .28s var(--ease) .05s forwards; }
+/* The multi-event card is a chooser, not a promo, so it is left-aligned throughout. Centred
+   text above a left-aligned list gave the card two competing axes — heading optically centred,
+   rows starting at the padding edge — and that misalignment reads before any single element
+   does. 460px not 440: at 440 the longest city name and "Register" fought for one row. */
+/* padding-top clears the close button (top: 18px + 32px tall = 50px) with air. The heading
+   used to occupy this space; with it gone the X floated over the first row's top-right
+   corner, overlapping it by 24px. */
+.evt-popup-card.is-list { max-width: 460px; text-align: left; padding: 22px 22px 20px; }
+@media (max-width: 420px) {
+  .evt-popup-card.is-list { padding: 20px 18px 18px; }
+  /* The action can sit under the city on the narrowest screens rather than being squeezed
+     against it; the row stays one link either way. */
+  .evt-popup-row { padding: 12px 14px; gap: 12px; }
+}
+/* Sits OVER the event artwork, so it needs its own ground — a transparent X on an unknown
+   image is unreadable and, worse, ambiguous. Same treatment as .nav-dd-feattag (the site's
+   existing chip-over-image pattern): white at 92% + pill radius. 32px visible, 44px hit area
+   via the negative-margin padding trick, so it clears the 44px touch-target floor without
+   growing the visible mark. */
+.evt-popup-close { position: absolute; top: 18px; right: 18px; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-pill); background: rgba(255,255,255,.92); box-shadow: var(--shadow-sm); color: var(--ink); transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease); }
+.evt-popup-close:hover { background: var(--surface-0); color: var(--ink); }
+.evt-popup-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* Secondary on the list card: no chip, no shadow, muted ink — it is the least important
+   control in a dialog whose job is a registration click. Visually 26px, but ::after gives it
+   a 44px hit area so shrinking it costs nothing on touch. */
+.evt-popup-card.is-list .evt-popup-close { top: 12px; right: 12px; width: 26px; height: 26px; background: none; box-shadow: none; color: var(--ink-2); }
+.evt-popup-card.is-list .evt-popup-close::after { content: ""; position: absolute; inset: -9px; border-radius: var(--r-pill); }
+.evt-popup-card.is-list .evt-popup-close:hover { background: var(--surface-1); color: var(--ink); }
+.evt-popup-card.is-list .evt-popup-close svg { width: 15px; height: 15px; }
 .evt-popup-close svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
-.evt-popup-eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--teal-ink); margin-bottom: 10px; }
-.evt-popup-title { font-size: 22px; font-weight: 700; line-height: 1.3; color: var(--ink); margin-bottom: 10px; }
+/* .evt-popup-eyebrow (12.5/700/.14em uppercase) was removed 15 Sep. It was the card's only
+   text above the rows, so the dialog carried a label where it needed a heading — and its
+   accessible name came from a config string no sighted user could see. */
+/* Event image, reusing .nav-dd-featimg's 800/420 figure treatment rather than a new one. */
+.evt-popup-figure { display: block; border-radius: var(--r-md); overflow: hidden; aspect-ratio: 800 / 420; background: var(--surface-1); margin: 0 0 22px; }
+.evt-popup-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.evt-popup-figure:hover img { opacity: .94; }
+/* Several events: one compact row each. Type tiers are the card ones already in the sheet —
+   15/600 for the name and 13.5 for the meta line, matching .cvc-name and .cvc-desig — so this
+   introduces no new sizes. Thumb keeps the 800/420 event-artwork ratio. */
+.evt-popup-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+/* The row IS the registration link, so it names its action at its own trailing edge. Two
+   parallel choices rather than two cards: no thumbnail, type does the separating, and
+   space-between is what makes them read as parallel rather than as a stack of blocks. */
+.evt-popup-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; text-decoration: none; padding: 10px 12px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-0); transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+.evt-popup-row:hover { border-color: color-mix(in srgb, var(--teal) 40%, transparent); background: var(--surface-1); text-decoration: none; box-shadow: var(--shadow-sm); }
+.evt-popup-row:hover .evt-popup-rowcta { background: color-mix(in srgb, var(--teal) 20%, #fff); border-color: color-mix(in srgb, var(--teal) 45%, transparent); }
+.evt-popup-row:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.evt-popup-rowtext { flex: 1 1 auto; display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+/* The city leads, because the city is what the reader is choosing between. Both events share
+   one title and it is in the heading; printing it per row gave two identical bold lines with
+   the distinguishing word buried second in the meta line underneath. */
+/* Luma poster per row. 128px (not the old 92px) so the artwork reads as artwork; the row
+   is a flex line of thumb | city+date | action, and only the middle one flexes. */
+.evt-popup-thumb { flex: 0 0 auto; width: 104px; aspect-ratio: 800 / 420; border-radius: var(--r-sm); overflow: hidden; background: var(--surface-1); }
+.evt-popup-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.evt-popup-rowtitle { font-size: 16px; font-weight: 650; line-height: 1.3; letter-spacing: -.005em; color: var(--ink); }
+.evt-popup-rowmeta { font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+/* Named affordance, not a bare chevron: the row's action is legible without hovering. The arrow
+   advances 2px on hover — the row's one authored movement. */
+/* The whole row is the anchor; this is the visible affordance, so it is styled as the button
+   it stands in for. Teal-tinted chip + teal border is the sheet's existing chip treatment. */
+.evt-popup-rowcta { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: var(--r-pill); font-size: 13.5px; font-weight: 650; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 12%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent); transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
+.evt-popup-rowcta svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--dur) var(--ease); }
+.evt-popup-row:hover .evt-popup-rowcta svg { transform: translateX(2px); }
+@media (prefers-reduced-motion: reduce) {
+  .evt-popup-rowcta svg { transition: none; }
+  .evt-popup-row:hover .evt-popup-rowcta svg { transform: none; }
+}
+.evt-popup-title { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; color: var(--ink); margin: 0 0 4px; }
+.evt-popup-card.is-list .evt-popup-title { padding-right: 40px; }
+.evt-popup-sub { font-size: 14px; line-height: 1.45; color: var(--ink-2); margin: 0 0 14px; }
+/* Secondary route to the calendar index. Quiet by design: it was a primary-weighted button
+   reading "Register" sitting directly under two events it did not register you for. */
+/* Its own line. In the single-event card both this and the primary button are inline-level on a
+   centred block, so they flowed onto one line with the link jammed against the button. */
 .evt-popup-body { font-size: 15px; line-height: 1.5; color: var(--ink-2); margin-bottom: 24px; }
 .evt-popup-body p { margin: 0 0 6px; }
 .evt-popup-body p:last-child { margin-bottom: 0; }
-.evt-popup-cta { display: inline-flex; }
+.evt-popup-cta { display: inline-flex; margin-bottom: 18px; }
+/* display:table shrink-wraps to the text, so auto margins centre it in the centred card and
+   the list card's left alignment is untouched. */
+/* Narrow screens: keep all three on ONE line — the action wrapping to its own row cost ~50px
+   per card and, once Register became a chip, stretched it into a full-width tinted bar. Every
+   part gives up a little instead: artwork 84px, city 15px, chip on tighter padding. That is
+   ~64px per card against ~112px wrapped, so both cities stay comparable at a glance. */
+@media (max-width: 420px) {
+  .evt-popup-row { gap: 10px; padding: 10px; }
+  .evt-popup-thumb { width: 84px; }
+  .evt-popup-rowtitle { font-size: 15px; }
+  .evt-popup-rowcta { padding: 5px 10px; gap: 4px; font-size: 13px; }
+  .evt-popup-rowcta svg { width: 14px; height: 14px; }
+  .evt-popup-rowmeta { white-space: nowrap; }
+}
+
 @keyframes evtPopupBgIn { to { opacity: 1; } }
 @keyframes evtPopupCardIn { to { transform: translateY(0); opacity: 1; } }
 .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.9); -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px); border-bottom: 1px solid transparent; transition: border-color var(--dur) var(--ease); }
