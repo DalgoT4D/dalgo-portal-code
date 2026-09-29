@@ -150,7 +150,12 @@
      names are kept (composition rule: 3 section-pad tokens) but now share a value. */
   --section-pad: var(--s-10);     /* 80 — white sections */
   --section-pad-lg: var(--s-10);  /* 80 — tinted / dark bands */
-  --section-pad-sm: var(--s-10);  /* 80 — slim strips */
+  --section-pad-sm: var(--s-7);   /* 40 — slim strips (logo marquee, quote strips).
+                                     Kept slimmer than full sections on purpose: at 80
+                                     the logo strip sat a full section-height below the
+                                     hero and fell out of the first fold. A slim strip
+                                     reads as attached to the hero (social proof) and the
+                                     carousel stays in the fold as a scroll cue. */
   --container: 1200px;
 
   /* Measures — 3, replacing the 13 one-off max-widths.
@@ -159,7 +164,8 @@
   --measure-lede: var(--measure-hero-sub); /* 58ch — hero subhead, section intros */
 }
 @media (max-width: 768px) { :root {
-  --section-pad: var(--s-8); --section-pad-lg: var(--s-8); --section-pad-sm: var(--s-8);  /* 48 → 96 seam */
+  --section-pad: var(--s-8); --section-pad-lg: var(--s-8);  /* 48 */
+  --section-pad-sm: var(--s-6);                             /* 32 — strips stay slim */
 } }
 
 /* Hero height — Phase 1 (F5): no floor. Content-driven, as in the v2 demo.

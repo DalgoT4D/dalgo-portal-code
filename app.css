@@ -2081,14 +2081,8 @@ h4 { font-size: var(--fs-card); line-height: calc(var(--lh-card) / var(--fs-card
 }
 .cmh-btn-sm { font-size: var(--fs-ui); padding: var(--s-2) var(--s-5); min-height: 40px; }
 
-/* nav CTA demotion — JUDGEMENT CALL, pending marketing sign-off (delete to restore) */
-.nav-right .btn-primary, .nav-right .btn-teal {
-  background: var(--surface-0); color: var(--ink);
-  border: 1.5px solid color-mix(in srgb, var(--ink) 16%, #fff); box-shadow: none;
-}
-.nav-right .btn-primary:hover, .nav-right .btn-teal:hover {
-  background: var(--surface-1); color: var(--ink); border-color: var(--teal); transform: translateY(-1px);
-}
+/* nav buttons keep their live treatment (solid teal primary) — the Phase 1 pass
+   only normalises their size/padding, not their fill. */
 .nav-right .btn { padding: var(--s-3) var(--s-5); min-height: 40px; }
 
 /* ---- 6. SECTION HEADS + GRIDS ---- */
@@ -2124,13 +2118,17 @@ h4 { font-size: var(--fs-card); line-height: calc(var(--lh-card) / var(--fs-card
 .si-grid { gap: var(--s-5); }
 .si-body { padding: var(--s-5); gap: var(--s-2); }
 
-/* ---- LOGO BAND — one fixed container (32px optical cap) ---- */
+/* ---- LOGO BAND — fixed tile, per-logo OPTICAL cap-height ----
+   The tile is one size (180x64); the logo inside is capped by its own --logo-h
+   (set per asset in Marquee.jsx toward equal visual weight, not equal height).
+   Fallback 32px if a logo ships without the var. Strips get a wider content box. */
 .logo-tile {
   width: 180px; height: 64px; display: grid; place-items: center;
   padding: var(--s-2) var(--s-5); box-sizing: border-box;
 }
+.logo-tile.is-strip { padding-left: var(--s-2); padding-right: var(--s-2); }  /* ~164px content for ultra-wide marks */
 .logo-tile .logo-img, .logo-tile .logo-img.is-solid {
-  width: auto; height: auto; max-width: 100%; max-height: 32px; object-fit: contain;
+  width: auto; height: auto; max-width: 100%; max-height: var(--logo-h, 32px); object-fit: contain;
 }
 
 /* ---- 7. SHELL — nav, dropdowns, footer ---- */
