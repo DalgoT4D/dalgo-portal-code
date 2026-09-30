@@ -156,6 +156,13 @@
                                      hero and fell out of the first fold. A slim strip
                                      reads as attached to the hero (social proof) and the
                                      carousel stays in the fold as a scroll cue. */
+  --hero-pad: var(--s-9);         /* 64 — the hero has its OWN rhythm, not the slim-strip
+                                     value it used to borrow (which left it cramped at 40).
+                                     Masthead zone: hero 64 + logo strip 40 keeps header +
+                                     hero + carousel all in the first fold at 1440x820
+                                     (measured: carousel row ends 755, 65px clear). Body
+                                     sections stay 80. 80 here leaves the carousel tight,
+                                     96 clips it. */
   --container: 1200px;
 
   /* Measures — 3, replacing the 13 one-off max-widths.
@@ -166,6 +173,7 @@
 @media (max-width: 768px) { :root {
   --section-pad: var(--s-8); --section-pad-lg: var(--s-8);  /* 48 */
   --section-pad-sm: var(--s-6);                             /* 32 — strips stay slim */
+  --hero-pad: var(--s-8);                                   /* 48 — hero on mobile */
 } }
 
 /* Hero height — Phase 1 (F5): no floor. Content-driven, as in the v2 demo.

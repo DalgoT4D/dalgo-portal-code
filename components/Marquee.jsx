@@ -24,14 +24,14 @@ const Marquee = () => {
   const logos = [
   { name: 'SNEHA', src: 'assets/logos/SNEHA.png', solid: true, h: 42 },
   { name: 'INREM', src: 'assets/logos/INREM.webp', solid: true, h: 36 },
-  { name: 'The Apprentice Project', src: 'assets/logos/TAP.png', h: 22, strip: true },
-  { name: 'Antarang', src: 'assets/logos/Antarang.webp', h: 32 },
+  { name: 'The Apprentice Project', src: 'assets/logos/TAP.png', h: 22, strip: true, pale: true },
+  { name: 'Antarang', src: 'assets/logos/Antarang.webp', h: 32, pale: true },
   { name: 'SHRI', src: 'assets/logos/SHRI.png', solid: true, h: 30 },
   { name: 'Noora Health', src: 'assets/logos/NooraHealth.png', solid: true, h: 28 },
   { name: 'SHOFCO', src: 'assets/logos/SHOFCO.png', solid: true, h: 30 },
   { name: 'Ummeed', src: 'assets/logos/Ummeed.png', solid: true, h: 46 },
   { name: 'Janaagraha', src: 'assets/logos/Janaagraha.svg', h: 24, strip: true },
-  { name: 'MAD', src: 'assets/logos/MAD.png', h: 34 },
+  { name: 'MAD', src: 'assets/logos/MAD.png', h: 34, pale: true },
   { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png', solid: true, h: 28 },
   { name: 'Baala', src: 'assets/logos/Baala.png', solid: true, h: 30 },
   { name: 'Bhumi', src: 'assets/logos/Bhumi.png', solid: true, h: 46 },
@@ -46,7 +46,7 @@ const Marquee = () => {
         <div className="logo-marquee-track">
           {track.map((l, i) => (
             <div className={l.strip ? 'logo-tile is-strip' : 'logo-tile'} key={`${l.name}-${i}`} aria-hidden={i >= logos.length ? 'true' : undefined}>
-              <img src={l.src} alt={i >= logos.length ? '' : l.name} className={l.solid ? 'logo-img is-solid' : 'logo-img'} style={{ '--logo-h': l.h + 'px' }} decoding="async" />
+              <img src={l.src} alt={i >= logos.length ? '' : l.name} className={`logo-img${l.solid ? ' is-solid' : ''}${l.pale ? ' is-pale' : ''}`} style={{ '--logo-h': l.h + 'px' }} decoding="async" />
             </div>
           ))}
         </div>

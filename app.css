@@ -2130,6 +2130,13 @@ h4 { font-size: var(--fs-card); line-height: calc(var(--lh-card) / var(--fs-card
 .logo-tile .logo-img, .logo-tile .logo-img.is-solid {
   width: auto; height: auto; max-width: 100%; max-height: var(--logo-h, 32px); object-fit: contain;
 }
+/* Hover reveals each logo's real colour — EXCEPT the pale-artwork marks (TAP,
+   Antarang, MAD; measured mean luminance 238–255), whose true colour is near-white
+   and disappears on the white band. They keep their silhouette on hover. */
+.logo-tile:hover .logo-img.is-pale { filter: brightness(0); opacity: .72; }
+
+/* ---- HERO band — its own rhythm (not the slim-strip token it used to borrow) ---- */
+.cvh { padding: var(--hero-pad) 0; }
 
 /* ---- 7. SHELL — nav, dropdowns, footer ---- */
 .nav-links a, .nav-link, .nav-cta, .nav-dd-trigger, .nav-dd-item-t, .nav-dd-feattitle,
