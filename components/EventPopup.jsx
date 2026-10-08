@@ -73,93 +73,62 @@ const EventPopup = () => {
 
   if (!banner || !banner.events || !banner.events.length) return null;
   const events = banner.events;
-  const single = events.length === 1;
   // The dialog is named by its own visible heading (aria-labelledby), not by a config string.
   // It used to be labelled from banner.popupEyebrow because there WAS no heading — the card
   // opened on the word UPCOMING and went straight into the rows, so a screen reader announced a
   // name that no sighted user could see.
+  //
+  // The layout is NOT count-dependent (8 Oct). It used to branch: ONE event led with the poster
+  // under that event's own title; SEVERAL got heading + supporting line + cards. So removing
+  // Bangalore would have silently swapped the approved hierarchy — the heading would have become
+  // "Data Decoded with Dalgo", the supporting line would have disappeared entirely, and the Delhi
+  // card would have become a poster. Heading → short description → city/date → Register is the
+  // design, not a two-event special case, so one event now renders exactly like two.
   const headingId = 'evt-popup-h';
-  const heading = single ? events[0].title : (banner.popupHeading || events[0].title);
+  const heading = banner.popupHeading || events[0].title;
   return (
     <div className={'evt-popup-overlay' + (open ? ' is-open' : '')} role="dialog" aria-modal="true" aria-labelledby={headingId} hidden={!open} onClick={(e) => { if (e.target === e.currentTarget) close(); }}>
-      <div className={'evt-popup-card' + (single ? '' : ' is-list')} ref={cardRef}>
+      <div className="evt-popup-card is-list" ref={cardRef}>
         <button type="button" className="evt-popup-close" aria-label="Close" onClick={close}>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
         </button>
 
-        {single ? (
-          /* ONE event: lead with the artwork. It already carries the name, date, city and
-             hours, so repeating them underneath would be duplication — which is why the text
-             block below is the no-artwork fallback, not a companion to it. The image is
-             therefore INFORMATIVE and takes a real alt; alt="" would leave a screen-reader
-             user with a heading and a button. */
-          <React.Fragment>
-            <h2 className="evt-popup-title" id={headingId}>{heading}</h2>
-            {events[0].img ? (
-              <a className="evt-popup-figure" href={window.withUtm(events[0].href, 'event_popup')} target="_blank" rel="noopener" data-cta-location="event_popup" onClick={close}>
-                <img src={events[0].img} alt={events[0].alt || events[0].title} width="1600" height="840" loading="lazy" decoding="async" />
+        <h2 className="evt-popup-title" id={headingId}>{heading}</h2>
+        {banner.popupSub && <p className="evt-popup-sub">{banner.popupSub}</p>}
+
+        {/* One card per event. Each row carries only what DIFFERS between events — the city,
+            then the date — because the shared title already sits in the heading above. The row
+            IS the registration link, so the whole card is clickable and the chip beside it is
+            the visible affordance, not a second target. */}
+        <ul className="evt-popup-list">
+          {events.map((e, i) => (
+            <li key={i}>
+              <a className="evt-popup-row" href={window.withUtm(e.href, 'event_popup')} target="_blank" rel="noopener" data-cta-location="event_popup" onClick={close}
+                 /* Name follows the row's VISIBLE reading order — city, date, then action — so
+                    the accessible name contains the visible label in the order it is read
+                    (WCAG 2.5.3). */
+                 aria-label={(e.where ? e.where + ', ' : '') + e.when + ' — ' + banner.cta}>
+                {e.img && (
+                  /* The Luma poster. Decorative here (alt=""): the city, date and action beside
+                     it already carry the whole message, so a real alt would read the same row
+                     twice. Eager, not lazy — the dialog opens 800ms after load, and a lazy image
+                     inside a hidden container arrives a beat late and pops in. */
+                  <span className="evt-popup-thumb">
+                    <img src={e.img} alt="" width="1600" height="840" loading="eager" decoding="async" />
+                  </span>
+                )}
+                <span className="evt-popup-rowtext">
+                  <span className="evt-popup-rowtitle">{e.where || e.title}</span>
+                  <span className="evt-popup-rowmeta">{e.when}</span>
+                </span>
+                <span className="evt-popup-rowcta" aria-hidden="true">
+                  {banner.cta}
+                  <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h13M12 5l7 7-7 7"></path></svg>
+                </span>
               </a>
-            ) : (
-              <div className="evt-popup-body">
-                <p>{events[0].blurb}</p>
-                <p>{events[0].when}{events[0].where ? ' · ' + events[0].where : ''}</p>
-              </div>
-            )}
-            {/* Goes to THE EVENT. This button linked to the Luma calendar index until 15 Sep, so
-                the only primary-weighted control in the dialog was the one that did not register
-                you — it dropped you on a list to find the event again yourself. */}
-            <a className="evt-popup-cta btn btn-primary" href={window.withUtm(events[0].href, 'event_popup')} target="_blank" rel="noopener" data-cta-location="event_popup" onClick={close}>{banner.cta}</a>
-          </React.Fragment>
-        ) : (
-          /* SEVERAL events: no single artwork represents them, and stacking one hero image per
-             event would make the card taller than most viewports.
-             The rows carry only what DIFFERS — city, then date. Both events share one title, so
-             it sits in the heading once; printing it per row gave two identical bold lines with
-             the only distinguishing word buried second in the meta line underneath.
-             The thumbnails are gone with it: two near-identical posters at 92px wide, whose
-             information is text, were illegible at that size, and they pushed the row text off
-             the card's left edge so nothing in the dialog shared a margin.
-             Each row now states its own action, because the row IS the registration link. */
-          <React.Fragment>
-            <h2 className="evt-popup-title" id={headingId}>{heading}</h2>
-            {banner.popupSub && <p className="evt-popup-sub">{banner.popupSub}</p>}
-            <ul className="evt-popup-list">
-              {events.map((e, i) => (
-                <li key={i}>
-                  <a className="evt-popup-row" href={window.withUtm(e.href, 'event_popup')} target="_blank" rel="noopener" data-cta-location="event_popup" onClick={close}
-                     /* Name follows the row's VISIBLE reading order — city, date, then action —
-                        so the accessible name contains the visible label in the order it is
-                        read (WCAG 2.5.3). */
-                     aria-label={(e.where ? e.where + ', ' : '') + e.when + ' — ' + banner.cta}>
-                    {e.img && (
-                      /* The Luma poster, back on the row (Stuti, 15 Sep). It was dropped for
-                         being illegible at 92px — but the answer to a too-small image is a
-                         bigger one, not none: the artwork is how these events are recognised
-                         everywhere else they are promoted. Decorative here (alt=""): the city,
-                         date and action beside it already carry the whole message, so a real
-                         alt would read the same row twice. Eager, not lazy — the dialog opens
-                         800ms after load, and a lazy image inside a hidden container arrives a
-                         beat late and pops in. */
-                      <span className="evt-popup-thumb">
-                        <img src={e.img} alt="" width="1600" height="840" loading="eager" decoding="async" />
-                      </span>
-                    )}
-                    <span className="evt-popup-rowtext">
-                      <span className="evt-popup-rowtitle">{e.where || e.title}</span>
-                      <span className="evt-popup-rowmeta">{e.when}</span>
-                    </span>
-                    <span className="evt-popup-rowcta" aria-hidden="true">
-                      {banner.cta}
-                      <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h13M12 5l7 7-7 7"></path></svg>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </React.Fragment>
-        )}
-
-
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

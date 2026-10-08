@@ -263,9 +263,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
    text above the rows, so the dialog carried a label where it needed a heading — and its
    accessible name came from a config string no sighted user could see. */
 /* Event image, reusing .nav-dd-featimg's 800/420 figure treatment rather than a new one. */
-.evt-popup-figure { display: block; border-radius: var(--r-md); overflow: hidden; aspect-ratio: 800 / 420; background: var(--surface-1); margin: 0 0 22px; }
-.evt-popup-figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.evt-popup-figure:hover img { opacity: .94; }
 /* Several events: one compact row each. Type tiers are the card ones already in the sheet —
    15/600 for the name and 13.5 for the meta line, matching .cvc-name and .cvc-desig — so this
    introduces no new sizes. Thumb keeps the 800/420 event-artwork ratio. */
@@ -305,10 +302,6 @@ p strong, li strong { font-weight: 600; color: inherit; }
    reading "Register" sitting directly under two events it did not register you for. */
 /* Its own line. In the single-event card both this and the primary button are inline-level on a
    centred block, so they flowed onto one line with the link jammed against the button. */
-.evt-popup-body { font-size: 15px; line-height: 1.5; color: var(--ink-2); margin-bottom: 24px; }
-.evt-popup-body p { margin: 0 0 6px; }
-.evt-popup-body p:last-child { margin-bottom: 0; }
-.evt-popup-cta { display: inline-flex; margin-bottom: 18px; }
 /* display:table shrink-wraps to the text, so auto margins centre it in the centred card and
    the list card's left alignment is untouched. */
 /* Narrow screens: keep all three on ONE line — the action wrapping to its own row cost ~50px
