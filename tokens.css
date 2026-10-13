@@ -102,14 +102,32 @@
      --measure-hero-copy with the reserved CTA row: /privacy at 343px, rounded up to the next
      8pt step. Anything lower and privacy alone grows past the floor, which is exactly the
      content-driven height this system exists to prevent. The 3:2 frame renders ~315px, so the
-     remainder below it is a uniform ~29px sitewide. */
-  --hero-h: 344px;
+     remainder below it is a uniform ~29px sitewide.
+     Phase 1 (F5): floor released to 0 — hero height is content-driven, as in the
+     v2 demo. Was 344px with a 392px mid-range tier. */
+  --hero-h: 0px;
 
-  /* Fluid page-hero H1 — scales with the viewport so long headlines fit ~2 lines
-     on laptops while keeping full 56px impact where the column is wide enough. */
-  --fs-hero: clamp(38px, 1rem + 2.2vw, 56px);
+  /* ============================================================
+     TYPE SCALE — 9 steps (visual-system Phase 1, Sep 2026).
+     Replaces the ~31 ad-hoc sizes (10, 10.5, 11, 11.5, 12.5, 13.5, 14.5,
+     15.5, 16.5 …) with 9 whole-number steps; line-heights on a 4px grid.
+     --fs-display is the only fluid step, so it is the only unitless
+     line-height (1.06) — a fixed px lh would break as it scales.
+     ============================================================ */
+  --fs-display: clamp(36px, 1rem + 2.8vw, 56px);  /* 36 → 44.67 → 56 at 390/1024/1440 */
+  --fs-section: 36px;  --lh-section: 44px;
+  --fs-sub:     28px;  --lh-sub:     36px;
+  --fs-card:    22px;  --lh-card:    28px;
+  --fs-lede:    20px;  --lh-lede:    32px;
+  --fs-body:    18px;  --lh-body:    28px;
+  --fs-ui:      15px;  --lh-ui:      20px;
+  --fs-label:   13px;  --lh-label:   16px;
+  --fs-micro:   12px;  --lh-micro:   16px;
 
-  /* Spacing — 8pt scale */
+  /* Fluid page-hero H1 — now the display step. */
+  --fs-hero: var(--fs-display);
+
+  /* Spacing — 8pt scale (legacy names, kept for the 30 existing usages) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 16px;
@@ -119,24 +137,45 @@
   --space-7: 64px;
   --space-8: 96px;
 
-  /* Section rhythm (composition principles §2) — exactly three values:
-     white sections / tinted+dark chapter bands / slim strips */
-  --section-pad: 56px;      /* white sections → 112px between two whites */
-  --section-pad-lg: 80px;   /* tinted / dark chapter bands */
-  --section-pad-sm: 32px;   /* slim strips + quote interstitials */
-  --container: 1200px;
-}
-@media (max-width: 768px) { :root { --section-pad: 40px; --section-pad-lg: 56px; --section-pad-sm: 24px; } }
-/* The floor has to clear the tallest copy AT THAT WIDTH, and copy grows as the column narrows.
-   Measured tallest copy across all ten pages: 343px at 1440/1280, 341 at 1200, 349 at 1100,
-   365 at 1040, 389 at 1025 (the narrowest two-column width). One floor for the whole range
-   would therefore have to be 392 everywhere, padding the desktop hero by 48px of dead space.
-   So the two-column band gets its own floor. This is a breakpoint, not a page exception —
-   every page still shares one height at any given viewport, which is the invariant that
-   matters. If hero copy changes, re-measure both bands. */
-@media (min-width: 1025px) and (max-width: 1200px) { :root { --hero-h: 392px; } }
+  /* Spacing ladder — 12 contiguous steps (Phase 1). The canonical scale that
+     every margin/padding/gap migrates onto. Adds the values the 8-name scale
+     skipped: 12, 40, 80, 128. */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;
+  --s-5: 24px;  --s-6: 32px;  --s-7: 40px;  --s-8: 48px;
+  --s-9: 64px;  --s-10: 80px; --s-11: 96px; --s-12: 128px;
 
-/* Heroes stack at 1024px (see the .cvh-grid rule in app.css — this breakpoint must match it),
-   so the two-column height floor no longer applies: the copy and the frame each take their
-   natural height and a floor would only add dead space under a stacked hero. */
-@media (max-width: 1024px) { :root { --hero-h: 0px; --measure-hero-copy: none; } }
+  /* Section rhythm — Phase 1 (F7): ONE value, so every seam is identical (160px).
+     A repeated interval reads as rhythm; a varying one reads as a mistake. The
+     colour change at a tinted/navy band does its own separating work. Three token
+     names are kept (composition rule: 3 section-pad tokens) but now share a value. */
+  --section-pad: var(--s-10);     /* 80 — white sections */
+  --section-pad-lg: var(--s-10);  /* 80 — tinted / dark bands */
+  --section-pad-sm: var(--s-7);   /* 40 — slim strips (logo marquee, quote strips).
+                                     Kept slimmer than full sections on purpose: at 80
+                                     the logo strip sat a full section-height below the
+                                     hero and fell out of the first fold. A slim strip
+                                     reads as attached to the hero (social proof) and the
+                                     carousel stays in the fold as a scroll cue. */
+  --hero-pad: var(--s-9);         /* 64 — the hero has its OWN rhythm, not the slim-strip
+                                     value it used to borrow (which left it cramped at 40).
+                                     Masthead zone: hero 64 + logo strip 40 keeps header +
+                                     hero + carousel all in the first fold at 1440x820
+                                     (measured: carousel row ends 755, 65px clear). Body
+                                     sections stay 80. 80 here leaves the carousel tight,
+                                     96 clips it. */
+  --container: 1200px;
+
+  /* Measures — 3, replacing the 13 one-off max-widths.
+     --measure (66ch) and --measure-hero-sub (58ch) already exist above. */
+  --measure-copy: var(--measure);        /* 66ch — body columns */
+  --measure-lede: var(--measure-hero-sub); /* 58ch — hero subhead, section intros */
+}
+@media (max-width: 768px) { :root {
+  --section-pad: var(--s-8); --section-pad-lg: var(--s-8);  /* 48 */
+  --section-pad-sm: var(--s-6);                             /* 32 — strips stay slim */
+  --hero-pad: var(--s-8);                                   /* 48 — hero on mobile */
+} }
+
+/* Hero height — Phase 1 (F5): no floor. Content-driven, as in the v2 demo.
+   Heroes stack at 1024px, so the copy and frame take their natural height. */
+@media (max-width: 1024px) { :root { --measure-hero-copy: none; } }

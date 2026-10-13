@@ -25,6 +25,7 @@
   "homepage": "https://github.com/DalgoT4D/dalgo-portal-code#readme",
   "devDependencies": {
     "@babel/core": "^8.0.1",
-    "@babel/preset-react": "^8.0.1"
+    "@babel/preset-react": "^8.0.1",
+    "jsdom": "^30.1.1"
   }
 }
