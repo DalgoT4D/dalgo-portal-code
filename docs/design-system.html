@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dalgo Design System — live reference</title>
+
+<!-- The REAL shipping stylesheets. Everything below renders with the same CSS as the site,
+     so this page cannot drift from what actually ships. Unversioned on purpose: this page lives
+     outside the root, so build.js never stamps it, and a pinned ?v= here would go stale silently. -->
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/app.css">
+
+<style>
+  /* Page chrome only. Prefixed ds- so nothing here can leak into a component sample.
+     This is an internal reference page, not a shipping page — the "exactly two stylesheets"
+     rule governs the ten real pages. */
+  body { background: var(--surface-0); }
+  .ds-wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px 96px; }
+  .ds-masthead { padding: 56px 0 28px; border-bottom: 1px solid var(--hairline); margin-bottom: 8px; }
+  .ds-masthead h1 { font-size: 40px; line-height: 1.15; letter-spacing: -.02em; margin: 0 0 10px; color: var(--ink); }
+  .ds-masthead p { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink-2); max-width: 68ch; }
+  .ds-stamp { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--teal-ink);
+              background: color-mix(in srgb, var(--teal) 12%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent);
+              padding: 6px 12px; border-radius: var(--r-pill); }
+
+  .ds-nav { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.92); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--hairline); margin-bottom: 40px; }
+  .ds-nav-in { max-width: 1120px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; gap: 6px 4px; }
+  .ds-nav a { font-size: 13px; font-weight: 600; color: var(--ink-2); padding: 6px 10px; border-radius: var(--r-sm); text-decoration: none; }
+  .ds-nav a:hover { background: var(--surface-1); color: var(--teal-ink); }
+
+  .ds-sec { padding: 40px 0; border-top: 1px solid var(--hairline); }
+  .ds-sec:first-of-type { border-top: 0; }
+  .ds-sec > h2 { font-size: 24px; letter-spacing: -.01em; margin: 0 0 6px; color: var(--ink); }
+  .ds-sec > .ds-note { margin: 0 0 24px; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); max-width: 74ch; }
+  .ds-sub { font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal-ink); margin: 32px 0 14px; }
+
+  .ds-grid { display: grid; gap: 14px; }
+  .ds-g4 { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+  .ds-g3 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+
+  /* Colour */
+  .ds-sw { border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--surface-0); }
+  .ds-sw-chip { height: 76px; display: block; }
+  .ds-sw-meta { padding: 10px 12px 12px; }
+  .ds-sw-name { font-size: 13.5px; font-weight: 650; color: var(--ink); display: block; }
+  .ds-sw-val { font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; display: block; margin-top: 2px; }
+  .ds-sw-cr { font-size: 12px; font-weight: 600; margin-top: 6px; display: inline-block; padding: 2px 7px; border-radius: var(--r-pill); }
+  .ds-pass { color: #0E6B4F; background: #E6F6EF; }
+  .ds-fail { color: #8C2F39; background: #FBEBEC; }
+  .ds-na   { color: var(--ink-2); background: var(--surface-2); }
+
+  /* Type */
+  .ds-type-row { display: grid; grid-template-columns: 92px 1fr; gap: 20px; align-items: baseline;
+                 padding: 14px 0; border-bottom: 1px solid var(--hairline); }
+  .ds-type-row:last-child { border-bottom: 0; }
+  .ds-type-key { font-size: 12.5px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .ds-type-key span { display: block; font-weight: 500; font-size: 11.5px; color: var(--ink-2); opacity: .8; margin-top: 3px; }
+
+  /* Spacing */
+  .ds-space-row { display: flex; align-items: center; gap: 16px; padding: 9px 0; }
+  .ds-space-key { width: 108px; font-size: 13px; font-weight: 650; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .ds-space-bar { height: 18px; border-radius: 3px; background: color-mix(in srgb, var(--teal) 34%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 46%, transparent); }
+  .ds-space-val { font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  /* Radii / elevation */
+  .ds-box { background: var(--surface-0); box-shadow: var(--shadow-sm); padding: 22px; display: grid; place-items: center;
+            min-height: 96px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+  .ds-elev { background: var(--surface-0); border-radius: var(--r-lg); padding: 26px 20px; text-align: center;
+             font-size: 13.5px; font-weight: 650; color: var(--ink); }
+
+  /* Component bench */
+  .ds-bench { background: var(--surface-1); border-radius: var(--r-lg); padding: 28px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .ds-bench-white { background: var(--surface-0); box-shadow: var(--shadow-sm); }
+  .ds-bench-navy { background: var(--navy); }
+  .ds-caption { font-size: 12.5px; color: var(--ink-2); margin: 8px 0 0; }
+
+  .ds-rule { display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--hairline); font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+  .ds-rule:last-child { border-bottom: 0; }
+  .ds-rule b { font-weight: 650; }
+  .ds-rule-no { color: var(--error); font-weight: 700; }
+  .ds-rule-yes { color: var(--teal-ink); font-weight: 700; }
+
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px;
+         background: var(--surface-2); padding: 1px 6px; border-radius: 5px; color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .ds-wrap, .ds-nav-in { padding-left: 18px; padding-right: 18px; }
+    .ds-masthead h1 { font-size: 30px; }
+    .ds-type-row { grid-template-columns: 76px 1fr; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="ds-nav"><div class="ds-nav-in">
+  <a href="#colour">Colour</a><a href="#type">Type</a><a href="#space">Spacing</a>
+  <a href="#radius">Radius</a><a href="#elevation">Elevation</a><a href="#motion">Motion</a>
+  <a href="#buttons">Buttons</a><a href="#surfaces">Surfaces</a><a href="#rules">Standing rules</a>
+</div></nav>
+
+<div class="ds-wrap">
+
+  <header class="ds-masthead">
+    <h1>Dalgo Design System</h1>
+    <p>Rendered from the site's own <code>tokens.css</code> and <code>app.css</code> — not a mockup of them.
+       Every swatch, size, shadow and component below is the live shipping value, read from the
+       stylesheet at page load. If a token changes, this page changes with it.</p>
+    <span class="ds-stamp" id="ds-stamp">reading tokens…</span>
+  </header>
+
+  <!-- ============ COLOUR ============ -->
+  <section class="ds-sec" id="colour">
+    <h2>Colour</h2>
+    <p class="ds-note">Contrast is measured at load against the surface each token is actually used on,
+       and labelled against WCAG AA for body text (4.5:1). Large text and non-text use different
+       thresholds — a “below 4.5” on a decorative token is not automatically a defect.</p>
+
+    <p class="ds-sub">Surfaces — the only three section backgrounds</p>
+    <div class="ds-grid ds-g4" id="ds-surfaces"></div>
+
+    <p class="ds-sub">Ink</p>
+    <div class="ds-grid ds-g4" id="ds-ink"></div>
+
+    <p class="ds-sub">Teal — never used for body text (links excepted)</p>
+    <div class="ds-grid ds-g4" id="ds-teal"></div>
+
+    <p class="ds-sub">Navy, lines and focus</p>
+    <div class="ds-grid ds-g4" id="ds-navy"></div>
+
+    <p class="ds-sub">Semantic accents</p>
+    <div class="ds-grid ds-g4" id="ds-semantic"></div>
+  </section>
+
+  <!-- ============ TYPE ============ -->
+  <section class="ds-sec" id="type">
+    <h2>Typography</h2>
+    <p class="ds-note"><b>Inter only</b> — no serif, no Spectral, no DM Sans, including in decorative
+       quote marks. The sizes below are the de facto scale, ranked by how often each appears in
+       <code>app.css</code>. Display text at 20px and above is weight 500 or lighter; headings are exempt.</p>
+    <div id="ds-type"></div>
+
+    <p class="ds-sub">Headings as they ship</p>
+    <div class="ds-bench ds-bench-white" style="display:block">
+      <h1 style="font-size:var(--fs-hero);line-height:1.08;letter-spacing:-.025em;margin:0 0 14px;color:var(--ink)">
+        Know Your Data,<br><span class="cvh-hl">Share Your Story</span>
+      </h1>
+      <p class="ds-caption" style="margin-bottom:26px">Page hero H1 — <code>--fs-hero</code>, fluid 38→56px.
+         The accent is <b>teal colour only</b>: never underlined, bordered or decorated.</p>
+      <h2 class="section-title" style="margin:0 0 8px">Helping nonprofits make better decisions</h2>
+      <p class="ds-caption">Section title — <code>.section-title</code></p>
+    </div>
+  </section>
+
+  <!-- ============ SPACING ============ -->
+  <section class="ds-sec" id="space">
+    <h2>Spacing</h2>
+    <p class="ds-note">An 8pt scale, plus exactly three section-padding values. Section padding is not
+       a free choice: white sections, tinted or dark chapter bands, and slim strips — nothing else.
+       Two white sections meeting each pay full padding, which is why the follower usually zeroes its top.</p>
+
+    <p class="ds-sub">8pt scale</p>
+    <div id="ds-space"></div>
+
+    <p class="ds-sub">Section rhythm — three values only</p>
+    <div id="ds-secpad"></div>
+    <p class="ds-caption">Values shown are for the current viewport. Below 768px these step down to 40 / 56 / 24.</p>
+  </section>
+
+  <!-- ============ RADIUS ============ -->
+  <section class="ds-sec" id="radius">
+    <h2>Radius</h2>
+    <p class="ds-note">Radius scales with the element. Pills for buttons and chips; larger radii as the surface grows.</p>
+    <div class="ds-grid ds-g4" id="ds-radius"></div>
+  </section>
+
+  <!-- ============ ELEVATION ============ -->
+  <section class="ds-sec" id="elevation">
+    <h2>Elevation</h2>
+    <p class="ds-note">A layered navy-tinted ramp with the 1px hairline ring baked into the last layer,
+       so cards carry no separate border. <code>--shadow-md</code> and <code>--shadow-lg</code> are aliases
+       onto this ramp, kept so older usages lift with it.</p>
+    <div class="ds-grid ds-g3">
+      <div class="ds-elev" style="box-shadow:var(--shadow-sm)">--shadow-sm<div class="ds-caption">chips, quiet cards, buttons</div></div>
+      <div class="ds-elev" style="box-shadow:var(--shadow-card)">--shadow-card<div class="ds-caption">the standard card</div></div>
+      <div class="ds-elev" style="box-shadow:var(--shadow-pop)">--shadow-pop<div class="ds-caption">hover lift, popovers</div></div>
+    </div>
+  </section>
+
+  <!-- ============ MOTION ============ -->
+  <section class="ds-sec" id="motion">
+    <h2>Motion</h2>
+    <p class="ds-note">One curve, one family of durations. Everything that moves respects
+       <code>prefers-reduced-motion</code>. Hover the card to see <code>--dur</code> on the real easing.</p>
+    <div class="ds-grid ds-g3" id="ds-motion"></div>
+    <div class="ds-bench" style="margin-top:18px">
+      <div class="hdh-card" style="padding:22px 20px;max-width:260px">
+        <b style="font-size:15px;color:var(--ink)">Hover me</b>
+        <p class="ds-caption">Real <code>.hdh-card</code> — lifts on <code>--shadow-pop</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUTTONS ============ -->
+  <section class="ds-sec" id="buttons">
+    <h2>Buttons</h2>
+    <p class="ds-note">Real <code>.btn</code> markup, so these behave exactly as they do on the site —
+       including the primary's arrow and the hover lift.</p>
+
+    <div class="ds-bench ds-bench-white">
+      <a class="btn btn-primary" href="#buttons">Try Platform for Free</a>
+      <a class="btn btn-ghost" href="#buttons">Contact Us</a>
+    </div>
+    <p class="ds-caption">Primary is <code>--teal-ink</code> on white, not <code>--teal</code>: the brighter teal
+       does not clear 4.5:1 with white text. Ghost is a white pill with a hairline border.</p>
+
+    <div class="ds-bench ds-bench-navy" style="margin-top:16px">
+      <a class="btn btn-primary" href="#buttons">Try Platform for Free</a>
+      <a class="btn btn-ghost" href="#buttons" style="background:transparent;color:var(--on-dark);border-color:var(--hairline-on-dark)">Book a call</a>
+    </div>
+    <p class="ds-caption">On a navy band the ghost switches to <code>--on-dark</code> text and
+       <code>--hairline-on-dark</code> (3.8:1 against navy).</p>
+  </section>
+
+  <!-- ============ SURFACES / COMPOSITION ============ -->
+  <section class="ds-sec" id="surfaces">
+    <h2>Section backgrounds</h2>
+    <p class="ds-note">Three, and no more. <code>--surface-2</code> is component-only — inputs, chips,
+       thumbnails — and never a section background. Two tinted sections never sit adjacent, and a page
+       spends at most one or two dark bands.</p>
+    <div class="ds-grid ds-g3">
+      <div class="ds-box" style="background:var(--surface-0);border-radius:var(--r-lg)">--surface-0 · default</div>
+      <div class="ds-box" style="background:var(--surface-1);border-radius:var(--r-lg)">--surface-1 · the ONE tint</div>
+      <div class="ds-box" style="background:var(--navy);border-radius:var(--r-lg);color:var(--on-dark)">--navy · max 1–2 per page</div>
+    </div>
+  </section>
+
+  <!-- ============ RULES ============ -->
+  <section class="ds-sec" id="rules">
+    <h2>Standing rules</h2>
+    <p class="ds-note">These are not preferences. Each one exists because breaking it shipped a defect.</p>
+    <div>
+      <div class="ds-rule"><span class="ds-rule-no">✕</span><div><b>Never underline or decorate a heading accent.</b> <code>.hl-underline</code>, <code>.cvh-hl</code>, <code>.pf-title-hl</code> and every headline highlight are teal <b>colour only</b> — no underline, squiggle, border or <code>::after</code>.</div></div>
+      <div class="ds-rule"><span class="ds-rule-no">✕</span><div><b>A section description never exceeds 2 rendered lines.</b> A third line is a failure, not a nitpick. Fix it by <b>widening the container, never by editing the copy</b>. Gated by <code>scripts/check-copy-length.mjs</code> inside <code>npm run build</code>.</div></div>
+      <div class="ds-rule"><span class="ds-rule-no">✕</span><div><b>No copy changes without Stuti's explicit go-ahead</b> — including to satisfy a design rule. Propose and wait.</div></div>
+      <div class="ds-rule"><span class="ds-rule-no">✕</span><div><b>Zero <code>!important</code> in <code>app.css</code>.</b> Solve specificity with selector scope. Exactly two stylesheets ship: <code>tokens.css</code> (variables only, one <code>:root</code>) and <code>app.css</code>.</div></div>
+      <div class="ds-rule"><span class="ds-rule-no">✕</span><div><b>No play/pause controls</b> in this UI, and no teal body text (links excepted).</div></div>
+      <div class="ds-rule"><span class="ds-rule-yes">✓</span><div><b>One quote-card pattern</b> for every testimonial: white card, <code>--r-xl</code>, <code>--shadow-card</code>, quote ≤28px at weight 500, one mint <code>&lt;mark&gt;</code> highlight instead of bold. No naked pull-quotes.</div></div>
+      <div class="ds-rule"><span class="ds-rule-yes">✓</span><div><b>One hero visual per page</b> — one image, no collages. A hero shows a product illustration or a photo of the people it describes, never another page's customer photo.</div></div>
+      <div class="ds-rule"><span class="ds-rule-yes">✓</span><div><b>Verify every asset against its background.</b> Measure per-asset luminance; never eyeball one and assume the rest. A pale wordmark needs <code>brightness(0)</code>; a solid emblem needs grayscale.</div></div>
+      <div class="ds-rule"><span class="ds-rule-yes">✓</span><div><b>QA at section boundaries, in full-page context, across ≥2 viewports.</b> Screenshot the seams — token conformance alone does not catch a collision.</div></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  var cs = getComputedStyle(document.documentElement);
+  var tok = function (n) { return cs.getPropertyValue(n).trim(); };
+
+  // Resolve any CSS colour (hex, rgba, color-mix, color(srgb …)) to real RGB by painting it.
+  // Parsing the string is what produced a bogus contrast reading before; the canvas cannot lie.
+  function rgb(c) {
+    var cv = document.createElement('canvas'); cv.width = cv.height = 1;
+    var x = cv.getContext('2d'); x.fillStyle = '#000'; x.fillStyle = c; x.fillRect(0, 0, 1, 1);
+    var d = x.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2]];
+  }
+  function hex(c) {
+    var p = rgb(c);
+    return '#' + p.map(function (v) { return ('0' + v.toString(16)).slice(-2); }).join('').toUpperCase();
+  }
+  function lum(p) {
+    var f = function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * f(p[0]) + 0.7152 * f(p[1]) + 0.0722 * f(p[2]);
+  }
+  function ratio(a, b) {
+    var x = lum(rgb(a)), y = lum(rgb(b));
+    var hi = Math.max(x, y), lo = Math.min(x, y);
+    return Math.round(((hi + 0.05) / (lo + 0.05)) * 100) / 100;
+  }
+
+  // token, label, the surface it is judged against (null = not a text colour, so no AA verdict)
+  var GROUPS = {
+    'ds-surfaces': [
+      ['--surface-0', 'Page default', null],
+      ['--surface-1', 'The one tint', null],
+      ['--surface-2', 'Component only — never a section bg', null]
+    ],
+    'ds-ink': [
+      ['--ink', 'Body + headings', '--surface-0'],
+      ['--ink-2', 'Secondary text', '--surface-0'],
+      ['--on-dark', 'Text on navy', '--navy'],
+      ['--hairline-on-dark', 'Ghost border on navy', null]
+    ],
+    'ds-teal': [
+      ['--teal', 'Brand teal — fills, borders, marks', null],
+      ['--teal-hover', 'Hover state', null],
+      ['--teal-ink', 'Teal for TEXT and primary buttons', '--surface-0']
+    ],
+    'ds-navy': [
+      ['--navy', 'Dark band', null],
+      ['--navy-2', 'Dark band, second tone', null],
+      ['--hairline', 'Borders and dividers', null],
+      ['--focus', 'Focus ring', '--surface-0']
+    ],
+    'ds-semantic': [
+      ['--error', 'Errors', '--surface-0'],
+      ['--pending-ink', 'Pending / amber text', '--pending-bg'],
+      ['--pending-bg', 'Pending ground', null],
+      ['--note-ink', 'Sticky note text', '--note-bg'],
+      ['--wa-green', 'WhatsApp brand', null],
+      ['--avatar-blue', 'Avatar palette', null]
+    ]
+  };
+
+  Object.keys(GROUPS).forEach(function (id) {
+    var host = document.getElementById(id); if (!host) return;
+    host.innerHTML = GROUPS[id].map(function (row) {
+      var name = row[0], label = row[1], against = row[2];
+      var val = tok(name); if (!val) return '';
+      var cr = '', cls = 'ds-na', txt = 'not text';
+      if (against) {
+        cr = ratio(val, tok(against));
+        cls = cr >= 4.5 ? 'ds-pass' : 'ds-fail';
+        txt = cr + ':1 on ' + against.replace('--', '') + (cr >= 4.5 ? ' · AA' : ' · below 4.5');
+      }
+      var needsRing = /surface-0|#FFFFFF/i.test(name) || hex(val) === '#FFFFFF';
+      return '<div class="ds-sw">' +
+        '<span class="ds-sw-chip" style="background:' + val + (needsRing ? ';box-shadow:inset 0 0 0 1px var(--hairline)' : '') + '"></span>' +
+        '<span class="ds-sw-meta">' +
+          '<span class="ds-sw-name">' + name + '</span>' +
+          '<span class="ds-sw-val">' + hex(val) + (/rgba|color-mix/.test(val) ? ' · ' + val : '') + '</span>' +
+          '<span class="ds-sw-val" style="margin-top:4px">' + label + '</span>' +
+          '<span class="ds-sw-cr ' + cls + '">' + txt + '</span>' +
+        '</span></div>';
+    }).join('');
+  });
+
+  // Type scale — usage counts are how often each size appears in app.css, which is what makes
+  // this the DE FACTO scale rather than an aspirational one.
+  var TYPE = [
+    [13, 25, 'meta, captions, small labels'], [15, 24, 'body, nav links, buttons'],
+    [14, 21, 'secondary body, dense UI'], [12.5, 19, 'eyebrows (700, .14em, uppercase)'],
+    [13.5, 15, 'chips, row meta'], [18, 13, 'lead-in / small headings'],
+    [16, 12, 'card titles'], [14.5, 11, 'footer links'], [20, 8, 'dialog + block headings']
+  ];
+  document.getElementById('ds-type').innerHTML = TYPE.map(function (t) {
+    var w = t[0] >= 20 ? 500 : (t[0] <= 12.5 ? 700 : 400);
+    var extra = t[0] <= 12.5 ? ';letter-spacing:.14em;text-transform:uppercase;color:var(--teal-ink)' : '';
+    return '<div class="ds-type-row">' +
+      '<div class="ds-type-key">' + t[0] + 'px<span>' + t[1] + ' uses</span></div>' +
+      '<div><div style="font-size:' + t[0] + 'px;font-weight:' + w + ';color:var(--ink);line-height:1.4' + extra + '">' +
+        'Know your data. Share your story.</div>' +
+      '<div class="ds-caption">' + t[2] + '</div></div></div>';
+  }).join('');
+
+  // 8pt scale
+  document.getElementById('ds-space').innerHTML = [1,2,3,4,5,6,7,8].map(function (i) {
+    var v = tok('--space-' + i); if (!v) return '';
+    return '<div class="ds-space-row"><span class="ds-space-key">--space-' + i + '</span>' +
+      '<span class="ds-space-bar" style="width:' + v + '"></span>' +
+      '<span class="ds-space-val">' + v + '</span></div>';
+  }).join('');
+
+  document.getElementById('ds-secpad').innerHTML = [
+    ['--section-pad', 'white sections → 112px between two whites'],
+    ['--section-pad-lg', 'tinted / dark chapter bands'],
+    ['--section-pad-sm', 'slim strips + quote interstitials']
+  ].map(function (r) {
+    var v = tok(r[0]);
+    return '<div class="ds-space-row"><span class="ds-space-key" style="width:150px">' + r[0] + '</span>' +
+      '<span class="ds-space-bar" style="width:' + v + '"></span>' +
+      '<span class="ds-space-val">' + v + ' — ' + r[1] + '</span></div>';
+  }).join('');
+
+  document.getElementById('ds-radius').innerHTML =
+    ['sm','md','lg','xl','2xl','pill'].map(function (k) {
+      var v = tok('--r-' + k);
+      return '<div class="ds-box" style="border-radius:' + v + '">--r-' + k + '<br><span class="ds-caption">' + v + '</span></div>';
+    }).join('');
+
+  document.getElementById('ds-motion').innerHTML = [
+    ['--dur-fast', 'hover, colour, small state'],
+    ['--dur', 'the default'],
+    ['--dur-slow', 'larger moves']
+  ].map(function (r) {
+    return '<div class="ds-elev" style="box-shadow:var(--shadow-sm)">' + r[0] +
+      '<div class="ds-caption">' + tok(r[0]) + ' — ' + r[1] + '</div></div>';
+  }).join('');
+
+  var sheets = [].slice.call(document.styleSheets)
+    .map(function (s) { return s.href ? s.href.split('/').pop() : null; }).filter(Boolean);
+  document.getElementById('ds-stamp').textContent =
+    'Live from ' + sheets.join(' + ') + ' · rendered ' + new Date().toLocaleString('en-IN');
+})();
+</script>
+</body>
+</html>

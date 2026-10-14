@@ -61,7 +61,7 @@ window.SITE_CONFIG = {
   // both once the events have passed.
   //
   // Event hrefs are CLEAN. window.withUtm() adds utm_source=website plus a per-surface
-  // utm_medium at render, so a Bangalore click from the pop-up is distinguishable from the same
+  // utm_medium at render, so a Delhi click from the pop-up is distinguishable from the same
   // event clicked anywhere else. Never bake utm into these values or it lands twice.
   EVENT_BANNER: {
     tickerLead: 'Register for Data Decoded, a one day data strategy session for nonprofits',
@@ -73,17 +73,11 @@ window.SITE_CONFIG = {
     // conversion hierarchy for the dialog: offer, then scope, then the two dated cards below.
     // popupHeading also names the dialog for screen readers (aria-labelledby).
     popupHeading: 'Register for Data Decoded',
-    popupSub: 'A one day data strategy event for nonprofits in Bangalore and Delhi.',
+    popupSub: 'A one day data strategy event for nonprofits in Delhi.',
     cta: 'Register',                   // per-event row, and the single-event primary button
+    // Bangalore (6 Oct 2026) removed 8 Oct, the day after it ran. Its artwork
+    // (assets/events/data-decoded-oct.webp) is kept on disk, unreferenced.
     events: [
-      {
-        title: 'Data Decoded with Dalgo',
-        when: '6 October', whenShort: '6 Oct', where: 'Bangalore',
-        blurb: 'A one day data strategy session for nonprofits',
-        href: 'https://luma.com/uiwzzd76',
-        img: 'assets/events/data-decoded-oct.webp?v=f85cfb97',
-        alt: 'Data Decoded with Dalgo — a strategy day for nonprofits in Bangalore, 6 October 2026.'
-      },
       {
         title: 'Data Decoded with Dalgo',
         when: '29 October', whenShort: '29 Oct', where: 'Delhi',
