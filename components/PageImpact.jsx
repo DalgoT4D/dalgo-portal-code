@@ -126,65 +126,41 @@ const BrowseNGO = () => {
 };
 
 // 4. Explore case studies — dropdown + all article thumbnails
-// Listing for /case-studies. Reads components/CaseStudyData.jsx, so the set of stories, their
-// sectors and where each card points are defined once and this component only arranges them.
-//
-// A card goes to /case-studies/<slug> once that organisation has a native page, and keeps its
-// projecttech4dev.org link until then (PRD release 2, 28 Nov). That is what lets the twelve move
-// across in two releases without the listing ever being half-empty, and it is why the external
-// ones still carry target/rel while the native ones do not.
 const BrowseCaseStudies = () => {
-  const all = window.CASE_STUDIES || [];
-  const sectors = window.caseStudySectors ? window.caseStudySectors() : [];
-  const [active, setActive] = React.useState('All');
-  const shown = active === 'All' ? all : all.filter(function (c) { return c.sector === active; });
-  const filters = ['All'].concat(sectors);
+  const stories = [
+    { sector: 'Education', org: 'STiR Education', title: 'From data burden to strategic insight', img: 'assets/cases/stir.webp', href: 'https://projecttech4dev.org/from-data-burden-to-strategic-insight-how-stir-transformed-data-across-multiple-countries-with-dalgo/' },
+    { sector: 'Sanitation', org: 'SHRI', title: 'Flushing out inefficiencies for better-quality sanitation', img: 'assets/cases/shri.webp', href: 'https://projecttech4dev.org/flushing-out-inefficiencies-shri-dalgos-data-driven-approach-to-better-quality-sanitation/' },
+    { sector: 'Health', org: 'Ummeed', title: 'Trans-disciplinary clinical care, on one dashboard', img: 'assets/cases/ummeed.webp', href: 'https://projecttech4dev.org/maximising-impact-ummeed-dalgos-approach-to-data-driven-trans-disciplinary-clinical-care/' },
+    { sector: 'Menstrual Health', org: 'Baala', title: 'Making the invisible visible — a path to data insights', img: 'assets/cases/baala.webp', href: 'https://projecttech4dev.org/making-the-invisible-visible-learn-how-baala-is-finding-a-path-to-data-insights/' },
+    { sector: 'Livelihoods', org: 'Bhumi', title: 'Closing the data-to-decision gap with Dalgo', img: 'assets/cases/bhumi.webp', href: 'https://projecttech4dev.org/lessons-from-bhumi-closing-the-data-to-decision-gap-with-dalgo/' },
+    { sector: 'Maternal & Child Health', org: 'SNEHA', title: 'Harnessing real-time data for social impact', img: 'assets/cases/sneha.webp', href: 'https://projecttech4dev.org/harnessing-real-time-data-for-social-impact-snehas-journey-with-dalgo/' },
+    { sector: 'Education', org: 'Antarang', title: "Antarang's data breakthrough with GoalKeep and Dalgo", img: 'assets/cases/antarang.png', href: 'https://projecttech4dev.org/fueling-success-antarangs-data-breakthrough-with-goalkeep-and-dalgo/' },
+    { sector: 'Community Empowerment', org: 'SHOFCO', title: 'Shining hope from within — SHOFCO’s empowerment story', img: 'assets/cases/shofco-partnership.png', href: 'https://projecttech4dev.org/shining-hope-from-within-shofcos-empowerment-story-with-dalgo/' },
+    { sector: 'Water & Environment', org: 'A.T.E. Chandra Foundation', title: 'Rejuvenating 5,000+ waterbodies, tracked on one dashboard', img: 'assets/cases/atecf.webp', href: 'https://projecttech4dev.org/waterbody-rejuvenation-project-a-t-e-chandra-foundation/' },
+    { sector: 'Water & Rural Development', org: 'Arghyam', title: 'Unifying piped-water-supply data across Bihar', img: 'assets/cases/arghyam.webp', href: 'https://projecttech4dev.org/jal-jeevan-mission-arghyam/' },
+    { sector: 'Maternal & Child Health', org: '1000 Days Fund', title: 'Driving beneficiary impact from data', img: 'assets/cases/tdf.webp', href: 'https://projecttech4dev.org/driving-beneficiary-impact-from-data-lessons-from-1000-days-fund/' },
+    // Protsahan is a field note on an audit still in progress rather than a results story —
+    // no metrics, no outcomes, no partner quote. It lists here because every card is a link
+    // out to projecttech4dev.org, where that framing is the post's own.
+    { sector: 'Skilling', org: 'Protsahan', title: "Notes from Protsahan's Girl Empowerment Centre", img: 'assets/cases/protsahan.webp', href: 'https://projecttech4dev.org/notes-from-protsahans-girl-empowerment-centre/' },
+  ];
   return (
     <section className="imx-section imx-browse" id="case-studies">
       <div className="container">
         <div className="section-head section-head-center">
-          <h2 className="section-title">Explore <span className="hl-underline">case studies</span></h2>
+          <h2 className="section-title" id="case-studies">Explore <span className="hl-underline">case studies</span></h2>
         </div>
-
-        {/* Filter is a real control group, not a row of links: it is labelled, each chip reports
-            its own pressed state, and it filters in place rather than navigating. */}
-        <div className="csl-filters" role="group" aria-label="Filter case studies by sector">
-          {filters.map(function (f) {
-            const count = f === 'All' ? all.length : all.filter(function (c) { return c.sector === f; }).length;
-            return (
-              <button type="button" key={f}
-                      className={'csl-chip' + (active === f ? ' is-active' : '')}
-                      aria-pressed={active === f}
-                      onClick={function () { setActive(f); }}>
-                {f} <span className="csl-chip-n" aria-hidden="true">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* aria-live so a filter change is announced; a sighted user sees the grid change, a
-            screen-reader user otherwise gets nothing at all. */}
-        <p className="csl-count" aria-live="polite">{shown.length === all.length
-          ? 'Showing all ' + all.length + ' case studies'
-          : 'Showing ' + shown.length + ' of ' + all.length + ' case studies in ' + active}</p>
-
         <div className="si-grid imx-si-grid">
-          {shown.map(function (s, i) {
-            const href = s.native ? '/case-studies/' + s.slug : s.source;
-            const ext = !s.native;
-            return (
-              <a key={s.slug || i} className="si-card" href={href}
-                 target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}
-                 data-cta-location="case_study_card">
-                <div className="si-thumb"><img src={s.img} alt={s.org + ' \u2014 ' + s.title} loading="lazy" /></div>
-                <div className="si-body">
-                  <div className="si-kicker">{s.sector} · {s.org}</div>
-                  <h3 className="si-title">{s.title}</h3>
-                  <span className="si-readmore">Read story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></span>
-                </div>
-              </a>
-            );
-          })}
+          {stories.map((s, i) => (
+            <a key={i} className="si-card" href={s.href} target="_blank" rel="noopener">
+              <div className="si-thumb"><img src={s.img} alt={`${s.org} — ${s.title}`} loading="lazy" /></div>
+              <div className="si-body">
+                <div className="si-kicker">{s.sector} · {s.org}</div>
+                <h3 className="si-title">{s.title}</h3>
+                <span className="si-readmore">Read story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></span>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>
