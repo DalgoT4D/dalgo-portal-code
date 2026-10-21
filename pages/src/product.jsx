@@ -13,7 +13,6 @@ const App = () => (
     <main>
       <AboutHero />
       <ProofCollage />
-      <DemoTour />
       <PlatformFor />
       <DashboardShowcase />
       <ProductFinalCTA />
