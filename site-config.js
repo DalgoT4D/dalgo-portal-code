@@ -32,17 +32,19 @@ window.SITE_CONFIG = {
   // Thumbnail is localised from Luma's og:image into assets/events/ so the nav makes no
   // third-party image request; it is 1600x840 (1.905), which matches .nav-dd-featimg's
   // aspect-ratio: 800/420 exactly, so nothing crops.
-  // utm_source=website is appended by window.featuredResource() below — do not bake it in here
-  // or the link ends up with it twice.
-  // ⏳ EXPIRES 11 Sep 2026 — swap or revert to an evergreen card after the event.
-  FEATURED_RESOURCE: {
-    kicker: 'Webinar',
-    title: 'Driving Beneficiary Impact from Data',
-    blurb: 'Lessons from 1000 Days Fund · 11 September · Online',
-    img: 'assets/events/tdf-webinar.webp?v=d0732a01',
-    href: 'https://luma.com/lk7hunh6',
-    cta: 'Register'
-  },
+  // The "Featured" card in the Resources dropdown. NULL removes the column entirely —
+  // featuredResource() returns null and Nav.jsx guards on it, so the menu falls back to a
+  // single column of links with no empty slot left behind.
+  //
+  // Emptied 22 Oct (Stuti). It held the 1000 Days Fund webinar, which ran on 11 September and
+  // had been advertising a past date for six weeks. The note that used to sit here said
+  // "EXPIRES 11 Sep 2026 — swap or revert to an evergreen card after the event"; nothing did,
+  // which is the argument for whatever goes in next being evergreen rather than dated.
+  //
+  // TO REFILL: the shape is { kicker, title, blurb, img, href, cta }. Do not bake utm into
+  // href — window.featuredResource() appends utm_source=website and utm_medium=nav_featured at
+  // render, and baking it in lands it twice.
+  FEATURED_RESOURCE: null,
   // ===== Site-wide announcement bar + one-time home pop-up (EventPopup.jsx) =====
   // NULL = no announcement bar and no home pop-up, on any page. Both components already guard
   // for it — Nav.jsx renders the bar only when events[] is non-empty, EventPopup returns null —
