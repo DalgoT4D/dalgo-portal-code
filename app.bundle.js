@@ -110,19 +110,19 @@ const FooterV2=()=>/*#__PURE__*/React.createElement("footer",{className:"fx"},/*
 ;(function(){
 // Hero — headline + auto-advancing customer carousel. (Dead HeroDashboard removed per BM-357 audit.)
 const RotateWord=({words,interval=2200})=>{const[idx,setIdx]=React.useState(0);React.useEffect(()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const iv=setInterval(()=>setIdx(i=>(i+1)%words.length),interval);return()=>clearInterval(iv);},[]);return/*#__PURE__*/React.createElement("span",{className:"rotate-word","data-comment-anchor":"f48851ef7e-span-83-10"},words[idx]);};// Hero CTAs are rendered directly rather than through HeroCTAs, because HeroCTAs decides which
-// button is green by ROLE — the consultation CTA always leads — and would have made the events
-// CTA the primary. The brief is explicit: trial leads, events is the ghost. (Stuti, 26 Aug.)
+// button is green by ROLE — the consultation CTA always leads — and would have made the second
+// CTA the primary. The brief was explicit: trial leads. (Stuti, 26 Aug.)
 //
-// The ghost CTA names the event rather than the page it lands on ("Upcoming Events" until
-// 15 Sep, Stuti). The destination is unchanged: SITE_CONFIG.EVENTS_CALENDAR, the Luma Dalgo
-// calendar, which lists both Data Decoded dates — so the label names the reason to click and
-// the calendar is where the city gets chosen.
+// The hero now carries ONE CTA. The ghost beside it was the event link — "Upcoming Events",
+// then "Register for Data Decoded" — and was removed 21 Oct (Stuti). Not relabelled: pointing a
+// second button at the trial would have put two buttons on the same destination, and the events
+// calendar is still reachable from the announcement bar and Resources.
 //
 // The trial label matches the nav's as of 15 Sep — both are "Try Platform for Free", both come
 // from trialCta(), and both resolve to SITE_CONFIG.TRIAL_URL. They were deliberately different
 // before that. cta_click reads the visible text, so the two surfaces now report as ONE row;
 // data-cta-location is what still separates them.
-const Hero=()=>{const trial=window.trialCta();return/*#__PURE__*/React.createElement(SiteHero,{eyebrow:"Data insights platform and expert data consulting",headline:/*#__PURE__*/React.createElement(React.Fragment,null,"Know Your Data,",/*#__PURE__*/React.createElement("br",null),/*#__PURE__*/React.createElement("span",{className:"cvh-hl"},"Share Your Story")),body:"From technology to strategy, Dalgo helps nonprofits build the data capabilities they need to report with confidence, make better decisions, and increase their impact.",ctas:/*#__PURE__*/React.createElement(React.Fragment,null,/*#__PURE__*/React.createElement("a",{className:"cmh-btn cmh-btn-primary",href:trial.href,target:trial.ext?'_blank':undefined,rel:window.ctaRel(trial),"data-cta-location":"hero_trial"},trial.label,/*#__PURE__*/React.createElement("svg",{viewBox:"0 0 24 24","aria-hidden":"true"},/*#__PURE__*/React.createElement("path",{d:"M5 12h14M13 5l7 7-7 7"}))),/*#__PURE__*/React.createElement("a",{className:"cmh-btn cmh-btn-ghost",href:window.withUtm(window.SITE_CONFIG.EVENTS_CALENDAR,'hero_events'),target:"_blank",rel:"noopener","data-cta-location":"hero_events"},"Register for Data Decoded")),image:{src:'assets/hero/home.webp?v=33ad153f',alt:'A nonprofit team reviewing their programme data together in Dalgo',kind:'photo'}});};window.Hero=Hero;
+const Hero=()=>{const trial=window.trialCta();return/*#__PURE__*/React.createElement(SiteHero,{eyebrow:"Data insights platform and expert data consulting",headline:/*#__PURE__*/React.createElement(React.Fragment,null,"Know Your Data,",/*#__PURE__*/React.createElement("br",null),/*#__PURE__*/React.createElement("span",{className:"cvh-hl"},"Share Your Story")),body:"From technology to strategy, Dalgo helps nonprofits build the data capabilities they need to report with confidence, make better decisions, and increase their impact.",ctas:/*#__PURE__*/React.createElement("a",{className:"cmh-btn cmh-btn-primary",href:trial.href,target:trial.ext?'_blank':undefined,rel:window.ctaRel(trial),"data-cta-location":"hero_trial"},trial.label,/*#__PURE__*/React.createElement("svg",{viewBox:"0 0 24 24","aria-hidden":"true"},/*#__PURE__*/React.createElement("path",{d:"M5 12h14M13 5l7 7-7 7"}))),image:{src:'assets/hero/home.webp?v=33ad153f',alt:'A nonprofit team reviewing their programme data together in Dalgo',kind:'photo'}});};window.Hero=Hero;
 })();
 
 /* == HowDalgoHelps == */

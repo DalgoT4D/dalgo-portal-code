@@ -32,62 +32,34 @@ window.SITE_CONFIG = {
   // Thumbnail is localised from Luma's og:image into assets/events/ so the nav makes no
   // third-party image request; it is 1600x840 (1.905), which matches .nav-dd-featimg's
   // aspect-ratio: 800/420 exactly, so nothing crops.
-  // utm_source=website is appended by window.featuredResource() below — do not bake it in here
-  // or the link ends up with it twice.
-  // ⏳ EXPIRES 11 Sep 2026 — swap or revert to an evergreen card after the event.
-  FEATURED_RESOURCE: {
-    kicker: 'Webinar',
-    title: 'Driving Beneficiary Impact from Data',
-    blurb: 'Lessons from 1000 Days Fund · 11 September · Online',
-    img: 'assets/events/tdf-webinar.webp?v=d0732a01',
-    href: 'https://luma.com/lk7hunh6',
-    cta: 'Register'
-  },
-  // ===== Site-wide announcement bar + one-time home pop-up (EventPopup.jsx) =====
-  // tickerLead is the fixed opening of the bar: the offer. Each entry in events[] then renders
-  // as its own LINK reading "<city>, <when>", each pointing at that city's own registration
-  // page, with a drawn arrow marking the turn from the offer to the two ways of taking it.
-  // Earlier passes styled those links as pill chips and appended "→ Register" to each, which
-  // put the word Register twice inside a 40px strip beside the lead sentence and set two
-  // button-looking objects in a band that is otherwise a line of text. Both are gone: the
-  // action is named once, by the lead, and carried per link by the aria-label.
-  // whenShort is currently UNUSED — it existed because the bar wanted "6 Oct" while the pop-up
-  // rows wanted "6 October", and as of 15 Sep (Stuti) the bar spells the month out too, so both
-  // surfaces read `when`. Kept because it costs nothing, but note that changing a date now
-  // means changing `when` or the bar will not move.
-  // The bar is static — see the note in
-  // app.css — so per-city links are safe here; they were not while the text was scrolling.
-  // events[] drives both the bar links and the pop-up rows. Set EVENT_BANNER to null to hide
-  // both once the events have passed.
+  // The "Featured" card in the Resources dropdown. NULL removes the column entirely —
+  // featuredResource() returns null and Nav.jsx guards on it, so the menu falls back to a
+  // single column of links with no empty slot left behind.
   //
-  // Event hrefs are CLEAN. window.withUtm() adds utm_source=website plus a per-surface
-  // utm_medium at render, so a Delhi click from the pop-up is distinguishable from the same
-  // event clicked anywhere else. Never bake utm into these values or it lands twice.
-  EVENT_BANNER: {
-    tickerLead: 'Register for Data Decoded, a one day data strategy session for nonprofits',
-    // The bell emoji came off the lead 15 Sep. An emoji renders in a different family at a
-    // different optical weight from Inter and sat above the text baseline, so the line started
-    // with a wobble; the bar now opens with a drawn calendar icon from Nav.jsx instead.
-    //
-    // Heading + supporting line are EXACT copy from Stuti (15 Sep) — do not reword. They set the
-    // conversion hierarchy for the dialog: offer, then scope, then the two dated cards below.
-    // popupHeading also names the dialog for screen readers (aria-labelledby).
-    popupHeading: 'Register for Data Decoded',
-    popupSub: 'A one day data strategy event for nonprofits in Delhi.',
-    cta: 'Register',                   // per-event row, and the single-event primary button
-    // Bangalore (6 Oct 2026) removed 8 Oct, the day after it ran. Its artwork
-    // (assets/events/data-decoded-oct.webp) is kept on disk, unreferenced.
-    events: [
-      {
-        title: 'Data Decoded with Dalgo',
-        when: '29 October', whenShort: '29 Oct', where: 'Delhi',
-        blurb: 'A one day data strategy session for nonprofits',
-        href: 'https://luma.com/5yqjry8c',
-        img: 'assets/events/data-decoded-delhi.webp?v=9a7a7808',
-        alt: 'Data Decoded with Dalgo — a strategy day for nonprofits in Delhi, 29 October 2026.'
-      }
-    ]
-  }
+  // Emptied 22 Oct (Stuti). It held the 1000 Days Fund webinar, which ran on 11 September and
+  // had been advertising a past date for six weeks. The note that used to sit here said
+  // "EXPIRES 11 Sep 2026 — swap or revert to an evergreen card after the event"; nothing did,
+  // which is the argument for whatever goes in next being evergreen rather than dated.
+  //
+  // TO REFILL: the shape is { kicker, title, blurb, img, href, cta }. Do not bake utm into
+  // href — window.featuredResource() appends utm_source=website and utm_medium=nav_featured at
+  // render, and baking it in lands it twice.
+  FEATURED_RESOURCE: null,
+  // ===== Site-wide announcement bar + one-time home pop-up (EventPopup.jsx) =====
+  // NULL = no announcement bar and no home pop-up, on any page. Both components already guard
+  // for it — Nav.jsx renders the bar only when events[] is non-empty, EventPopup returns null —
+  // so this single value is the whole switch.
+  //
+  // Emptied 22 Oct (Stuti): Data Decoded is over. Delhi ran on 29 October and Bangalore on
+  // 6 October, so both surfaces were advertising past dates.
+  //
+  // TO PROMOTE THE NEXT EVENT, restore the object from git rather than rebuilding the shape by
+  // hand: `git show 0c9800a:site-config.js` carries it in full (tickerLead, popupHeading,
+  // popupSub, cta, and events[] with title/when/whenShort/where/blurb/href/img/alt) along with
+  // the notes on why the bar is a line of text rather than chips, and why event hrefs stay
+  // clean so window.withUtm() can add a per-surface utm_medium at render. The Data Decoded
+  // artwork for both cities is still in assets/events/.
+  EVENT_BANNER: null
 };
 // Appends campaign params to an outbound link. ONE place, so utm_source is never missing and
 // never doubled, and each surface passes its own utm_medium — the hero, the ticker, a pop-up row
