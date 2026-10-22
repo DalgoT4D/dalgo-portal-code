@@ -1966,3 +1966,54 @@ main :is(.section-sub, .se-sub, .comm-lead, .cvh-sub, .pricing-help-line, .cmh-n
          .st-body, .pf-desc, .co-card p, .faq-still p, .cmh-head p, .section-head p) { text-wrap: balance; }
 /* FAQ answers and legal prose stay prose: a short final line is correct there. */
 main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
+
+/* ============ Consulting packages (region-priced) ============
+   Reuses the /pricing furniture wholesale — .pricing-region-toggle, .pr-toggle-btn, .plan-card
+   and its internals, .plan-tag. New here: a three-up grid, the group headings, and the module
+   comparison table, which had no existing equivalent. The table follows .legal-table's idiom
+   (scrolling wrapper, tinted thead, hairline rows) rather than inventing a second table style. */
+
+/* Screen-reader-only. The comparison table marks inclusion with a tick, which is decorative;
+   this carries the word a screen reader actually needs. */
+.x-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.cpk-grouph { font-size: 20px; font-weight: 700; letter-spacing: -.01em; color: var(--ink); text-align: center; margin: 8px 0 4px; }
+.cpk-groupsub { font-size: 15px; line-height: 1.55; color: var(--ink-2); text-align: center; max-width: 60ch; margin: 0 auto 24px; }
+.cpk-grouph + .pricing-grid { margin-top: 20px; }
+
+/* Three-up for the services; collapses before the cards get narrower than the 2-up does. */
+.cpk-grid-three { grid-template-columns: repeat(3, minmax(0, 340px)); margin-bottom: 48px; }
+.cpk-blurb { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); margin: 0 0 18px; }
+
+/* --- module comparison table --- */
+.cpk-tablewrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-0); }
+.cpk-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.cpk-caption { caption-side: top; text-align: left; padding: 14px 16px 12px; font-size: 13.5px; color: var(--ink-2); border-bottom: 1px solid var(--hairline); }
+/* position: relative so the .x-sr spans inside these cells resolve against the cell and
+   stay inside the scrolling wrapper. Without it they are absolute against the initial
+   containing block, escape the overflow-x container and widen the whole document. */
+.cpk-table th, .cpk-table td { position: relative; padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--hairline); vertical-align: top; line-height: 1.5; }
+.cpk-table thead th { background: var(--surface-1); font-weight: 700; color: var(--ink); font-size: 13.5px; }
+.cpk-table th[scope="row"] { font-weight: 650; color: var(--ink); min-width: 190px; }
+.cpk-table td { color: var(--ink-2); }
+.cpk-num { text-align: right; white-space: nowrap; }
+.cpk-table thead th.cpk-num { text-align: right; }
+.cpk-tick { color: var(--teal-ink); font-weight: 700; }
+.cpk-dash { color: color-mix(in srgb, var(--ink-2) 55%, #fff); }
+.cpk-table tfoot th, .cpk-table tfoot td { background: var(--surface-1); border-bottom: 0; color: var(--ink); }
+.cpk-table tfoot strong { display: block; font-size: 15px; color: var(--ink); }
+.cpk-was { display: block; font-size: 12.5px; font-weight: 400; color: var(--ink-2); margin-top: 2px; }
+.cpk-foot { font-size: 14px; line-height: 1.6; color: var(--ink-2); text-align: center; margin: 18px auto 0; max-width: 72ch; }
+
+/* --- pro bono strip --- */
+.cpk-probono { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  margin-top: 40px; padding: 22px 26px; background: var(--surface-1); border-radius: var(--r-lg); }
+.cpk-probono-t { font-size: 16px; font-weight: 650; color: var(--ink); margin: 0 0 4px; }
+.cpk-probono-p { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); margin: 0; max-width: 62ch; }
+
+@media (max-width: 1024px) { .cpk-grid-three { grid-template-columns: repeat(2, minmax(0, 340px)); } }
+@media (max-width: 760px) {
+  .cpk-grid-three { grid-template-columns: minmax(0, 1fr); }
+  .cpk-grouph { font-size: 18px; }
+  .cpk-probono { flex-direction: column; align-items: flex-start; }
+}
