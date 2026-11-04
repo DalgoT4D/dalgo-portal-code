@@ -314,7 +314,11 @@ const CASE_STUDIES = [
       { figure: '2–3 weeks → about 1 week', label: 'Monthly data preparation time' }
     ],
     challenge: {
-      lead: '1000 Days Fund works through government systems: posyandu, puskesmas and village governments. Its Community Care Model trains and supports community health workers, who run home visits, nutrition counselling, growth monitoring and risk screening. Data is how the team knows whether that work changes practice. That data lived in five sources on personal drives. The dashboard was a Google Sheet pulling from a chain of other sheets, until the tables grew too big to import and a hand-run Python script took over.',
+      // Two paragraphs in the master doc, kept as two.
+      lead: [
+        '1000 Days Fund works through government systems: posyandu, puskesmas and village governments. Its Community Care Model trains and supports community health workers, who run home visits, nutrition counselling, growth monitoring and risk screening. Data is how the team knows whether that work changes practice.',
+        'That data lived in five sources on personal drives. The dashboard was a Google Sheet pulling from a chain of other sheets, until the tables grew too big to import and a hand-run Python script took over.'
+      ],
       bullets: [
         ['Fragmentation.', 'No single place to ask a question; anything off the dashboard became a project.'],
         ['Inconsistency.', 'Free-text names and places on Google Forms. One district, Sumba Barat, was written three ways, across 38 provinces.'],

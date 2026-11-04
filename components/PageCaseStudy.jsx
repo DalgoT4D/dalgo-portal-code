@@ -98,7 +98,12 @@ const CaseStudyProseBlock = ({ heading, block, org }) => {
   return (
     <div className="csd-block">
       <h2 className="csd-h">{heading}</h2>
-      {block.lead && <p className="csd-p">{block.lead}</p>}
+      {/* `lead` is one paragraph or several: the master doc opens 1000 Days Fund's challenge
+          with two, and joining them into one ran a scene-setting paragraph straight into the
+          one about where the data actually lived. */}
+      {block.lead && (Array.isArray(block.lead) ? block.lead : [block.lead]).map(function (para, i) {
+        return <p className="csd-p" key={i}>{para}</p>;
+      })}
       <CaseStudyBullets items={block.bullets} />
       {block.image && (
         <figure className="csd-figure-inline">
