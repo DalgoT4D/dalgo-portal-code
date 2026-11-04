@@ -100,6 +100,11 @@ const CaseStudyProseBlock = ({ heading, block, org }) => {
       <h2 className="csd-h">{heading}</h2>
       {block.lead && <p className="csd-p">{block.lead}</p>}
       <CaseStudyBullets items={block.bullets} />
+      {block.image && (
+        <figure className="csd-figure-inline">
+          <img src={block.image.src} alt={block.image.alt} width="1600" height="900" loading="lazy" decoding="async" />
+        </figure>
+      )}
       {block.tail && <p className="csd-p">{block.tail}</p>}
       <CaseStudyQuote quote={block.quote} org={org} />
     </div>
@@ -202,18 +207,23 @@ const PageCaseStudy = () => {
     );
   }
   return (
-    <React.Fragment>
-      {/* TEXT-ONLY hero. The only artwork per partner is the promotional card used as the
-          listing thumbnail, and it fails as a hero three ways: its baked-in text repeats this
-          H1, .cvh-figure img is object-fit:cover in both variants so a 3:2 frame slices the
-          card's own wording off at the edges, and the composition rule asks a hero for a
-          product illustration or a photo of the people it describes — a promo card is neither.
-          .cvh-grid-solo is the system's own text-only tier, so every case study still shares
-          one hero height with the others in that tier. */}
+    <div className="csd-page">
+      {/* THE ACCENT IS THE PARTNER NAME, not the whole title. Two reasons, both found by
+          looking at the rendered page rather than the markup: .cvh-hl is white-space:nowrap
+          above 1024px, so a title-length span could not break and ran under the hero figure,
+          clipping at the viewport edge; and the system allows one teal accent per heading,
+          which a whole sentence in teal is not.
+
+          A real field photo where the partner has given us one, cropped to the 3:2 the frame
+          expects; otherwise SiteHero's text-only tier, which shares one height with every other
+          text-only hero on the site. Never the listing thumbnail: that is a promotional card
+          whose baked-in text repeats this H1, and .cvh-figure img is object-fit:cover in both
+          variants, so a 3:2 frame slices the card's own wording off at the edges. */}
       <SiteHero
         eyebrow={cs.sector + ' · Case study'}
-        headline={<>Lessons from {cs.org}: <span className="cvh-hl">{cs.title}</span></>}
+        headline={<>Lessons from <span className="cvh-hl">{cs.org}</span>: {cs.title}</>}
         body={cs.standfirst}
+        image={cs.img ? { src: cs.img, alt: 'Lessons from ' + cs.org + ': ' + cs.title, kind: 'photo' } : undefined}
       />
       <CaseStudyFacts cs={cs} />
       <CaseStudyResults cs={cs} />
@@ -221,7 +231,10 @@ const PageCaseStudy = () => {
         <div className="container">
           <div className="csd-prose">
             <CaseStudyProseBlock heading="The challenge" block={cs.challenge} org={cs.org} />
-            <CaseStudyProseBlock heading={(cs.approach && cs.approach.heading) || 'How we worked together'} block={cs.approach} org={cs.org} />
+            <CaseStudyProseBlock
+              heading={(cs.approach && cs.approach.heading) || 'How we worked together'}
+              block={cs.approach ? Object.assign({}, cs.approach, { image: cs.approachImg }) : null}
+              org={cs.org} />
             <CaseStudyTransformation cs={cs} />
             {cs.next && (
               <div className="csd-block">
@@ -233,7 +246,7 @@ const PageCaseStudy = () => {
         </div>
       </section>
       <CaseStudyCTA />
-    </React.Fragment>
+    </div>
   );
 };
 

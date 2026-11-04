@@ -28,6 +28,23 @@
 // QUOTES ARE VERBATIM customer voice: never edited, paraphrased or completed. The banned-word
 // rules govern Dalgo's own copy, never an attributed quote.
 //
+// LOGO TREATMENT: logos sit in full brand colour on a white plate, which is what makes five
+// very different files sit together — SHOFCO's cyan plate and 1000 Days Fund's baked white
+// box both read as intentional on white, where on the mint tint they did not. `logoPale`
+// marks the one exception: Antarang's file is 100% white pixels, verified by sampling it, so
+// it is inverted to ink rather than left invisible. Grayscaling the set instead was tried and
+// measured: it dropped SHOFCO to 2.41:1 and SHRI to 1.99:1 against the tint.
+//
+// IMAGERY comes from the master doc itself, which carries two purpose-built assets per
+// partner (Stuti, 4 Nov). Extracted from the .docx and localised:
+//   - `img`, 1200x630: the Dalgo | Partner lockup, headline, geography pill and a photo. This
+//     is the listing thumbnail AND the per-page OG/link-preview image, which is what 1200x630
+//     is for. It replaces both the old projecttech4dev title cards and the logo-on-a-plate
+//     thumbnail, and it is why all five cards now match: they were designed as a set.
+//   - `approachImg`, 1600x900: the "How we worked together" four-step arc, placed in that
+//     section. The case-study design kit allows one image there and this is it.
+// Neither repeats a table the page already sets as text, which the kit forbids.
+//
 // SHAPE: every field below `standfirst` is optional, so a partner with no quote in a section,
 // or no team table, renders without that block rather than leaving an empty shelf.
 // `native: false` keeps a card pointing at projecttech4dev.org until that partner is written.
@@ -38,8 +55,9 @@ const CASE_STUDIES = [
     sector: 'Community Empowerment',
     cardTitle: 'A live view of program data for every team',
     title: 'A live view of program data for every team',
-    img: 'assets/cases/shofco-partnership.png',
+    img: 'assets/cases/shofco-card.webp',
     logo: 'assets/logos/SHOFCO.png',
+    approachImg: { src: 'assets/cases/shofco-approach.webp', alt: 'How Dalgo and SHOFCO worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
     standfirst: 'SHOFCO worked with the Dalgo team to bring four tools and paper into one pipeline that refreshes three times a day. Leadership, MEL teams, caseworkers and donors now each decide from the view they need.',
     facts: [
@@ -98,8 +116,9 @@ const CASE_STUDIES = [
     sector: 'Health',
     cardTitle: 'Seeing the whole child across clinic and training data',
     title: 'Seeing the whole child across clinic and training data',
-    img: 'assets/cases/ummeed.webp',
+    img: 'assets/cases/ummeed-card.webp',
     logo: 'assets/logos/Ummeed.png',
+    approachImg: { src: 'assets/cases/ummeed-approach.webp', alt: 'How Dalgo and Ummeed worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
     standfirst: "Ummeed joined its clinic and training systems so clinicians, managers and fundraisers can see each child's full journey, refreshed every week.",
     facts: [
@@ -154,12 +173,15 @@ const CASE_STUDIES = [
 
   {
     slug: 'antarang',
+    // 100% white pixels: invisible on any light ground, so it is inverted to ink on the card.
+    logoPale: true,
     org: 'Antarang',
     sector: 'Education',
     cardTitle: 'From 25 Excel sheets to dashboards every team can trust',
     title: 'From 25 Excel sheets to dashboards every team can trust',
-    img: 'assets/cases/antarang.png',
+    img: 'assets/cases/antarang-card.webp',
     logo: 'assets/logos/Antarang.webp',
+    approachImg: { src: 'assets/cases/antarang-approach.webp', alt: 'How Dalgo and Antarang worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
     standfirst: 'Antarang replaced 20 to 25 Excel sheets with one pipeline. Program and donor teams now work from dashboards refreshed every 24 hours.',
     facts: [
@@ -214,8 +236,9 @@ const CASE_STUDIES = [
     sector: 'Sanitation',
     cardTitle: 'Running 20 public toilets on data the whole team can see',
     title: 'Running 20 public toilets on data the whole team can see',
-    img: 'assets/cases/shri.webp',
+    img: 'assets/cases/shri-card.webp',
     logo: 'assets/logos/SHRI.png',
+    approachImg: { src: 'assets/cases/shri-approach.webp', alt: 'How Dalgo and SHRI worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
     standfirst: 'SHRI runs free public toilets in Bihar and Jharkhand. Working with the Dalgo team, it turned the forms its facility staff fill in every day into reports and a public dashboard that update on their own. Problems get fixed in time, and funders, government and communities see the same numbers.',
     facts: [
@@ -274,8 +297,9 @@ const CASE_STUDIES = [
     sector: 'Maternal & Child Health',
     cardTitle: 'Getting at-risk mothers and children back to the field in time',
     title: 'Getting at-risk mothers and children back to the field in time',
-    img: 'assets/cases/tdf.webp',
+    img: 'assets/cases/1000-days-fund-card.webp',
     logo: 'assets/logos/TDF.webp',
+    approachImg: { src: 'assets/cases/1000-days-fund-approach.webp', alt: 'How Dalgo and 1000 Days Fund worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
     standfirst: "1000 Days Fund worked with Dalgo's consultants to bring five data sources into one warehouse that its own team now runs. At-risk pregnant women and children are flagged as the data arrives, where the same cases once reached field teams in reports weeks later.",
     facts: [
@@ -328,16 +352,15 @@ const CASE_STUDIES = [
     next: '1000 Days Fund is adding range and plausibility checks, duplicate flags and missed-visit flags, each routed back to the person who entered the data, and automated alerts that send at-risk cases to field teams, village task forces and puskesmas. In Adlina Basuki’s words, the goal is “to be able to catch the bad values before it becomes a bad decision.”'
   },
 
-  // ---- Not yet written ------------------------------------------------------------------
-  // These keep their projecttech4dev.org link so the listing stays complete. Add the body
-  // fields and flip `native` to true to bring one across; scripts/gen-case-studies.mjs
-  // generates its page on the next build and nothing else needs changing.
-  { slug: 'stir-education', org: 'STiR Education', sector: 'Education', cardTitle: 'From data burden to strategic insight', img: 'assets/cases/stir.webp', logo: 'assets/logos/STiREducation.png', native: false, source: 'https://projecttech4dev.org/from-data-burden-to-strategic-insight-how-stir-transformed-data-across-multiple-countries-with-dalgo/' },
-  { slug: 'baala', org: 'Baala', sector: 'Menstrual Health', cardTitle: 'Making the invisible visible — a path to data insights', img: 'assets/cases/baala.webp', logo: 'assets/logos/Baala.png', native: false, source: 'https://projecttech4dev.org/making-the-invisible-visible-learn-how-baala-is-finding-a-path-to-data-insights/' },
-  { slug: 'bhumi', org: 'Bhumi', sector: 'Livelihoods', cardTitle: 'Closing the data-to-decision gap with Dalgo', img: 'assets/cases/bhumi.webp', logo: 'assets/logos/Bhumi.png', native: false, source: 'https://projecttech4dev.org/lessons-from-bhumi-closing-the-data-to-decision-gap-with-dalgo/' },
-  { slug: 'sneha', org: 'SNEHA', sector: 'Maternal & Child Health', cardTitle: 'Harnessing real-time data for social impact', img: 'assets/cases/sneha.webp', logo: 'assets/logos/SNEHA.png', native: false, source: 'https://projecttech4dev.org/harnessing-real-time-data-for-social-impact-snehas-journey-with-dalgo/' },
-  { slug: 'ate-chandra-foundation', org: 'A.T.E. Chandra Foundation', sector: 'Water & Environment', cardTitle: 'Rejuvenating 5,000+ waterbodies, tracked on one dashboard', img: 'assets/cases/atecf.webp', logo: null, native: false, source: 'https://projecttech4dev.org/waterbody-rejuvenation-project-a-t-e-chandra-foundation/' },
-  { slug: 'arghyam', org: 'Arghyam', sector: 'Water & Rural Development', cardTitle: 'Unifying piped-water-supply data across Bihar', img: 'assets/cases/arghyam.webp', logo: null, native: false, source: 'https://projecttech4dev.org/jal-jeevan-mission-arghyam/' }
+  // Only the partners written up in the master doc appear here (Stuti, 4 Nov). The six that
+  // still had a projecttech4dev.org link — STiR Education, Baala, Bhumi, SNEHA, A.T.E. Chandra
+  // Foundation and Arghyam — were removed rather than kept as outbound cards, so the listing
+  // shows the current set and nothing else.
+  //
+  // TO ADD THE NEXT PARTNER: copy the shape of any entry above. Every field below `standfirst`
+  // is optional, and scripts/gen-case-studies.mjs generates and prerenders its page on the
+  // next build. `native: false` plus a `source` URL still works if a partner should link out
+  // instead of getting a page.
 ];
 
 // Fixed metadata structure, defined once so the pattern cannot drift as the set grows.

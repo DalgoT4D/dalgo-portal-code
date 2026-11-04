@@ -1983,17 +1983,32 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
    name for the column it heads but must stay visually blank. */
 .x-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-/* --- Listing: sector filter --- */
-.csl-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 auto 14px; max-width: 920px; }
-.csl-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 7px 14px; border-radius: var(--r-pill);
-  font-size: 13.5px; font-weight: 600; color: var(--ink-2); background: var(--surface-0);
-  border: 1px solid var(--hairline); cursor: pointer;
-  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
-.csl-chip:hover { color: var(--ink); border-color: color-mix(in srgb, var(--teal) 40%, transparent); background: var(--surface-1); }
-.csl-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.csl-chip.is-active { color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 12%, #fff); border-color: color-mix(in srgb, var(--teal) 34%, transparent); }
-.csl-chip-n { font-size: 12.5px; font-weight: 700; opacity: .72; font-variant-numeric: tabular-nums; }
-.csl-count { text-align: center; margin: 0 0 24px; font-size: 13.5px; color: var(--ink-2); }
+/* --- Listing: card thumbnails ---------------------------------------------------------
+   The thumbnail is the 1200x630 card from the master doc, so the grid inherits a set that was
+   designed together. 1200/630 exactly, so cover crops nothing. */
+.cst-thumb { position: relative; aspect-ratio: 1200 / 630; overflow: hidden; background: var(--surface-1); border-bottom: 1px solid var(--hairline); }
+.cst-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Sector, layered on: the card's own pill carries geography. Sits top-right so it cannot
+   collide with the Dalgo | Partner lockup, which is always top-left. */
+.cst-pill { position: absolute; top: 10px; right: 10px; display: inline-flex; align-items: center;
+  min-height: 24px; padding: 4px 11px; border-radius: var(--r-pill);
+  font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--teal-ink); background: color-mix(in srgb, var(--surface-0) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--teal) 30%, transparent); backdrop-filter: blur(3px); }
+.cst-logo-fallback { font-size: 17px; font-weight: 700; color: var(--ink); text-align: center; }
+
+/* --- Detail: hero figure holds the same card ---
+   .cvh-figure is 3:2 and object-fit:cover everywhere else. A 1200x630 card in a 3:2 frame
+   loses about a fifth of its width, which would slice the lockup off one side and the photo
+   off the other, so the frame takes the card's own ratio on these pages only. */
+.csd-page .cvh-figure { aspect-ratio: 1200 / 630; }
+/* Belt and braces on the nowrap accent: a long partner name must wrap rather than run
+   under the figure, the way a title-length accent did. */
+.csd-page .cvh-h1 .cvh-hl { white-space: normal; }
+
+/* --- Detail: the "How we worked together" card, inline in its section --- */
+.csd-figure-inline { margin: 20px 0 0; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.csd-figure-inline img { width: 100%; height: auto; display: block; }
 
 /* --- Detail: at-a-glance facts ---
    Sits directly under the white hero on the one permitted tint. A definition list, so the

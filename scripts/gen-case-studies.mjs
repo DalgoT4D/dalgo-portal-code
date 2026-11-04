@@ -23,6 +23,9 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const OUT_DIR = path.join(root, 'case-studies');
 const ORIGIN = 'https://dalgo.org';
 const OG_IMAGE = ORIGIN + '/assets/og-card-v2.jpg';
+// Each case study ships its own 1200x630 card, which is exactly the OG/link-preview size,
+// so a shared fallback card would be a worse preview than the one that already exists.
+const ogFor = (cs) => (cs.img ? ORIGIN + '/' + String(cs.img).replace(/^\//, '') : OG_IMAGE);
 
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -113,11 +116,11 @@ function head(cs, meta, versions) {
 <meta property="og:type" content="article"/>
 <meta property="og:url" content="${url}"/>
 <meta property="og:site_name" content="Dalgo"/>
-<meta property="og:image" content="${OG_IMAGE}"/>
+<meta property="og:image" content="${ogFor(cs)}"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${esc(meta.title)}"/>
 <meta name="twitter:description" content="${esc(meta.desc)}"/>
-<meta name="twitter:image" content="${OG_IMAGE}"/>
+<meta name="twitter:image" content="${ogFor(cs)}"/>
 <script type="application/ld+json">${JSON.stringify(article)}</script>
 <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>

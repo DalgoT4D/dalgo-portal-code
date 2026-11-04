@@ -133,52 +133,39 @@ const BrowseNGO = () => {
 // its projecttech4dev.org link until then — which is what lets partners move across one at a
 // time without the listing ever being half-empty, and why the external ones still carry
 // target/rel while the native ones do not.
+// Listing for /case-studies. Reads components/CaseStudyData.jsx, so the set of stories and
+// what each card shows are defined once and this component only arranges them.
+//
+// NO SECTOR FILTER AND NO RESULT COUNT (Stuti, 4 Nov). With five case studies every chip
+// filtered to a single card and the count line read "Showing 1 of 5" — interface that costs a
+// click and narrows nothing. The sector still shows, as a pill on each thumbnail, which is
+// where it is useful: scanning the grid rather than operating a control.
+//
+// THUMBNAIL IS THE DESIGNED CARD from the master doc — 1200x630, Dalgo | Partner lockup,
+// headline, geography pill and a photo. All five were made as a set, which is what makes the
+// grid read as one family; the sector pill is layered on top because the baked pill carries
+// geography, not sector.
 const BrowseCaseStudies = () => {
   const all = window.CASE_STUDIES || [];
-  const sectors = window.caseStudySectors ? window.caseStudySectors() : [];
-  const [active, setActive] = React.useState('All');
-  const shown = active === 'All' ? all : all.filter(function (c) { return c.sector === active; });
-  const filters = ['All'].concat(sectors);
   return (
     <section className="imx-section imx-browse" id="case-studies">
       <div className="container">
         <div className="section-head section-head-center">
           <h2 className="section-title">Explore <span className="hl-underline">case studies</span></h2>
         </div>
-
-        {/* A real control group: labelled, each chip reports its own pressed state, and it
-            filters in place rather than navigating. */}
-        <div className="csl-filters" role="group" aria-label="Filter case studies by sector">
-          {filters.map(function (f) {
-            const count = f === 'All' ? all.length : all.filter(function (c) { return c.sector === f; }).length;
-            return (
-              <button type="button" key={f}
-                      className={'csl-chip' + (active === f ? ' is-active' : '')}
-                      aria-pressed={active === f}
-                      onClick={function () { setActive(f); }}>
-                {f} <span className="csl-chip-n" aria-hidden="true">{count}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* aria-live so a filter change is announced; a sighted user sees the grid change, a
-            screen-reader user would otherwise get nothing. */}
-        <p className="csl-count" aria-live="polite">{shown.length === all.length
-          ? 'Showing all ' + all.length + ' case studies'
-          : 'Showing ' + shown.length + ' of ' + all.length + ' case studies in ' + active}</p>
-
-        <div className="si-grid imx-si-grid">
-          {shown.map(function (s, i) {
+        <div className="si-grid imx-si-grid cst-grid">
+          {all.map(function (s, i) {
             const href = s.native ? '/case-studies/' + s.slug : s.source;
             const ext = !s.native;
             return (
-              <a key={s.slug || i} className="si-card" href={href}
+              <a key={s.slug || i} className="si-card cst-card" href={href}
                  target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}
                  data-cta-location="case_study_card">
-                <div className="si-thumb"><img src={s.img} alt={s.org + ' \u2014 ' + s.cardTitle} loading="lazy" /></div>
+                <div className="cst-thumb">
+                  <span className="cst-pill">{s.sector}</span>
+                  <img className="cst-card-img" src={s.img} alt={'Lessons from ' + s.org + ': ' + s.cardTitle} loading="lazy" decoding="async" />
+                </div>
                 <div className="si-body">
-                  <div className="si-kicker">{s.sector} · {s.org}</div>
                   <h3 className="si-title">{s.cardTitle}</h3>
                   <span className="si-readmore">Read story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></span>
                 </div>
