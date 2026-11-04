@@ -1973,3 +1973,96 @@ main :is(.section-sub, .se-sub, .comm-lead, .cvh-sub, .pricing-help-line, .cmh-n
          .st-body, .pf-desc, .co-card p, .faq-still p, .cmh-head p, .section-head p) { text-wrap: balance; }
 /* FAQ answers and legal prose stay prose: a short final line is correct there. */
 main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
+
+/* ============ Case studies — listing filter + detail template ============
+   Small on purpose: the detail page reuses SiteHero (.cvh), .final-cta and the site's table
+   idiom. Only the sector filter, the facts strip, the results band and the prose column had no
+   existing equivalent. Three section grounds, three section paddings, tokens throughout. */
+
+/* Screen-reader-only. Used for the empty corner cell of the before/after table, which needs a
+   name for the column it heads but must stay visually blank. */
+.x-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* --- Listing: sector filter --- */
+.csl-filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 auto 14px; max-width: 920px; }
+.csl-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 7px 14px; border-radius: var(--r-pill);
+  font-size: 13.5px; font-weight: 600; color: var(--ink-2); background: var(--surface-0);
+  border: 1px solid var(--hairline); cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.csl-chip:hover { color: var(--ink); border-color: color-mix(in srgb, var(--teal) 40%, transparent); background: var(--surface-1); }
+.csl-chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.csl-chip.is-active { color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 12%, #fff); border-color: color-mix(in srgb, var(--teal) 34%, transparent); }
+.csl-chip-n { font-size: 12.5px; font-weight: 700; opacity: .72; font-variant-numeric: tabular-nums; }
+.csl-count { text-align: center; margin: 0 0 24px; font-size: 13.5px; color: var(--ink-2); }
+
+/* --- Detail: at-a-glance facts ---
+   Sits directly under the white hero on the one permitted tint. A definition list, so the
+   label/value relationship survives without a table's horizontal scroll. */
+.csd-facts { padding: var(--section-pad) 0; background: var(--surface-1); }
+.csd-facts-grid { margin: 0 auto; max-width: 980px; display: grid; gap: 1px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  background: var(--hairline); border: 1px solid var(--hairline); border-radius: var(--r-lg); overflow: hidden; }
+.csd-fact { background: var(--surface-0); padding: 18px 20px; }
+.csd-fact dt { font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-ink); margin: 0 0 6px; }
+.csd-fact dd { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+
+/* --- Detail: key results --- */
+.csd-results { padding: var(--section-pad) 0; background: var(--surface-0); }
+.csd-results-grid { list-style: none; margin: 20px auto 0; padding: 0; display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); max-width: 1040px; }
+.csd-result { display: flex; flex-direction: column; gap: 8px; padding: 24px 22px; background: var(--surface-0);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-sm); text-align: center; align-items: center; }
+/* The "figure" is not always a numeral — "Problems fixed in time" is a result too — so this
+   wraps and balances rather than assuming a short number on one line. */
+.csd-figure { font-size: 20px; font-weight: 700; line-height: 1.25; letter-spacing: -.01em; color: var(--teal-ink); text-wrap: balance; }
+.csd-figure-label { font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+
+/* --- Detail: prose --- */
+/* padding-top is 0 because .csd-results sits directly above on the same white ground and
+   has already paid a full --section-pad. Two whites each paying it stack to 112px — the
+   seam this codebase keeps hitting. */
+.csd-body { padding: 0 0 var(--section-pad-lg); background: var(--surface-0); }
+.csd-prose { max-width: var(--measure); margin: 0 auto; }
+.csd-block + .csd-block { margin-top: 44px; }
+/* 20px, not 24: 24px appears nowhere else in this stylesheet, and a one-off size is how a
+   type scale comes apart. 20px has eleven existing uses and still steps clearly above the
+   16px body beneath it. */
+.csd-h { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; color: var(--ink); margin: 0 0 14px; }
+.csd-h-center { text-align: center; }
+.csd-p { margin: 0 0 14px; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+.csd-p:last-child { margin-bottom: 0; }
+.csd-bullets { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.csd-bullets li { position: relative; padding-left: 20px; font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+.csd-bullets li::before { content: ""; position: absolute; left: 0; top: 10px; width: 7px; height: 7px; border-radius: 50%; background: color-mix(in srgb, var(--teal) 55%, #fff); }
+.csd-bullets strong { color: var(--ink); font-weight: 650; }
+
+/* --- Detail: quote --- */
+/* No left-border tab. The site already has one way of opening a quote — the oversized
+   teal mark used by .imx-band — so this borrows that rather than adding a coloured rule
+   down one side, which the design detector flags and which belongs to no other card here. */
+.csd-quote { margin: 22px 0 0; padding: 20px 22px; background: var(--surface-1); border-radius: var(--r-lg); }
+.csd-quote-mark { display: block; font-weight: 700; font-size: 36px; line-height: .6; height: 20px; color: color-mix(in srgb, var(--teal) 42%, #fff); margin-bottom: 10px; }
+.csd-quote blockquote { margin: 0 0 12px; font-size: 17px; line-height: 1.6; font-weight: 500; color: var(--ink); }
+.csd-quote figcaption { display: flex; flex-direction: column; gap: 1px; }
+.csd-quote-name { font-size: 14px; font-weight: 650; color: var(--ink); }
+.csd-quote-role { font-size: 13.5px; color: var(--ink-2); }
+
+/* --- Detail: tables --- */
+.csd-tablewrap { overflow-x: auto; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-0); margin: 0 0 18px; }
+.csd-tablewrap-teams { margin-top: 22px; }
+.csd-table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+/* position: relative so the .x-sr span in the header row resolves against its cell and
+   stays inside the scrolling wrapper. Left static it is absolute against the initial
+   containing block, escapes .csd-tablewrap and widens the whole document. */
+.csd-table th, .csd-table td { position: relative; padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--hairline); vertical-align: top; line-height: 1.55; }
+.csd-table thead th { background: var(--surface-1); font-weight: 700; color: var(--ink); font-size: 13.5px; white-space: nowrap; }
+.csd-table th[scope="row"] { font-weight: 650; color: var(--ink); min-width: 150px; }
+.csd-table td { color: var(--ink-2); }
+.csd-table tbody tr:last-child th, .csd-table tbody tr:last-child td { border-bottom: 0; }
+.csd-after { color: var(--ink); }
+
+@media (max-width: 768px) {
+  .csd-h { font-size: 18px; }
+  .csd-figure { font-size: 18px; }
+  .csd-p, .csd-bullets li { font-size: 15.5px; }
+  .csd-quote blockquote { font-size: 16px; }
+}
