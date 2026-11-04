@@ -2000,11 +2000,20 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
   border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent); }
 .cst-logo-fallback { font-size: 17px; font-weight: 700; color: var(--ink); text-align: center; }
 
-/* --- Detail: hero figure holds the same card ---
-   .cvh-figure is 3:2 and object-fit:cover everywhere else. A 1200x630 card in a 3:2 frame
-   loses about a fifth of its width, which would slice the lockup off one side and the photo
-   off the other, so the frame takes the card's own ratio on these pages only. */
-.csd-page .cvh-figure { aspect-ratio: 1200 / 630; }
+/* --- Detail: hero figure holds the case study card ---
+   THE FRAME KEEPS THE SYSTEM'S 3/2. Reshaping it to the card's 1200x630 was wrong: --hero-h
+   is sized so the 3:2 frame leaves a uniform remainder on every page, and app.css says in two
+   places not to reshape the frame or set a per-page hero height. A shorter frame broke the
+   alignment this page shares with the other ten.
+
+   The fix is the one the system already uses for the 16:9 hero video: hold the 3/2 frame,
+   centre the content at full width, and let the ground fill what is left. Cropping the card
+   to 3:2 is not an option — it slices the Dalgo | Partner lockup off one side and the photo
+   off the other. Ground is --surface-1 rather than the video's navy because the card's own
+   left half is near-white, and navy behind it would read as a frame around a frame.
+   The img rule must stay AFTER `.cvh-figure img` above, which it does by source order. */
+.csd-page .cvh-figure { background: var(--surface-1); display: grid; place-items: center; }
+.csd-page .cvh-figure img { width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: contain; }
 /* Belt and braces on the nowrap accent: a long partner name must wrap rather than run
    under the figure, the way a title-length accent did. */
 .csd-page .cvh-h1 .cvh-hl { white-space: normal; }

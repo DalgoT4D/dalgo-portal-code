@@ -164,7 +164,7 @@ const BrowseCaseStudies = () => {
                  target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}
                  data-cta-location="case_study_card">
                 <div className="cst-thumb">
-                  <img className="cst-card-img" src={s.img} alt={'Lessons from ' + s.org + ': ' + s.cardTitle} loading="lazy" decoding="async" />
+                  <img className="cst-card-img" src={s.img} alt={s.org + ': ' + s.cardTitle} loading="lazy" decoding="async" />
                 </div>
                 {/* The card image already carries the headline, so repeating it here printed
                     the title twice. The body holds what the image does not: the sector, and

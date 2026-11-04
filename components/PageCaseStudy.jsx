@@ -208,22 +208,25 @@ const PageCaseStudy = () => {
   }
   return (
     <div className="csd-page">
-      {/* THE ACCENT IS THE PARTNER NAME, not the whole title. Two reasons, both found by
-          looking at the rendered page rather than the markup: .cvh-hl is white-space:nowrap
+      {/* THE HEADLINE IS THE PARTNER NAME PLUS THE STORY'S OWN TITLE, nothing more. It used to
+          carry a "Lessons from " prefix, which was this template's invention rather than the
+          master doc's words, and it cost a full 50px headline line on four of the five pages —
+          pushing every hero past --hero-h. The doc's title is the title; the prefix was padding.
+
+          The accent is the partner name, not the whole title. .cvh-hl is white-space:nowrap
           above 1024px, so a title-length span could not break and ran under the hero figure,
           clipping at the viewport edge; and the system allows one teal accent per heading,
           which a whole sentence in teal is not.
 
-          A real field photo where the partner has given us one, cropped to the 3:2 the frame
-          expects; otherwise SiteHero's text-only tier, which shares one height with every other
-          text-only hero on the site. Never the listing thumbnail: that is a promotional card
-          whose baked-in text repeats this H1, and .cvh-figure img is object-fit:cover in both
-          variants, so a 3:2 frame slices the card's own wording off at the edges. */}
+          The image is the partner's own 1200x630 case study card. The frame stays the system's
+          3:2 — see the .csd-page .cvh-figure rule in app.css for why it is held rather than
+          reshaped — and the card sits inside it on a --surface-1 ground via object-fit:contain,
+          because cropping to 3:2 slices the Dalgo | Partner lockup off one side. */}
       <SiteHero
         eyebrow={cs.sector + ' · Case study'}
-        headline={<>Lessons from <span className="cvh-hl">{cs.org}</span>: {cs.title}</>}
+        headline={<><span className="cvh-hl">{cs.org}</span>: {cs.title}</>}
         body={cs.standfirst}
-        image={cs.img ? { src: cs.img, alt: 'Lessons from ' + cs.org + ': ' + cs.title, kind: 'photo' } : undefined}
+        image={cs.img ? { src: cs.img, alt: cs.org + ': ' + cs.title, kind: 'photo' } : undefined}
       />
       <CaseStudyFacts cs={cs} />
       <CaseStudyResults cs={cs} />

@@ -62,7 +62,7 @@ function head(cs, meta, versions) {
   const article = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: 'Lessons from ' + cs.org + ': ' + cs.title,
+    headline: cs.org + ': ' + cs.title,
     description: meta.desc,
     image: img,
     url,
