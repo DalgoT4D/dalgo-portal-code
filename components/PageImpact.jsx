@@ -143,8 +143,10 @@ const BrowseNGO = () => {
 //
 // THUMBNAIL IS THE DESIGNED CARD from the master doc — 1200x630, Dalgo | Partner lockup,
 // headline, geography pill and a photo. All five were made as a set, which is what makes the
-// grid read as one family; the sector pill is layered on top because the baked pill carries
-// geography, not sector.
+// grid read as one family. The sector sits in the white body below the image, not over it:
+// overlaid, it straddled the boundary between the card's white half and its photo half and
+// read as a broken element. The headline is not repeated under the image either — it is
+// already set into the card, so the body carries only the sector and the action.
 const BrowseCaseStudies = () => {
   const all = window.CASE_STUDIES || [];
   return (
@@ -162,11 +164,13 @@ const BrowseCaseStudies = () => {
                  target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}
                  data-cta-location="case_study_card">
                 <div className="cst-thumb">
-                  <span className="cst-pill">{s.sector}</span>
                   <img className="cst-card-img" src={s.img} alt={'Lessons from ' + s.org + ': ' + s.cardTitle} loading="lazy" decoding="async" />
                 </div>
-                <div className="si-body">
-                  <h3 className="si-title">{s.cardTitle}</h3>
+                {/* The card image already carries the headline, so repeating it here printed
+                    the title twice. The body holds what the image does not: the sector, and
+                    the action. */}
+                <div className="si-body cst-body">
+                  <span className="cst-pill">{s.sector}</span>
                   <span className="si-readmore">Read story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></span>
                 </div>
               </a>

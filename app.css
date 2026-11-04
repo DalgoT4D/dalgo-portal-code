@@ -1988,13 +1988,16 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
    designed together. 1200/630 exactly, so cover crops nothing. */
 .cst-thumb { position: relative; aspect-ratio: 1200 / 630; overflow: hidden; background: var(--surface-1); border-bottom: 1px solid var(--hairline); }
 .cst-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Sector, layered on: the card's own pill carries geography. Sits top-right so it cannot
-   collide with the Dalgo | Partner lockup, which is always top-left. */
-.cst-pill { position: absolute; top: 10px; right: 10px; display: inline-flex; align-items: center;
-  min-height: 24px; padding: 4px 11px; border-radius: var(--r-pill);
-  font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
-  color: var(--teal-ink); background: color-mix(in srgb, var(--surface-0) 92%, transparent);
-  border: 1px solid color-mix(in srgb, var(--teal) 30%, transparent); backdrop-filter: blur(3px); }
+/* Sector lives in the white body, not over the image. Overlaid it straddled the seam between
+   the card's white half and its photo half and read as a broken element; and the card's own
+   baked pill already carries geography, so two pills were competing. Static here, so every
+   card's sector sits on the same baseline whatever the image behind it. */
+.cst-body { padding: 16px 18px 18px; gap: 12px; align-items: flex-start; }
+.cst-pill { display: inline-flex; align-items: center; min-height: 24px; padding: 4px 11px;
+  border-radius: var(--r-pill); font-size: 12px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--teal-ink);
+  background: color-mix(in srgb, var(--teal) 10%, #fff);
+  border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent); }
 .cst-logo-fallback { font-size: 17px; font-weight: 700; color: var(--ink); text-align: center; }
 
 /* --- Detail: hero figure holds the same card ---
