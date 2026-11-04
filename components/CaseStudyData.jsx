@@ -88,7 +88,7 @@ const CASE_STUDIES = [
         ['One pipeline behind it.', 'CommCare, Google Sheets and the Mobiwater API flow into one store, cleaned on arrival, refreshed three times a day. Programs kept the tools that suit them.'],
         ['Skills that stay.', "Over 40 hours of training on dashboards, data models and pipeline troubleshooting, so SHOFCO's own team handles new requests."]
       ],
-      quote: { text: "I'd just emphasize how the M&E team here at SHOFCO now believes in — is confident with — the internal SHOFCO capacity to be able to handle data-related tasks when they come in to us, before they go to the Dalgo team.", name: 'Sheila Codawa', role: 'IT Officer' }
+      quote: { text: "When you are reporting on a certain thing, [leaders] make reference: 'let me check on the dashboard' — and if it's not matching, then they'll ask questions then and there.", name: 'Nicholas', role: 'MEL Manager' }
     },
     transformation: {
       beforeAfter: [
@@ -99,7 +99,7 @@ const CASE_STUDIES = [
         ['Caseworkers', 'Memory, sticky notes, wall charts', 'Their own caseload, tracked digitally']
       ],
       teams: [
-        ['Leadership', 'Checks reported numbers against the dashboards in review meetings and questions gaps on the spot: “let me check on the dashboard”'],
+        ['Leadership', 'Checks reported numbers against the dashboards in review meetings and questions gaps on the spot'],
         ['Program managers', 'Check each caseworker’s progress against ROC club targets, where they once reported a single total of participants reached'],
         ['MEL and program teams', 'Spot problems before they grow, such as gaps by gender on a mental-health indicator'],
         ['Caseworkers', 'Track open, resolved and closed cases each month and follow up on cases that stay open, so no survivor falls through the cracks'],
@@ -124,8 +124,7 @@ const CASE_STUDIES = [
     facts: [
       ['Partner', 'Ummeed Child Development Center, Mumbai'],
       ['Work', 'Children with developmental disabilities and their families; 15,500 children, 152,000 sessions, 11,200 professionals trained'],
-      ['Tools', 'Clinic Management System, Training Management System, Superset'],
-      ['With Dalgo since', "Dasra's Data Catalyst Program, run with Dalgo"]
+      ['Tools', 'Clinic Management System, Training Management System, Superset']
     ],
     // Three results, not four. The doc's fourth is an unconfirmed placeholder — see the note
     // at the top of this file.
@@ -142,7 +141,7 @@ const CASE_STUDIES = [
         ['Data stayed with managers.', 'Program teams rarely saw the numbers.']
       ],
       tail: 'A 2022 Family Outcome Survey scored families 2.9 out of 7 on awareness of their rights. Acting on that needed a view of which services each family had used, and no system could show it.',
-      quote: { text: "But what didn't work for us is that it was all in silos — it was all for the program.", name: 'Vinodhini Umashankar', role: 'Associate Director, M&E' }
+      quote: { text: "What didn't work for us is that it was all in silos — it was all for the program. Every time we deployed something, we thought, okay, this is the clinic, so what does the clinic need … But to then think about the entire system for that child — that thought process was not there initially.", name: 'Vinodhini Umashankar', role: 'Associate Director, M&E' }
     },
     approach: {
       heading: 'The fix',
@@ -202,7 +201,7 @@ const CASE_STUDIES = [
         ['Donor reporting took over the quarter.', '15 days each quarter rebuilding working files two or three times, often past 8 pm.'],
         ['Teams waited on one person', 'to prepare the data before they could look at it.']
       ],
-      quote: { text: 'Just the manpower, the resources we were giving — it was crazy, because all of this would hang.', name: 'Shaheeda', role: 'Antarang Foundation' }
+      quote: { text: "[Before Dalgo, at each quarter's donor reporting] every donor's working file needs to be remade at least two or three times … it is quite stressful … I will be working till 8, till 9, beyond my working hours — and that's for everybody in the donor reporting team.", name: 'Shaheeda', role: 'Antarang Foundation' }
     },
     approach: {
       heading: 'The fix',
@@ -225,7 +224,7 @@ const CASE_STUDIES = [
         ['Donor reporting', 'Spots gaps as data refreshes and asks programs to close them before reporting'],
         ['State partners', 'YouthNet in Nagaland works from a dedicated, access-restricted state dashboard']
       ],
-      quote: { text: 'When the data gets refreshed every 24 hours, somebody is dedicated to looking at the data; they are not dependent on Shaheeda to make it before they can look at it.', name: 'Shaheeda', role: 'Antarang Foundation' }
+      quote: { text: 'When the data gets refreshed every 24 hours, somebody is dedicated to looking at the data; they are not dependent on [me] to make it before they can look at it. So anything they figure out, they come back and we can actually reach out to the relevant people saying, hey, this is not done, can you please prioritize this.', name: 'Shaheeda', role: 'Antarang Foundation' }
     },
     next: "Antarang is trimming the number of tables it built at the start and moving more program teams onto Dalgo's own dashboards. Shaheeda's advice to other NGOs: decide which metrics tell you whether a program is working before you digitise."
   },
@@ -260,7 +259,7 @@ const CASE_STUDIES = [
         ['No view of the ground.', 'The team could not see in real time what was happening at each facility.'],
         ['A dashboard built on manual entries.', 'It showed whatever staff had entered, when they entered it.']
       ],
-      quote: { text: 'Now, if you imagine doing this for hundreds, thousands, or millions of people every day, you can imagine it gets complicated.', name: 'Anup', role: 'CEO' }
+      quote: { text: 'When you operate dozens of these facilities with thousands of people using them every day, making sure all the facilities and stalls are high quality becomes complicated.', name: 'Anup', role: 'CEO' }
     },
     approach: {
       heading: 'How we worked together',
