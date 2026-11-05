@@ -285,9 +285,20 @@ const CASE_STUDIES = [
   {
     slug: '1000-days-fund',
     org: '1000 Days Fund',
+    // Headline-only shorthand (Stuti, 5 Nov). "1000 Days Fund:" took a whole 44px line to
+    // itself and held this hero at 3 lines / 399px; "TDF:" brings it to 2 lines / 349px, the
+    // same height as SHOFCO. The doc already uses the shorthand in its own copy ("alongside
+    // TDF's data specialist"). It is deliberately NOT the org: the page title, breadcrumb,
+    // partner fact and quote attributions all still name 1000 Days Fund, because those
+    // identify the partner and an unexplained acronym there would not.
+    shortOrg: 'TDF',
     sector: 'Maternal & Child Health',
-    cardTitle: 'Getting at-risk mothers and children back to the field in time',
-    title: 'Getting at-risk mothers and children back to the field in time',
+    // Shortened by Stuti, 5 Nov, from "Getting at-risk mothers and children back to the
+    // field in time". It is the webinar's own title, and it is the one title the master
+    // doc and the site now differ on -- a doc re-check should not quietly put the long
+    // one back.
+    cardTitle: 'Driving Beneficiary Impact from Data',
+    title: 'Driving Beneficiary Impact from Data',
     img: 'assets/cases/1000-days-fund-card.webp',
     hero: { src: 'assets/cases/1000-days-fund-hero.webp', alt: "A 1000 Days Fund community health worker sitting with mothers and their babies" },
     logo: 'assets/logos/TDF.webp',

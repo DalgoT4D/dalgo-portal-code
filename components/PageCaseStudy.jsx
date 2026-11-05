@@ -199,7 +199,7 @@ const PageCaseStudy = () => {
           because cropping to 3:2 slices the Dalgo | Partner lockup off one side. */}
       <SiteHero
         eyebrow={cs.sector + ' · Case study'}
-        headline={<><span className="cvh-hl">{cs.org}</span>: {cs.title}</>}
+        headline={<><span className="cvh-hl">{cs.shortOrg || cs.org}</span>: {cs.title}</>}
         body={cs.standfirst}
         image={cs.hero ? { src: cs.hero.src, alt: cs.hero.alt, kind: cs.hero.kind || 'photo' } : undefined}
       />

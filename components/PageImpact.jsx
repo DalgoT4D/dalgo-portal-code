@@ -169,7 +169,7 @@ const BrowseCaseStudies = () => {
                     an alt text would make every card announce its org twice. */}
                 <img className={'cst-logo' + (s.logoPale ? ' is-pale' : '')} src={s.logo}
                      alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                <h3 className="cst-title">{s.org}: {s.cardTitle}</h3>
+                <h3 className="cst-title">{s.shortOrg || s.org}: {s.cardTitle}</h3>
                 <p className="cst-desc">{s.standfirst}</p>
                 <span className="cst-cta">Read case study <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></span>
               </a>

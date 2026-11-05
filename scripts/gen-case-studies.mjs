@@ -62,7 +62,8 @@ function head(cs, meta, versions) {
   const article = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: cs.org + ': ' + cs.title,
+    // Matches the visible <h1>, which uses the headline shorthand where one is set.
+    headline: (cs.shortOrg || cs.org) + ': ' + cs.title,
     description: meta.desc,
     image: img,
     url,
