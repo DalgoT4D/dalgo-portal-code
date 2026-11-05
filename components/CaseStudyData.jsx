@@ -41,6 +41,14 @@
 //     is the listing thumbnail AND the per-page OG/link-preview image, which is what 1200x630
 //     is for. It replaces both the old projecttech4dev title cards and the logo-on-a-plate
 //     thumbnail, and it is why all five cards now match: they were designed as a set.
+//   - `hero`: the photograph the card was built from, recropped to the system's 3:2. The hero
+//     shows the partner's own people and work; the composed card does NOT go there, because its
+//     artwork bakes in the same headline the page already prints as an <h1>, so the two together
+//     said everything twice. Antarang has no photograph yet (its master-doc open question asks
+//     the partner for one), so its hero is the masked Tier 1 dashboard composited onto a 3:2
+//     --surface-1 ground and flagged kind:'illustration', which is the system's own variant for
+//     product artwork. The card stays the listing's OG/link-preview image, where a baked
+//     headline is exactly what a link preview wants.
 //   - `approachImg`, 1600x900: the "How we worked together" four-step arc, placed in that
 //     section. The case-study design kit allows one image there and this is it.
 // Neither repeats a table the page already sets as text, which the kit forbids.
@@ -56,6 +64,7 @@ const CASE_STUDIES = [
     cardTitle: 'A live view of program data for every team',
     title: 'A live view of program data for every team',
     img: 'assets/cases/shofco-card.webp',
+    hero: { src: 'assets/cases/shofco-hero.webp', alt: "SHOFCO staff and community members walking through Kibera behind SHOFCO Urban Network banners" },
     logo: 'assets/logos/SHOFCO.png',
     approachImg: { src: 'assets/cases/shofco-approach.webp', alt: 'How Dalgo and SHOFCO worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
@@ -117,6 +126,7 @@ const CASE_STUDIES = [
     cardTitle: 'Seeing the whole child across clinic and training data',
     title: 'Seeing the whole child across clinic and training data',
     img: 'assets/cases/ummeed-card.webp',
+    hero: { src: 'assets/cases/ummeed-hero.webp', alt: "An Ummeed therapist and a child working together with a toy during a clinic session" },
     logo: 'assets/logos/Ummeed.png',
     approachImg: { src: 'assets/cases/ummeed-approach.webp', alt: 'How Dalgo and Ummeed worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
@@ -179,6 +189,7 @@ const CASE_STUDIES = [
     cardTitle: 'From 25 Excel sheets to dashboards every team can trust',
     title: 'From 25 Excel sheets to dashboards every team can trust',
     img: 'assets/cases/antarang-card.webp',
+    hero: { src: 'assets/cases/antarang-hero.webp', alt: "Antarang's Tier 1 student dashboard, showing average improvement and endline performance by academic year", kind: 'illustration' },
     logo: 'assets/logos/Antarang.webp',
     approachImg: { src: 'assets/cases/antarang-approach.webp', alt: 'How Dalgo and Antarang worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
@@ -236,6 +247,7 @@ const CASE_STUDIES = [
     cardTitle: 'Running 20 public toilets on data the whole team can see',
     title: 'Running 20 public toilets on data the whole team can see',
     img: 'assets/cases/shri-card.webp',
+    hero: { src: 'assets/cases/shri-hero.webp', alt: "A SHRI Foundation community toilet block in Jharkhand, painted with Clean Green Jaridih murals" },
     logo: 'assets/logos/SHRI.png',
     approachImg: { src: 'assets/cases/shri-approach.webp', alt: 'How Dalgo and SHRI worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
@@ -297,6 +309,7 @@ const CASE_STUDIES = [
     cardTitle: 'Getting at-risk mothers and children back to the field in time',
     title: 'Getting at-risk mothers and children back to the field in time',
     img: 'assets/cases/1000-days-fund-card.webp',
+    hero: { src: 'assets/cases/1000-days-fund-hero.webp', alt: "A 1000 Days Fund community health worker sitting with mothers and their babies" },
     logo: 'assets/logos/TDF.webp',
     approachImg: { src: 'assets/cases/1000-days-fund-approach.webp', alt: 'How Dalgo and 1000 Days Fund worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,

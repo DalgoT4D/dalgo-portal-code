@@ -231,7 +231,7 @@ const PageCaseStudy = () => {
         eyebrow={cs.sector + ' · Case study'}
         headline={<><span className="cvh-hl">{cs.org}</span>: {cs.title}</>}
         body={cs.standfirst}
-        image={cs.img ? { src: cs.img, alt: cs.org + ': ' + cs.title, kind: 'photo' } : undefined}
+        image={cs.hero ? { src: cs.hero.src, alt: cs.hero.alt, kind: cs.hero.kind || 'photo' } : undefined}
       />
       <CaseStudyFacts cs={cs} />
       <CaseStudyResults cs={cs} />

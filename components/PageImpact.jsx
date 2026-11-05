@@ -163,16 +163,15 @@ const BrowseCaseStudies = () => {
               <a key={s.slug || i} className="si-card cst-card" href={href}
                  target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}
                  data-cta-location="case_study_card">
-                <div className="cst-thumb">
-                  <img className="cst-card-img" src={s.img} alt={s.org + ': ' + s.cardTitle} loading="lazy" decoding="async" />
-                </div>
-                {/* The card image already carries the headline, so repeating it here printed
-                    the title twice. The body holds what the image does not: the sector, and
-                    the action. */}
-                <div className="si-body cst-body">
-                  <span className="cst-pill">{s.sector}</span>
-                  <span className="si-readmore">Read story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></span>
-                </div>
+                {/* Logo, title, standfirst, action — see the .cst-card block in app.css for
+                    why this is text-led rather than built around the 1200x630 artwork. The
+                    logo is decorative here: the <h3> beside it already names the partner, so
+                    an alt text would make every card announce its org twice. */}
+                <img className={'cst-logo' + (s.logoPale ? ' is-pale' : '')} src={s.logo}
+                     alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                <h3 className="cst-title">{s.org}: {s.cardTitle}</h3>
+                <p className="cst-desc">{s.standfirst}</p>
+                <span className="cst-cta">Read case study <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></span>
               </a>
             );
           })}

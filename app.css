@@ -1983,39 +1983,47 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
    name for the column it heads but must stay visually blank. */
 .x-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-/* --- Listing: card thumbnails ---------------------------------------------------------
-   The thumbnail is the 1200x630 card from the master doc, so the grid inherits a set that was
-   designed together. 1200/630 exactly, so cover crops nothing. */
-.cst-thumb { position: relative; aspect-ratio: 1200 / 630; overflow: hidden; background: var(--surface-1); border-bottom: 1px solid var(--hairline); }
-.cst-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Sector lives in the white body, not over the image. Overlaid it straddled the seam between
-   the card's white half and its photo half and read as a broken element; and the card's own
-   baked pill already carries geography, so two pills were competing. Static here, so every
-   card's sector sits on the same baseline whatever the image behind it. */
-.cst-body { padding: 16px 18px 18px; gap: 12px; align-items: flex-start; }
-.cst-pill { display: inline-flex; align-items: center; min-height: 24px; padding: 4px 11px;
-  border-radius: var(--r-pill); font-size: 12px; font-weight: 700; letter-spacing: .04em;
-  text-transform: uppercase; color: var(--teal-ink);
-  background: color-mix(in srgb, var(--teal) 10%, #fff);
-  border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent); }
-.cst-logo-fallback { font-size: 17px; font-weight: 700; color: var(--ink); text-align: center; }
+/* --- Listing: case study cards --------------------------------------------------------
+   TEXT-LED, not image-led. The 1200x630 artwork already carries the story's headline, so a
+   card built around it printed the title twice — once in the picture and once underneath.
+   This card carries what the artwork cannot: whose story it is, what it is about, and the
+   action. Reference pattern: the dbt customer-story grid (Stuti, 5 Nov).
 
-/* --- Detail: hero figure holds the case study card ---
-   THE FRAME KEEPS THE SYSTEM'S 3/2. Reshaping it to the card's 1200x630 was wrong: --hero-h
-   is sized so the 3:2 frame leaves a uniform remainder on every page, and app.css says in two
-   places not to reshape the frame or set a per-page hero height. A shorter frame broke the
-   alignment this page shares with the other ten.
+   It is the system's own plate. .si-card supplies the surface, radius, shadow ring, hover
+   lift and flex column; everything below only fills it. No new surface, no new shadow. */
+.cst-card { padding: 24px; align-items: flex-start; }
+/* Logos sit in ONE FIXED BOX, not at one fixed height. The five files run from a 0.93 square
+   (Ummeed, 139x150) to a 3.2 wordmark (SHOFCO, 8598x2678). Matching heights alone rendered
+   Ummeed 26px wide against SHOFCO's 90px — optically a quarter of the weight. Containing each
+   file in the same 112x36 box instead lets a wordmark fill the width and a square mark fill
+   the height, so the five read as equals; and because the box never changes size, the titles
+   below it stay on one line across the row. */
+.cst-logo { width: 112px; height: 36px; object-fit: contain; object-position: left center; display: block; }
+/* Antarang's file is 100% white pixels — invisible on a white plate. brightness(0) makes it
+   an ink silhouette. Grayscale cannot rescue a white asset; see the Marquee.jsx header. */
+.cst-logo.is-pale { filter: brightness(0); opacity: .78; }
+.cst-title { margin: 24px 0 0; font-size: 20px; line-height: 1.3; font-weight: 700; color: var(--ink); }
+/* Clamped, because the standfirsts run 133 to 291 characters: unclamped, SHRI's seven lines
+   would set the height of all five cards and leave holes in the other four. The clamp is a
+   display cap on the listing only — the full standfirst is untouched and renders in the hero. */
+.cst-desc { margin: 12px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-2);
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; }
+/* Pinned to the bottom so every card's action sits on one baseline however long its text ran,
+   and spread full width so the chevron lands on the card's right edge. */
+.cst-cta { margin-top: auto; padding-top: 28px; width: 100%;
+  display: inline-flex; align-items: center; justify-content: space-between;
+  font-size: 14px; font-weight: 600; color: var(--ink); }
+.cst-cta svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2;
+  transition: transform var(--dur) var(--ease); }
+.si-card:hover .cst-cta svg { transform: translateX(3px); }
 
-   The fix is the one the system already uses for the 16:9 hero video: hold the 3/2 frame,
-   centre the content at full width, and let the ground fill what is left. Cropping the card
-   to 3:2 is not an option — it slices the Dalgo | Partner lockup off one side and the photo
-   off the other. Ground is --surface-1 rather than the video's navy because the card's own
-   left half is near-white, and navy behind it would read as a frame around a frame.
-   The img rule must stay AFTER `.cvh-figure img` above, which it does by source order. */
-.csd-page .cvh-figure { background: var(--surface-1); display: grid; place-items: center; }
-.csd-page .cvh-figure img { width: 100%; height: auto; aspect-ratio: 1200 / 630; object-fit: contain; }
-/* Belt and braces on the nowrap accent: a long partner name must wrap rather than run
-   under the figure, the way a title-length accent did. */
+/* --- Detail: hero figure -------------------------------------------------------------
+   NOTHING OVERRIDES THE FRAME ANY MORE. This block used to hold the 1200x630 listing card
+   inside the 3:2 frame with object-fit:contain on a tinted ground, because the card's own
+   shape fought the system's. The hero now carries a photograph cropped to 3:2 at source,
+   so .cvh-figure's own rules are correct as written and the override is gone. Antarang's
+   dashboard is composited onto a 3:2 --surface-1 ground in the asset itself and flagged
+   kind:'illustration', the same way the system's other illustration assets are authored. */
 .csd-page .cvh-h1 .cvh-hl { white-space: normal; }
 
 /* --- Detail: the "How we worked together" card, inline in its section --- */
