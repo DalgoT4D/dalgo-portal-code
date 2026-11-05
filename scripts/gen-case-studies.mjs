@@ -27,6 +27,7 @@ const OG_IMAGE = ORIGIN + '/assets/og-card-v2.jpg';
 // so a shared fallback card would be a worse preview than the one that already exists.
 const ogFor = (cs) => (cs.img ? ORIGIN + '/' + String(cs.img).replace(/^\//, '') : OG_IMAGE);
 
+let headlineOf;
 const read = (f) => fs.readFileSync(path.join(root, f), 'utf8');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -47,6 +48,8 @@ function loadData() {
   };
   // caseStudyMeta is a function and cannot cross the structuredClone boundary; call it inside.
   data.metaFor = (cs) => window.caseStudyMeta(cs);
+  // Module-level so head() can reach it: the Article headline must equal the rendered <h1>.
+  headlineOf = (cs) => window.caseStudyHeadline(cs);
   return { dom, ...data };
 }
 
@@ -62,8 +65,8 @@ function head(cs, meta, versions) {
   const article = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    // Matches the visible <h1>, which uses the headline shorthand where one is set.
-    headline: (cs.shortOrg || cs.org) + ': ' + cs.title,
+    // Matches the visible <h1> exactly, including the one partner that sets its own.
+    headline: headlineOf(cs),
     description: meta.desc,
     image: img,
     url,

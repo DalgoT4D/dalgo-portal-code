@@ -285,13 +285,10 @@ const CASE_STUDIES = [
   {
     slug: '1000-days-fund',
     org: '1000 Days Fund',
-    // Headline-only shorthand (Stuti, 5 Nov). "1000 Days Fund:" took a whole 44px line to
-    // itself and held this hero at 3 lines / 399px; "TDF:" brings it to 2 lines / 349px, the
-    // same height as SHOFCO. The doc already uses the shorthand in its own copy ("alongside
-    // TDF's data specialist"). It is deliberately NOT the org: the page title, breadcrumb,
-    // partner fact and quote attributions all still name 1000 Days Fund, because those
-    // identify the partner and an unexplained acronym there would not.
-    shortOrg: 'TDF',
+    // The one headline that does not follow "<org>: <title>" (Stuti, 5 Nov). It is the
+    // webinar's own title, partner last, so it is given verbatim rather than composed. The
+    // accent stays on the partner name, which is where every other case study puts it.
+    headline: { pre: 'Driving Beneficiary Impact from Data: Lessons from ', hl: '1000 Days Fund' },
     sector: 'Maternal & Child Health',
     // Shortened by Stuti, 5 Nov, from "Getting at-risk mothers and children back to the
     // field in time". It is the webinar's own title, and it is the one title the master
@@ -392,8 +389,17 @@ function caseStudyMeta(cs) {
   return { title: title, desc: desc };
 }
 
+// The <h1> text as a plain string, for the places that must match it exactly but cannot
+// render JSX: the Article JSON-LD headline in scripts/gen-case-studies.mjs. Composed from
+// `headline` where a partner sets one, otherwise from the standard "<org>: <title>".
+function caseStudyHeadline(cs) {
+  if (cs.headline) return (cs.headline.pre || '') + cs.headline.hl + (cs.headline.post || '');
+  return cs.org + ': ' + cs.title;
+}
+
 window.CASE_STUDIES = CASE_STUDIES;
 window.caseStudyMeta = caseStudyMeta;
+window.caseStudyHeadline = caseStudyHeadline;
 window.caseStudyBySlug = function (slug) {
   for (let i = 0; i < CASE_STUDIES.length; i++) if (CASE_STUDIES[i].slug === slug) return CASE_STUDIES[i];
   return null;
