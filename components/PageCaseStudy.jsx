@@ -116,61 +116,31 @@ const CaseStudyProseBlock = ({ heading, block, org }) => {
   );
 };
 
-// Before / after, then who decides what with the data now. Two tables, because they answer two
-// different questions and merging them would force a reader to hold both at once.
+// The transformation is PROSE, not tables. The master doc rewrote this section on 5 Nov:
+// a lead sentence, then one bold-led paragraph per team, an optional closing paragraph, and
+// a quote. These are paragraphs rather than a <ul> because that is the shape the doc sets —
+// the challenge and the approach are genuine bulleted lists and keep their own markup.
+//
+// SHOFCO alone puts its quote mid-section, directly under the Leadership paragraph it
+// belongs to, which is what `quoteAfter` carries. Everyone else closes on the quote, so the
+// field is absent and it renders last. Built as an array rather than a Fragment because
+// nothing else in this bundle reaches for React.Fragment.
 const CaseStudyTransformation = ({ cs }) => {
   const t = cs.transformation;
   if (!t) return null;
+  const at = typeof t.quoteAfter === 'number' ? t.quoteAfter : -1;
+  const body = [];
+  (t.items || []).forEach(function (it, i) {
+    body.push(<p className="csd-p" key={'p' + i}><strong>{it[0]}</strong> {it[1]}</p>);
+    if (i === at) body.push(<CaseStudyQuote key={'q' + i} quote={t.quote} org={cs.org} />);
+  });
   return (
     <div className="csd-block">
       <h2 className="csd-h">The transformation</h2>
-      {t.beforeAfter && t.beforeAfter.length > 0 && (
-        <div className="csd-tablewrap">
-          <table className="csd-table">
-            <thead>
-              <tr>
-                <th scope="col"><span className="x-sr">Area</span></th>
-                <th scope="col">Before Dalgo</th>
-                <th scope="col">After Dalgo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {t.beforeAfter.map(function (r, i) {
-                return (
-                  <tr key={i}>
-                    <th scope="row">{r[0]}</th>
-                    <td>{r[1]}</td>
-                    <td className="csd-after">{r[2]}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {t.teams && t.teams.length > 0 && (
-        <div className="csd-tablewrap csd-tablewrap-teams">
-          <table className="csd-table">
-            <thead>
-              <tr>
-                <th scope="col">Team</th>
-                <th scope="col">What it decides with the data now</th>
-              </tr>
-            </thead>
-            <tbody>
-              {t.teams.map(function (r, i) {
-                return (
-                  <tr key={i}>
-                    <th scope="row">{r[0]}</th>
-                    <td>{r[1]}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <CaseStudyQuote quote={t.quote} org={cs.org} />
+      {t.lead && <p className="csd-p">{t.lead}</p>}
+      {body}
+      {t.tail && <p className="csd-p">{t.tail}</p>}
+      {at < 0 ? <CaseStudyQuote quote={t.quote} org={cs.org} /> : null}
     </div>
   );
 };

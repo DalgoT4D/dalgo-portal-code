@@ -68,7 +68,7 @@ const CASE_STUDIES = [
     logo: 'assets/logos/SHOFCO.png',
     approachImg: { src: 'assets/cases/shofco-approach.webp', alt: 'How Dalgo and SHOFCO worked together, in four steps: the problem, how we started, what we built and what changed' },
     native: true,
-    standfirst: 'SHOFCO worked with the Dalgo team to bring four tools and paper into one pipeline that refreshes three times a day. Leadership, MEL teams, caseworkers and donors now each decide from the view they need.',
+    standfirst: 'SHOFCO worked with the Dalgo team to bring four tools and paper into one pipeline. Leadership, MEL teams, caseworkers and donors now each decide from the view they need.',
     facts: [
       ['Partner', 'Shining Hope for Communities (SHOFCO), Kenya'],
       ['Programs', 'Gender, WASH, Livelihoods, Education; 2.4 million+ people in 30+ counties'],
@@ -95,28 +95,21 @@ const CASE_STUDIES = [
       bullets: [
         ['Designed with each team.', 'The Dalgo team asked caseworkers, the MEL team and leadership which questions they needed answered, then built KPIs for leadership, program tracking for MEL, donor views, and caseload views where each caseworker sees only their own cases.'],
         ['One pipeline behind it.', 'CommCare, Google Sheets and the Mobiwater API flow into one store, cleaned on arrival, refreshed three times a day. Programs kept the tools that suit them.'],
-        ['Skills that stay.', "Over 40 hours of training on dashboards, data models and pipeline troubleshooting, so SHOFCO's own team handles new requests."]
-      ],
-      quote: { text: "When you are reporting on a certain thing, [leaders] make reference: 'let me check on the dashboard' — and if it's not matching, then they'll ask questions then and there.", name: 'Nicholas', role: 'MEL Manager' }
+        ['Skills that stay.', "Training on dashboards, data models and pipeline troubleshooting, so SHOFCO's own team handles new requests. Adoption held because the dashboards fit caseworkers' routines and caseworkers co-designed features."]
+      ]
     },
     transformation: {
-      beforeAfter: [
-        ['Updates', 'End of the week or month', 'Three times a day'],
-        ['Data cleaning', '12 hours a week (Gender team)', '2 hours a week, spent validating'],
-        ['Reports', 'Static PDFs and slides', 'Live dashboards, filtered by period, region or gender'],
-        ['Follow-up questions', 'Back to the MEL team', 'Answered from the dashboard'],
-        ['Caseworkers', 'Memory, sticky notes, wall charts', 'Their own caseload, tracked digitally']
+      lead: "Every team now works from the same live data, and each makes a different decision with it.",
+      items: [
+        ["Leadership.", "Reviews used to wait for end-of-week or end-of-month reports. Now leaders check reported numbers against the dashboards in review meetings and question gaps on the spot."],
+        ["Program managers.", "They once reported a single total of participants reached. Now they check each caseworker's progress against ROC club targets."],
+        ["MEL team.", "Data cleaning in the Gender team fell from 12 hours to 2 hours a week, and that time now goes to validating data. The team spots problems before they grow, such as gaps by gender on a mental-health indicator."],
+        ["Caseworkers.", "They moved from memory, sticky notes and wall charts to their own caseload, tracked digitally. Each month they track open, resolved and closed cases and follow up on the ones that stay open, so no survivor falls through the cracks."]
       ],
-      teams: [
-        ['Leadership', 'Checks reported numbers against the dashboards in review meetings and questions gaps on the spot'],
-        ['Program managers', 'Check each caseworker’s progress against ROC club targets, where they once reported a single total of participants reached'],
-        ['MEL and program teams', 'Spot problems before they grow, such as gaps by gender on a mental-health indicator'],
-        ['Caseworkers', 'Track open, resolved and closed cases each month and follow up on cases that stay open, so no survivor falls through the cracks'],
-        ['Donors', 'Receive standardised reports at a much shorter turnaround']
-      ],
-      quote: { text: 'For leadership, they are able to have a view of the day-to-day operations of our programs. They are also able to see only the statistics they’re interested in — mostly aggregations across all their programs.', name: 'Alexander', role: 'Director of Technology' }
+      quoteAfter: 0,
+      quote: { text: "When you are reporting on a certain thing, [leaders] make reference: 'let me check on the dashboard' — and if it's not matching, then they'll ask questions then and there.", name: "Nicholas", role: "MEL Manager" }
     },
-    next: 'Dashboards are live for Gender, WASH, Livelihoods and Education. The SHOFCO Urban Network, libraries and savings cooperative come onto Dalgo next. Adoption worked because dashboards fit caseworker routines, caseworkers co-designed features, and leaders used the dashboards in meetings.'
+    next: 'Dashboards are live for Gender, WASH, Livelihoods and Education. The SHOFCO Urban Network, libraries and savings cooperative come onto Dalgo next.'
   },
 
   {
@@ -163,19 +156,14 @@ const CASE_STUDIES = [
       ]
     },
     transformation: {
-      beforeAfter: [
-        ['Where data lives', 'CMS, TMS and Excel, separately', 'One warehouse, joined by child'],
-        ['Updates', 'Once a month, by hand', 'Every week, automatically'],
-        ['Reports', 'Static PDFs', 'Live dashboards with reporting-period filters'],
-        ['Who uses the data', 'Mid-level and senior managers', 'M&E, program, senior management, fundraising']
+      lead: "Clinic and training data now sit in one warehouse, joined by child, and four teams work from the same dashboards.",
+      items: [
+        ["Clinicians and care team.", "Before a consultation, they now see a child's sessions, caregiver trainings and other services. When each program kept its own system, none of this was in one place."],
+        ["Program managers.", "They read clinic and training numbers together, so a month with fewer sessions and more trainings reads correctly."],
+        ["M&E.", "Cleaning a monthly Excel dump used to take a couple of days. The refresh now runs every week on its own, and the team spends its time on other teams' new questions."],
+        ["Fundraising.", "The team pulls ready charts into donor reports. Dashboards for donors themselves are not built yet."]
       ],
-      teams: [
-        ['Clinicians and care team', "See a child's sessions, caregiver trainings and other services before the consultation"],
-        ['Program managers', 'Read clinic and training numbers together, so a month with fewer sessions and more trainings reads correctly'],
-        ['M&E', "Spends its time on teams' new questions instead of cleaning"],
-        ['Fundraising', 'Pulls ready charts into donor reports; dashboards for donors themselves are not built yet']
-      ],
-      quote: { text: "It helps our care team provide better services for the children and the caregivers; they're able to have more meaningful conversations, because they're aware of the services the family has taken.", name: 'Vinodhini Umashankar', role: 'Associate Director, M&E' }
+      quote: { text: "It helps our care team provide better services for the children and the caregivers; they're able to have more meaningful conversations, because they're aware of the services the family has taken.", name: "Vinodhini Umashankar", role: "Associate Director, M&E" }
     },
     next: 'Teams now ask M&E for more, which Vinodhini calls a cyclic loop. Next, Ummeed plans to model how families move through its services, link the journey to child development outcomes, and bring in its other programs. Her advice to other NGOs: do your homework on what you want before you start.'
   },
@@ -224,18 +212,14 @@ const CASE_STUDIES = [
       ]
     },
     transformation: {
-      beforeAfter: [
-        ['Upkeep', 'Half of every working day', 'An hour or two, only when a pipeline fails'],
-        ['Refresh', 'Every 24 hours, by hand', 'Every 24 hours, automatically'],
-        ['Donor reporting', '15 days a quarter', 'Donor and partner dashboards, always current'],
-        ['Who can look', 'Whoever the data was prepared for', 'Everyone, through role-based views']
+      lead: "Each team now works from its own view of the same data, refreshed every 24 hours.",
+      items: [
+        ["Program teams.", "Data used to reach only whoever it was prepared for. Program teams have now moved off their own Excel sheets and act on the dashboards, each through a role-based view."],
+        ["Donor reporting.", "Reports used to take 15 days a quarter. Now the team spots gaps as the data refreshes and asks programs to close them before reporting."],
+        ["State partners.", "YouthNet in Nagaland works from a dedicated, access-restricted state dashboard."]
       ],
-      teams: [
-        ['Program teams', 'Have moved off their own Excel sheets and act on the dashboards'],
-        ['Donor reporting', 'Spots gaps as data refreshes and asks programs to close them before reporting'],
-        ['State partners', 'YouthNet in Nagaland works from a dedicated, access-restricted state dashboard']
-      ],
-      quote: { text: 'When the data gets refreshed every 24 hours, somebody is dedicated to looking at the data; they are not dependent on [me] to make it before they can look at it. So anything they figure out, they come back and we can actually reach out to the relevant people saying, hey, this is not done, can you please prioritize this.', name: 'Shaheeda', role: 'Antarang Foundation' }
+      tail: "Keeping the data current once took half of every working day. It now takes an hour or two, and only when a pipeline fails.",
+      quote: { text: "When the data gets refreshed every 24 hours, somebody is dedicated to looking at the data; they are not dependent on [me] to make it before they can look at it. So anything they figure out, they come back and we can actually reach out to the relevant people saying, hey, this is not done, can you please prioritize this.", name: "Shaheeda", role: "Antarang Foundation" }
     },
     next: "Antarang is trimming the number of tables it built at the start and moving more program teams onto Dalgo's own dashboards. Shaheeda's advice to other NGOs: decide which metrics tell you whether a program is working before you digitise."
   },
@@ -285,19 +269,15 @@ const CASE_STUDIES = [
       quote: { text: "We wouldn't have this without our staff, who are now so skilled at using the digital tools that the Dalgo team helped us build.", name: 'Anup', role: 'CEO' }
     },
     transformation: {
-      beforeAfter: [
-        ['Weekly report', '5 to 7 hours by hand', 'Generated automatically'],
-        ['View of facilities', 'No real-time picture', 'A daily report on use, attendance, issues and photos'],
-        ['Public dashboard', 'Updated from staff entries', 'Updated every day, in Hindi and English'],
-        ['Costs and use', 'Calculated by hand', 'Total use, average daily use and cost per use calculated by the system']
+      lead: "Every Kobo form now feeds a daily report and a public dashboard, so each team acts on the same picture of all 20 facilities.",
+      items: [
+        ["Operations and leadership.", "There was no real-time picture of the facilities. Now a daily report on use, attendance, issues and photos tells them which problem to fix first, how each facility is being used, and where quality is slipping."],
+        ["Supervisors.", "They check whether staff checked in and cleaned on schedule at every facility."],
+        ["Facility staff.", "They read the daily use report themselves."],
+        ["Funders, government and community.", "The public dashboard once showed whatever staff had entered. It now updates every day, in Hindi and English, with maintenance logs, outages and staff attendance."]
       ],
-      teams: [
-        ['Operations and leadership', 'Which problem to fix first, how each facility is being used, and where quality is slipping'],
-        ['Supervisors', 'Whether staff checked in and cleaned on schedule at every facility'],
-        ['Facility staff', 'Read the daily use report themselves'],
-        ['Funders, government and community', 'See maintenance logs, outages and staff attendance on the public dashboard']
-      ],
-      quote: { text: "It's like real-time feedback on how our systems are functioning and what changes we need to make based on the data.", name: 'Anvesh', role: 'Director of Operations, Monitoring and Evaluation' }
+      tail: "The weekly report that took 5 to 7 hours by hand is now generated automatically, and the system calculates total use, average daily use and cost per use.",
+      quote: { text: "It's like real-time feedback on how our systems are functioning and what changes we need to make based on the data.", name: "Anvesh", role: "Director of Operations, Monitoring and Evaluation" }
     },
     next: 'SHRI is starting monthly random spot checks with district water and sanitation committees to validate its data, and is working with the Government of Jharkhand on taking the model to more community toilets, schools and health facilities. With other NGOs, it calls this “Shri in a box”.'
   },
@@ -350,20 +330,14 @@ const CASE_STUDIES = [
       ]
     },
     transformation: {
-      beforeAfter: [
-        ['Where data lives', 'Personal drives, chained sheets, a hand-run script', 'One warehouse, refreshed automatically'],
-        ['Data preparation', '2 to 3 weeks a month', 'About one week'],
-        ['Training results', 'An average score per region', 'Each person’s scores before and after, and who took only one test'],
-        ['Data errors', 'Surfaced after submission', 'Flagged in the pipeline and sent back to the kader who entered them'],
-        ['At-risk cases', 'Reached field teams in reports, sometimes weeks later', 'Flagged in the system as data arrives']
+      lead: "Five data sources now sit in one warehouse, refreshed automatically, and each team decides something different from it.",
+      items: [
+        ["Field teams and kaders.", "At-risk cases once reached them in reports, sometimes weeks later. Now cases are flagged as data arrives, and teams decide which pregnant women and children to visit first from case lists and flags on chronic malnutrition, hypertension, stunting and weight faltering."],
+        ["MER team.", "Monthly data preparation fell from 2 to 3 weeks to about one week. The team works in SQL and dbt in one warehouse, and data errors are flagged in the pipeline and sent back to the kader who entered them."],
+        ["Program teams.", "Training results used to be an average score per region. Now they see each person's scores before and after, and who took only one test, and spend their time deciding next steps from one source of data."],
+        ["Leadership.", "Leaders see system change and program outcomes in one consolidated dashboard, and argue decisions from one set of indicator definitions across programs and funders."]
       ],
-      teams: [
-        ['Field teams and kaders', 'Which pregnant women and children to visit first, from case lists and flags on chronic malnutrition, hypertension, stunting and weight faltering'],
-        ['MER team', 'Works in SQL and dbt in one warehouse, with less time cleaning and more time on analysis'],
-        ['Program teams', 'Spend their time making sense of one source of data and deciding next steps'],
-        ['Leadership', 'Sees system change and program outcomes in one consolidated dashboard, and argues decisions from one set of indicator definitions across programs and funders']
-      ],
-      quote: { text: 'I think the most important change is not a shinier dashboard, but the questions that we were able to ask.', name: 'Pandu Gusti Resworo', role: 'Data Specialist' }
+      quote: { text: "I think the most important change is not a shinier dashboard, but the questions that we were able to ask.", name: "Pandu Gusti Resworo", role: "Data Specialist" }
     },
     next: '1000 Days Fund is adding range and plausibility checks, duplicate flags and missed-visit flags, each routed back to the person who entered the data, and automated alerts that send at-risk cases to field teams, village task forces and puskesmas. In Adlina Basuki’s words, the goal is “to be able to catch the bad values before it becomes a bad decision.”'
   },
