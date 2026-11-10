@@ -1,0 +1,23 @@
+# Dalgo
+
+> From technology to strategy, Dalgo helps nonprofits build the data capabilities to report with confidence and make better decisions. Open source.
+
+## Pages
+
+- [Product](https://dalgo.org/product): Ingest, transform, and visualise programme data in a warehouse your organisation owns. 600+ data sources including Kobo, MGrant, ODK, and SurveyCTO.
+- [Consulting](https://dalgo.org/consulting): Data strategy, M&E systems, implementation support, and pro bono consulting — expert help from a team fluent in the social sector.
+- [Case studies](https://dalgo.org/case-studies): Real outcomes across 25+ nonprofits — automated pipelines, dashboards teams trust, and decisions backed by data. Case studies and customer stories.
+- [Pricing](https://dalgo.org/pricing): Flat annual pricing with no per-user fees. Platform and consulting priced separately — India pricing shown, global on request.
+- [FAQ](https://dalgo.org/faq): What Dalgo is, what the platform does, pricing, support, security, and DPDP — clear answers for nonprofit teams.
+- [Contact](https://dalgo.org/contact): Tell us about your data challenges — email support@dalgo.org or send the form and we'll come back to you.
+- [Community](https://dalgo.org/community): Blogs, past session videos, newsletters, and a WhatsApp community for nonprofit data practitioners — practical data education.
+- [Meet the team](https://dalgo.org/meet-the-team): The people building and running Dalgo — product, consulting, data engineering, and community, alongside the nonprofits we serve.
+- [Privacy](https://dalgo.org/privacy): How Dalgo handles data as a DPDP-compliant Data Processor — your data stays in your own warehouse.
+
+## Case studies
+
+- [SHOFCO: A live view of program data for every team](https://dalgo.org/case-studies/shofco): SHOFCO worked with the Dalgo team to bring four tools and paper into one pipeline. Leadership, MEL teams, caseworkers and donors now each decide from the view they need.
+- [Ummeed: Seeing the whole child across clinic and training data](https://dalgo.org/case-studies/ummeed): Ummeed joined its clinic and training systems so clinicians, managers and fundraisers can see each child's full journey, refreshed every week.
+- [Antarang: From 25 Excel sheets to dashboards every team can trust](https://dalgo.org/case-studies/antarang): Antarang replaced 20 to 25 Excel sheets with one pipeline. Program and donor teams now work from dashboards refreshed every 24 hours.
+- [SHRI: Running 20 public toilets on data the whole team can see](https://dalgo.org/case-studies/shri): SHRI runs free public toilets in Bihar and Jharkhand. Working with the Dalgo team, it turned the forms its facility staff fill in every day into reports and a public dashboard that update on their own. Problems get fixed in time, and funders, government and communities see the same numbers.
+- [1000 Days Fund: Driving Beneficiary Impact from Data](https://dalgo.org/case-studies/1000-days-fund): 1000 Days Fund worked with Dalgo's consultants to bring five data sources into one warehouse that its own team now runs. At-risk pregnant women and children are flagged as the data arrives, where the same cases once reached field teams in reports weeks later.
