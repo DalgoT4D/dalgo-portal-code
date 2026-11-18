@@ -271,27 +271,19 @@ const PageCaseStudy = () => {
   }
   return (
     <div className="csd-page">
-      {/* THE HEADLINE IS THE PARTNER NAME PLUS THE STORY'S OWN TITLE, nothing more. It used to
-          carry a "Lessons from " prefix, which was this template's invention rather than the
-          master doc's words, and it cost a full 50px headline line on four of the five pages —
-          pushing every hero past --hero-h. The doc's title is the title; the prefix was padding.
+      {/* NO HERO IMAGE ON A CASE STUDY (Stuti, 18 Nov). The headline runs the full width of
+          the container and the standfirst sits under it, instead of both being squeezed into
+          a 596px column beside a picture. `hero` stays in the data — the photographs are
+          still used for the listing card and the social set — it is simply not rendered here.
 
-          The accent is the partner name, not the whole title. .cvh-hl is white-space:nowrap
-          above 1024px, so a title-length span could not break and ran under the hero figure,
-          clipping at the viewport edge; and the system allows one teal accent per heading,
-          which a whole sentence in teal is not.
-
-          The image is the partner's own 1200x630 case study card. The frame stays the system's
-          3:2 — see the .csd-page .cvh-figure rule in app.css for why it is held rather than
-          reshaped — and the card sits inside it on a --surface-1 ground via object-fit:contain,
-          because cropping to 3:2 slices the Dalgo | Partner lockup off one side. */}
+          The accent is the partner name, not the whole title: the system allows one teal
+          accent per heading, which a whole sentence in teal is not. */}
       <SiteHero
         eyebrow={cs.sector + ' · Case study'}
         headline={cs.headline
           ? <>{cs.headline.pre}<span className="cvh-hl">{cs.headline.hl}</span>{cs.headline.post}</>
           : <><span className="cvh-hl">{cs.org}</span>: {cs.title}</>}
         body={cs.standfirst}
-        image={cs.hero ? { src: cs.hero.src, alt: cs.hero.alt, kind: cs.hero.kind || 'photo' } : undefined}
       />
       {!cs.docLayout && <CaseStudyFacts cs={cs} />}
       {!cs.docLayout && <CaseStudyResults cs={cs} />}

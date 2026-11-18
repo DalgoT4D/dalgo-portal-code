@@ -2025,6 +2025,18 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
    kind:'illustration', the same way the system's other illustration assets are authored. */
 .csd-page .cvh-h1 .cvh-hl { white-space: normal; }
 
+/* --- Detail: a text-only hero ---------------------------------------------------------
+   A case study hero carries no picture, so the copy column is not held to the 596px width
+   that exists to sit beside a 3:2 frame. The headline takes the full container and the
+   standfirst keeps the body's reading measure, which also lines it up with the prose column
+   below it. Scoped to .csd-page: every other hero on the site is unchanged. */
+/* The hero grid is two columns because it normally holds a picture on the right. With no
+   picture there is nothing to hold, so a case study hero is a single column and the
+   headline runs the full width of the container. */
+.csd-page .cvh-grid { grid-template-columns: 1fr; }
+.csd-page .cvh-copy { max-width: none; }
+.csd-page .cvh-sub { max-width: var(--measure); }
+
 /* --- Detail: the "How we worked together" card, inline in its section --- */
 .csd-figure-inline { margin: 22px 0; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
 .csd-figure-inline img { width: 100%; height: auto; display: block; }
