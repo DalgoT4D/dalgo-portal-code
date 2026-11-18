@@ -1,0 +1,26 @@
+# Dalgo
+
+> From technology to strategy, Dalgo helps nonprofits build the data capabilities to report with confidence and make better decisions. Open source.
+
+## Pages
+
+- [Product](https://dalgo.org/product): Ingest, transform, and visualise programme data in a warehouse your organisation owns. 600+ data sources including Kobo, MGrant, ODK, and SurveyCTO.
+- [Consulting](https://dalgo.org/consulting): Data strategy, M&E systems, implementation support, and pro bono consulting — expert help from a team fluent in the social sector.
+- [Case studies](https://dalgo.org/case-studies): Real outcomes across 25+ nonprofits — automated pipelines, dashboards teams trust, and decisions backed by data. Case studies and customer stories.
+- [Pricing](https://dalgo.org/pricing): Flat annual pricing with no per-user fees. Platform and consulting priced separately — India pricing shown, global on request.
+- [FAQ](https://dalgo.org/faq): What Dalgo is, what the platform does, pricing, support, security, and DPDP — clear answers for nonprofit teams.
+- [Contact](https://dalgo.org/contact): Tell us about your data challenges — email support@dalgo.org or send the form and we'll come back to you.
+- [Community](https://dalgo.org/community): Blogs, past session videos, newsletters, and a WhatsApp community for nonprofit data practitioners — practical data education.
+- [Meet the team](https://dalgo.org/meet-the-team): The people building and running Dalgo — product, consulting, data engineering, and community, alongside the nonprofits we serve.
+- [Privacy](https://dalgo.org/privacy): How Dalgo handles data as a DPDP-compliant Data Processor — your data stays in your own warehouse.
+
+## Case studies
+
+- [Lessons from SHOFCO: a live view of program data for every team](https://dalgo.org/case-studies/shofco): The Dalgo team worked with SHOFCO in Kenya to connect data from three tools in one automated pipeline and move caseworkers from paper to digital case tracking. Leadership, monitoring, evaluation and learning (MEL) teams, caseworkers and donors can now make informed decisions from the view they need.
+- [Lessons from Ummeed: seeing the whole child across clinic and training data](https://dalgo.org/case-studies/ummeed): Ummeed was able to connect their clinic and training systems. Clinicians, managers and fundraisers now act on each child's full journey, refreshed every week.
+- [Lessons from Antarang: from multiple Excel sheets to dashboards every team can trust](https://dalgo.org/case-studies/antarang): Antarang Foundation, a career-guidance nonprofit in Mumbai, India, replaced data from multiple sources with one automated pipeline, giving program and donor teams a shared view of their work from which to make informed decisions, with dashboards refreshed every 24 hours.
+- [Lessons from SHRI: running 20 public toilets on data the whole team can trust](https://dalgo.org/case-studies/shri): Sanitation and Health Rights in India (SHRI) runs free public toilets across Bihar and Jharkhand, India. The Dalgo team worked with them to turn the daily forms their facility staff fill in into automated reports and a public dashboard. This helps teams identify and resolve problems faster, while giving funders, government officials, and communities access to the same reliable data.
+- [Lessons from 1000 Days Fund: getting at-risk mothers and children back to the field in time](https://dalgo.org/case-studies/1000-days-fund): 1000 Days Fund brought five data sources into one warehouse with Dalgo’s consultants, enabling their team to identify at-risk pregnant women and children as cases are flagged in the system and make timely intervention decisions, rather than waiting weeks for reports to reach field teams.
+- [Bhumi: One source of truth for every child Bhumi reaches](https://dalgo.org/case-studies/bhumi): Bhumi worked with the Dalgo team to bring their program data into one place, starting with their fellowship assessments. Their own three-person tech team now builds the dashboards and pipelines.
+- [From Data Burden to Strategic Insight: Transforming data across countries with Dalgo](https://dalgo.org/case-studies/stir-education): STiR Education works with teachers, principals and officials to improve learning. While STiR worked with the Dalgo team, their monitoring and evaluation (M&E) team stopped building every review by hand, and leadership, design and donor teams used the data to decide and report for themselves. STiR could put more of their time into their mission.
+- [Baala: Scattered menstrual health data, brought into one place](https://dalgo.org/case-studies/baala): Baala works on menstrual health in India. With the Dalgo team, they brought the data from 25 Kobo forms and their Google Sheets into one pipeline. Their monitoring and evaluation (M&E) team can now compare trends across programs and regions, and is learning to run the pipeline themselves.

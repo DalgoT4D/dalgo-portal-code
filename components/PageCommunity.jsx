@@ -199,3 +199,26 @@ window.CommunityBlogs = CommunityBlogs;
 window.CommunityVideos = CommunityVideos;
 window.CommunityWhatsApp = CommunityWhatsApp;
 window.CommunityCTA = CommunityCTA;
+
+// A band pointing at the Education Hub, required by the hub brief's step 9. It sits after the
+// recordings because that is the nearest neighbour in intent: someone who has just watched a
+// session is exactly the reader for a written guide on the same lifecycle.
+const CommunityLibraryBand = () => (
+  <section className="pg-section cmh-section" id="library">
+    <div className="container">
+      <div className="cmh-head section-head-center">
+        <div className="pg-eyebrow">Resource library</div>
+        <h2 className="section-title">Take the <span className="hl-underline">guides</span> with you</h2>
+        <p className="section-sub">Short, practical guides and self assessments on planning, collecting and using programme data.</p>
+      </div>
+      <p className="cmh-more">
+        <a className="cmh-btn cmh-btn-primary" href="/resources" data-cta-location="community_library_band">
+          Browse the library
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+);
+
+window.CommunityLibraryBand = CommunityLibraryBand;

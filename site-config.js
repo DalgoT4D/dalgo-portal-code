@@ -22,6 +22,16 @@ window.SITE_CONFIG = {
   // before this; route every consultation CTA through window.consultCta() so they
   // cannot diverge again.
   CONSULT_FORM: 'https://forms.gle/6vpR5LKpV29zvyxK9',
+  // ⚑ OPEN — Education Hub lead capture. The site is static on Vercel, so every resource form
+  // and newsletter box posts to a Google Apps Script web app whose source ships beside it at
+  // integrations/education-hub-leads.gs. Paste the deployed /exec URL here and the hub starts
+  // recording leads; until then the visitor still gets the file and the row is logged to the
+  // console instead. Nothing else needs editing.
+  LEADS_ENDPOINT: '',
+  // The library's own route, in one constant because the path is still an open question
+  // (/resources vs /learn/library). Change it here and the footer, the community band and the
+  // generated pages all follow.
+  RESOURCES_PATH: '/resources',
   // Public Luma events calendar ("Dalgo Events"). Stored CLEAN — utm is appended per surface by
   // window.withUtm(), so the same URL can carry a different utm_medium from the hero, the ticker
   // and the pop-up instead of one baked-in medium lying about where the click came from.
@@ -200,3 +210,38 @@ window.consultCta = function () {
     window.gtag('event', 'cta_click', params);
   }, true);
 })();
+
+// ===== Education Hub events =====
+// The hub fires named events rather than reusing cta_click, because these are funnel steps and
+// not link clicks: resource_form_start has no anchor behind it, and resource_download fires
+// after a POST rather than on a navigation. Key events (GA4 conversions): resource_download and
+// interest_yes.
+//
+// Events: resource_view · resource_form_start · resource_download · assessment_start ·
+// assessment_complete · interest_yes · newsletter_popup_view · newsletter_subscribe
+window.dalgoTrack = function (name, params) {
+  try {
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', name, params || {});
+  } catch (e) { /* analytics must never break a download */ }
+};
+
+// ONE PLACE that knows where a newsletter address goes, used by the library band and the
+// pop-up alike. ⚑ OPEN: the drip tool is undecided (Zoho Campaigns workflow vs Apps Script
+// from the Sheet). Until it is settled the address rides the same LEADS_ENDPOINT with
+// shelf:'newsletter', so no address is lost while the decision is made; the Apps Script routes
+// on that field.
+window.subscribeNewsletter = function (email, source) {
+  window.dalgoTrack('newsletter_subscribe', { source: source || 'unknown' });
+  var endpoint = window.SITE_CONFIG && window.SITE_CONFIG.LEADS_ENDPOINT;
+  var payload = {
+    email: email, shelf: 'newsletter', newsletter_yes: true, source: source || '',
+    landing_page: window.location.pathname, submitted_at: new Date().toISOString()
+  };
+  if (!endpoint) { console.info('[dalgo] LEADS_ENDPOINT is empty — newsletter signup not recorded:', payload); return; }
+  fetch(endpoint, {
+    method: 'POST', mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  }).catch(function () {});
+};
