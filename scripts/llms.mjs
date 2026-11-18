@@ -51,7 +51,8 @@ function caseStudies() {
   vm.runInNewContext(fs.readFileSync(path.join(root, 'components/CaseStudyData.jsx'), 'utf8'), { window });
   return window.CASE_STUDIES
     .filter((cs) => cs.native)
-    .map((cs) => ({ cs, summary: cs.standfirst || window.caseStudyMeta(cs).desc }));
+    // headline resolved here, inside the sandbox's scope, not at the template below
+    .map((cs) => ({ cs, headline: window.caseStudyHeadline(cs), summary: cs.standfirst || window.caseStudyMeta(cs).desc }));
 }
 
 const lines = [
@@ -65,7 +66,7 @@ const lines = [
   '',
   '## Case studies',
   '',
-  ...caseStudies().map(({ cs, summary }) => `- [${cs.org}: ${cs.title}](${ORIGIN}/case-studies/${cs.slug}): ${summary}`),
+  ...caseStudies().map(({ cs, headline, summary }) => `- [${headline}](${ORIGIN}/case-studies/${cs.slug}): ${summary}`),
   '',
 ];
 

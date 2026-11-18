@@ -61,7 +61,9 @@ function loadData() {
 // than a bare URL.
 function head(cs, meta, versions) {
   const url = ORIGIN + '/case-studies/' + cs.slug;
-  const img = ORIGIN + '/' + String(cs.img).replace(/^\//, '');
+  // Same fallback as og:image. A partner without its own 1200x630 card would otherwise put
+  // the literal string "undefined" into the Article JSON-LD image.
+  const img = ogFor(cs);
   const article = {
     '@context': 'https://schema.org',
     '@type': 'Article',

@@ -74,7 +74,12 @@ const CaseStudyQuote = ({ quote, org, logo }) => {
       <blockquote>{'“' + quote.text + '”'}</blockquote>
       <figcaption>
         <span className="csd-quote-name">{quote.name}</span>
-        {quote.role ? <span className="csd-quote-role">{quote.role}{org ? ', ' + org : ''}</span> : (org ? <span className="csd-quote-role">{org}</span> : null)}
+        {/* THE ATTRIBUTION IS THE DOC'S, VERBATIM. Nothing is appended: the master doc
+            writes each one in full and names the organisation itself where it wants it
+            named ("Anup, CEO of SHRI"), and where it does not, it does not. Appending
+            the org produced "Anup, CEO, SHRI" and "Arun, a senior manager, STiR
+            Education" against the doc's "a senior manager at STiR Education". */}
+        {quote.role ? <span className="csd-quote-role">{quote.role}</span> : null}
       </figcaption>
     </figure>
   );
@@ -104,6 +109,10 @@ const CaseStudyProseBlock = ({ heading, block, org }) => {
       {block.lead && (Array.isArray(block.lead) ? block.lead : [block.lead]).map(function (para, i) {
         return <p className="csd-p" key={i}>{para}</p>;
       })}
+      {/* SHRI's challenge sets its quote directly under the lead, above the bullets, because
+          the quote states the problem the bullets then break down. Every other block closes
+          on its quote, so the flag is absent there and it renders last as before. */}
+      {block.quoteFirst && <CaseStudyQuote quote={block.quote} org={org} />}
       <CaseStudyBullets items={block.bullets} />
       {block.image && (
         <figure className="csd-figure-inline">
@@ -111,7 +120,7 @@ const CaseStudyProseBlock = ({ heading, block, org }) => {
         </figure>
       )}
       {block.tail && <p className="csd-p">{block.tail}</p>}
-      <CaseStudyQuote quote={block.quote} org={org} />
+      {!block.quoteFirst && <CaseStudyQuote quote={block.quote} org={org} />}
     </div>
   );
 };
@@ -145,18 +154,97 @@ const CaseStudyTransformation = ({ cs }) => {
   );
 };
 
-// Closing CTA. Book a Free Consultation is the case study call to action in the master doc —
-// a reader who has just finished a partner's story is closer to a conversation than a signup.
+// ---------------------------------------------------------------------------------------
+// DOC LAYOUT (`docLayout: true`). The master doc gives every partner FOUR sections, and the
+// first one is the partnership: the arc image, the bullets, the Result/What-changed table and
+// a sentence about the organisation, all together, above the challenge.
+//
+// The six-block template this sits beside does something different — it lifts the table out
+// into a "Key results" band and the organisation sentence into a four-cell facts grid, both
+// ABOVE the challenge, and leaves the bullets below it under "How we worked together". That
+// reorders the doc rather than rendering it. This component renders the doc as written.
+//
+// ONE ORDER FOR ALL EIGHT (Stuti, 18 Nov): heading, who the organisation is, how we started,
+// the arc, the bullets, the quote, the table.
+//
+// The master doc puts the organisation sentence LAST, under the result table, and the site
+// followed it there — which left the section opening on a different element for each partner
+// and the reader meeting "who is this" only after the numbers. It now sits directly under the
+// partnership headline on every page, which is the one deliberate departure from the doc's
+// own order; Stuti is folding it back into the doc.
+//
+// Everything below the heading is optional and partners genuinely differ: SHRI has no
+// organisation sentence at all, four have no lead, and three carry a quote in this section.
+// A missing piece is skipped, and the order of whatever remains never changes.
+const CaseStudyPartnership = ({ cs }) => {
+  const a = cs.approach || {};
+  // ONE HEADING ON EVERY PAGE (Stuti, 18 Nov): this section is the summary of the case study,
+  // so it is named for what it is rather than for the partnership. Title case at Stuti's
+  // request — it is the one heading on the page that labels a summary rather than naming a
+  // chapter, and the capitals mark it apart from "The challenge" and the rest.
+  const heading = cs.partnershipHeading || 'Key Highlights';
+  return (
+    <div className="csd-block">
+      <h2 className="csd-h">{heading}</h2>
+      {cs.about && <p className="csd-p csd-about">{cs.about}</p>}
+      {a.lead && (Array.isArray(a.lead) ? a.lead : [a.lead]).map(function (para, i) {
+        return <p className="csd-p" key={i}>{para}</p>;
+      })}
+      {cs.approachImg && (
+        <figure className="csd-figure-inline">
+          <img src={cs.approachImg.src} alt={cs.approachImg.alt} width="1600" height="900" loading="eager" decoding="async" />
+        </figure>
+      )}
+      <CaseStudyBullets items={a.bullets} />
+      {a.quote && <CaseStudyQuote quote={a.quote} org={cs.org} />}
+      <CaseStudyResultTable cs={cs} />
+    </div>
+  );
+};
+
+// The doc's results are a two-column table with a "Result | What changed" header row, not a
+// band of stat cards. Rendered as a real <table> on .legal-table's idiom, which is the house
+// table style, with the wrapper carrying the scroll so a long "What changed" cell cannot push
+// the page sideways on a phone.
+const CaseStudyResultTable = ({ cs }) => {
+  if (!cs.results || !cs.results.length) return null;
+  return (
+    <div className="csd-rtablewrap">
+      <table className="csd-rtable">
+        <thead>
+          <tr><th scope="col">Result</th><th scope="col">What changed</th></tr>
+        </thead>
+        <tbody>
+          {cs.results.map(function (r, i) {
+            return (
+              <tr key={i}>
+                <th scope="row">{r.figure}</th>
+                <td>{r.label}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// Closing CTA, in the master doc's own words (Stuti, 18 Nov). Every one of the eight tabs ends
+// on the same line — "Are you facing a similar challenge in your organisation's data journey?
+// Book a Free Consultation." — so the question is the heading and the sentence is the button,
+// which is what it already said. The previous heading and sub-line were this template's
+// invention, not the doc's, and the doc has no second sentence here, so there is no sub-line.
+//
+// ONE BUTTON ONLY. "All case studies" was removed on 18 Nov (Stuti): the doc's call to action
+// is a single question and a single button, and nothing that is not in the doc belongs here.
 const CaseStudyCTA = () => (
   <section className="final-cta csd-cta">
     <div className="container">
       <div className="final-cta-inner">
-        <h2 className="final-cta-h">See what this looks like for your data</h2>
-        <p className="final-cta-sub">Talk to the team about your programmes, your tools, and where your data is getting stuck.</p>
+        <h2 className="final-cta-h">Are you facing a similar challenge in your organisation&rsquo;s data journey?</h2>
         <div className="final-cta-actions">
           <a className="btn btn-primary" href={window.withUtm(window.SITE_CONFIG.CONSULT_FORM, 'case_study_cta')}
              target="_blank" rel={window.relForHref(window.SITE_CONFIG.CONSULT_FORM)} data-cta-location="case_study_cta">Book a Free Consultation</a>
-          <a className="btn btn-ghost" href="/case-studies" data-cta-location="case_study_all">All case studies</a>
         </div>
       </div>
     </div>
@@ -205,20 +293,30 @@ const PageCaseStudy = () => {
         body={cs.standfirst}
         image={cs.hero ? { src: cs.hero.src, alt: cs.hero.alt, kind: cs.hero.kind || 'photo' } : undefined}
       />
-      <CaseStudyFacts cs={cs} />
-      <CaseStudyResults cs={cs} />
-      <section className="csd-body">
+      {!cs.docLayout && <CaseStudyFacts cs={cs} />}
+      {!cs.docLayout && <CaseStudyResults cs={cs} />}
+      <section className={'csd-body' + (cs.docLayout ? ' csd-body-doc' : '')}>
         <div className="container">
           <div className="csd-prose">
+            {cs.docLayout && <CaseStudyPartnership cs={cs} />}
+            {/* The rule closes the summary. Everything above it is the case study at a glance;
+                everything below is the story in full. Without it the two read as one list of
+                sections and the summary stops being legible as a summary. */}
+            {cs.docLayout && <hr className="csd-divider" />}
             <CaseStudyProseBlock heading="The challenge" block={cs.challenge} org={cs.org} />
-            <CaseStudyProseBlock
-              heading={(cs.approach && cs.approach.heading) || 'How we worked together'}
-              block={cs.approach ? Object.assign({}, cs.approach, { image: cs.approachImg }) : null}
-              org={cs.org} />
+            {!cs.docLayout && (
+              <CaseStudyProseBlock
+                heading={(cs.approach && cs.approach.heading) || 'How we worked together'}
+                block={cs.approach ? Object.assign({}, cs.approach, { image: cs.approachImg }) : null}
+                org={cs.org} />
+            )}
             <CaseStudyTransformation cs={cs} />
+            {/* "What's next" for a live engagement. STiR's closed, so its master-doc section
+                is "What it showed" and looks back rather than forward; `nextHeading` carries
+                that. */}
             {cs.next && (
               <div className="csd-block">
-                <h2 className="csd-h">What&rsquo;s next</h2>
+                <h2 className="csd-h">{cs.nextHeading || 'What’s next'}</h2>
                 <p className="csd-p">{cs.next}</p>
               </div>
             )}
@@ -230,6 +328,8 @@ const PageCaseStudy = () => {
   );
 };
 
+window.CaseStudyPartnership = CaseStudyPartnership;
+window.CaseStudyResultTable = CaseStudyResultTable;
 window.CaseStudyFacts = CaseStudyFacts;
 window.CaseStudyResults = CaseStudyResults;
 window.CaseStudyQuote = CaseStudyQuote;

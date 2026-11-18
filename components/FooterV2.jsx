@@ -30,6 +30,9 @@ const FooterV2 = () =>
         </nav>
         <nav className="fx-col" aria-label="Resources">
           <h2 className="fx-h">Resources</h2>
+          {/* The Education Hub leads this column: it is the one place on the site a visitor
+              can take something away, and the brief makes it the hub's main route in. */}
+          <a href="/resources">Resource Library</a>
           <a href="/meet-the-team">Meet the Team</a>
           <a href="/community">Community</a>
           <a href="/faq">Frequently Asked Questions</a>

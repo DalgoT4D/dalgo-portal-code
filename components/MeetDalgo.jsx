@@ -18,6 +18,18 @@ const MeetDalgo = () => {
 };
 
 // Customer-success switcher — logo tabs + featured case study panel
+// A partner with a native /case-studies/<slug> page is linked there, never to the older
+// projecttech4dev.org post. `read` stays as the fallback for partners who have no page yet,
+// so this keeps working as more of them move across. Added 16 Nov 2026, when Bhumi, STiR and
+// Baala got native pages and every link in this section still pointed off-site.
+function nativeHref(org, fallback) {
+  const all = (typeof window !== 'undefined' && window.CASE_STUDIES) || [];
+  for (let i = 0; i < all.length; i++) {
+    if (all[i].org === org && all[i].native) return '/case-studies/' + all[i].slug;
+  }
+  return fallback;
+}
+
 const CaseFeature = () => {
   const cases = [
     {
@@ -73,7 +85,7 @@ const CaseFeature = () => {
           <img loading="lazy" className="csf-logo" src={c.logo} alt={c.org} />
           <h3 className="csf-headline">{c.headline}</h3>
           <p className="csf-copy">{c.copy}</p>
-          <a className="csf-readlink" href={c.read} target={c.read.startsWith('http') ? '_blank' : undefined} rel="noopener">Read the story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></a>
+          <a className="csf-readlink" href={nativeHref(c.org, c.read)} target={nativeHref(c.org, c.read).startsWith('http') ? '_blank' : undefined} rel="noopener">Read the story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></a>
           <div className="csf-metrics">
             <div className="csf-metric">
               <div className="csf-metric-value">

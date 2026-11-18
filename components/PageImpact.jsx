@@ -93,14 +93,14 @@ const BrowseSector = () => {
 
 // 5. Browse by NGO — dropdown
 const BrowseNGO = () => {
-  const orgs = {
-    'STiR Education': 'https://projecttech4dev.org/from-data-burden-to-strategic-insight-how-stir-transformed-data-across-multiple-countries-with-dalgo/',
-    'SHRI': 'https://projecttech4dev.org/flushing-out-inefficiencies-shri-dalgos-data-driven-approach-to-better-quality-sanitation/',
-    'SHOFCO': '#case-studies',
-    'SNEHA': '#case-studies',
-    'Baala': 'https://projecttech4dev.org/making-the-invisible-visible-learn-how-baala-is-finding-a-path-to-data-insights/',
-    'Bhumi': 'https://projecttech4dev.org/lessons-from-bhumi-closing-the-data-to-decision-gap-with-dalgo/',
-  };
+  // Derived from CaseStudyData.jsx rather than hand-kept. The hardcoded map this replaces
+  // still sent STiR, Baala, Bhumi and SHRI to projecttech4dev.org after each had a native
+  // page here, and listed SNEHA, who has no case study at all. Deriving it means the dropdown
+  // cannot drift from the set of pages that actually exist (16 Nov 2026).
+  const orgs = {};
+  (window.CASE_STUDIES || []).forEach(function (c) {
+    orgs[c.org] = c.native ? '/case-studies/' + c.slug : c.source;
+  });
   const onChange = (e) => {
     const url = orgs[e.target.value];
     if (url) window.open(url, url.startsWith('http') ? '_blank' : '_self');
@@ -169,7 +169,8 @@ const BrowseCaseStudies = () => {
                     an alt text would make every card announce its org twice. */}
                 <img className={'cst-logo' + (s.logoPale ? ' is-pale' : '')} src={s.logo}
                      alt="" aria-hidden="true" loading="lazy" decoding="async" />
-                <h3 className="cst-title">{s.org}: {s.cardTitle}</h3>
+                {/* The master doc's headline, the same string the case study page prints. */}
+                <h3 className="cst-title">{window.caseStudyHeadline(s)}</h3>
                 <p className="cst-desc">{s.standfirst}</p>
                 <span className="cst-cta">Read case study <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></span>
               </a>

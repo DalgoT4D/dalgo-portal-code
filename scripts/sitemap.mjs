@@ -27,6 +27,7 @@ const PAGES = [
   { slug: 'faq',            changefreq: 'monthly', priority: '0.7' },
   { slug: 'contact',        changefreq: 'yearly',  priority: '0.7' },
   { slug: 'community',      changefreq: 'monthly', priority: '0.6' },
+  { slug: 'resources',      changefreq: 'weekly',  priority: '0.8' },
   { slug: 'meet-the-team',  changefreq: 'yearly',  priority: '0.6' },
   { slug: 'privacy',        changefreq: 'yearly',  priority: '0.3' },
 ];

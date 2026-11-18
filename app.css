@@ -1881,10 +1881,10 @@ html, body { max-width: 100%; overflow-x: clip; }
 .contact-trust-list li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--teal-ink); font-weight: 700; }
 .cf-field { display: flex; flex-direction: column; gap: 7px; }
 .cf-field label { font-size: 14px; font-weight: 600; color: var(--ink); }
-.cf-field input, .cf-field textarea { min-height: 44px; padding: 10px 14px; font-family: inherit; font-size: 15.5px; color: var(--ink); background: var(--surface-1); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: var(--r-sm); transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
-.cf-field input:hover, .cf-field textarea:hover { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+.cf-field input, .cf-field textarea, .cf-field select { min-height: 44px; padding: 10px 14px; font-family: inherit; font-size: 15.5px; color: var(--ink); background: var(--surface-1); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: var(--r-sm); transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+.cf-field input:hover, .cf-field textarea:hover, .cf-field select:hover { border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
 .cf-field textarea { resize: vertical; min-height: 120px; }
-.cf-field input:focus, .cf-field textarea:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); background: var(--surface-0); }
+.cf-field input:focus, .cf-field textarea:focus, .cf-field select:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); background: var(--surface-0); }
 .cf-field input[aria-invalid="true"], .cf-field textarea[aria-invalid="true"] { border-color: var(--error); }
 .cf-err { font-size: 13px; color: var(--error); }
 .cf-fail { margin: 0; font-size: 14px; color: var(--error); }
@@ -2026,7 +2026,7 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
 .csd-page .cvh-h1 .cvh-hl { white-space: normal; }
 
 /* --- Detail: the "How we worked together" card, inline in its section --- */
-.csd-figure-inline { margin: 20px 0 0; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+.csd-figure-inline { margin: 22px 0; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
 .csd-figure-inline img { width: 100%; height: auto; display: block; }
 
 /* --- Detail: at-a-glance facts ---
@@ -2055,8 +2055,28 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
    has already paid a full --section-pad. Two whites each paying it stack to 112px — the
    seam this codebase keeps hitting. */
 .csd-body { padding: 0 0 var(--section-pad-lg); background: var(--surface-0); }
-.csd-prose { max-width: var(--measure); margin: 0 auto; }
+/* The body gutter matches the HERO's, not the generic .container's. The hero grid uses
+   clamp(24px, 5vw, 32px) so it never narrows past 24px, while .container drops to 20px at
+   768 and 16px at 480 — which left the hero text inset further than the body below 1024 and
+   broke the alignment this column exists to keep. Scoped to the case study body on purpose:
+   the same mismatch exists on every page of the site and fixing it globally is a separate
+   change. */
+.csd-body .container { padding-left: clamp(24px, 5vw, 32px); padding-right: clamp(24px, 5vw, 32px); }
+
+/* FLUSH LEFT, not centred (Stuti, 18 Nov). The column keeps its 66ch reading measure but
+   starts at the container's inner edge, so the body begins exactly under the hero headline
+   above it. Centred, it started 194px to the right of the hero at 1280-1440 and the eye had
+   to reset partway through one continuous read. The indent shrank with the viewport (106px
+   at 1024, 44px at 900, none below ~870), which is why it only ever looked wrong on desktop.
+   This follows the site's other reading surfaces — privacy, and product's feature sections —
+   which sit flush at the same edge. */
+.csd-prose { max-width: var(--measure); margin: 0 auto 0 0; }
 .csd-block + .csd-block { margin-top: 44px; }
+/* The rule between the summary and the case study proper. It carries the same 44px above
+   and below that separates any two blocks, so the vertical rhythm is unchanged and the rule
+   reads as a boundary rather than as extra furniture. A .csd-block following the rule is no
+   longer an adjacent sibling, so the margin above comes from here, not from the rule above. */
+.csd-divider { margin: 44px 0; border: 0; border-top: 1px solid var(--hairline); }
 /* 20px, not 24: 24px appears nowhere else in this stylesheet, and a one-off size is how a
    type scale comes apart. 20px has eleven existing uses and still steps clearly above the
    16px body beneath it. */
@@ -2073,7 +2093,39 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
 /* No left-border tab. The site already has one way of opening a quote — the oversized
    teal mark used by .imx-band — so this borrows that rather than adding a coloured rule
    down one side, which the design detector flags and which belongs to no other card here. */
-.csd-quote { margin: 22px 0 0; padding: 20px 22px; background: var(--surface-1); border-radius: var(--r-lg); }
+/* --- Detail: the doc layout's result table -------------------------------------------
+   The master doc states key results as a two-column "Result | What changed" table inside the
+   partnership section, not as a band of stat cards. Built on .legal-table's idiom, which is
+   the house table style, so this introduces no new table language. The wrapper owns the
+   horizontal scroll: a long "What changed" cell must not widen the page on a phone, which is
+   the only way a table can break the no-overflow rule. */
+.csd-rtablewrap { overflow-x: auto; margin: 22px 0; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-0); }
+.csd-rtable { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.csd-rtable th, .csd-rtable td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--hairline); vertical-align: top; line-height: 1.55; }
+.csd-rtable thead th { background: var(--surface-1); font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-ink); white-space: nowrap; }
+.csd-rtable th[scope="row"] { font-weight: 650; color: var(--ink); min-width: 170px; }
+.csd-rtable td { color: var(--ink-2); }
+.csd-rtable tbody tr:last-child th, .csd-rtable tbody tr:last-child td { border-bottom: none; }
+
+/* An arc image that follows the heading directly opens the section, so it takes the 14px
+   heading gap rather than adding its own 22px on top of it. Where a lead sentence comes
+   first (Ummeed, SHRI, 1000 Days Fund) the image is an object mid-flow and keeps 22px. */
+.csd-h + .csd-figure-inline { margin-top: 0; }
+/* ...and an object that ends a block drops its trailing margin, so .csd-block + .csd-block
+   keeps setting the gap between sections rather than the object adding 22px to it. */
+.csd-block > .csd-quote:last-child,
+.csd-block > .csd-figure-inline:last-child,
+.csd-block > .csd-rtablewrap:last-child { margin-bottom: 0; }
+/* The organisation sentence closes the section; it is context, so it sits a step back. */
+/* The organisation sentence opens the partnership section, directly under its heading, so it
+   takes the 14px heading gap and the body size. It was 15px when it closed the section as a
+   footnote under the table; as the opening paragraph it sets the type for the ones after it,
+   and two paragraph sizes inside one block read as a mistake. */
+.csd-about { margin: 0 0 14px; }
+/* With the partnership block first, the prose column now starts straight under the hero. */
+.csd-body-doc { padding-top: var(--section-pad); }
+
+.csd-quote { margin: 22px 0; padding: 20px 22px; background: var(--surface-1); border-radius: var(--r-lg); }
 .csd-quote-mark { display: block; font-weight: 700; font-size: 36px; line-height: .6; height: 20px; color: color-mix(in srgb, var(--teal) 42%, #fff); margin-bottom: 10px; }
 .csd-quote blockquote { margin: 0 0 12px; font-size: 17px; line-height: 1.6; font-weight: 500; color: var(--ink); }
 .csd-quote figcaption { display: flex; flex-direction: column; gap: 1px; }
@@ -2088,3 +2140,185 @@ main :is(.faq-a p, .legal p, .privacy-body p) { text-wrap: pretty; }
   .csd-p, .csd-bullets li { font-size: 15.5px; }
   .csd-quote blockquote { font-size: 16px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════
+   EDUCATION HUB — /resources and /resources/<slug>
+   Built against the brief in READY-FOR-DESIGN/education-hub-website-brief.
+
+   NOTHING HERE INVENTS A SURFACE OR A SHADOW. The hero is SiteHero, the cards sit on the
+   system's .si-card plate, the form fields reuse .cf-field (extended above to cover <select>),
+   the closing band is .final-cta, and the only backgrounds used are --surface-0, --surface-1
+   and the existing tinted band. Teal appears as an accent and on links, never as body text.
+
+   Every media query in this block sits at the END, after the base rules it overrides. That
+   order is not cosmetic: a query placed above its base rule loses the cascade and silently
+   does nothing, which has already cost this file two bugs.
+   ═══════════════════════════════════════════════════════════════════════════════════════ */
+
+/* Screen-reader-only utility. Labels are visible on every field in the hub's forms; this is
+   for the two places where the visible label IS the placeholder-adjacent control (the library
+   search and the single-field newsletter boxes), where a duplicate visible label would read as
+   a stutter but the input still must be named. */
+.x-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* --- Filter chips --------------------------------------------------------------------- */
+/* Real buttons with aria-pressed, not links: filtering changes nothing in the URL, so a link
+   would promise navigation it does not perform. 44px min target on touch. */
+.rsl-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 32px; }
+.rsl-chip { min-height: 36px; padding: 8px 16px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); background: var(--surface-0); border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); border-radius: var(--r-pill); cursor: pointer; transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.rsl-chip:hover { border-color: var(--teal); color: var(--ink); }
+.rsl-chip.is-on { color: #fff; background: var(--teal-ink); border-color: var(--teal-ink); }
+
+/* --- Featured ------------------------------------------------------------------------- */
+.rsl-feat { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: center; padding: 24px; margin: 0 0 32px; background: var(--surface-1); border-radius: var(--r-xl); text-decoration: none; transition: box-shadow var(--dur) var(--ease); }
+.rsl-feat:hover { box-shadow: var(--shadow-card); }
+.rsl-feat-thumb { display: block; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-card); }
+.rsl-feat-thumb img { width: 100%; height: auto; display: block; }
+.rsl-feat-body { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.rsl-feat-kicker { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-ink); }
+.rsl-feat-title { font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+.rsl-feat-sum { font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.rsl-feat-meta { font-size: 13.5px; color: var(--ink-2); }
+
+/* --- Cards ---------------------------------------------------------------------------- */
+/* The cover is CONTAINED, never cropped. These are A4 portrait brochure covers that already
+   follow the Lead Magnet Design System, and the brief says to show them as they are; a
+   cover-crop to a landscape thumb would slice the stage pill off the top of every one. */
+.rsl-grid { align-items: stretch; }
+.rsl-card { padding: 0; overflow: hidden; }
+/* A 4:3 window anchored to the TOP of the cover, not the whole A4 page. Shown whole, a
+   portrait brochure cover made every card 691px tall and the grid unscannable. The top ~60%
+   is the identifying part — logo, stage pill, title, and the lifecycle panel — and the full
+   cover is shown uncropped on the resource page, which is where it is actually read. The
+   artwork itself is untouched; this is a frame, not a restyle. */
+.rsl-thumb { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-1); border-bottom: 1px solid var(--hairline); }
+.rsl-thumb img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top center; }
+.rsl-body { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 18px 20px 22px; flex: 1; }
+.rsl-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.rsl-tag { display: inline-flex; align-items: center; min-height: 22px; padding: 3px 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--teal-ink); background: color-mix(in srgb, var(--teal) 10%, #fff); border: 1px solid color-mix(in srgb, var(--teal) 28%, transparent); }
+.rsl-tag-draft { color: var(--pending-ink); background: var(--pending-bg); border-color: var(--pending-border); }
+.rsl-title { font-size: 17px; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.rsl-sum { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); }
+.rsl-meta { margin-top: auto; padding-top: 8px; font-size: 13px; color: var(--ink-2); }
+.rsl-empty { margin: 0; padding: 32px 0; font-size: 16px; color: var(--ink-2); }
+
+/* --- Newsletter band ------------------------------------------------------------------ */
+.rsl-news-form { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 8px; }
+.rsl-news-form input { min-width: 260px; min-height: 48px; padding: 12px 18px; font-family: inherit; font-size: 15.5px; color: var(--ink); background: var(--surface-0); border: 1px solid transparent; border-radius: var(--r-pill); }
+.rsl-news-form input:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 30%, transparent); }
+.rsl-news-done { margin: 8px 0 0; font-size: 16px; font-weight: 600; color: var(--on-dark); }
+
+/* --- Resource detail ------------------------------------------------------------------ */
+.rsd-crumb { margin: 0 0 24px; }
+.rsd-crumb ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; font-size: 13.5px; color: var(--ink-2); }
+.rsd-crumb li + li::before { content: "›"; margin-right: 8px; color: var(--ink-2); }
+.rsd-crumb a { color: var(--ink-2); }
+.rsd-crumb [aria-current="page"] { color: var(--ink); }
+
+/* The form is a SIBLING of the copy, not nested in it, which is what lets one column order
+   serve both layouts: side by side above 1024, stacked with the form last below it. */
+.rsd-grid { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 48px; align-items: start; }
+.rsd-head { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 28px; align-items: start; margin: 0 0 32px; }
+.rsd-cover { margin: 0; border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-card); }
+.rsd-cover img { width: 100%; height: auto; display: block; }
+.rsd-head-copy { display: flex; flex-direction: column; gap: 12px; }
+.rsd-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.rsd-h1 { margin: 0; }
+.rsd-meta { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+.rsd-sum { margin: 0; font-size: 18px; line-height: 1.6; color: var(--ink-2); }
+.rsd-draft { margin: 0 0 28px; padding: 14px 18px; font-size: 14.5px; line-height: 1.55; color: var(--pending-ink); background: var(--pending-bg); border: 1px solid var(--pending-border); border-radius: var(--r-md); }
+.rsd-h2 { margin: 0 0 14px; font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.rsd-learn { margin: 0 0 32px; padding: 0 0 0 22px; display: flex; flex-direction: column; gap: 10px; }
+.rsd-learn li { font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.rsd-for { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.rsd-related-h { margin: 0 0 32px; }
+
+/* --- The form ------------------------------------------------------------------------- */
+.rsf { display: flex; flex-direction: column; gap: 16px; padding: 28px; background: var(--surface-0); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+.rsf-h { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.rsf-check { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; line-height: 1.5; color: var(--ink); cursor: pointer; }
+.rsf-check input { width: 18px; height: 18px; margin: 2px 0 0; flex: 0 0 auto; accent-color: var(--teal-ink); }
+.rsf-submit { width: 100%; justify-content: center; min-height: 48px; }
+.rsf-consent { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+.rsf-error { margin: 0; font-size: 13.5px; color: var(--error); }
+/* Honeypot: off-screen rather than display:none, which some bots now treat as a tell. */
+.rsf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* --- Thank-you state ------------------------------------------------------------------ */
+.rsf-thanks-h { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; }
+.rsf-thanks-p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.rsf-again { width: 100%; justify-content: center; min-height: 48px; }
+.rsf-interest { margin: 0; padding: 14px 16px; font-size: 14.5px; line-height: 1.55; color: var(--ink); background: var(--surface-1); border-radius: var(--r-md); }
+.rsf-next-h, .asm-h3 { margin: 0 0 10px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.rsf-next-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.rsf-next-list a { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-top: 1px solid var(--hairline); text-decoration: none; }
+.rsf-next-kind { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--teal-ink); }
+.rsf-next-t { font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--ink); }
+
+/* --- Assessment ----------------------------------------------------------------------- */
+.asm { display: flex; flex-direction: column; gap: 20px; padding: 28px; background: var(--surface-0); border-radius: var(--r-lg); box-shadow: var(--shadow-card); }
+.asm-prog { display: flex; flex-direction: column; gap: 8px; }
+.asm-prog-bar { height: 6px; background: var(--surface-1); border-radius: var(--r-pill); overflow: hidden; }
+.asm-prog-fill { height: 100%; background: var(--teal); border-radius: var(--r-pill); transition: width var(--dur) var(--ease); }
+.asm-prog-text { margin: 0; font-size: 13px; color: var(--ink-2); }
+.asm-q { margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 10px; }
+.asm-q-text { padding: 0; margin: 0 0 6px; font-size: 18px; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.asm-opt { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; min-height: 44px; font-size: 15px; line-height: 1.5; color: var(--ink); background: var(--surface-0); border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent); border-radius: var(--r-sm); cursor: pointer; transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.asm-opt:hover { border-color: var(--teal); background: var(--surface-1); }
+.asm-opt input { width: 18px; height: 18px; margin: 1px 0 0; flex: 0 0 auto; accent-color: var(--teal-ink); }
+.asm-back { align-self: flex-start; padding: 0; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--teal-ink); background: none; border: 0; cursor: pointer; }
+.asm-score { display: flex; align-items: baseline; gap: 12px; }
+.asm-score-band { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+.asm-score-pct { font-size: 20px; font-weight: 600; color: var(--teal-ink); }
+.asm-score-text { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+.asm-gap-list { margin: 0; padding: 0 0 0 20px; display: flex; flex-direction: column; gap: 8px; }
+.asm-gap-list li { font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+
+/* --- Newsletter pop-up ----------------------------------------------------------------- */
+.np-scrim { position: fixed; inset: 0; z-index: 90; display: flex; align-items: flex-end; justify-content: center; padding: 24px; background: color-mix(in srgb, var(--navy) 40%, transparent); }
+.np-card { position: relative; width: 100%; max-width: 420px; padding: 28px; background: var(--surface-0); border-radius: var(--r-xl); box-shadow: var(--shadow-pop); }
+.np-x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; display: grid; place-items: center; background: none; border: 0; border-radius: var(--r-pill); cursor: pointer; }
+.np-x svg { width: 18px; height: 18px; fill: none; stroke: var(--ink-2); stroke-width: 2; }
+.np-x:hover { background: var(--surface-1); }
+.np-h { margin: 0 40px 6px 0; font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.np-sub { margin: 0 0 16px; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); }
+.np-form { display: flex; flex-direction: column; gap: 10px; }
+.np-form input { min-height: 44px; padding: 10px 14px; font-family: inherit; font-size: 15.5px; color: var(--ink); background: var(--surface-1); border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent); border-radius: var(--r-sm); }
+.np-form input:focus { outline: none; border-color: var(--focus); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 22%, transparent); background: var(--surface-0); }
+.np-form button { width: 100%; justify-content: center; min-height: 44px; }
+.np-done { margin: 0; font-size: 15.5px; font-weight: 600; color: var(--teal-ink); }
+
+/* --- Responsive. AFTER the base rules, never before. ----------------------------------- */
+@media (max-width: 1024px) {
+  /* The form drops BELOW the content, which is the brief's rule and the reason .rsd-side is
+     a grid sibling rather than a floated panel. */
+  .rsd-grid { grid-template-columns: 1fr; gap: 32px; }
+  .rsl-feat { grid-template-columns: 150px 1fr; gap: 24px; }
+  .rsl-feat-title { font-size: 24px; }
+}
+@media (max-width: 768px) {
+  .rsd-head { grid-template-columns: 130px minmax(0, 1fr); gap: 20px; }
+  .rsf, .asm { padding: 20px 18px; }
+  /* 16px or iOS Safari zooms the page on focus. The sitewide `select, input, textarea`
+     rule above already says 16px, but it is a bare element selector (0,0,1) and loses to
+     .cf-field input (0,1,1) — so the hub's own fields have to say it at class level. */
+  .cf-field input, .cf-field select, .rsl-news-form input, .np-form input { font-size: 16px; }
+  /* Touch targets match the site's buttons rather than the 36px they take on the desktop row. */
+  .rsl-chip { min-height: 44px; padding: 10px 18px; }
+  .asm-opt { min-height: 48px; }
+  .rsl-news-form { flex-direction: column; }
+  .rsl-news-form input { min-width: 0; width: 100%; }
+  .rsl-news-form button { width: 100%; justify-content: center; }
+  .np-card { padding: 22px 18px; }
+}
+@media (max-width: 560px) {
+  /* At 375 a 130px cover beside the title leaves the title about 12 characters wide, so the
+     header stacks and the cover takes a readable share of the screen instead. */
+  .rsd-head { grid-template-columns: 1fr; gap: 18px; }
+  .rsd-cover { max-width: 180px; }
+  .rsl-feat { grid-template-columns: 1fr; gap: 18px; }
+  .rsl-feat-thumb { max-width: 160px; }
+  .rsl-feat-title { font-size: 22px; }
+  .rsf-thanks-h { font-size: 24px; }
+}
+.rsl-live { margin: 32px 0 0; font-size: 15px; color: var(--ink-2); }

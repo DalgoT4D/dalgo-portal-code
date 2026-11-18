@@ -30,8 +30,12 @@
 
   /* Semantic accents (audit: previously hardcoded in app.css/JSX) */
   --error: #C43D4B;
-  /* Pending/amber status (one palette — used by pricing + FAQ tags) */
-  --pending-ink: #9A6A2E;
+  /* Pending/amber status (one palette — used by pricing + FAQ tags + resource drafts).
+     Ink darkened from #9A6A2E on 16 Nov 2026: that value measured 4.20:1 on --pending-bg,
+     under the 4.5:1 WCAG AA floor for normal text, and every use of this pair sits on that
+     tint. #906229 is the smallest step along the same hue that clears it — 4.74:1 here and
+     5.30:1 on white. */
+  --pending-ink: #906229;
   --pending-bg: #FBF1E3;
   --pending-border: #F0DCBE;
   /* Sticky-note (hero collage decoration) */
