@@ -93,14 +93,14 @@ const BrowseSector = () => {
 
 // 5. Browse by NGO — dropdown
 const BrowseNGO = () => {
-  const orgs = {
-    'STiR Education': 'https://projecttech4dev.org/from-data-burden-to-strategic-insight-how-stir-transformed-data-across-multiple-countries-with-dalgo/',
-    'SHRI': 'https://projecttech4dev.org/flushing-out-inefficiencies-shri-dalgos-data-driven-approach-to-better-quality-sanitation/',
-    'SHOFCO': '#case-studies',
-    'SNEHA': '#case-studies',
-    'Baala': 'https://projecttech4dev.org/making-the-invisible-visible-learn-how-baala-is-finding-a-path-to-data-insights/',
-    'Bhumi': 'https://projecttech4dev.org/lessons-from-bhumi-closing-the-data-to-decision-gap-with-dalgo/',
-  };
+  // Derived from CaseStudyData.jsx rather than hand-kept. The hardcoded map this replaces
+  // still sent STiR, Baala, Bhumi and SHRI to projecttech4dev.org after each had a native
+  // page here, and listed SNEHA, who has no case study at all. Deriving it means the dropdown
+  // cannot drift from the set of pages that actually exist (16 Nov 2026).
+  const orgs = {};
+  (window.CASE_STUDIES || []).forEach(function (c) {
+    orgs[c.org] = c.native ? '/case-studies/' + c.slug : c.source;
+  });
   const onChange = (e) => {
     const url = orgs[e.target.value];
     if (url) window.open(url, url.startsWith('http') ? '_blank' : '_self');
@@ -126,36 +126,56 @@ const BrowseNGO = () => {
 };
 
 // 4. Explore case studies — dropdown + all article thumbnails
+// Listing for /case-studies. Reads components/CaseStudyData.jsx, so the set of stories, their
+// sectors and where each card points are defined once and this component only arranges them.
+//
+// A card goes to /case-studies/<slug> once that partner has a written case study, and keeps
+// its projecttech4dev.org link until then — which is what lets partners move across one at a
+// time without the listing ever being half-empty, and why the external ones still carry
+// target/rel while the native ones do not.
+// Listing for /case-studies. Reads components/CaseStudyData.jsx, so the set of stories and
+// what each card shows are defined once and this component only arranges them.
+//
+// NO SECTOR FILTER AND NO RESULT COUNT (Stuti, 4 Nov). With five case studies every chip
+// filtered to a single card and the count line read "Showing 1 of 5" — interface that costs a
+// click and narrows nothing. The sector still shows, as a pill on each thumbnail, which is
+// where it is useful: scanning the grid rather than operating a control.
+//
+// THUMBNAIL IS THE DESIGNED CARD from the master doc — 1200x630, Dalgo | Partner lockup,
+// headline, geography pill and a photo. All five were made as a set, which is what makes the
+// grid read as one family. The sector sits in the white body below the image, not over it:
+// overlaid, it straddled the boundary between the card's white half and its photo half and
+// read as a broken element. The headline is not repeated under the image either — it is
+// already set into the card, so the body carries only the sector and the action.
 const BrowseCaseStudies = () => {
-  const stories = [
-    { sector: 'Education', org: 'STiR Education', title: 'From data burden to strategic insight', img: 'assets/cases/stir.webp', href: 'https://projecttech4dev.org/from-data-burden-to-strategic-insight-how-stir-transformed-data-across-multiple-countries-with-dalgo/' },
-    { sector: 'Sanitation', org: 'SHRI', title: 'Flushing out inefficiencies for better-quality sanitation', img: 'assets/cases/shri.webp', href: 'https://projecttech4dev.org/flushing-out-inefficiencies-shri-dalgos-data-driven-approach-to-better-quality-sanitation/' },
-    { sector: 'Health', org: 'Ummeed', title: 'Trans-disciplinary clinical care, on one dashboard', img: 'assets/cases/ummeed.webp', href: 'https://projecttech4dev.org/maximising-impact-ummeed-dalgos-approach-to-data-driven-trans-disciplinary-clinical-care/' },
-    { sector: 'Menstrual Health', org: 'Baala', title: 'Making the invisible visible — a path to data insights', img: 'assets/cases/baala.webp', href: 'https://projecttech4dev.org/making-the-invisible-visible-learn-how-baala-is-finding-a-path-to-data-insights/' },
-    { sector: 'Livelihoods', org: 'Bhumi', title: 'Closing the data-to-decision gap with Dalgo', img: 'assets/cases/bhumi.webp', href: 'https://projecttech4dev.org/lessons-from-bhumi-closing-the-data-to-decision-gap-with-dalgo/' },
-    { sector: 'Maternal & Child Health', org: 'SNEHA', title: 'Harnessing real-time data for social impact', img: 'assets/cases/sneha.webp', href: 'https://projecttech4dev.org/harnessing-real-time-data-for-social-impact-snehas-journey-with-dalgo/' },
-    { sector: 'Education', org: 'Antarang', title: "Antarang's data breakthrough with GoalKeep and Dalgo", img: 'assets/cases/antarang.png', href: 'https://projecttech4dev.org/fueling-success-antarangs-data-breakthrough-with-goalkeep-and-dalgo/' },
-    { sector: 'Community Empowerment', org: 'SHOFCO', title: 'Shining hope from within — SHOFCO’s empowerment story', img: 'assets/cases/shofco-partnership.png', href: 'https://projecttech4dev.org/shining-hope-from-within-shofcos-empowerment-story-with-dalgo/' },
-    { sector: 'Water & Environment', org: 'A.T.E. Chandra Foundation', title: 'Rejuvenating 5,000+ waterbodies, tracked on one dashboard', img: 'assets/cases/atecf.webp', href: 'https://projecttech4dev.org/waterbody-rejuvenation-project-a-t-e-chandra-foundation/' },
-    { sector: 'Water & Rural Development', org: 'Arghyam', title: 'Unifying piped-water-supply data across Bihar', img: 'assets/cases/arghyam.webp', href: 'https://projecttech4dev.org/jal-jeevan-mission-arghyam/' },
-  ];
+  const all = window.CASE_STUDIES || [];
   return (
     <section className="imx-section imx-browse" id="case-studies">
       <div className="container">
         <div className="section-head section-head-center">
-          <h2 className="section-title" id="case-studies">Explore <span className="hl-underline">case studies</span></h2>
+          <h2 className="section-title">Explore <span className="hl-underline">case studies</span></h2>
         </div>
-        <div className="si-grid imx-si-grid">
-          {stories.map((s, i) => (
-            <a key={i} className="si-card" href={s.href} target="_blank" rel="noopener">
-              <div className="si-thumb"><img src={s.img} alt={`${s.org} — ${s.title}`} loading="lazy" /></div>
-              <div className="si-body">
-                <div className="si-kicker">{s.sector} · {s.org}</div>
-                <h3 className="si-title">{s.title}</h3>
-                <span className="si-readmore">Read story <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" /></svg></span>
-              </div>
-            </a>
-          ))}
+        <div className="si-grid imx-si-grid cst-grid">
+          {all.map(function (s, i) {
+            const href = s.native ? '/case-studies/' + s.slug : s.source;
+            const ext = !s.native;
+            return (
+              <a key={s.slug || i} className="si-card cst-card" href={href}
+                 target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}
+                 data-cta-location="case_study_card">
+                {/* Logo, title, standfirst, action — see the .cst-card block in app.css for
+                    why this is text-led rather than built around the 1200x630 artwork. The
+                    logo is decorative here: the <h3> beside it already names the partner, so
+                    an alt text would make every card announce its org twice. */}
+                <img className={'cst-logo' + (s.logoPale ? ' is-pale' : '')} src={s.logo}
+                     alt="" aria-hidden="true" loading="lazy" decoding="async" />
+                {/* The master doc's headline, the same string the case study page prints. */}
+                <h3 className="cst-title">{window.caseStudyHeadline(s)}</h3>
+                <p className="cst-desc">{s.standfirst}</p>
+                <span className="cst-cta">Read case study <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

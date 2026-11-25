@@ -35,7 +35,10 @@ const Nav = () => {
   page = page.toLowerCase().replace(/\.html$/, '');
   const isHome = page === '' || page === 'index' || page === 'home page';
   const is = (k) => page === k;
-  const resourcesActive = is('community') || is('faq');
+  // 'resources' covers both the library and every /resources/<slug> page, which stamps
+  // window.__currentPage='resources'. Without it no nav item highlighted anywhere in the
+  // hub, so a visitor three pages deep had no sense of place.
+  const resourcesActive = is('community') || is('faq') || is('resources');
   // BM-337 (resolved 30 Jul): nav label renamed "Case Studies", href stays case-studies.html
   // BM-335/346 (resolved 30 Jul): About moved out of Resources into footer-only; Learn + FAQ stay under Resources
   // Primary nav CTA: the free trial once there is a real trial URL, otherwise consultation.
@@ -47,6 +50,9 @@ const Nav = () => {
   // BM-392: product documentation belongs in Resources. External, so it opens in a new tab —
   // docs live on their own subdomain and we don't want to drop people out of the site.
   const resourceLinks = [
+    // The Education Hub leads this menu: it is the only place on the site a visitor can take
+    // something away, and it is the hub's main route in (Stuti, 16 Nov).
+    { href: '/resources', label: 'Resource Library', desc: 'Free guides and self assessments to download' },
     { href: '/community', label: 'Community', desc: 'Webinars, meetups, and the Dalgo network' },
     { href: '/faq', label: 'FAQs', desc: 'Answers on pricing, setup, and security' },
     { href: 'https://docs.dalgo.org/intro', label: 'Documentation', desc: 'Setup guides and reference for using Dalgo', ext: true },
