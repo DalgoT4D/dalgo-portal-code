@@ -10,26 +10,33 @@
 //     brightness(0) would collapse these to black blobs/badges; grayscale keeps their
 //     internal tone and they are already dark enough to read.
 // `solid: true` selects the grayscale branch (.logo-img.is-solid in app.css).
+//
+// OPTICAL SIZING (Sep 2026). An identical container is NOT equal visual weight: a
+// wide wordmark capped at one height covers ~4× the area of a circular emblem, so
+// the wall looks lopsided (the "some are rectangle, some text, some circle" problem).
+// Each logo instead carries an `h` — its cap-height in px, set toward equal optical
+// weight (roughly equal area, so squares/circles render TALLER than wordmarks and
+// read at the same importance). Derived from each asset's real aspect ratio, clamped
+// 26–46. The two ultra-wide strips (AR > 5: TAP 8.6, Janaagraha 6.0) can't gain
+// height without stretching, so they take `strip: true` — a wider content box for
+// presence instead. Retune `h` if an asset is replaced; measure, don't guess.
 const Marquee = () => {
-  // Partner roster — local transparent assets only. Missing officials (ATECF, Goonj,
-  // Dani Sports Foundation, 1000 Days Fund, Peepul, Scouts Australia, Protsahan) are
-  // added to assets/logos/ as they arrive, then appended here.
   const logos = [
-  { name: 'SNEHA', src: 'assets/logos/SNEHA.png', solid: true },
-  { name: 'INREM', src: 'assets/logos/INREM.webp', solid: true },
-  { name: 'The Apprentice Project', src: 'assets/logos/TAP.png' },
-  { name: 'Antarang', src: 'assets/logos/Antarang.webp' },
-  { name: 'SHRI', src: 'assets/logos/SHRI.png', solid: true },
-  { name: 'Noora Health', src: 'assets/logos/NooraHealth.png', solid: true },
-  { name: 'SHOFCO', src: 'assets/logos/SHOFCO.png', solid: true },
-  { name: 'Ummeed', src: 'assets/logos/Ummeed.png', solid: true },
-  { name: 'Janaagraha', src: 'assets/logos/Janaagraha.svg' },
-  { name: 'MAD', src: 'assets/logos/MAD.png' },
-  { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png', solid: true },
-  { name: 'Baala', src: 'assets/logos/Baala.png', solid: true },
-  { name: 'Bhumi', src: 'assets/logos/Bhumi.png', solid: true },
-  { name: 'Dasra', src: 'assets/logos/Dasra.png', solid: true },
-  { name: 'SEARCH', src: 'assets/logos/SEARCH.png', solid: true }];
+  { name: 'SNEHA', src: 'assets/logos/SNEHA.png', solid: true, h: 42 },
+  { name: 'INREM', src: 'assets/logos/INREM.webp', solid: true, h: 36 },
+  { name: 'The Apprentice Project', src: 'assets/logos/TAP.png', h: 22, strip: true, pale: true },
+  { name: 'Antarang', src: 'assets/logos/Antarang.webp', h: 32, pale: true },
+  { name: 'SHRI', src: 'assets/logos/SHRI.png', solid: true, h: 30 },
+  { name: 'Noora Health', src: 'assets/logos/NooraHealth.png', solid: true, h: 28 },
+  { name: 'SHOFCO', src: 'assets/logos/SHOFCO.png', solid: true, h: 30 },
+  { name: 'Ummeed', src: 'assets/logos/Ummeed.png', solid: true, h: 46 },
+  { name: 'Janaagraha', src: 'assets/logos/Janaagraha.svg', h: 24, strip: true },
+  { name: 'MAD', src: 'assets/logos/MAD.png', h: 34, pale: true },
+  { name: "People's Courage International", src: 'assets/logos/PeoplesCourage.png', solid: true, h: 28 },
+  { name: 'Baala', src: 'assets/logos/Baala.png', solid: true, h: 30 },
+  { name: 'Bhumi', src: 'assets/logos/Bhumi.png', solid: true, h: 46 },
+  { name: 'Dasra', src: 'assets/logos/Dasra.png', solid: true, h: 46 },
+  { name: 'SEARCH', src: 'assets/logos/SEARCH.png', solid: true, h: 30 }];
 
   const track = [...logos, ...logos];
   return (
@@ -38,8 +45,8 @@ const Marquee = () => {
       <div className="logo-marquee">
         <div className="logo-marquee-track">
           {track.map((l, i) => (
-            <div className="logo-tile" key={`${l.name}-${i}`} aria-hidden={i >= logos.length ? 'true' : undefined}>
-              <img src={l.src} alt={i >= logos.length ? '' : l.name} className={l.solid ? 'logo-img is-solid' : 'logo-img'} decoding="async" />
+            <div className={l.strip ? 'logo-tile is-strip' : 'logo-tile'} key={`${l.name}-${i}`} aria-hidden={i >= logos.length ? 'true' : undefined}>
+              <img src={l.src} alt={i >= logos.length ? '' : l.name} className={`logo-img${l.solid ? ' is-solid' : ''}${l.pale ? ' is-pale' : ''}`} style={{ '--logo-h': l.h + 'px' }} decoding="async" />
             </div>
           ))}
         </div>
